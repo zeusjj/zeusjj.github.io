@@ -4,17 +4,24 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>절대중립 | 길드 관리</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%231e473b'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261004-2"><script src="app.js?v=20261004-2" defer></script>
 </head>
 <body>
-  <header><div class="shell brand"><a href="#rules">절대중립</a><span>아테나2 길드</span><span class="read-only">읽기 전용</span></div></header>
+  <header><div class="shell brand"><a href="#rules">절대중립</a><span>아테나2 길드</span></div></header>
   <nav class="shell" aria-label="메인 메뉴">
-    <button data-tab="rules" class="active">운영 방식</button><button data-tab="members">길드원 참여 현황</button><button data-tab="distribution">분배 기록</button><button data-tab="tools">편의 기능</button>
+    <button data-tab="rules" class="active">운영 방식</button><button data-tab="notices">공지사항</button><button data-tab="members">길드원 참여 현황</button><button data-tab="distribution">분배 기록</button><button data-tab="tips">팁 공유</button><button data-tab="tools">편의 기능</button>
   </nav>
   <main class="shell"><p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
     <section id="rules" hidden><div class="page-heading"><div><p class="eyebrow">GUILD POLICY</p><h1>길드 운영 방식</h1></div><span>2026.10.02 공지</span></div>
-      <div class="schedule-strip"><div><small>길드 콘텐츠</small><strong>일요일 20:00</strong></div><div><small>레이드 분배</small><strong>수요일 21:00</strong></div><div><small>신규 분배 규칙</small><strong>10월 11일 레이드부터</strong></div></div>
-      <div class="rules-layout"><div id="rule-content"></div><aside><a href="notice.png" target="_blank" rel="noopener"><img src="notice.png" alt="절대중립 길드 운영 공지 원본"></a></aside></div>
+      <div class="policy-banner"><div><span>아테나2 · 절대중립</span><h2>길드 운영 공지</h2><p class="banner-description">꾸준한 성장, 함께하는 콘텐츠, 고른 분배 기회</p></div><p>톡방 이름 <strong>닉네임 / 클래스</strong></p></div>
+      <div id="rule-content" class="policy-board"></div>
+    </section>
+    <section id="notices" hidden><div class="page-heading"><div><p class="eyebrow">NOTICE</p><h1>공지사항</h1></div><span>최신 공지순</span></div><div class="notice-list">
+      <details class="board-entry" open><summary><span class="notice-tag">운영</span><span class="entry-title">길드 운영 및 분배 규칙 안내</span><time datetime="2026-10-02">2026.10.02</time></summary><div class="entry-body"><h2>10월 11일 레이드부터 적용</h2><p>분배는 아이템 유형과 분배 방식 두 가지 기준으로 운영합니다. 방어구는 A → B → C 방식으로 순환하며, 다음 주에도 이어집니다.</p><dl class="notice-schedule"><div><dt>길드 콘텐츠</dt><dd>일요일 20:00</dd></div><div><dt>레이드 분배</dt><dd>수요일 21:00</dd></div></dl><p>세부 조건과 입찰 규칙은 운영 방식에 기재된 공지를 기준으로 합니다.</p><a class="inline-link" href="#rules">운영 방식 확인 →</a></div></details>
+    </div></section>
+    <section id="tips" hidden><div class="page-heading"><div><p class="eyebrow">GUILD BOARD</p><h1>팁 공유</h1></div><button id="new-tip" class="primary-button" type="button" aria-expanded="false" aria-controls="tip-form">글쓰기</button></div>
+      <form id="tip-form" class="tip-form" hidden><h2>새 팁</h2><div class="form-fields"><label>제목<input name="title" maxlength="100" required></label><label>닉네임<input name="author" maxlength="30" placeholder="익명"></label><label class="full-field">링크<input name="url" type="url" maxlength="2000" placeholder="https://"></label><label class="full-field">내용<textarea name="content" rows="5" maxlength="5000" required></textarea></label></div><div class="form-actions"><span id="tip-form-status" role="status"></span><button id="cancel-tip" type="button" class="secondary-button">취소</button><button type="submit" class="primary-button">등록</button></div></form>
+      <div class="board-toolbar"><span id="tip-count"></span><button id="refresh-tips" class="secondary-button" type="button">새로고침</button></div><p id="tips-status" role="status"></p><div id="tips-list" class="tips-list"></div>
     </section>
     <section id="members" hidden><div class="page-heading"><div><p class="eyebrow">MEMBERS</p><h1>길드원 참여 현황</h1></div><span id="member-count"></span></div><div class="toolbar"><input id="search" type="search" placeholder="닉네임 검색" aria-label="닉네임 검색"><span class="legend"><b class="yes">ㅇ 참여</b><b class="no">x 미참여</b><b class="pending">- 가입 전 / 미기록</b></span></div><div class="table-scroll"><table id="member-table"></table></div><p id="empty-search" hidden>검색 결과가 없습니다.</p></section>
     <section id="distribution" hidden><div class="page-heading"><div><p class="eyebrow">DISTRIBUTION</p><h1>분배 기록</h1></div><span>최신 회차순</span></div><div id="distribution-content"></div></section>
