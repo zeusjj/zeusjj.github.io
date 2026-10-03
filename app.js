@@ -32,12 +32,11 @@ function renderRules(text) {
       }
     }
   }
-  const layouts=['direction','schedule','relations','growth','principles','system','types','conditions','prices','class-items','armor','rotation','bidding','timing','updates'];
-  let index=0;
+  const layouts={'길드 운영 방향성':'direction','시간':'schedule','인터':'relations','길드원 성장':'growth','분배 기조':'principles','분배 시스템':'system','1. 분배 아이템 유형':'types','2. 공통 분배 및 입찰 조건':'conditions','3. 최소 입찰가':'prices','4. 클래스 전용 아이템 분배':'class-items','5. 방어구 분배':'armor','6. 방어구 분배 로테이션':'rotation','입찰 규칙':'bidding','분배 시간':'timing','분배 관련 안내':'updates'};
   for(const section of text.split(/\r?\n(?=\[)/)) {
     const match=section.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);
     if(!match) continue;
-    const kind=layouts[index++] || 'updates';
+    const kind=layouts[match[1]] || 'updates';
     const wrapper=element('section',undefined,'policy-section policy-'+kind);
     wrapper.append(element('h2',match[1]));
     const body=element('div',undefined,'policy-body');
