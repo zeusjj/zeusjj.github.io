@@ -4,9 +4,9 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261004-17">
+  <link rel="stylesheet" href="style.css?v=20261004-20">
   <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-14" defer></script>
-  <script type="module" src="collection-calculator.js?v=20261004-17"></script>
+  <script type="module" src="collection-calculator.js?v=20261004-20"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -63,14 +63,49 @@
               <fieldset><legend>아이템 종류</legend><div class="collection-segments"><label><input type="radio" name="equipment" value="equipment" checked><span>무기/방어구</span></label><label><input type="radio" name="equipment" value="accessory"><span>장신구</span></label></div></fieldset>
             </div>
             <div class="collection-prices">
-              <div class="collection-price"><label for="collection-item-price">아이템 습득비용</label><div class="collection-price-input"><input id="collection-item-price" type="number" min="0.01" max="300" step="0.01" value="10" inputmode="decimal" required><span>다이아</span></div><input id="collection-item-slider" type="range" min="0.01" max="300" step="0.01" value="10" aria-label="아이템 습득비용 조절"><div class="collection-range"><span>0.01</span><span>300</span></div></div>
-              <div class="collection-price"><label for="collection-scroll-price">강화 주문서 시세</label><div class="collection-price-input"><input id="collection-scroll-price" type="number" min="0.01" max="10" step="0.01" value="3" inputmode="decimal" required><span>다이아</span></div><input id="collection-scroll-slider" type="range" min="0.01" max="10" step="0.01" value="3" aria-label="강화 주문서 시세 조절"><div class="collection-range"><span>0.01</span><span>10</span></div></div>
+              <div class="collection-price"><label for="collection-item-price">아이템 습득 비용</label><div class="collection-price-input"><input id="collection-item-price" type="number" min="0.01" max="300" step="0.01" value="10" inputmode="decimal" required><span>다이아</span></div><input id="collection-item-slider" type="range" min="0.01" max="300" step="0.01" value="10" aria-label="아이템 습득 비용 조절"><div class="collection-range"><span>0.01</span><span>300</span></div></div>
+              <div class="collection-price"><label for="collection-scroll-price">주문서 비용</label><div class="collection-price-input"><input id="collection-scroll-price" type="number" min="0.01" max="10" step="0.01" value="3" inputmode="decimal" required><span>다이아</span></div><input id="collection-scroll-slider" type="range" min="0.01" max="10" step="0.01" value="3" aria-label="주문서 비용 조절"><div class="collection-range"><span>0.01</span><span>10</span></div></div>
             </div>
             <button type="reset" class="icon-button collection-reset" aria-label="입력 필터 모두 초기화" title="모두 초기화"><i data-lucide="rotate-ccw"></i></button>
           </form>
           <p id="collection-error" class="collection-error" role="status" hidden></p>
-          <div class="collection-result-heading"><h2>강화 목표별 기대 비용</h2><span>다이아 기준</span></div>
-          <div class="collection-table-scroll" tabindex="0" role="region" aria-label="강화 목표별 기대 비용 표"><table id="collection-results"><colgroup><col><col><col class="collection-mean-column"><col></colgroup><thead><tr><th scope="col">목표</th><th scope="col">성공 확률</th><th scope="col" class="collection-mean">평균 비용</th><th scope="col">표준편차(σ)</th></tr></thead><tbody></tbody></table></div>
+          <div class="collection-result-heading"><h2>강화 목표별 비용과 확률</h2><span>다이아 기준</span></div>
+          <div class="collection-table-scroll" tabindex="0" role="region" aria-label="강화 목표별 비용과 확률 표"><table id="collection-results"><colgroup><col><col class="collection-mean-column"><col><col><col><col><col></colgroup><thead><tr><th scope="col">목표</th><th scope="col" class="collection-mean">평균 비용</th><th scope="col" title="이 비용 이하로 완료할 확률이 25% 이상인 최소 예산">25% 완료<small>1사분위</small></th><th scope="col" title="이 비용 이하로 완료할 확률이 50% 이상인 최소 예산">50% 완료<small>중앙값</small></th><th scope="col" title="이 비용 이하로 완료할 확률이 75% 이상인 최소 예산. 최대 비용은 아닙니다.">75% 완료<small>3사분위</small></th><th scope="col">평균 비용<small>초과 확률</small></th><th scope="col">평균의 2배<small>초과 확률</small></th></tr></thead><tbody></tbody></table></div>
+          <div class="collection-distribution-note"><span>≈ 100,000회 시뮬레이션 추정 · 미표시 수치는 정확 계산</span><span id="collection-distribution-status" role="status"></span></div>
+          <section class="collection-reading" aria-labelledby="collection-reading-heading">
+            <h2 id="collection-reading-heading">결과 읽는 법</h2>
+            <p>25%·50%·75%는 비용의 비율이 아니라, <strong>해당 예산 안에 목표 강화에 도달할 확률</strong>입니다.</p>
+            <dl class="collection-reading-grid">
+              <div><dt>25% 완료 비용</dt><dd>적어도 25%, 즉 4명 중 1명 수준이 이 금액 이하로 완료할 수 있는 예산입니다. 비교적 운이 좋은 쪽의 비용입니다.</dd></div>
+              <div><dt>50% 완료 비용</dt><dd>절반이 이 금액 이하로 완료할 수 있는 중앙값입니다. 긴 실패가 평균을 끌어올리기 때문에 평균 비용과 다를 수 있습니다.</dd></div>
+              <div><dt>75% 완료 비용</dt><dd>적어도 75%, 즉 4명 중 3명 수준이 이 금액 이하로 완료할 수 있는 예산입니다. 나머지 최대 25%, 4명 중 1명 수준은 더 많은 다이아를 쓸 수 있습니다.</dd></div>
+            </dl>
+            <p class="collection-reading-note">확률을 인원으로 비유한 것으로, 실제 4명이 시도했을 때 결과를 보장하지 않습니다. 비용은 단계적으로 늘어나므로 해당 예산의 실제 완료 확률은 25%·50%·75%보다 높을 수 있습니다. ≈ 수치는 시뮬레이션 추정입니다.</p>
+            <p><strong>평균 비용</strong>은 같은 조건으로 매우 많이 반복했을 때의 수학적 기댓값입니다. <strong>평균 비용 초과 확률</strong>과 <strong>평균의 2배 초과 확률</strong>은 기대보다 얼마나 더 쓸 수 있는지 보여줍니다. 75% 비용은 최대 비용이 아니며, 실패가 이어지면 그보다 훨씬 많이 쓸 수도 있습니다.</p>
+          </section>
+          <details class="collection-method">
+            <summary><span>계산 과정과 통계 모델</span><i data-lucide="chevron-down"></i></summary>
+            <div class="collection-method-body">
+              <h3>1. 강화 한 사이클</h3>
+              <p>새 아이템을 습득한 뒤 0강부터 목표까지 강화합니다. 매 시도마다 주문서 1개를 사용하며, 실패하면 아이템이 파괴되어 새 아이템으로 다시 시작합니다. 각 시도는 독립이며, 별도 제작·복구·보호 효과는 포함하지 않습니다.</p>
+              <p>목표가 n강이고 아이템 비용이 A, 주문서 비용이 B라면 성공한 사이클의 비용은 A + nB입니다. j강에서 실패한 사이클의 비용은 A + jB입니다.</p>
+              <h3>2. 평균과 분산</h3>
+              <p>각 단계의 성공 확률을 곱한 값이 한 아이템으로 목표에 도달할 확률 P입니다. j단계에서 실패할 확률 rⱼ는 이전 단계의 성공 확률을 모두 곱한 뒤 j단계 실패 확률을 곱해서 구합니다.</p>
+              <p>한 사이클의 비용을 C, 목표를 달성할 때까지의 총비용을 T라 하면 실패한 사이클 뒤에 같은 과정이 독립적으로 반복됩니다.</p>
+              <div class="collection-equations">E[T] = E[C] / P<br>E[T²] = {E[C²] + 2E[C · 실패 여부]E[T]} / P<br>Var(T) = E[T²] − E[T]²</div>
+              <p>평균은 이 식으로 직접 구합니다. 평균 ± 표준편차 배수를 비용 분위수로 사용하는 정규분포 가정은 하지 않습니다.</p>
+              <h3>3. 완료 확률과 분위 비용</h3>
+              <p>총비용이 x 이하일 확률 F(x) = Pr(T ≤ x)를 계산합니다. 25%·50%·75% 완료 비용은 각각 F(x)가 0.25·0.50·0.75 이상이 되는 가장 작은 예산입니다. 평균 초과 확률은 1 − F(E[T]), 평균의 2배 초과 확률은 1 − F(2E[T])입니다.</p>
+              <p>실패 비용이 한 종류라면 기하분포를 직접 계산합니다. 여러 종류라면 실패 경로별 확률을 비용 단위로 누적하는 재시도 분포 계산을 사용합니다. 동일한 비용에 도달한 경로는 확률을 합산합니다.</p>
+              <div class="collection-equations">m(0) = P<br>m(w) = Σⱼ rⱼ · m(w − 실패 사이클 비용ⱼ)</div>
+              <p>여기서 w는 마지막 성공 사이클 이전에 소비한 비용입니다. 마지막 성공 사이클 비용을 더하고 확률을 누적해 완료 확률과 분위 비용을 구합니다.</p>
+              <h3>4. 큰 비용의 시뮬레이션 추정</h3>
+              <p>계산에 필요한 비용 상태가 너무 많아지면 100,000회 표본으로 분위수와 초과 확률을 추정합니다. 수십억 번의 실패를 하나씩 실행하는 대신, 첫 성공까지의 실패 횟수가 따르는 음의 다항분포를 직접 샘플링합니다.</p>
+              <div class="collection-equations">E ~ 지수분포(평균 1)<br>Nⱼ | E ~ 포아송분포(E · rⱼ / P)<br>T = 성공 사이클 비용 + Σⱼ Nⱼ · 실패 사이클 비용ⱼ</div>
+              <p>같은 E를 조건으로 각 Nⱼ를 독립적으로 추출하면 실제 재시도 과정과 같은 실패 횟수 분포가 됩니다. 이 과정에서도 총비용을 정규분포로 가정하지 않습니다. 표본의 분위수·확률에는 오차가 있으므로 ≈로 표시하며, 평균은 표본 평균이 아니라 앞의 수학적 기댓값을 사용합니다.</p>
+              <p>난수 생성에는 <a href="https://github.com/stdlib-js/random-base-poisson" target="_blank" rel="noopener noreferrer">stdlib 포아송 생성기</a>를 사용합니다. 입력 비용은 0.01 다이아 단위로 계산하며, 같은 조건에서는 같은 표본을 사용해 결과를 재현합니다.</p>
+            </div>
+          </details>
         </div>
         <div id="skill-panel" class="calculator-panel" role="tabpanel" aria-labelledby="skill-tab" hidden></div>
       </section>
