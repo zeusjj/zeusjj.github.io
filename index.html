@@ -4,8 +4,9 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261004-12">
-  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-12" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261004-13">
+  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-13" defer></script>
+  <script type="module" src="collection-calculator.js?v=20261004-13"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -56,7 +57,21 @@
           <button id="collection-tab" data-calculator="collection" role="tab" aria-selected="true" aria-controls="collection-panel" class="active" type="button">컬렉션 기대값 계산기</button>
           <button id="skill-tab" data-calculator="skill" role="tab" aria-selected="false" aria-controls="skill-panel" tabindex="-1" type="button">스킬 강화 기대값 계산기</button>
         </div>
-        <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-tab"></div>
+        <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-tab">
+          <form id="collection-settings" class="collection-settings" novalidate>
+            <div class="collection-filters">
+              <fieldset><legend>아이템 종류</legend><div class="collection-segments"><label><input type="radio" name="equipment" value="equipment" checked><span>무기/방어구</span></label><label><input type="radio" name="equipment" value="accessory"><span>장신구</span></label></div></fieldset>
+              <fieldset><legend>제작 여부</legend><div class="collection-segments"><label><input type="radio" name="crafting" value="unavailable" checked><span>제작 불가능</span></label><label title="제작 비용 규칙 확인 후 적용"><input type="radio" name="crafting" value="available" disabled><span>제작 가능</span></label></div><small class="crafting-pending">제작 가능: 비용 규칙 확인 중</small></fieldset>
+            </div>
+            <div class="collection-prices">
+              <div class="collection-price"><label for="collection-item-price">아이템 시세</label><div class="collection-price-input"><input id="collection-item-price" type="number" min="0.01" max="300" step="0.01" value="10" inputmode="decimal" required><span>다이아</span></div><input id="collection-item-slider" type="range" min="0.01" max="300" step="0.01" value="10" aria-label="아이템 시세 조절"><div class="collection-range"><span>0.01</span><span>300</span></div></div>
+              <div class="collection-price"><label for="collection-scroll-price">강화 주문서 시세</label><div class="collection-price-input"><input id="collection-scroll-price" type="number" min="0.01" max="10" step="0.01" value="3" inputmode="decimal" required><span>다이아</span></div><input id="collection-scroll-slider" type="range" min="0.01" max="10" step="0.01" value="3" aria-label="강화 주문서 시세 조절"><div class="collection-range"><span>0.01</span><span>10</span></div></div>
+            </div>
+          </form>
+          <p id="collection-error" class="collection-error" role="status" hidden></p>
+          <div class="collection-result-heading"><h2>강화 목표별 기대 비용</h2><span>다이아 기준</span></div>
+          <div class="collection-table-scroll" tabindex="0" role="region" aria-label="강화 목표별 기대 비용 표"><table id="collection-results"><colgroup><col><col><col class="collection-mean-column"><col><col><col></colgroup><thead><tr><th scope="col">목표</th><th scope="col">성공 확률</th><th scope="col" class="collection-mean">평균 비용</th><th scope="col">표준편차(σ)</th><th scope="col">평균 − 1.645σ</th><th scope="col">평균 + 1.645σ</th></tr></thead><tbody></tbody></table></div>
+        </div>
         <div id="skill-panel" class="calculator-panel" role="tabpanel" aria-labelledby="skill-tab" hidden></div>
       </section>
     </main>
