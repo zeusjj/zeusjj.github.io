@@ -16,7 +16,7 @@ function updateResults() {
   error.hidden = !invalid;
   if (invalid) {
     error.textContent = invalid[0].id === 'collection-item-price'
-      ? '아이템 시세는 0.01~300 사이의 값을 입력해주세요.'
+      ? '아이템 습득비용은 0.01~300 사이의 값을 입력해주세요.'
       : '강화 주문서 시세는 0.01~10 사이의 값을 입력해주세요.';
     body.replaceChildren();
     return;
