@@ -424,15 +424,28 @@ tipForm.addEventListener('submit',async event=>{
   finally{submit.disabled=false;}
 });
 const classSymbols={
-  '버서커':['axe','#b94b50'], '나이트':['shield','#577d9a'],
-  '레인저':['crosshair','#30836a'], '어쌔신':['swords','#785b93'],
-  '아티산':['hammer','#9c7738'], '블레':['flame','#c26338'],
+  '버서커':['greatsword','#b94b50'], '나이트':['shield','#577d9a'],
+  '레인저':['bow','#30836a'], '어쌔신':['swords','#785b93'],
+  '아티산':['warhammer','#9c7738'], '블레':['mace','#c26338'],
   '오라클':['sun','#a68a26'], '엘리':['wand-sparkles','#438d9d']
+};
+const classWeaponPaths={
+  greatsword:['M12 2 8 7v8h8V7z','M6 15h12M10.5 15v6h3v-6M9 22h6','M12 7v8'],
+  bow:['M5 2c16 4 16 16 0 20','M5 2l7 10-7 10','M3 12h18m-3-3 3 3-3 3'],
+  warhammer:['M5 3h14v7H5z','M10.5 10v11h3V10','M8 3v7m8-7v7'],
+  mace:['M12 1l2 2h3v2l2 2-2 2v2h-3l-2 2-2-2H7V9L5 7l2-2V3h3z','M10.5 12v9h3v-9M9 22h6','M12 5v4m-2-2h4']
 };
 function classIcon(name){
   const symbol=classSymbols[name];if(!symbol)return element('span',name);
   const icon=element('span',undefined,'class-icon');icon.setAttribute('role','img');icon.setAttribute('aria-label',name);icon.title=name;
-  icon.style.color=symbol[1];const glyph=element('i');glyph.dataset.lucide=symbol[0];icon.append(glyph);return icon;
+  icon.style.color=symbol[1];
+  const paths=classWeaponPaths[symbol[0]];
+  if(paths){
+    const ns='http://www.w3.org/2000/svg',glyph=document.createElementNS(ns,'svg');
+    for(const [attribute,value] of Object.entries({viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':'1.8','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'}))glyph.setAttribute(attribute,value);
+    for(const d of paths){const path=document.createElementNS(ns,'path');path.setAttribute('d',d);glyph.append(path);}icon.append(glyph);
+  }else{const glyph=element('i');glyph.dataset.lucide=symbol[0];icon.append(glyph);}
+  return icon;
 }
 function centerMemberToday(){
   if(memberCentered || !memberData || document.getElementById('members').hidden)return;
