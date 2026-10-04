@@ -11,7 +11,7 @@ const numberFormat = new Intl.NumberFormat('ko-KR', {minimumFractionDigits: 2, m
 const probabilityFormat = new Intl.NumberFormat('ko-KR', {maximumSignificantDigits: 6});
 const compactFormat = new Intl.NumberFormat('ko-KR', {notation:'compact', maximumFractionDigits:2});
 const distributionStatus = document.getElementById('collection-distribution-status');
-const worker = new Worker(new URL('./collection-worker.js?v=20261004-18', import.meta.url), {type:'module'});
+const worker = new Worker(new URL('./collection-worker.js?v=20261004-22', import.meta.url), {type:'module'});
 let requestId=0,timer;
 const formatCost=value=>value>=1e9?compactFormat.format(value):numberFormat.format(value);
 worker.addEventListener('message', ({data})=>{
@@ -47,7 +47,7 @@ function updateResults() {
   }
   const kind = form.elements.equipment.value;
   const results = enhancementCosts(kind, pricePairs[0][0].valueAsNumber, pricePairs[1][0].valueAsNumber);
-  const rows = results.filter(result => result.target >= 6).map(result => {
+  const rows = results.filter(result => result.successProbability < 1).map(result => {
     const row = document.createElement('tr');
     row.dataset.target = result.target;
     if (result.successProbability === 1) row.className = 'collection-safe';

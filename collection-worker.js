@@ -7,7 +7,7 @@ self.onmessage=async ({data})=>{
   latest=data.id;
   const {id,kind,itemPrice,scrollPrice}=data;
   try {
-    for(const row of enhancementCosts(kind,itemPrice,scrollPrice).filter(row=>row.target>=6)) {
+    for(const row of enhancementCosts(kind,itemPrice,scrollPrice).filter(row=>row.successProbability<1)) {
       if(id!==latest)return;
       let distribution=exactCostDistribution(kind,row.target,itemPrice,scrollPrice,row.mean);
       if(!distribution) {
