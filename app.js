@@ -27,6 +27,7 @@ function switchTab(tab) {
   if(tab==='tips' && !tipsLoaded) loadTips();
   else if(tab==='tips')openSharedTip();
   if(tab==='notices' && !noticesLoaded) loadNotices();
+  document.querySelectorAll(`#${tab} .board-entry[open]`).forEach(entry=>entry.dispatchEvent(new Event('guild-view')));
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
 document.querySelector('.skip-link').addEventListener('click',event=>{event.preventDefault();document.getElementById('main-content').focus();});
@@ -137,6 +138,29 @@ function showNoticeEditor(record=null){
   document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
 }
 function closeNoticeForms(){noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
+const boardViews=new Map(),viewRequests=new Map();
+function bindBoardViews(entry,summary,record,board){
+  const key='guild-post-view-v1:'+board+':'+record.id;
+  let stored;try{stored=Number(sessionStorage.getItem(key));}catch{}
+  if(stored>0)boardViews.set(key,stored);
+  const badge=element('span',undefined,'entry-views'),icon=element('i'),number=element('span');icon.dataset.lucide='eye';badge.append(icon,number);summary.append(badge);
+  const display=()=>{const views=Math.max(Number(record.views)||0,boardViews.get(key)||0);number.textContent=views.toLocaleString('ko-KR');badge.setAttribute('aria-label',`조회수 ${views}`);badge.title='조회수';};display();
+  const track=async()=>{
+    if(!entry.open || entry.closest('section')?.hidden)return;
+    if(boardViews.has(key)){display();return;}
+    if(!viewRequests.has(key)){
+      const request=(async()=>{
+        const response=await fetch((board==='tips'?tipsApi:noticesApi)+'/'+encodeURIComponent(record.id)+'/view',{method:'POST',signal:AbortSignal.timeout(10000)});
+        if(!response.ok)throw new Error('View unavailable');const data=await response.json();
+        if(!Number.isSafeInteger(data.views) || data.views<1)throw new Error('Invalid view count');
+        boardViews.set(key,data.views);try{sessionStorage.setItem(key,String(data.views));}catch{}
+      })();viewRequests.set(key,request);
+    }
+    const request=viewRequests.get(key);
+    try{await request;display();}catch{}finally{if(viewRequests.get(key)===request)viewRequests.delete(key);}
+  };
+  entry.addEventListener('toggle',track);entry.addEventListener('guild-view',track);
+}
 function renderNotices(records){
   noticeRecords=records;const target=document.getElementById('notices-list');target.replaceChildren();
   document.getElementById('notice-count').textContent=`공지 ${records.length}건`;document.getElementById('notices-status').textContent=records.length?'':'등록된 공지가 없습니다.';
@@ -144,7 +168,7 @@ function renderNotices(records){
   for(const record of records){
     const entry=element('details',undefined,'board-entry'),summary=element('summary');
     const date=new Date(record.created_at),time=element('time',date.toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}));time.dateTime=date.toISOString();
-    const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span','공지','notice-tag'),element('span',record.title,'entry-title'),time,icon);
+    const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span','공지','notice-tag'),element('span',record.title,'entry-title'),time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
     const body=element('div',undefined,'entry-body');body.append(element('p',record.content,'notice-content'));
     if(noticeAdmin()){
       const actions=element('div',undefined,'notice-actions');
@@ -309,7 +333,7 @@ function renderTips(tips){
     const share=element('button',undefined,'icon-button tip-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','팁 링크 복사');
     const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);
     share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(tip.id,share);});
-    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')),disclosure,share);
+    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')));bindBoardViews(item,summary,tip,'tips');summary.append(disclosure,share);
     const body=element('div',undefined,'entry-body'),urls=new Map();appendTipContent(body,tip.content,urls);
     const url=tipUrl(tip.url);if(url)urls.set(url.href,url);
     let embedded=false;
@@ -337,7 +361,7 @@ function loadTips({force=false}={}){
   tipsRequest=(async()=>{
     try{
       const response=await fetch(tipsApi,{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error('load');const data=await response.json();if(!validTips(data.tips))throw new Error('format');
-      try{const saved=JSON.stringify({savedAt:Date.now(),tips:data.tips.map(({id,title,content,url,author,created_at})=>({id,title,content,url,author,created_at}))});if(saved.length<=2000000)localStorage.setItem('guild-tips-cache-v1',saved);}catch{}
+      try{const saved=JSON.stringify({savedAt:Date.now(),tips:data.tips.map(({id,title,content,url,author,created_at,views})=>({id,title,content,url,author,created_at,views}))});if(saved.length<=2000000)localStorage.setItem('guild-tips-cache-v1',saved);}catch{}
       if(!force && (!tipForm.hidden || document.querySelector('.tip-manage-form')))pendingTips=data.tips;
       else {pendingTips=null;renderTips(data.tips);}tipsLoaded=true;
     }catch{status.textContent=tipsLoaded?'최신 팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.':'팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}

@@ -27,7 +27,7 @@
       if(data.day<currentDay)return;
       currentCount=data.day===currentDay?Math.max(currentCount,data.count):data.count;
       currentDay=data.day;count.textContent=currentCount.toLocaleString('ko-KR');
-      count.title='한국시간 05:00 기준, 중복을 제외한 브라우저 수';
+      count.removeAttribute('title');
       clearTimeout(resetTimer);
       resetTimer=setTimeout(refresh,Math.max(1000,Math.min(86400000,data.nextResetAt-data.serverNow+100)));
     }catch{count.title='방문자 수를 불러오지 못했습니다. 잠시 후 다시 확인합니다.';}
