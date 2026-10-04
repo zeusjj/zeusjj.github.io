@@ -3,6 +3,7 @@ let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
 let noticesLoading=false;
+let memberData=null,memberCentered=false;
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -27,6 +28,7 @@ function switchTab(tab) {
   if(tab==='tips' && !tipsLoaded) loadTips();
   else if(tab==='tips')openSharedTip();
   if(tab==='notices' && !noticesLoaded) loadNotices();
+  if(tab==='members')requestAnimationFrame(centerMemberToday);
   document.querySelectorAll(`#${tab} .board-entry[open]`).forEach(entry=>entry.dispatchEvent(new Event('guild-view')));
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
@@ -421,22 +423,56 @@ tipForm.addEventListener('submit',async event=>{
   catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}
   finally{submit.disabled=false;}
 });
+const classSprites={
+  '레인저':['class-reference-1.png',559,726,31,83],
+  '아티산':['class-reference-1.png',559,726,31,168],
+  '나이트':['class-reference-1.png',559,726,31,329],
+  '버서커':['class-reference-3.png',577,688,40,140],
+  '어쌔신':['class-reference-3.png',577,688,40,223],
+  '블레':['class-reference-2.png',630,686,44,128],
+  '오라클':['class-reference-2.png',630,686,44,452],
+  '엘리':['class-reference-2.png',630,686,44,369]
+};
+function classIcon(name){
+  const sprite=classSprites[name];if(!sprite)return element('span',name);
+  const icon=element('span',undefined,'class-icon');icon.setAttribute('role','img');icon.setAttribute('aria-label',name);icon.title=name;
+  icon.style.setProperty('--sprite-url',`url("assets/${sprite[0]}")`);icon.style.setProperty('--sprite-width',sprite[1]/48);icon.style.setProperty('--sprite-height',sprite[2]/48);icon.style.setProperty('--sprite-x',-sprite[3]/48);icon.style.setProperty('--sprite-y',-sprite[4]/48);return icon;
+}
+function centerMemberToday(){
+  if(memberCentered || !memberData || document.getElementById('members').hidden)return;
+  const scroll=document.querySelector('.member-grid .table-scroll');if(!scroll.clientWidth)return;
+  const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const part=type=>parts.find(part=>part.type===type).value,today=`${part('year')}-${part('month')}-${part('day')}`,day=Date.parse(today+'T00:00:00Z');
+  const candidates=(memberData.dates || []).flatMap((dates,index)=>{
+    if(!dates?.start)return [];
+    const start=Date.parse(dates.start+'T00:00:00Z'),end=Date.parse((dates.end || dates.start)+'T00:00:00Z');if(!Number.isFinite(start) || !Number.isFinite(end))return [];
+    return [{index,distance:day<start?start-day:day>end?day-end:0,exact:dates.start===today && !dates.end}];
+  }).sort((a,b)=>a.distance-b.distance || Number(b.exact)-Number(a.exact) || a.index-b.index);
+  if(!candidates.length)return;
+  const target=document.querySelectorAll('#member-table th')[candidates[0].index],box=scroll.getBoundingClientRect();
+  const fixed=[...document.querySelectorAll('#member-table col')].slice(0,memberData.headers.indexOf('단톡')+1).reduce((sum,col)=>sum+col.getBoundingClientRect().width,0);
+  const rect=target.getBoundingClientRect();scroll.scrollLeft+=rect.left+rect.width/2-(box.left+fixed+(scroll.clientWidth-fixed)/2);memberCentered=true;
+}
 function renderMembers(data, query='') {
+  memberData=data;
   const rows=data.members.filter(row=>String(row[1]).toLowerCase().includes(query.toLowerCase()));
   const table=document.getElementById('member-table');table.replaceChildren();
-  const columns=element('colgroup');data.headers.forEach((_,index)=>columns.append(element('col',undefined,index===0?'number-column':index===1?'name-column':index===2?'chat-column':'content-column')));table.append(columns);
-  table.style.setProperty('--content-count',data.headers.length-3);
+  const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=chatIndex+1;
+  const identityClass=index=>index===0?'member-number':index===1?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':undefined;
+  const columns=element('colgroup');data.headers.forEach((_,index)=>columns.append(element('col',undefined,index===0?'number-column':index===1?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':'content-column')));table.append(columns);
+  table.style.setProperty('--content-count',data.headers.length-identityCount);
   const head=element('thead'),titles=element('tr');
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
   data.headers.forEach((title,index)=>{
-    const cell=element('th',undefined,index===0?'member-number':index===1?'member-name':index===2?'member-chat':undefined);cell.scope='col';cell.append(element('span',title,'column-title'));
+    const cell=element('th',undefined,identityClass(index));cell.scope='col';cell.append(element('span',title,'column-title'));
     const dates=data.dates?.[index];if(dates?.start || dates?.end){const label=element('small',undefined,'content-date');if(dates.start)label.append(element('span',shortDate(dates.start)));if(dates.end)label.append(element('span','~ '+shortDate(dates.end)));cell.append(label);}
     titles.append(cell);
   });head.append(titles);table.append(head);
   const body=element('tbody');
-  for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===0?'member-number':index===1?'name member-name':index===2?'member-chat':undefined);if(index>=2){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
+  for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===1?'name member-name':identityClass(index));if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
   table.append(body);document.getElementById('member-count').textContent=`${rows.length} / ${data.members.length}명`;
   document.getElementById('empty-search').hidden=rows.length>0;
+  requestAnimationFrame(centerMemberToday);
 }
 function renderDistribution(groups) {
   const target=document.getElementById('distribution-content');
