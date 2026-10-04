@@ -208,6 +208,57 @@ async function copyTipLink(id,button){
     setTimeout(()=>{button.title='링크 복사';button.setAttribute('aria-label','팁 링크 복사');},2000);
   } catch{status.textContent='링크를 직접 복사해주세요.';window.prompt('이 팁의 공유 링크',url.href);}
 }
+function tipUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol) && !url.username && !url.password?url:null;}catch{return null;}}
+function tipMedia(url){
+  const host=url.hostname.toLowerCase(),parts=url.pathname.split('/').filter(Boolean);
+  let videoId='';
+  if(['youtube.com','www.youtube.com','m.youtube.com','music.youtube.com','youtube-nocookie.com','www.youtube-nocookie.com'].includes(host))videoId=url.searchParams.get('v') || (['embed','shorts','live'].includes(parts[0])?parts[1]:'');
+  else if(host==='youtu.be')videoId=parts[0];
+  if(/^[\w-]{11}$/.test(videoId || '')){
+    const src=new URL('https://www.youtube-nocookie.com/embed/'+videoId);src.searchParams.set('playsinline','1');
+    const time=url.searchParams.get('t') || url.searchParams.get('start') || '';
+    const match=time.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/);
+    const start=/^\d+$/.test(time)?Number(time):match?Number(match[1] || 0)*3600+Number(match[2] || 0)*60+Number(match[3] || 0):0;
+    if(start>0 && start<=86400)src.searchParams.set('start',String(start));
+    return {kind:'frame',src:src.href,video:true,title:'YouTube 동영상'};
+  }
+  if(['youtube.com','www.youtube.com','m.youtube.com'].includes(host) && /^[\w-]{10,100}$/.test(url.searchParams.get('list') || ''))return {kind:'frame',src:'https://www.youtube-nocookie.com/embed/videoseries?list='+encodeURIComponent(url.searchParams.get('list')),video:true,title:'YouTube 재생목록'};
+  if(['vimeo.com','www.vimeo.com','player.vimeo.com'].includes(host)){
+    const id=parts.find(part=>/^\d+$/.test(part));if(id)return {kind:'frame',src:'https://player.vimeo.com/video/'+id,video:true,title:'Vimeo 동영상'};
+  }
+  const path=url.pathname.toLowerCase();
+  if(/\.(?:png|jpe?g|gif|webp|avif|svg|bmp)$/.test(path) || /^(?:png|jpe?g|gif|webp|avif)$/i.test(url.searchParams.get('format') || ''))return {kind:'image',src:url.href};
+  if(/\.(?:mp4|webm|ogv|mov)$/.test(path))return {kind:'video',src:url.href};
+  if(/\.(?:mp3|wav|ogg|m4a|flac)$/.test(path))return {kind:'audio',src:url.href};
+  if(url.protocol!=='https:' || url.origin===location.origin)return null;
+  if(host==='drive.google.com' && /^\/file\/d\/[\w-]+/.test(url.pathname))return {kind:'frame',src:'https://drive.google.com'+url.pathname.match(/^\/file\/d\/[\w-]+/)[0]+'/preview',title:'Google Drive 파일'};
+  return {kind:'frame',src:url.href,title:url.hostname,video:false};
+}
+function tipLink(url,text){const link=element('a',text || url.href,'inline-link');link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';return link;}
+function appendTipContent(body,content,urls){
+  const paragraph=element('p',undefined,'tip-text');let previous=0;
+  for(const match of content.matchAll(/https?:\/\/[^\s<>"']+/g)){
+    const value=match[0].replace(/[.,!?;\)\]\}]+$/,'');const url=tipUrl(value);if(!url)continue;
+    paragraph.append(document.createTextNode(content.slice(previous,match.index)),tipLink(url,value));previous=match.index+value.length;urls.set(url.href,url);
+  }
+  paragraph.append(document.createTextNode(content.slice(previous)));body.append(paragraph);
+}
+function appendTipEmbed(body,url){
+  const media=tipMedia(url),figure=element('figure',undefined,'tip-embed');
+  if(media){
+    let node;
+    if(media.kind==='image'){
+      node=element('img');node.alt='팁 첨부 이미지';node.loading='lazy';node.decoding='async';node.src=media.src;
+    } else if(['video','audio'].includes(media.kind)){
+      node=element(media.kind);node.controls=true;node.preload='none';node.src=media.src;if(media.kind==='video')node.playsInline=true;
+    } else {
+      node=element('iframe');node.title=media.title;node.loading='lazy';node.referrerPolicy='strict-origin-when-cross-origin';node.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups allow-presentation');node.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';node.allowFullscreen=true;node.dataset.embedSrc=media.src;node.src=media.src;
+      figure.classList.add(media.video?'tip-video-embed':'tip-page-embed');
+    }
+    node.addEventListener('error',()=>{node.hidden=true;figure.prepend(element('p','미디어를 불러오지 못했습니다. 원본 링크를 확인해주세요.','media-error'));},{once:true});figure.append(node);
+  }
+  const caption=element('figcaption');caption.append(tipLink(url,url.hostname+' · 원본 열기'));figure.append(caption);body.append(figure);
+}
 function renderTips(tips){
   const list=document.getElementById('tips-list');list.replaceChildren();
   document.getElementById('tip-count').textContent=`${tips.length}개의 팁`;
@@ -218,8 +269,13 @@ function renderTips(tips){
     const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);
     share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(tip.id,share);});
     summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')),disclosure,share);
-    const body=element('div',undefined,'entry-body');body.append(element('p',tip.content,'tip-text'));
-    if(tip.url){try{const parsed=new URL(tip.url);if(['http:','https:'].includes(parsed.protocol)){const link=element('a',tip.url,'inline-link');link.href=parsed.href;link.target='_blank';link.rel='noopener noreferrer';body.append(link);}}catch{}}
+    const body=element('div',undefined,'entry-body'),urls=new Map();appendTipContent(body,tip.content,urls);
+    const url=tipUrl(tip.url);if(url)urls.set(url.href,url);
+    let embedded=false;
+    item.addEventListener('toggle',()=>{
+      if(item.open){if(!embedded){embedded=true;for(const url of [...urls.values()].slice(0,10))appendTipEmbed(body,url);}else body.querySelectorAll('iframe').forEach(frame=>{frame.src=frame.dataset.embedSrc;});}
+      else {body.querySelectorAll('video,audio').forEach(media=>media.pause());body.querySelectorAll('iframe').forEach(frame=>{frame.src='about:blank';});}
+    });
     item.append(summary,body);list.append(item);
   }
   document.getElementById('tips-status').textContent=tips.length?'':'아직 등록된 팁이 없습니다.';
