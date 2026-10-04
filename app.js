@@ -189,6 +189,17 @@ noticeForm.addEventListener('submit',async event=>{
 });
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
 const tipForm=document.getElementById('tip-form');
+const tipSearch=document.getElementById('tip-search');
+const normalizeTipSearch=value=>String(value).normalize('NFKC').toLocaleLowerCase('ko-KR');
+function filterTips(){
+  const terms=normalizeTipSearch(tipSearch.value).trim().split(/\s+/).filter(Boolean);
+  const entries=[...document.querySelectorAll('#tips-list details')];let matches=0;
+  for(const entry of entries){entry.hidden=!terms.every(term=>entry.dataset.searchText.includes(term));if(!entry.hidden)matches++;}
+  document.getElementById('tip-count').textContent=terms.length?`${matches} / ${entries.length}개의 팁`:`${entries.length}개의 팁`;
+  document.getElementById('tips-empty-search').hidden=!terms.length || !entries.length || matches>0;
+}
+tipSearch.addEventListener('input',filterTips);
+tipSearch.addEventListener('search',filterTips);
 function applyPendingTips(){if(pendingTips && tipForm.hidden && !document.querySelector('.tip-manage-form')){const tips=pendingTips;pendingTips=null;renderTips(tips);}}
 function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show)tipForm.elements.title.focus();else applyPendingTips();}
 document.getElementById('new-tip').addEventListener('click',()=>showTipForm(tipForm.hidden));
@@ -198,6 +209,7 @@ function openSharedTip(){
   const id=sharedTipId();if(!id)return;
   const item=[...document.querySelectorAll('#tips-list details')].find(entry=>entry.dataset.tipId===id);
   if(!item){document.getElementById('tips-status').textContent='공유된 팁을 찾을 수 없습니다.';return;}
+  if(item.hidden){tipSearch.value='';filterTips();}
   item.open=true;requestAnimationFrame(()=>{if(sharedTipId()!==id)return;item.scrollIntoView({block:'center'});item.querySelector('summary').focus({preventScroll:true});});
 }
 async function copyTipLink(id,button){
@@ -290,9 +302,9 @@ function tipManageForm(tip,mode,item,body){
 function renderTips(tips){
   const opened=new Set([...document.querySelectorAll('#tips-list details[open]')].map(item=>item.dataset.tipId));
   const list=document.getElementById('tips-list');list.replaceChildren();
-  document.getElementById('tip-count').textContent=`${tips.length}개의 팁`;
   for(const tip of tips){
     const item=element('details',undefined,'board-entry');item.dataset.tipId=tip.id;const summary=element('summary');
+    item.dataset.searchText=normalizeTipSearch([tip.title,tip.content,tip.author,tip.url].join(' '));
     const disclosure=element('i',undefined,'disclosure-icon');disclosure.dataset.lucide='chevron-down';
     const share=element('button',undefined,'icon-button tip-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','팁 링크 복사');
     const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);
@@ -313,6 +325,7 @@ function renderTips(tips){
     item.append(summary,body);list.append(item);if(opened.has(tip.id))item.open=true;
   }
   document.getElementById('tips-status').textContent=tips.length?'':'아직 등록된 팁이 없습니다.';
+  filterTips();
   refreshIcons();
   openSharedTip();
 }
