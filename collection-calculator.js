@@ -23,7 +23,7 @@ function updateResults() {
   }
   const kind = form.elements.equipment.value;
   const results = enhancementCosts(kind, pricePairs[0][0].valueAsNumber, pricePairs[1][0].valueAsNumber);
-  const rows = results.map(result => {
+  const rows = results.filter(result => result.target >= 6).map(result => {
     const row = document.createElement('tr');
     row.dataset.target = result.target;
     if (result.successProbability === 1) row.className = 'collection-safe';
