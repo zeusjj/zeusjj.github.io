@@ -4,9 +4,10 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261005-30">
+  <link rel="stylesheet" href="style.css?v=20261005-31">
   <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261005-30" defer></script>
   <script type="module" src="collection-calculator.js?v=20261004-23"></script>
+  <script type="module" src="skill-calculator.js?v=20261005-31"></script>
   <script src="visitors.js?v=20261004-26" defer></script>
 </head>
 <body>
@@ -53,8 +54,9 @@
         <div class="board-toolbar tip-search-toolbar"><label class="search-field"><i data-lucide="search"></i><input id="tip-search" type="search" placeholder="팁 검색" aria-label="팁 검색"></label><span id="tip-count" aria-live="polite"></span><button id="refresh-tips" class="icon-button" type="button" aria-label="새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="tips-status" role="status"></p><p id="tips-empty-search" hidden>검색 결과가 없습니다.</p><div id="tips-list" class="tips-list"></div>
       </section>
       <section id="tools" hidden>
-        <div class="page-heading"><div><h1 id="collection-heading">컬렉션 기대값 계산기</h1></div></div>
-        <div id="collection-panel" class="calculator-panel" role="region" aria-labelledby="collection-heading">
+        <div class="page-heading"><div><h1 id="calculator-heading">컬렉션 기대값 계산기</h1></div></div>
+        <div class="calculator-tabs" role="tablist" aria-label="계산기"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel">컬렉션 기대값 계산기</button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1">스킬 강화 기대값 계산기</button></div>
+        <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">
               <fieldset><legend>아이템 종류</legend><div class="collection-segments"><label><input type="radio" name="equipment" value="equipment" checked><span>무기/방어구</span></label><label><input type="radio" name="equipment" value="accessory"><span>장신구</span></label></div></fieldset>
@@ -103,6 +105,26 @@
               <p>난수 생성에는 <a href="https://github.com/stdlib-js/random-base-poisson" target="_blank" rel="noopener noreferrer">stdlib 포아송 생성기</a>를 사용합니다. 입력 비용은 0.01 다이아 단위로 계산하며, 같은 조건에서는 같은 표본을 사용해 결과를 재현합니다.</p>
             </div>
           </details>
+        </div>
+        <div id="skill-panel" class="calculator-panel" role="tabpanel" aria-labelledby="skill-heading" hidden>
+          <form id="skill-settings" class="collection-settings skill-settings" novalidate>
+            <div class="collection-filters"><fieldset><legend>스킬 등급</legend><div class="collection-segments"><label><input type="radio" name="grade" value="normal" checked><span>일반</span></label><label><input type="radio" name="grade" value="advanced"><span>고급</span></label><label><input type="radio" name="grade" value="rare"><span>희귀</span></label></div></fieldset></div>
+            <div class="collection-price"><label for="skill-stock">보유 강화 주문서</label><div class="collection-price-input"><input id="skill-stock" type="number" min="0" max="10000" step="1" value="100" inputmode="numeric" required><span>개</span></div><input id="skill-stock-slider" type="range" min="0" max="3000" step="1" value="100" aria-label="보유 강화 주문서 개수 조절"><div class="collection-range"><span>0</span><span>3,000</span></div></div>
+            <button type="reset" class="icon-button collection-reset" aria-label="스킬 필터 초기화" title="모두 초기화"><i data-lucide="rotate-ccw"></i></button>
+          </form>
+          <p id="skill-error" class="collection-error" role="status" hidden></p>
+          <div class="collection-result-heading"><h2>목표 달성까지 필요한 주문서</h2><span id="skill-stock-caption">보유 100개 기준</span></div>
+          <div class="collection-table-scroll" tabindex="0" role="region" aria-label="스킬 강화 주문서 개수와 완료 확률"><table id="skill-results"><thead><tr><th scope="col">도전 구간</th><th scope="col" class="collection-mean">평균 개수</th><th scope="col">25% 완료<small>운이 좋은 쪽</small></th><th scope="col">50% 완료<small>중앙값</small></th><th scope="col">75% 완료<small>여유 있게 준비</small></th><th scope="col">보유 개수로<small>완료할 확률</small></th><th scope="col">평균 개수<small>초과 확률</small></th><th scope="col">평균의 2배<small>초과 확률</small></th></tr></thead><tbody></tbody></table></div>
+          <div class="collection-distribution-note"><span>시도당 주문서 1개 · 하락 시 −1강 · 하락 후 복구 소모 포함</span><span>단계별 확률 누적 계산</span></div>
+          <section class="collection-reading" aria-labelledby="skill-reading-heading">
+            <h2 id="skill-reading-heading">몇 개를 모아서 도전할까요?</h2>
+            <p>각 행은 <strong>표시된 시작 강화에서 출발해 목표 강화에 처음 도달할 때까지</strong> 쓰는 총주문서 개수입니다. 예를 들어 8→9강은 8강에서 시작하며, 7강 이하로 하락했다면 다시 올라오는 주문서도 모두 포함합니다. 다른 행의 개수를 더할 필요는 없습니다.</p>
+            <dl class="collection-reading-grid"><div><dt>25% 완료 · 운이 좋은 쪽</dt><dd>최소 25%, 4명 중 1명 수준이 이 개수 이하로 달성할 수 있습니다. 적은 주문서로 도전하는 기준이지만, 대부분은 더 필요합니다.</dd></div><div><dt>50% 완료 · 중앙값</dt><dd>절반이 이 개수 이하로 달성할 수 있습니다. 평균 개수와는 다르며, 나머지 절반은 더 많은 주문서가 필요할 수 있습니다.</dd></div><div><dt>75% 완료 · 여유 있게 준비</dt><dd>최소 75%, 4명 중 3명 수준이 이 개수 이하로 달성할 수 있습니다. 운이 나쁜 쪽의 최대 25%, 4명 중 1명 수준은 이보다 더 쓸 수 있습니다.</dd></div></dl>
+            <p><strong>여유 있게 모아서 시도하려면 75% 완료 개수</strong>를 준비 기준으로 볼 수 있습니다. 다만 최대 소모량이나 성공 보장은 아닙니다. 평균 초과 확률과 평균의 2배 초과 확률은 긴 하락·복구가 이어질 위험을 보여줍니다.</p>
+            <p class="collection-reading-note">인원은 확률을 설명하는 비유입니다. 실제 4명의 결과를 보장하지 않습니다. 목표 달성 전 주문서가 떨어지면 시작 강화보다 낮은 상태로 끝날 수도 있습니다. 25%·50%·75%는 해당 완료 확률에 처음 도달하는 정수 개수이며, 실제 완료 확률은 표시된 기준보다 높을 수 있습니다.</p>
+          </section>
+          <details class="collection-method"><summary><span>등급별 강화 확률표</span><i data-lucide="chevron-down"></i></summary><div class="collection-method-body"><div class="collection-table-scroll"><table id="skill-rates"><thead><tr><th scope="col">강화 목표</th><th scope="col">상승</th><th scope="col">유지</th><th scope="col">하락</th></tr></thead><tbody></tbody></table></div></div></details>
+          <details class="collection-method"><summary><span>계산 과정과 통계 모델</span><i data-lucide="chevron-down"></i></summary><div class="collection-method-body"><h3>1. 파괴 없이 상승·유지·하락</h3><p>제공된 일반·고급·희귀 확률표를 사용합니다. 표의 +8단계는 7→8강 도전에 해당합니다. 한 번 시도할 때 주문서 1개를 쓰며, 상승하면 +1강, 유지하면 같은 단계, 하락하면 −1강입니다. 목표 도달 즉시 계산을 끝냅니다. 보호·확률 보정·천장 효과는 포함하지 않습니다.</p><h3>2. 수학적 기댓값</h3><p>현재 i강에서 i+1강까지 올라가는 평균 시도 수를 mᵢ, 상승 확률을 uᵢ, 하락 확률을 dᵢ라 하면 아래 식으로 낮은 단계부터 계산합니다. 하락한 경우 아래 단계에서 돌아오는 시도와 다시 도전하는 시도가 모두 포함됩니다.</p><div class="collection-equations">m₀ = 1 / u₀<br>mᵢ = (1 + dᵢ · mᵢ₋₁) / uᵢ</div><h3>3. 주문서 개수별 완료 확률</h3><p>시작 강화에 확률 1을 두고, 주문서 1개마다 각 단계의 확률을 상승·유지·하락 확률에 따라 다음 상태로 전달합니다. 목표 단계로 넘어간 확률을 누적해 F(n) = Pr(총소모 ≤ n)을 구합니다. F(n)이 25%·50%·75% 이상이 되는 최초의 정수 n이 표의 개수입니다.</p><p>평균 초과 확률은 1 − F(⌊평균⌋), 평균의 2배 초과 확률은 1 − F(⌊2 × 평균⌋)입니다. 정규분포를 가정하지 않으며, 무작위 시뮬레이션도 사용하지 않습니다. 미완료 확률이 10⁻¹³ 미만이 될 때까지 누적하며, 부동소수점 계산에 따른 미세한 오차가 있을 수 있습니다.</p></div></details>
         </div>
       </section>
     </main>
