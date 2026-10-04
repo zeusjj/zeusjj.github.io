@@ -1,5 +1,6 @@
 const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools'];
 let tipsLoaded=false;
+let noticesLoaded=false;
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -21,6 +22,7 @@ function switchTab(tab) {
   window.scrollTo({top:0,behavior:'instant'});
   updateChapterNavigation();
   if(tab==='tips' && !tipsLoaded) loadTips();
+  if(tab==='notices' && !noticesLoaded) loadNotices();
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
 document.querySelector('.skip-link').addEventListener('click',event=>{event.preventDefault();document.getElementById('main-content').focus();});
@@ -33,16 +35,19 @@ function renderRules(text) {
   const sections=new Map();
   function bodyContent(text, parent) {
     const lines=text.replace(/\r/g,'').split('\n');
-    let list=null;
+    let list=null,lastItem=null,nestedList=null;
     for(let i=0;i<lines.length;i++) {
+      const indented=/^\s+-/.test(lines[i]);
       let line=lines[i].trim();
-      if(!line) {list=null;continue;}
+      if(!line) {list=null;lastItem=null;nestedList=null;continue;}
       while(i+1<lines.length && lines[i+1].trim() && !/^\s*(?:[-▶※]|[ABC]\.\s)/.test(lines[i+1])) line+=' '+lines[++i].trim();
       if(line.startsWith('-')) {
         if(!list){list=element('ul');parent.append(list);}
-        list.append(element('li',line.replace(/^-\s*/,'')));
+        const item=element('li',line.replace(/^-\s*/,''));
+        if(indented && lastItem){if(!nestedList){nestedList=element('ul');lastItem.append(nestedList);}nestedList.append(item);}
+        else {list.append(item);lastItem=item;nestedList=null;}
       } else {
-        list=null;
+        list=null;lastItem=null;nestedList=null;
         parent.append(element(line.startsWith('▶')?'h3':'p',line.replace(/^▶\s*/,''),line.startsWith('※')?'policy-note':undefined));
       }
     }
@@ -118,6 +123,65 @@ function renderRules(text) {
   updateChapterNavigation();
   refreshIcons();
 }
+const noticesApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/notices';
+const noticeLogin=document.getElementById('notice-login'),noticeForm=document.getElementById('notice-form');
+let noticeToken='',noticeExpiry=0,noticeRecords=[],editingNotice=null;
+function noticeAdmin(){return !!noticeToken && Date.now()<noticeExpiry;}
+function showNoticeEditor(record=null){
+  editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';
+  document.getElementById('notice-form-heading').textContent=record?'공지 수정':'새 공지';noticeForm.querySelector('[type="submit"]').textContent=record?'저장':'등록';
+  document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
+}
+function closeNoticeForms(){noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
+function renderNotices(records){
+  noticeRecords=records;const target=document.getElementById('notices-list');target.replaceChildren();
+  document.getElementById('notice-count').textContent=`공지 ${records.length}건`;document.getElementById('notices-status').textContent=records.length?'':'등록된 공지가 없습니다.';
+  document.getElementById('notice-logout').hidden=!noticeAdmin();
+  for(const record of records){
+    const entry=element('details',undefined,'board-entry'),summary=element('summary');
+    const date=new Date(record.created_at),time=element('time',date.toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}));time.dateTime=date.toISOString();
+    const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span','공지','notice-tag'),element('span',record.title,'entry-title'),time,icon);
+    const body=element('div',undefined,'entry-body');body.append(element('p',record.content,'notice-content'));
+    if(noticeAdmin()){
+      const actions=element('div',undefined,'notice-actions');
+      const edit=element('button','수정','secondary-button');edit.type='button';edit.addEventListener('click',()=>showNoticeEditor(record));
+      const remove=element('button','삭제','secondary-button');remove.type='button';remove.addEventListener('click',async()=>{
+        if(!confirm('이 공지를 삭제할까요?'))return;remove.disabled=true;
+        try{await noticeWrite('/'+record.id,'DELETE');await loadNotices();}catch(error){document.getElementById('notices-status').textContent=error.message;}finally{remove.disabled=false;}
+      });actions.append(edit,remove);body.append(actions);
+    }
+    entry.append(summary,body);target.append(entry);
+  }refreshIcons();
+}
+async function loadNotices(){
+  const status=document.getElementById('notices-status'),refresh=document.getElementById('refresh-notices');status.textContent='공지를 불러오는 중입니다.';refresh.disabled=true;
+  try{const response=await fetch(noticesApi,{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error();const data=await response.json();if(!Array.isArray(data.notices))throw new Error();renderNotices(data.notices);noticesLoaded=true;}
+  catch{status.textContent='공지를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}finally{refresh.disabled=false;}
+}
+async function noticeWrite(path,method,values){
+  const response=await fetch(noticesApi+path,{method,headers:{'Content-Type':'application/json','Authorization':'Bearer '+noticeToken},...(values?{body:JSON.stringify(values)}:{}),signal:AbortSignal.timeout(15000)});
+  const data=await response.json();if(response.status===401){noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);}if(!response.ok)throw new Error(data.error || '요청을 처리하지 못했습니다.');return data;
+}
+document.getElementById('new-notice').addEventListener('click',()=>{
+  if(!noticeForm.hidden || !noticeLogin.hidden){closeNoticeForms();return;}
+  if(noticeAdmin())showNoticeEditor();else {noticeLogin.hidden=false;document.getElementById('notice-login-status').textContent='';document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeLogin.elements.password.focus();}
+});
+document.getElementById('cancel-notice-login').addEventListener('click',closeNoticeForms);
+document.getElementById('cancel-notice').addEventListener('click',closeNoticeForms);
+document.getElementById('refresh-notices').addEventListener('click',loadNotices);
+document.getElementById('notice-logout').addEventListener('click',async()=>{
+  try{await noticeWrite('/session','DELETE');}catch{}noticeToken='';noticeExpiry=0;closeNoticeForms();renderNotices(noticeRecords);
+});
+noticeLogin.addEventListener('submit',async event=>{
+  event.preventDefault();const submit=noticeLogin.querySelector('[type="submit"]'),status=document.getElementById('notice-login-status');submit.disabled=true;status.textContent='확인 중입니다.';
+  try{const response=await fetch(noticesApi+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:noticeLogin.elements.password.value}),signal:AbortSignal.timeout(15000)});const data=await response.json();if(!response.ok)throw new Error(data.error || '로그인하지 못했습니다.');noticeToken=data.token;noticeExpiry=data.expires_at;noticeLogin.reset();renderNotices(noticeRecords);showNoticeEditor();}
+  catch(error){status.textContent=error.name==='TimeoutError'?'응답이 지연되고 있습니다. 다시 시도해주세요.':error.message;}finally{submit.disabled=false;}
+});
+noticeForm.addEventListener('submit',async event=>{
+  event.preventDefault();const submit=noticeForm.querySelector('[type="submit"]'),status=document.getElementById('notice-form-status');submit.disabled=true;status.textContent='저장 중입니다.';
+  try{await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',Object.fromEntries(new FormData(noticeForm)));noticeForm.reset();closeNoticeForms();await loadNotices();}
+  catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}finally{submit.disabled=false;}
+});
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
 const tipForm=document.getElementById('tip-form');
 function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show)tipForm.elements.title.focus();}
@@ -171,6 +235,7 @@ function renderDistribution(groups) {
     else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액'].forEach(label=>headings.append(element('th',label)));head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'-':record.amount.toLocaleString('ko-KR')].forEach(value=>row.append(element('td',value)));body.append(row);}table.append(body);section.append(table);}target.append(section);
   }
 }
-function updateTools(){const count=Number(document.getElementById('bid-count').value);const type=document.getElementById('item-type').value;document.getElementById('bid-result').textContent=!Number.isInteger(count)||count<1?'입찰 인원을 확인해주세요':count===1||type==='t4'?'최소 입찰가 없음':(type==='book'?1000:1500).toLocaleString('ko-KR')+' 다이아';const previous=document.getElementById('last-rotation').value;const next={start:'A',A:'B',B:'C',C:'A'}[previous];document.getElementById('rotation-result').textContent=next+' · '+{A:'참여자 자유 입찰',B:'성장도 상위 30%',C:'3회 연속 참여자'}[next];}
-document.querySelectorAll('.tool').forEach(form=>{form.addEventListener('submit',event=>event.preventDefault());form.addEventListener('input',updateTools);});updateTools();
+const calculatorTabs=[...document.querySelectorAll('[data-calculator]')];
+function selectCalculator(button){calculatorTabs.forEach(tab=>{const active=tab===button;tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;});}
+calculatorTabs.forEach((button,index)=>{button.addEventListener('click',()=>selectCalculator(button));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?calculatorTabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+calculatorTabs.length)%calculatorTabs.length;selectCalculator(calculatorTabs[next]);calculatorTabs[next].focus();});});
 fetch('data.json').then(response=>{if(!response.ok)throw new Error('load');return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});

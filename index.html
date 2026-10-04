@@ -4,8 +4,8 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261004-7">
-  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-7" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261004-8">
+  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-8" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -22,7 +22,7 @@
     <div class="sidebar-foot"><span class="guild-dot"></span><span>절대중립 길드</span></div>
   </aside>
   <div class="workspace">
-    <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong></div><span class="server-label">아테나2</span></header>
+    <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong></div></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
       <section id="rules" hidden>
@@ -31,9 +31,12 @@
         <div id="rule-content"></div>
       </section>
       <section id="notices" hidden>
-        <div class="page-heading"><div><h1>공지사항</h1><p>길드 일정과 운영 소식</p></div><span class="count-label">공지 1건</span></div>
+        <div class="page-heading"><div><h1>공지사항</h1><p>길드 일정과 운영 소식</p></div><div class="notice-actions"><button id="notice-logout" class="secondary-button" type="button" hidden>로그아웃</button><button id="new-notice" class="primary-button" type="button" aria-expanded="false"><i data-lucide="square-pen"></i>글쓰기</button></div></div>
+        <form id="notice-login" class="tip-form notice-login" hidden><h2>관리자 로그인</h2><label>비밀번호<input name="password" type="password" autocomplete="current-password" maxlength="200" required></label><div class="form-actions"><span id="notice-login-status" role="status"></span><button id="cancel-notice-login" class="secondary-button" type="button">취소</button><button class="primary-button" type="submit">로그인</button></div></form>
+        <form id="notice-form" class="tip-form" hidden><h2 id="notice-form-heading">새 공지</h2><div class="form-fields"><label class="full-field">제목<input name="title" maxlength="100" required></label><label class="full-field">내용<textarea name="content" rows="7" maxlength="5000" required></textarea></label></div><div class="form-actions"><span id="notice-form-status" role="status"></span><button id="cancel-notice" class="secondary-button" type="button">취소</button><button class="primary-button" type="submit">등록</button></div></form>
+        <div class="board-toolbar"><span id="notice-count"></span><button id="refresh-notices" class="icon-button" type="button" aria-label="공지 새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="notices-status" role="status"></p>
         <div class="board-column-head"><span>제목</span><span>작성일</span></div>
-        <div class="notice-list"><details class="board-entry" open><summary><span class="notice-tag">운영</span><span class="entry-title">길드 운영 및 분배 규칙 안내</span><time datetime="2026-10-02">2026.10.02</time><i data-lucide="chevron-down" class="disclosure-icon"></i></summary><div class="entry-body"><h2>10월 11일 레이드부터 적용</h2><p>분배는 아이템 유형과 분배 방식 두 가지 기준으로 운영합니다. 방어구는 A → B → C 방식으로 순환하며, 다음 주에도 이어집니다.</p><dl class="notice-schedule"><div><dt>길드 콘텐츠</dt><dd>일요일 20:00</dd></div><div><dt>레이드 분배</dt><dd>수요일 21:00</dd></div></dl><p>세부 조건과 입찰 규칙은 운영 방식에 기재된 공지를 기준으로 합니다.</p><a class="inline-link" href="#rules">운영 방식 확인<i data-lucide="arrow-up-right"></i></a></div></details></div>
+        <div id="notices-list" class="notice-list"></div>
       </section>
       <section id="members" hidden>
         <div class="page-heading"><div><h1>길드원 참여 현황</h1><p>길드 콘텐츠 참여 기록</p></div><span id="member-count" class="count-label"></span></div>
@@ -47,11 +50,13 @@
         <div class="board-toolbar"><span id="tip-count"></span><button id="refresh-tips" class="icon-button" type="button" aria-label="새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="tips-status" role="status"></p><div id="tips-list" class="tips-list"></div>
       </section>
       <section id="tools" hidden>
-        <div class="page-heading"><div><h1>편의 기능</h1><p>입찰 금액과 다음 분배 방식 확인</p></div></div>
-        <div class="tool-grid">
-          <form id="bid-tool" class="tool"><div class="tool-heading"><span class="tool-icon"><i data-lucide="calculator"></i></span><h2>최소 입찰가</h2></div><label>아이템 유형<select id="item-type"><option value="t5">T5</option><option value="book">스킬북</option><option value="t4">T4 이하</option></select></label><label>입찰 인원<input id="bid-count" type="number" min="1" step="1" value="2" required></label><output id="bid-result"></output><p>10월 11일 레이드부터 적용되는 공지 기준</p></form>
-          <form id="rotation-tool" class="tool"><div class="tool-heading"><span class="tool-icon coral"><i data-lucide="repeat-2"></i></span><h2>방어구 분배 로테이션</h2></div><label>직전 방어구 분배 방식<select id="last-rotation"><option value="start">아직 없음</option><option value="A">A · 자유 입찰</option><option value="B">B · 성장도 상위 30%</option><option value="C">C · 3회 연속 참여자</option></select></label><div class="rotation-track" aria-hidden="true"><span>A</span><i data-lucide="chevron-right"></i><span>B</span><i data-lucide="chevron-right"></i><span>C</span><i data-lucide="rotate-ccw"></i></div><output id="rotation-result"></output><p>방어구가 나온 순서대로 반복하며, 다음 주에도 이어집니다.</p></form>
+        <div class="page-heading"><div><h1>편의 기능</h1></div></div>
+        <div class="calculator-tabs" role="tablist" aria-label="계산기">
+          <button id="collection-tab" data-calculator="collection" role="tab" aria-selected="true" aria-controls="collection-panel" class="active" type="button">컬렉션 기대값 계산기</button>
+          <button id="skill-tab" data-calculator="skill" role="tab" aria-selected="false" aria-controls="skill-panel" tabindex="-1" type="button">스킬 강화 기대값 계산기</button>
         </div>
+        <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-tab"></div>
+        <div id="skill-panel" class="calculator-panel" role="tabpanel" aria-labelledby="skill-tab" hidden></div>
       </section>
     </main>
     <footer>절대중립<span>아테나2 길드</span></footer>
