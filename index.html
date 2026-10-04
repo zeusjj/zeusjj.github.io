@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css?v=20261004-20">
-  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-14" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261004-21" defer></script>
   <script type="module" src="collection-calculator.js?v=20261004-20"></script>
 </head>
 <body>
@@ -52,12 +52,8 @@
         <div class="board-toolbar"><span id="tip-count"></span><button id="refresh-tips" class="icon-button" type="button" aria-label="새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="tips-status" role="status"></p><div id="tips-list" class="tips-list"></div>
       </section>
       <section id="tools" hidden>
-        <div class="page-heading"><div><h1>편의 기능</h1></div></div>
-        <div class="calculator-tabs" role="tablist" aria-label="계산기">
-          <button id="collection-tab" data-calculator="collection" role="tab" aria-selected="true" aria-controls="collection-panel" class="active" type="button">컬렉션 기대값 계산기</button>
-          <button id="skill-tab" data-calculator="skill" role="tab" aria-selected="false" aria-controls="skill-panel" tabindex="-1" type="button">스킬 강화 기대값 계산기</button>
-        </div>
-        <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-tab">
+        <div class="page-heading"><div><h1 id="collection-heading">컬렉션 기대값 계산기</h1></div></div>
+        <div id="collection-panel" class="calculator-panel" role="region" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">
               <fieldset><legend>아이템 종류</legend><div class="collection-segments"><label><input type="radio" name="equipment" value="equipment" checked><span>무기/방어구</span></label><label><input type="radio" name="equipment" value="accessory"><span>장신구</span></label></div></fieldset>
@@ -107,7 +103,6 @@
             </div>
           </details>
         </div>
-        <div id="skill-panel" class="calculator-panel" role="tabpanel" aria-labelledby="skill-tab" hidden></div>
       </section>
     </main>
     <footer>절대중립<span>아테나2 길드</span></footer>
