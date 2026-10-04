@@ -22,7 +22,7 @@ function renderRules(text) {
     for(let i=0;i<lines.length;i++) {
       let line=lines[i].trim();
       if(!line) {list=null;continue;}
-      while(i+1<lines.length && /^\s+\S/.test(lines[i+1]) && !/^\s*[-▶※]/.test(lines[i+1])) line+=' '+lines[++i].trim();
+      while(i+1<lines.length && lines[i+1].trim() && !/^\s*(?:[-▶※]|[ABC]\.\s)/.test(lines[i+1])) line+=' '+lines[++i].trim();
       if(line.startsWith('-')) {
         if(!list){list=element('ul');parent.append(list);}
         list.append(element('li',line.replace(/^-\s*/,'')));
