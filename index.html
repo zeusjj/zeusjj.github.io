@@ -61,7 +61,6 @@
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">
               <fieldset><legend>아이템 종류</legend><div class="collection-segments"><label><input type="radio" name="equipment" value="equipment" checked><span>무기/방어구</span></label><label><input type="radio" name="equipment" value="accessory"><span>장신구</span></label></div></fieldset>
-              <fieldset><legend>제작 여부</legend><div class="collection-segments"><label><input type="radio" name="crafting" value="unavailable" checked><span>제작 불가능</span></label><label title="제작 비용 규칙 확인 후 적용"><input type="radio" name="crafting" value="available" disabled><span>제작 가능</span></label></div><small class="crafting-pending">제작 가능: 비용 규칙 확인 중</small></fieldset>
             </div>
             <div class="collection-prices">
               <div class="collection-price"><label for="collection-item-price">아이템 시세</label><div class="collection-price-input"><input id="collection-item-price" type="number" min="0.01" max="300" step="0.01" value="10" inputmode="decimal" required><span>다이아</span></div><input id="collection-item-slider" type="range" min="0.01" max="300" step="0.01" value="10" aria-label="아이템 시세 조절"><div class="collection-range"><span>0.01</span><span>300</span></div></div>
