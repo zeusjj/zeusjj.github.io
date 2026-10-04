@@ -131,13 +131,55 @@ function renderRules(text) {
 const noticesApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/notices';
 const noticeLogin=document.getElementById('notice-login'),noticeForm=document.getElementById('notice-form');
 let noticeToken='',noticeExpiry=0,noticeRecords=[],editingNotice=null;
+let noticeImages=[],noticeImageGeneration=0,noticeImageWork=Promise.resolve(),noticeSaving=false;
+const noticeImageUrl=(postId,imageId)=>noticesApi+'/'+encodeURIComponent(postId)+'/images/'+encodeURIComponent(imageId);
+function renderNoticeImagePreviews(){
+  const target=document.getElementById('notice-image-previews');target.replaceChildren();
+  noticeImages.forEach((image,index)=>{
+    const figure=element('figure'),preview=element('img');preview.src=image.id?noticeImageUrl(editingNotice,image.id):`data:${image.mime};base64,${image.data}`;preview.alt=`첨부 사진 ${index+1}`;
+    const remove=element('button',undefined,'icon-button');remove.type='button';remove.title='사진 삭제';remove.setAttribute('aria-label',`첨부 사진 ${index+1} 삭제`);const icon=element('i');icon.dataset.lucide='x';remove.append(icon);remove.disabled=noticeSaving;
+    remove.addEventListener('click',()=>{if(noticeSaving)return;noticeImages.splice(index,1);renderNoticeImagePreviews();});figure.append(preview,remove);target.append(figure);
+  });refreshIcons();
+}
+async function encodeNoticeImage(file){
+  if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('PNG, JPG, WebP 사진을 첨부해주세요.');
+  if(file.size>20971520)throw new Error('원본 사진은 20MB 이하여야 합니다.');
+  const bitmap=await createImageBitmap(file);
+  try{
+    const canvas=document.createElement('canvas'),scale=Math.min(1,3200/Math.max(bitmap.width,bitmap.height));canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);
+    for(const quality of [.92,.8,.65]){
+      const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',quality));
+      if(blob && blob.size<=2097152){const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=()=>reject(new Error('사진을 읽지 못했습니다.'));reader.readAsDataURL(blob);});return {mime:blob.type,data};}
+    }throw new Error('사진 용량이 큽니다. 더 작은 사진을 첨부해주세요.');
+  }finally{bitmap.close();}
+}
+function queueNoticeImages(files){
+  if(noticeSaving)return;
+  const generation=noticeImageGeneration;
+  noticeImageWork=noticeImageWork.then(async()=>{
+    const status=document.getElementById('notice-form-status');
+    for(const file of files){
+      if(generation!==noticeImageGeneration || noticeForm.hidden)return;
+      if(noticeImages.length>=5){status.textContent='사진은 최대 5장까지 첨부할 수 있습니다.';return;}
+      try{status.textContent='사진을 준비 중입니다.';const image=await encodeNoticeImage(file);if(generation!==noticeImageGeneration)return;noticeImages.push(image);renderNoticeImagePreviews();status.textContent='';}
+      catch(error){if(generation===noticeImageGeneration)status.textContent=error.message;}
+    }
+  });
+}
+noticeForm.addEventListener('paste',event=>{
+  const files=[...event.clipboardData.items].filter(item=>item.kind==='file' && item.type.startsWith('image/')).map(item=>item.getAsFile()).filter(Boolean);
+  if(files.length){event.preventDefault();queueNoticeImages(files);}
+});
+document.getElementById('add-notice-image').addEventListener('click',()=>document.getElementById('notice-image-input').click());
+document.getElementById('notice-image-input').addEventListener('change',event=>{queueNoticeImages([...event.target.files]);event.target.value='';});
 function noticeAdmin(){return !!noticeToken && Date.now()<noticeExpiry;}
 function showNoticeEditor(record=null){
   editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';
+  noticeImageGeneration++;noticeImages=(record?.images || []).map(({id,mime})=>({id,mime}));renderNoticeImagePreviews();
   document.getElementById('notice-form-heading').textContent=record?'공지 수정':'새 공지';noticeForm.querySelector('[type="submit"]').textContent=record?'저장':'등록';
   document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
 }
-function closeNoticeForms(){noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
+function closeNoticeForms(){if(noticeSaving)return;noticeImageGeneration++;noticeImages=[];renderNoticeImagePreviews();noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
 const boardViews=new Map(),viewRequests=new Map();
 function bindBoardViews(entry,summary,record,board){
   const key='guild-post-view-v1:'+board+':'+record.id;
@@ -170,6 +212,9 @@ function renderNotices(records){
     const date=new Date(record.created_at),time=element('time',date.toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}));time.dateTime=date.toISOString();
     const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span','공지','notice-tag'),element('span',record.title,'entry-title'),time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
     const body=element('div',undefined,'entry-body');body.append(element('p',record.content,'notice-content'));
+    for(const [index,image] of (record.images || []).entries()){
+      const link=element('a',undefined,'notice-photo');link.href=noticeImageUrl(record.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`공지 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);
+    }
     if(noticeAdmin()){
       const actions=element('div',undefined,'notice-actions');
       const edit=element('button','수정','secondary-button');edit.type='button';edit.addEventListener('click',()=>showNoticeEditor(record));
@@ -188,7 +233,7 @@ async function loadNotices(){
   catch{status.textContent='공지를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}finally{refresh.disabled=false;noticesLoading=false;}
 }
 async function noticeWrite(path,method,values){
-  const response=await fetch(noticesApi+path,{method,headers:{'Content-Type':'application/json','Authorization':'Bearer '+noticeToken},...(values?{body:JSON.stringify(values)}:{}),signal:AbortSignal.timeout(15000)});
+  const response=await fetch(noticesApi+path,{method,headers:{'Content-Type':'application/json','Authorization':'Bearer '+noticeToken},...(values?{body:JSON.stringify(values)}:{}),signal:AbortSignal.timeout(60000)});
   const data=await response.json();if(response.status===401){noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);}if(!response.ok)throw new Error(data.error || '요청을 처리하지 못했습니다.');return data;
 }
 document.getElementById('new-notice').addEventListener('click',()=>{
@@ -207,9 +252,9 @@ noticeLogin.addEventListener('submit',async event=>{
   catch(error){status.textContent=error.name==='TimeoutError'?'응답이 지연되고 있습니다. 다시 시도해주세요.':error.message;}finally{submit.disabled=false;}
 });
 noticeForm.addEventListener('submit',async event=>{
-  event.preventDefault();const submit=noticeForm.querySelector('[type="submit"]'),status=document.getElementById('notice-form-status');submit.disabled=true;status.textContent='저장 중입니다.';
-  try{await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',Object.fromEntries(new FormData(noticeForm)));noticeForm.reset();closeNoticeForms();await loadNotices();}
-  catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}finally{submit.disabled=false;}
+  event.preventDefault();if(noticeSaving)return;noticeSaving=true;const submit=noticeForm.querySelector('[type="submit"]'),status=document.getElementById('notice-form-status');submit.disabled=true;document.getElementById('cancel-notice').disabled=true;document.getElementById('add-notice-image').disabled=true;renderNoticeImagePreviews();
+  try{await noticeImageWork;if(!noticeForm.elements.content.value.trim() && !noticeImages.length)throw new Error('내용이나 사진을 추가해주세요.');status.textContent='저장 중입니다.';const values=Object.fromEntries(new FormData(noticeForm));values.images=noticeImages.map(({id,mime,data})=>id?{id}:{mime,data});if(editingNotice)values.updated_at=noticeRecords.find(record=>record.id===editingNotice)?.updated_at;await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',values);noticeForm.reset();noticeSaving=false;closeNoticeForms();await loadNotices();}
+  catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}finally{noticeSaving=false;submit.disabled=false;document.getElementById('cancel-notice').disabled=false;document.getElementById('add-notice-image').disabled=false;renderNoticeImagePreviews();}
 });
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
 const tipForm=document.getElementById('tip-form');
