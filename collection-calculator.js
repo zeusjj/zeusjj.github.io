@@ -28,7 +28,7 @@ function updateResults() {
     row.dataset.target = result.target;
     if (result.successProbability === 1) row.className = 'collection-safe';
     const values = [result.target + '강', probabilityFormat.format(result.successProbability * 100) + '%',
-      ...[result.mean, result.standardDeviation, result.lower, result.upper].map(value => numberFormat.format(value))];
+      ...[result.mean, result.standardDeviation].map(value => numberFormat.format(value))];
     values.forEach((value, index) => {
       const cell = document.createElement(index === 0 ? 'th' : 'td');
       if (index === 0) cell.scope = 'row';

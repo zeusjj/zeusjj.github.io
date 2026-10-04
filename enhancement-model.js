@@ -25,7 +25,6 @@ export function enhancementCosts(kind, itemPrice, scrollPrice) {
     const mean = cycleMean / survival;
     const variance = (cycleSecondMoment + 2 * failureCost * mean) / survival - mean ** 2;
     const standardDeviation = Math.sqrt(Math.max(0, variance));
-    return {target, successProbability: survival, mean, standardDeviation,
-      lower: mean - 1.645 * standardDeviation, upper: mean + 1.645 * standardDeviation};
+    return {target, successProbability: survival, mean, standardDeviation};
   });
 }
