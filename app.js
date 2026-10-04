@@ -423,20 +423,16 @@ tipForm.addEventListener('submit',async event=>{
   catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}
   finally{submit.disabled=false;}
 });
-const classSprites={
-  '레인저':['class-reference-1.png',559,726,31,83],
-  '아티산':['class-reference-1.png',559,726,31,168],
-  '나이트':['class-reference-1.png',559,726,31,329],
-  '버서커':['class-reference-3.png',577,688,40,140],
-  '어쌔신':['class-reference-3.png',577,688,40,223],
-  '블레':['class-reference-2.png',630,686,44,128],
-  '오라클':['class-reference-2.png',630,686,44,452],
-  '엘리':['class-reference-2.png',630,686,44,369]
+const classSymbols={
+  '버서커':['axe','#b94b50'], '나이트':['shield','#577d9a'],
+  '레인저':['crosshair','#30836a'], '어쌔신':['swords','#785b93'],
+  '아티산':['hammer','#9c7738'], '블레':['flame','#c26338'],
+  '오라클':['sun','#a68a26'], '엘리':['wand-sparkles','#438d9d']
 };
 function classIcon(name){
-  const sprite=classSprites[name];if(!sprite)return element('span',name);
+  const symbol=classSymbols[name];if(!symbol)return element('span',name);
   const icon=element('span',undefined,'class-icon');icon.setAttribute('role','img');icon.setAttribute('aria-label',name);icon.title=name;
-  icon.style.setProperty('--sprite-url',`url("assets/${sprite[0]}")`);icon.style.setProperty('--sprite-width',sprite[1]/48);icon.style.setProperty('--sprite-height',sprite[2]/48);icon.style.setProperty('--sprite-x',-sprite[3]/48);icon.style.setProperty('--sprite-y',-sprite[4]/48);return icon;
+  icon.style.color=symbol[1];const glyph=element('i');glyph.dataset.lucide=symbol[0];icon.append(glyph);return icon;
 }
 function centerMemberToday(){
   if(memberCentered || !memberData || document.getElementById('members').hidden)return;
@@ -454,12 +450,15 @@ function centerMemberToday(){
   const rect=target.getBoundingClientRect();scroll.scrollLeft+=rect.left+rect.width/2-(box.left+fixed+(scroll.clientWidth-fixed)/2);memberCentered=true;
 }
 function renderMembers(data, query='') {
+  const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
+  data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:data.members.map(row=>order.map(index=>row[index]))};
   memberData=data;
-  const rows=data.members.filter(row=>String(row[1]).toLowerCase().includes(query.toLowerCase()));
+  const nameIndex=data.headers.indexOf('닉네임');
+  const rows=data.members.filter(row=>String(row[nameIndex]).toLowerCase().includes(query.toLowerCase()));
   const table=document.getElementById('member-table');table.replaceChildren();
   const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=chatIndex+1;
-  const identityClass=index=>index===0?'member-number':index===1?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':undefined;
-  const columns=element('colgroup');data.headers.forEach((_,index)=>columns.append(element('col',undefined,index===0?'number-column':index===1?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':'content-column')));table.append(columns);
+  const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':undefined;
+  const columns=element('colgroup');data.headers.forEach((_,index)=>columns.append(element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':'content-column')));table.append(columns);
   table.style.setProperty('--content-count',data.headers.length-identityCount);
   const head=element('thead'),titles=element('tr');
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
@@ -469,9 +468,10 @@ function renderMembers(data, query='') {
     titles.append(cell);
   });head.append(titles);table.append(head);
   const body=element('tbody');
-  for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===1?'name member-name':identityClass(index));if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
+  for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
   table.append(body);document.getElementById('member-count').textContent=`${rows.length} / ${data.members.length}명`;
   document.getElementById('empty-search').hidden=rows.length>0;
+  refreshIcons();
   requestAnimationFrame(centerMemberToday);
 }
 function renderDistribution(groups) {
