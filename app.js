@@ -1,5 +1,6 @@
 const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools'];
 let tipsLoaded=false;
+let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
 let noticesLoading=false;
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
@@ -188,7 +189,8 @@ noticeForm.addEventListener('submit',async event=>{
 });
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
 const tipForm=document.getElementById('tip-form');
-function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show)tipForm.elements.title.focus();}
+function applyPendingTips(){if(pendingTips && tipForm.hidden && !document.querySelector('.tip-manage-form')){const tips=pendingTips;pendingTips=null;renderTips(tips);}}
+function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show)tipForm.elements.title.focus();else applyPendingTips();}
 document.getElementById('new-tip').addEventListener('click',()=>showTipForm(tipForm.hidden));
 document.getElementById('cancel-tip').addEventListener('click',()=>showTipForm(false));
 function sharedTipId(){try{return location.hash.startsWith('#tips/')?decodeURIComponent(location.hash.slice(6)):'';}catch{return '';}}
@@ -272,7 +274,7 @@ function tipManageForm(tip,mode,item,body){
   }
   const label=element('label','작성 비밀번호 또는 관리자 비밀번호','full-field'),password=element('input');password.name='password';password.type='password';password.maxLength=128;password.required=true;password.autocomplete='off';label.append(password);fields.append(label);form.append(fields);
   const actions=element('div',undefined,'form-actions'),status=element('span');status.setAttribute('role','status');
-  const cancel=element('button','취소','secondary-button');cancel.type='button';cancel.addEventListener('click',()=>form.remove());
+  const cancel=element('button','취소','secondary-button');cancel.type='button';cancel.addEventListener('click',()=>{form.remove();applyPendingTips();});
   const submit=element('button',mode==='edit'?'저장':'삭제',mode==='edit'?'primary-button':'danger-button');submit.type='submit';actions.append(status,cancel,submit);form.append(actions);
   form.addEventListener('submit',async event=>{
     event.preventDefault();submit.disabled=true;cancel.disabled=true;status.textContent='처리 중입니다.';
@@ -280,12 +282,13 @@ function tipManageForm(tip,mode,item,body){
       const response=await fetch(tipsApi+'/'+encodeURIComponent(tip.id),{method:mode==='edit'?'PUT':'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form))),signal:AbortSignal.timeout(15000)});
       const result=await response.json();if(!response.ok)throw new Error(result.error || '처리하지 못했습니다.');
       const id=tip.id;if(mode==='delete' && sharedTipId()===id)history.replaceState(null,'','#tips');
-      await loadTips();if(mode==='edit'){const entry=[...document.querySelectorAll('#tips-list details')].find(node=>node.dataset.tipId===id);if(entry)entry.open=true;}
+      form.remove();await loadTips({force:true});if(mode==='edit'){const entry=[...document.querySelectorAll('#tips-list details')].find(node=>node.dataset.tipId===id);if(entry)entry.open=true;}
     }catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 결과를 확인해주세요.':error.message;}
     finally{submit.disabled=false;cancel.disabled=false;}
   });body.append(form);item.open=true;password.focus({preventScroll:true});form.scrollIntoView({block:'nearest'});
 }
 function renderTips(tips){
+  const opened=new Set([...document.querySelectorAll('#tips-list details[open]')].map(item=>item.dataset.tipId));
   const list=document.getElementById('tips-list');list.replaceChildren();
   document.getElementById('tip-count').textContent=`${tips.length}개의 팁`;
   for(const tip of tips){
@@ -307,24 +310,32 @@ function renderTips(tips){
     for(const [mode,title,icon] of [['edit','수정','square-pen'],['delete','삭제','trash-2']]){
       const button=element('button',undefined,'secondary-button');button.type='button';const symbol=element('i');symbol.dataset.lucide=icon;button.append(symbol,document.createTextNode(title));button.addEventListener('click',()=>tipManageForm(tip,mode,item,body));actions.append(button);
     }body.append(actions);
-    item.append(summary,body);list.append(item);
+    item.append(summary,body);list.append(item);if(opened.has(tip.id))item.open=true;
   }
   document.getElementById('tips-status').textContent=tips.length?'':'아직 등록된 팁이 없습니다.';
   refreshIcons();
   openSharedTip();
 }
-async function loadTips(){
-  const status=document.getElementById('tips-status');status.textContent='팁을 불러오는 중입니다.';
+function validTips(tips){return Array.isArray(tips) && tips.length<=200 && tips.every(tip=>tip && ['id','title','content','author','url'].every(key=>typeof tip[key]==='string') && Number.isFinite(tip.created_at));}
+function loadTips({force=false}={}){
+  if(tipsRequest)return force?tipsRequest.then(()=>loadTips({force:true})):tipsRequest;
+  const status=document.getElementById('tips-status');if(!tipsLoaded)status.textContent='팁을 불러오는 중입니다.';
   const refresh=document.getElementById('refresh-tips');refresh.disabled=true;
-  try{const response=await fetch(tipsApi,{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error('load');const data=await response.json();if(!Array.isArray(data.tips))throw new Error('format');renderTips(data.tips);tipsLoaded=true;}
-  catch{status.textContent='팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}
-  finally{refresh.disabled=false;}
+  tipsRequest=(async()=>{
+    try{
+      const response=await fetch(tipsApi,{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error('load');const data=await response.json();if(!validTips(data.tips))throw new Error('format');
+      try{const saved=JSON.stringify({savedAt:Date.now(),tips:data.tips.map(({id,title,content,url,author,created_at})=>({id,title,content,url,author,created_at}))});if(saved.length<=2000000)localStorage.setItem('guild-tips-cache-v1',saved);}catch{}
+      if(!force && (!tipForm.hidden || document.querySelector('.tip-manage-form')))pendingTips=data.tips;
+      else {pendingTips=null;renderTips(data.tips);}tipsLoaded=true;
+    }catch{status.textContent=tipsLoaded?'최신 팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.':'팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}
+    finally{refresh.disabled=false;tipsRequest=null;}
+  })();return tipsRequest;
 }
-document.getElementById('refresh-tips').addEventListener('click',loadTips);
+document.getElementById('refresh-tips').addEventListener('click',()=>loadTips());
 tipForm.addEventListener('submit',async event=>{
   event.preventDefault();const status=document.getElementById('tip-form-status');const submit=tipForm.querySelector('[type="submit"]');submit.disabled=true;status.textContent='등록 중입니다.';
   const values=Object.fromEntries(new FormData(tipForm));
-  try{const response=await fetch(tipsApi,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values),signal:AbortSignal.timeout(15000)});const result=await response.json();if(!response.ok)throw new Error(result.error || '등록하지 못했습니다.');tipForm.reset();status.textContent='';showTipForm(false);await loadTips();}
+  try{const response=await fetch(tipsApi,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values),signal:AbortSignal.timeout(15000)});const result=await response.json();if(!response.ok)throw new Error(result.error || '등록하지 못했습니다.');tipForm.reset();status.textContent='';showTipForm(false);await loadTips({force:true});}
   catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}
   finally{submit.disabled=false;}
 });
@@ -357,3 +368,5 @@ function selectCalculator(button){calculatorTabs.forEach(tab=>{const active=tab=
 calculatorTabs.forEach((button,index)=>{button.addEventListener('click',()=>selectCalculator(button));button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?calculatorTabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+calculatorTabs.length)%calculatorTabs.length;selectCalculator(calculatorTabs[next]);calculatorTabs[next].focus();});});
 fetch('data.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('load');return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
 loadNotices();
+try{const cache=JSON.parse(localStorage.getItem('guild-tips-cache-v1'));if(cache && Date.now()-cache.savedAt<86400000 && validTips(cache.tips)){renderTips(cache.tips);tipsLoaded=true;}}catch{}
+loadTips();
