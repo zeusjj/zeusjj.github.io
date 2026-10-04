@@ -9,6 +9,7 @@ function updateChapterNavigation(){
 }
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(tab) {
+  tab=tab.split('/')[0];
   if (!tabs.includes(tab)) tab = 'rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
@@ -22,6 +23,7 @@ function switchTab(tab) {
   window.scrollTo({top:0,behavior:'instant'});
   updateChapterNavigation();
   if(tab==='tips' && !tipsLoaded) loadTips();
+  else if(tab==='tips')openSharedTip();
   if(tab==='notices' && !noticesLoaded) loadNotices();
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
@@ -187,19 +189,42 @@ const tipForm=document.getElementById('tip-form');
 function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show)tipForm.elements.title.focus();}
 document.getElementById('new-tip').addEventListener('click',()=>showTipForm(tipForm.hidden));
 document.getElementById('cancel-tip').addEventListener('click',()=>showTipForm(false));
+function sharedTipId(){try{return location.hash.startsWith('#tips/')?decodeURIComponent(location.hash.slice(6)):'';}catch{return '';}}
+function openSharedTip(){
+  const id=sharedTipId();if(!id)return;
+  const item=[...document.querySelectorAll('#tips-list details')].find(entry=>entry.dataset.tipId===id);
+  if(!item){document.getElementById('tips-status').textContent='공유된 팁을 찾을 수 없습니다.';return;}
+  item.open=true;requestAnimationFrame(()=>{if(sharedTipId()!==id)return;item.scrollIntoView({block:'center'});item.querySelector('summary').focus({preventScroll:true});});
+}
+async function copyTipLink(id,button){
+  const url=new URL(location.href);url.search='';url.hash='tips/'+encodeURIComponent(id);
+  const status=document.getElementById('tips-status');
+  try {
+    try{await navigator.clipboard.writeText(url.href);}catch{
+      const input=element('textarea');input.value=url.href;input.readOnly=true;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();
+      let copied=false;try{copied=document.execCommand('copy');}finally{input.remove();button.focus({preventScroll:true});}if(!copied)throw new Error('clipboard');
+    }
+    status.textContent='링크를 복사했습니다.';button.title='복사 완료';button.setAttribute('aria-label','링크 복사 완료');
+    setTimeout(()=>{button.title='링크 복사';button.setAttribute('aria-label','팁 링크 복사');},2000);
+  } catch{status.textContent='링크를 직접 복사해주세요.';window.prompt('이 팁의 공유 링크',url.href);}
+}
 function renderTips(tips){
   const list=document.getElementById('tips-list');list.replaceChildren();
   document.getElementById('tip-count').textContent=`${tips.length}개의 팁`;
   for(const tip of tips){
-    const item=element('details',undefined,'board-entry');const summary=element('summary');
+    const item=element('details',undefined,'board-entry');item.dataset.tipId=tip.id;const summary=element('summary');
     const disclosure=element('i',undefined,'disclosure-icon');disclosure.dataset.lucide='chevron-down';
-    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')),disclosure);
+    const share=element('button',undefined,'icon-button tip-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','팁 링크 복사');
+    const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);
+    share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(tip.id,share);});
+    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')),disclosure,share);
     const body=element('div',undefined,'entry-body');body.append(element('p',tip.content,'tip-text'));
     if(tip.url){try{const parsed=new URL(tip.url);if(['http:','https:'].includes(parsed.protocol)){const link=element('a',tip.url,'inline-link');link.href=parsed.href;link.target='_blank';link.rel='noopener noreferrer';body.append(link);}}catch{}}
     item.append(summary,body);list.append(item);
   }
   document.getElementById('tips-status').textContent=tips.length?'':'아직 등록된 팁이 없습니다.';
   refreshIcons();
+  openSharedTip();
 }
 async function loadTips(){
   const status=document.getElementById('tips-status');status.textContent='팁을 불러오는 중입니다.';
