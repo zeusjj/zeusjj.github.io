@@ -53,4 +53,10 @@ pricePairs.forEach(([input, slider]) => {
 });
 form.addEventListener('change', updateResults);
 form.addEventListener('submit', event => event.preventDefault());
+form.addEventListener('reset', event => {
+  event.preventDefault();
+  form.querySelectorAll('input[type=radio]').forEach(input => {input.checked = input.defaultChecked;});
+  pricePairs.forEach(pair => pair.forEach(input => {input.value = input.defaultValue;}));
+  updateResults();
+});
 updateResults();
