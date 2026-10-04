@@ -434,7 +434,7 @@ function renderMembers(data, query='') {
     titles.append(cell);
   });head.append(titles);table.append(head);
   const body=element('tbody');
-  for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===0?'member-number':index===1?'name member-name':index===2?'member-chat':undefined);if(index>=2){const status=element('span',value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
+  for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===0?'member-number':index===1?'name member-name':index===2?'member-chat':undefined);if(index>=2){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
   table.append(body);document.getElementById('member-count').textContent=`${rows.length} / ${data.members.length}명`;
   document.getElementById('empty-search').hidden=rows.length>0;
 }
