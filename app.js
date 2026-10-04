@@ -1,5 +1,12 @@
 const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools'];
 let tipsLoaded=false;
+const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
+function updateChapterNavigation(){
+  let current='guild-operations';
+  for(const id of ['guild-operations','guild-distribution','guild-allocation'])if(document.getElementById(id)?.getBoundingClientRect().top<170)current=id;
+  document.querySelectorAll('[data-scroll]').forEach(button=>{const active=button.dataset.scroll===current;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'location':'false');});
+}
+window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(tab) {
   if (!tabs.includes(tab)) tab = 'rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
@@ -8,14 +15,22 @@ function switchTab(tab) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
   }
+  const label=document.querySelector(`[data-tab="${tab}"]`).textContent.trim();
+  document.getElementById('current-view').textContent=label;
+  document.title=`${label} | 절대중립`;
+  window.scrollTo({top:0,behavior:'instant'});
+  updateChapterNavigation();
   if(tab==='tips' && !tipsLoaded) loadTips();
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
+document.querySelector('.skip-link').addEventListener('click',event=>{event.preventDefault();document.getElementById('main-content').focus();});
+document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>document.getElementById(button.dataset.scroll)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'})));
 window.addEventListener('hashchange', () => switchTab(location.hash.slice(1)));
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
   const target=document.getElementById('rule-content');
   target.replaceChildren();
+  const sections=new Map();
   function bodyContent(text, parent) {
     const lines=text.replace(/\r/g,'').split('\n');
     let list=null;
@@ -38,14 +53,32 @@ function renderRules(text) {
     if(!match) continue;
     const kind=layouts[match[1]] || 'updates';
     const wrapper=element('section',undefined,'policy-section policy-'+kind);
-    wrapper.append(element('h2',match[1]));
+    wrapper.append(element('h2',match[1].replace(/^\d+\.\s*/,'')));
     const body=element('div',undefined,'policy-body');
     const content=match[2].trim();
-    if(kind==='armor') {
+    if(kind==='schedule') {
+      const schedule=content.match(/^-\s*(\S+)\s+(\d+:\d+)/m);
+      if(schedule){const time=element('div',undefined,'schedule-time');time.append(element('span',schedule[1]),element('strong',schedule[2]));body.append(time);}
+      bodyContent(content.replace(/^-\s*\S+\s+\d+:\d+\s*$/m,''),body);
+    } else if(kind==='types') {
+      for(const group of content.split('▶').filter(part=>part.trim())) {
+        const parts=group.trim().split(/\s+-\s+/);body.append(element('h3',parts.shift()));
+        const chips=element('ul',undefined,'item-chips');for(const part of parts)chips.append(element('li',part));body.append(chips);
+      }
+    } else if(kind==='armor') {
       const chunks=content.split(/\n(?=[ABC]\. )/);
       bodyContent(chunks.shift(),body);
       const steps=element('div',undefined,'armor-steps');
-      for(const chunk of chunks){const split=chunk.indexOf('\n');const step=element('section',undefined,'armor-step');step.append(element('h3',chunk.slice(0,split)));bodyContent(chunk.slice(split+1),step);steps.append(step);}
+      for(const chunk of chunks){
+        const split=chunk.indexOf('\n');const step=element('section',undefined,'armor-step');
+        const heading=chunk.slice(0,split);step.append(element('span',heading[0],'allocation-letter'),element('h3',heading.slice(3)));
+        const facts=element('dl',undefined,'allocation-facts');
+        for(const fact of chunk.slice(split+1).split('▶').filter(value=>value.trim())){
+          const divider=fact.indexOf(' - ');if(divider<0)continue;
+          const row=element('div');row.append(element('dt',fact.slice(0,divider).trim()),element('dd',fact.slice(divider+3).replace(/\s+/g,' ').trim()));facts.append(row);
+        }
+        step.append(facts);steps.append(step);
+      }
       body.append(steps);
     } else if(kind==='prices') {
       const explanation=element('div',undefined,'price-explanation');
@@ -66,12 +99,24 @@ function renderRules(text) {
     } else if(kind==='class-items') {
       const chunks=content.split(/\n/).map(line=>line.trim()).filter(Boolean);
       const priorities=element('ol',undefined,'priority-list');
-      for(const line of chunks){if(/^\d순위/.test(line))priorities.append(element('li',line.replace(/^\d순위\s*-\s*/,'')));else bodyContent(line,body);}
-      body.append(priorities);
+      let method='';
+      for(const line of chunks){if(/^\d순위/.test(line))priorities.append(element('li',line.replace(/^\d순위\s*-\s*/,'')));else if(line.startsWith('▶ 입찰 방식'))method=line;else bodyContent(line,body);}
+      body.append(priorities);bodyContent(method,body);
     } else bodyContent(content,body);
     wrapper.append(body);
-    target.append(wrapper);
+    sections.set(kind,wrapper);
   }
+  const group=(className,kinds)=>{const node=element('div',undefined,className);for(const kind of kinds){const section=sections.get(kind);if(section){node.append(section);sections.delete(kind);}}return node;};
+  const overview=element('div',undefined,'operations-layout');overview.id='guild-operations';
+  overview.append(group('operation-copy',['direction','growth','relations']),group('schedule-rail',['schedule','timing']));target.append(overview);
+  const chapter=(id,title,icon)=>{const node=element('section',undefined,'policy-chapter');node.id=id;const heading=element('div',undefined,'chapter-heading');const symbol=element('i');symbol.dataset.lucide=icon;heading.append(symbol,element('h2',title));node.append(heading);return node;};
+  const distribution=chapter('guild-distribution','분배 기준','scale');
+  distribution.append(group('distribution-intro',['principles','system']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));target.append(distribution);
+  const allocation=chapter('guild-allocation','아이템 분배','swords');
+  allocation.append(group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));target.append(allocation);
+  for(const section of sections.values())target.append(section);
+  updateChapterNavigation();
+  refreshIcons();
 }
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
 const tipForm=document.getElementById('tip-form');
@@ -83,12 +128,14 @@ function renderTips(tips){
   document.getElementById('tip-count').textContent=`${tips.length}개의 팁`;
   for(const tip of tips){
     const item=element('details',undefined,'board-entry');const summary=element('summary');
-    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')));
+    const disclosure=element('i',undefined,'disclosure-icon');disclosure.dataset.lucide='chevron-down';
+    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')),disclosure);
     const body=element('div',undefined,'entry-body');body.append(element('p',tip.content,'tip-text'));
     if(tip.url){try{const parsed=new URL(tip.url);if(['http:','https:'].includes(parsed.protocol)){const link=element('a',tip.url,'inline-link');link.href=parsed.href;link.target='_blank';link.rel='noopener noreferrer';body.append(link);}}catch{}}
     item.append(summary,body);list.append(item);
   }
   document.getElementById('tips-status').textContent=tips.length?'':'아직 등록된 팁이 없습니다.';
+  refreshIcons();
 }
 async function loadTips(){
   const status=document.getElementById('tips-status');status.textContent='팁을 불러오는 중입니다.';
@@ -119,7 +166,7 @@ function renderMembers(data, query='') {
 }
 function renderDistribution(groups) {
   const target=document.getElementById('distribution-content');
-  for(const group of groups){const section=element('section',undefined,'distribution-group');section.append(element('h2',group.title));
+  for(const group of groups){const section=element('section',undefined,'distribution-group');const heading=element('div',undefined,'distribution-heading');heading.append(element('h2',group.title),element('span',`${group.records.length}건`,'record-count'));section.append(heading);
     if(!group.records.length){section.append(element('p','등록된 분배 기록이 없습니다.','empty'));}
     else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액'].forEach(label=>headings.append(element('th',label)));head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'-':record.amount.toLocaleString('ko-KR')].forEach(value=>row.append(element('td',value)));body.append(row);}table.append(body);section.append(table);}target.append(section);
   }
