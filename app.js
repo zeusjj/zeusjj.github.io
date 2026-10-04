@@ -47,6 +47,17 @@ function renderRules(text) {
       const steps=element('div',undefined,'armor-steps');
       for(const chunk of chunks){const split=chunk.indexOf('\n');const step=element('section',undefined,'armor-step');step.append(element('h3',chunk.slice(0,split)));bodyContent(chunk.slice(split+1),step);steps.append(step);}
       body.append(steps);
+    } else if(kind==='prices') {
+      const explanation=element('div',undefined,'price-explanation');
+      const rates=element('dl',undefined,'price-rates');
+      const remaining=[];
+      for(const line of content.split(/\r?\n/)) {
+        const rate=line.match(/^\s*-\s*(스킬북|T5):\s*([\d,]+)\s*$/);
+        if(rate){const item=element('div');item.append(element('dt',rate[1]),element('dd',rate[2]));rates.append(item);}
+        else remaining.push(line);
+      }
+      bodyContent(remaining.join('\n'),explanation);
+      body.append(explanation,rates);
     } else if(kind==='conditions') {
       const chunks=content.split(/(?=▶)/);
       const columns=element('div',undefined,'condition-columns');
