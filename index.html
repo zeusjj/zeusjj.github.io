@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261005-42" defer></script>
   <script src="admin-statistics.js?v=20261005-36" defer></script>
-  <script type="module" src="collection-calculator.js?v=20261006-53"></script>
+  <script type="module" src="collection-calculator.js?v=20261006-54"></script>
   <script type="module" src="skill-calculator.js?v=20261005-31"></script>
   <script src="visitors.js?v=20261004-26" defer></script>
   <script type="module" src="alarms.js?v=20261005-52"></script>
@@ -113,7 +113,7 @@
           </form>
           <p id="collection-error" class="collection-error" role="status" hidden></p>
           <div class="collection-result-heading"><h2>강화 목표별 비용과 확률</h2><span>다이아 기준</span></div>
-          <div class="collection-table-scroll" tabindex="0" role="region" aria-label="강화 목표별 비용과 확률 표"><table id="collection-results"><colgroup><col><col class="collection-mean-column"><col><col><col><col><col></colgroup><thead><tr><th scope="col">목표</th><th scope="col" class="collection-mean">평균 비용</th><th scope="col" title="이 비용 이하로 완료할 확률이 25% 이상인 최소 예산">25% 완료<small>1사분위</small></th><th scope="col" title="이 비용 이하로 완료할 확률이 50% 이상인 최소 예산">50% 완료<small>중앙값</small></th><th scope="col" title="이 비용 이하로 완료할 확률이 75% 이상인 최소 예산. 최대 비용은 아닙니다.">75% 완료<small>3사분위</small></th><th scope="col">평균 비용<small>초과 확률</small></th><th scope="col">평균의 2배<small>초과 확률</small></th></tr></thead><tbody></tbody></table></div>
+          <div class="collection-table-scroll" tabindex="0" role="region" aria-label="강화 목표별 비용과 확률 표"><table id="collection-results"><colgroup><col><col class="collection-mean-column"><col><col><col><col><col></colgroup><thead><tr><th scope="col">목표</th><th scope="col" class="collection-mean">평균 비용</th><th scope="col" title="이 비용 이하로 완료할 확률이 25% 이상인 최소 예산">25% 완료<small>1사분위</small></th><th scope="col" title="이 비용 이하로 완료할 확률이 50% 이상인 최소 예산">50% 완료<small>중앙값</small></th><th scope="col" title="이 비용 이하로 완료할 확률이 75% 이상인 최소 예산. 최대 비용은 아닙니다.">75% 완료<small>3사분위</small></th><th scope="col" title="총소모 비용이 평균 비용 이하인 상태에서 목표 강화에 도달할 확률">평균 비용 이내<small>성공 확률</small></th><th scope="col">평균의 2배<small>초과 확률</small></th></tr></thead><tbody></tbody></table></div>
           <div class="collection-distribution-note"><span>≈ 100,000회 시뮬레이션 추정 · 미표시 수치는 정확 계산</span><span id="collection-distribution-status" role="status"></span></div>
           <section class="collection-reading" aria-labelledby="collection-reading-heading">
             <h2 id="collection-reading-heading">결과 읽는 법</h2>
@@ -124,7 +124,7 @@
               <div><dt>75% 완료 비용</dt><dd>적어도 75%, 즉 4명 중 3명 수준이 이 금액 이하로 완료할 수 있는 예산입니다. 나머지 최대 25%, 4명 중 1명 수준은 더 많은 다이아를 쓸 수 있습니다.</dd></div>
             </dl>
             <p class="collection-reading-note">확률을 인원으로 비유한 것으로, 실제 4명이 시도했을 때 결과를 보장하지 않습니다. 비용은 단계적으로 늘어나므로 해당 예산의 실제 완료 확률은 25%·50%·75%보다 높을 수 있습니다. ≈ 수치는 시뮬레이션 추정입니다.</p>
-            <p><strong>평균 비용</strong>은 같은 조건으로 매우 많이 반복했을 때의 수학적 기댓값입니다. <strong>평균 비용 초과 확률</strong>과 <strong>평균의 2배 초과 확률</strong>은 기대보다 얼마나 더 쓸 수 있는지 보여줍니다. 75% 비용은 최대 비용이 아니며, 실패가 이어지면 그보다 훨씬 많이 쓸 수도 있습니다.</p>
+            <p><strong>평균 비용</strong>은 같은 조건으로 매우 많이 반복했을 때의 수학적 기댓값입니다. <strong>평균 비용 이내 성공 확률</strong>은 총소모 비용이 평균 이하인 상태에서 목표 강화에 도달할 확률입니다. <strong>평균의 2배 초과 확률</strong>은 기대보다 훨씬 더 쓸 위험을 보여줍니다. 75% 비용은 최대 비용이 아니며, 실패가 이어지면 그보다 훨씬 많이 쓸 수도 있습니다.</p>
           </section>
           <details class="collection-method">
             <summary><span>계산 과정과 통계 모델</span><i data-lucide="chevron-down"></i></summary>
@@ -138,7 +138,7 @@
               <div class="collection-equations">E[T] = E[C] / P<br>E[T²] = {E[C²] + 2E[C · 실패 여부]E[T]} / P<br>Var(T) = E[T²] − E[T]²</div>
               <p>평균은 이 식으로 직접 구합니다. 평균 ± 표준편차 배수를 비용 분위수로 사용하는 정규분포 가정은 하지 않습니다.</p>
               <h3>3. 완료 확률과 분위 비용</h3>
-              <p>총비용이 x 이하일 확률 F(x) = Pr(T ≤ x)를 계산합니다. 25%·50%·75% 완료 비용은 각각 F(x)가 0.25·0.50·0.75 이상이 되는 가장 작은 예산입니다. 평균 초과 확률은 1 − F(E[T]), 평균의 2배 초과 확률은 1 − F(2E[T])입니다.</p>
+              <p>총비용이 x 이하일 확률 F(x) = Pr(T ≤ x)를 계산합니다. 25%·50%·75% 완료 비용은 각각 F(x)가 0.25·0.50·0.75 이상이 되는 가장 작은 예산입니다. 평균 비용 이내 성공 확률은 F(E[T]), 평균의 2배 초과 확률은 1 − F(2E[T])입니다.</p>
               <p>실패 비용이 한 종류라면 기하분포를 직접 계산합니다. 여러 종류라면 실패 경로별 확률을 비용 단위로 누적하는 재시도 분포 계산을 사용합니다. 동일한 비용에 도달한 경로는 확률을 합산합니다.</p>
               <div class="collection-equations">m(0) = P<br>m(w) = Σⱼ rⱼ · m(w − 실패 사이클 비용ⱼ)</div>
               <p>여기서 w는 마지막 성공 사이클 이전에 소비한 비용입니다. 마지막 성공 사이클 비용을 더하고 확률을 누적해 완료 확률과 분위 비용을 구합니다.</p>

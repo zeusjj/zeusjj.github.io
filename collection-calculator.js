@@ -23,10 +23,10 @@ worker.addEventListener('message', ({data})=>{
   row.dataset.distribution=data.method;
   const prefix=data.method==='sampled'?'≈ ':'';
   const values=[...data.quantiles.map(value=>prefix+formatCost(value)),
-    prefix+numberFormat.format(data.overMean*100)+'%',prefix+numberFormat.format(data.overDoubleMean*100)+'%'];
+    prefix+numberFormat.format((1-data.overMean)*100)+'%',prefix+numberFormat.format(data.overDoubleMean*100)+'%'];
   [...row.querySelectorAll('.collection-risk')].forEach((cell,index)=>{
     cell.textContent=values[index];
-    cell.title=(data.method==='sampled'?'100,000회 시뮬레이션 추정: ':'정확 계산: ')+(index<3?numberFormat.format(data.quantiles[index])+' 다이아':values[index]);
+    cell.title=(data.method==='sampled'?'100,000회 시뮬레이션 추정: ':'정확 계산: ')+(index<3?numberFormat.format(data.quantiles[index])+' 다이아':index===3?'평균 비용 이내 성공 확률 '+values[index]:values[index]);
   });
 });
 worker.addEventListener('error',()=>{distributionStatus.textContent='분포 계산에 실패했습니다.';});
