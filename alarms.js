@@ -21,7 +21,7 @@ function audioStatus(){
   if(enabled && audio?.state!=='running'){const button=make('button','소리 활성화','secondary-button');button.type='button';button.addEventListener('click',()=>activateAudio().catch(()=>status.textContent='브라우저에서 소리를 허용해주세요.'));status.append(button);}
 }
 function toggleState(){const button=$('alarm-toggle');button.textContent=enabled?'On':'Off';button.setAttribute('aria-checked',String(enabled));button.title=enabled?'알람 수신 끄기':'알람 수신 켜기';audioStatus();}
-$('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem('guild-alarm-enabled',String(enabled));}catch{}if(enabled)await activateAudio().catch(()=>{});else stopSound();toggleState();});
+$('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem('guild-alarm-enabled',String(enabled));}catch{}if(enabled)await activateAudio().catch(()=>{});else {stopSound();$('alarm-toasts').replaceChildren();}toggleState();});
 function toast(title,message,duration=0){
   if(!enabled)return;
   const node=make('div',undefined,'alarm-toast'),heading=make('strong',title),body=make('p',message),dismiss=make('button',undefined,'icon-button');dismiss.type='button';dismiss.title='알림 닫기';dismiss.setAttribute('aria-label','알림 닫기');dismiss.append(make('span','×'));dismiss.addEventListener('click',()=>node.remove());node.append(heading,body,dismiss);
@@ -104,7 +104,7 @@ async function scan(file,source_at){
   if(!file || file.size>15*1024*1024){$('alarm-ocr-status').textContent='15MB 이하 사진을 선택해주세요.';return;}
   ocrBusy=true;$('alarm-paste').disabled=true;$('alarm-file').disabled=true;
   let bitmap;
-  try{bitmap=await createImageBitmap(file);if(bitmap.width<200 || bitmap.width*bitmap.height>20000000)throw new Error('사진 크기를 확인해주세요.');const columns=bitmap.width/bitmap.height>2.7?2:3,cardWidth=bitmap.width/columns,rows=Math.max(1,Math.round(bitmap.height/(cardWidth*.57))),cardHeight=bitmap.height/rows,scale=2;
+  try{bitmap=await createImageBitmap(file);if(bitmap.width<200 || bitmap.width*bitmap.height>20000000)throw new Error('사진 크기를 확인해주세요.');const columns=bitmap.width/bitmap.height>2.7?2:3,cardWidth=bitmap.width/columns,rows=Math.max(1,Math.round(bitmap.height/(cardWidth*.57))),cardHeight=bitmap.height/rows,scale=Math.min(2,3000/Math.max(bitmap.width,bitmap.height));
     const canvas=make('canvas');canvas.width=bitmap.width*scale;canvas.height=bitmap.height*scale;const context=canvas.getContext('2d',{willReadFrequently:true});context.fillStyle='#fff';context.fillRect(0,0,canvas.width,canvas.height);
     for(let row=0;row<rows;row++)for(const [y,height] of [[row*cardHeight,cardHeight*.23],[(row+1)*cardHeight-cardHeight*.23,cardHeight*.23]])context.drawImage(bitmap,0,y,bitmap.width,height,0,y*scale,bitmap.width*scale,height*scale);
     const pixels=context.getImageData(0,0,canvas.width,canvas.height);for(let row=0;row<rows;row++)for(const [y,height] of [[row*cardHeight,cardHeight*.23],[(row+1)*cardHeight-cardHeight*.23,cardHeight*.23]])for(let yy=Math.floor(y*scale);yy<Math.min(canvas.height,(y+height)*scale);yy++)for(let x=0;x<canvas.width;x++){const i=(yy*canvas.width+x)*4,luminance=pixels.data[i]*.299+pixels.data[i+1]*.587+pixels.data[i+2]*.114;pixels.data[i]=pixels.data[i+1]=pixels.data[i+2]=luminance>55?0:255;}context.putImageData(pixels,0,0);
