@@ -7,6 +7,9 @@ const format=at=>new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'n
 let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=true,audio,masterGain,ringTimer,lastPulse=0,worker,ocrBusy=false,submitting=false;
 const soundPatterns={chime:{type:'sine',notes:[[660,0],[880,.2],[660,.4]],length:.2,peak:.08},bell:{type:'triangle',notes:[[880,0],[1175,.22],[1568,.44]],length:.4,peak:.065},electronic:{type:'square',notes:[[1000,0],[1000,.2],[1000,.4]],length:.12,peak:.045}};
 const soundDefaults={tone:'chime',volume:70};let soundSettings={...soundDefaults};
+const filterKey='guild-alarm-muted-bosses-v1';let mutedBosses=new Set();
+try{const saved=JSON.parse(localStorage.getItem(filterKey));if(Array.isArray(saved))mutedBosses=new Set(saved.filter(name=>typeof name==='string' && name.length<=100).slice(0,100));}catch{}
+const receives=boss=>!mutedBosses.has(boss);
 try{const saved=JSON.parse(localStorage.getItem('guild-alarm-sound-v1'));if(saved && Object.hasOwn(soundPatterns,saved.tone))soundSettings.tone=saved.tone;if(Number.isFinite(saved?.volume))soundSettings.volume=Math.round(Math.min(100,Math.max(0,saved.volume)));}catch{}
 const ringing=new Map(),oscillators=new Set();
 const handled=new Set();let versions=new Map();
@@ -14,7 +17,7 @@ try{enabled=localStorage.getItem('guild-alarm-enabled')!=='false';$('alarm-autho
 const now=()=>Date.now()+offset;
 function icons(){window.lucide?.createIcons();}
 function ringUI(){
-  for(const row of document.querySelectorAll('[data-alarm-key]')){const active=ringing.has(row.dataset.alarmKey);row.classList.toggle('is-ringing',active);row.querySelector('.alarm-ring-status').textContent=active?'알림 중':'대기';row.querySelector('.alarm-stop').disabled=!active;}
+  for(const row of document.querySelectorAll('[data-alarm-key]')){const active=ringing.has(row.dataset.alarmKey);row.classList.toggle('is-ringing',active);row.querySelector('.alarm-ring-status').textContent=active?'알림 중':receives(row.dataset.boss)?'대기':'수신 안 함';row.querySelector('.alarm-stop').disabled=!active;}
   const testing=ringing.has('test');$('alarm-test').setAttribute('aria-pressed',String(testing));$('alarm-test').querySelector('span').textContent=testing?'테스트 중단':'테스트';
 }
 function stopSound(key){
@@ -43,6 +46,20 @@ $('alarm-tone').addEventListener('change',event=>{soundSettings.tone=event.targe
 $('alarm-volume').addEventListener('input',event=>{soundSettings.volume=Number(event.target.value);saveSoundSettings();});
 $('alarm-sound-reset').addEventListener('click',()=>{soundSettings={...soundDefaults};saveSoundSettings();});
 $('alarm-sound-preview').addEventListener('click',async()=>{if(!enabled){$('alarm-preferences-status').textContent='알람 수신이 Off입니다. On으로 켠 뒤 미리듣기를 눌러주세요.';return;}try{await activateAudio();pulse();}catch{$('alarm-preferences-status').textContent='브라우저에서 소리를 허용해주세요.';}});
+function filterUI(){
+  for(const button of document.querySelectorAll('[data-filter-boss]')){const on=receives(button.dataset.filterBoss);button.setAttribute('aria-checked',String(on));button.textContent=on?'On':'Off';}
+  const all=presets.every(preset=>receives(preset.name));$('alarm-filter-all').setAttribute('aria-checked',String(all));$('alarm-filter-all').textContent=all?'On':'Off';$('alarm-filter').dataset.filtered=String(!all);
+}
+function saveFilter(){
+  for(const [key,entry] of ringing)if(key!=='test' && !receives(entry.boss))stopSound(key);
+  ringUI();filterUI();
+  try{localStorage.setItem(filterKey,JSON.stringify([...mutedBosses]));$('alarm-filter-status').textContent='이 브라우저에 저장되었습니다.';}catch{$('alarm-filter-status').textContent='브라우저 저장이 제한되어 이번 접속에만 적용됩니다.';}
+}
+$('alarm-filter').addEventListener('click',()=>{
+  $('alarm-filter-list').replaceChildren();for(const preset of presets){const row=make('div',undefined,'alarm-filter-row'),button=make('button',undefined,'alarm-filter-toggle');button.type='button';button.dataset.filterBoss=preset.name;button.setAttribute('role','switch');button.setAttribute('aria-label',preset.name+' 알람 수신');button.addEventListener('click',()=>{if(receives(preset.name))mutedBosses.add(preset.name);else mutedBosses.delete(preset.name);saveFilter();});row.append(make('span',preset.name),button);$('alarm-filter-list').append(row);}
+  filterUI();$('alarm-filter-status').textContent='';$('alarm-filter-dialog').showModal();
+});
+$('alarm-filter-all').addEventListener('click',()=>{const all=presets.every(preset=>receives(preset.name));mutedBosses=all?new Set(presets.map(preset=>preset.name)):new Set();saveFilter();});
 function audioStatus(){
   $('alarm-audio-status').replaceChildren();
 }
@@ -64,14 +81,14 @@ function claim(key){
 function tick(){
   const at=now();for(const node of document.querySelectorAll('[data-spawn]')){const left=Math.max(0,Number(node.dataset.spawn)-at);node.textContent=left?`${Math.floor(left/3600000)}시간 ${Math.floor(left/MINUTE)%60}분 ${Math.floor(left/1000)%60}초`:'출현';}
   if(!enabled)return;
-  for(const record of records)if(isDue(record.spawn_at,at) && claim(`shared:${record.id}:${record.updated_at}`))toast(record.boss+' 출현 3분 전',format(record.spawn_at),Math.max(0,record.spawn_at-LEAD+DURATION-at),record.id,record.boss);
-  for(const spawn of fixedOccurrences(at))if(isDue(spawn,at) && claim('fixed:'+spawn))toast('심연의 틈 출현 3분 전',format(spawn),Math.max(0,spawn-LEAD+DURATION-at),'fixed','심연의 틈');
+  for(const record of records)if(receives(record.boss) && isDue(record.spawn_at,at) && claim(`shared:${record.id}:${record.updated_at}`))toast(record.boss+' 출현 3분 전',format(record.spawn_at),Math.max(0,record.spawn_at-LEAD+DURATION-at),record.id,record.boss);
+  for(const spawn of fixedOccurrences(at))if(receives('심연의 틈') && isDue(spawn,at) && claim('fixed:'+spawn))toast('심연의 틈 출현 3분 전',format(spawn),Math.max(0,spawn-LEAD+DURATION-at),'fixed','심연의 틈');
 }
 function render(){
   const list=$('alarm-list');list.replaceChildren();const at=now(),fixed=fixedOccurrences(at).filter(time=>time>at).sort((a,b)=>a-b)[0];
   const entries=[...records.filter(r=>r.spawn_at>at),{id:'fixed',boss:'심연의 틈',spawn_at:fixed,author:'매일 00:00 · 12:00 · 18:00',fixed:true}];if(ringing.has('test'))entries.unshift({id:'test',boss:ringing.get('test').boss,spawn_at:at,author:'테스트 · 서버 미등록',test:true});
   for(const record of entries.sort((a,b)=>a.spawn_at-b.spawn_at)){
-    const row=make('div',undefined,'alarm-row'),name=make('strong',record.boss),time=make('div'),author=make('span',record.author,'alarm-author');row.dataset.alarmKey=record.id;
+    const row=make('div',undefined,'alarm-row'),name=make('strong',record.boss),time=make('div'),author=make('span',record.author,'alarm-author');row.dataset.alarmKey=record.id;row.dataset.boss=record.boss;
     if(record.test)time.append(make('span','테스트 알림'));else {time.append(make('time',format(record.spawn_at)));const countdown=make('small');countdown.dataset.spawn=record.spawn_at;time.append(countdown);}
     if(record.fixed)name.append(make('small','고정','alarm-fixed'));const controls=make('div',undefined,'alarm-ring-controls'),status=make('span','대기','alarm-ring-status'),stop=make('button',undefined,'secondary-button alarm-stop');stop.type='button';stop.title=record.boss+' 알림 중단';const icon=make('i');icon.dataset.lucide='volume-x';stop.append(icon,make('span','중단'));stop.addEventListener('click',()=>stopSound(record.id));controls.append(status,stop);row.append(name,time,author,controls);list.append(row);
   }tick();ringUI();icons();
@@ -81,7 +98,7 @@ async function refresh(){
   try{const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('공유 서버 연결 실패');const data=await response.json();if(!Array.isArray(data.alarms) || !Number.isFinite(data.serverNow))throw new Error('알람 응답 오류');offset=data.serverNow-(start+Date.now())/2;
     const next=new Map(data.alarms.map(record=>[record.id,record.updated_at]));
     if(loaded){
-      const changes=[...new Map(data.alarms.filter(record=>versions.get(record.id)!==record.updated_at).map(record=>[record.boss,record])).values()];
+      const changes=[...new Map(data.alarms.filter(record=>receives(record.boss) && versions.get(record.id)!==record.updated_at).map(record=>[record.boss,record])).values()];
       if(changes.length===1){const record=changes[0];toast(record.boss+' 알람 '+(versions.has(record.id)?'변경':'등록'),`${record.author} · ${format(record.spawn_at)}`);}
       else if(changes.length>1)toast('공유 알람 '+changes.length+'개 등록·변경',changes.map(record=>record.boss+' ('+record.author+')').join(', '));
     }
@@ -203,6 +220,6 @@ $('alarm-file').addEventListener('change',event=>{preview(event.target.files[0],
 document.addEventListener('paste',event=>{if($('alarms').hidden || ocrBusy || submitting)return;const file=[...event.clipboardData.items].find(item=>item.type.startsWith('image/'))?.getAsFile();if(file){event.preventDefault();previewGeneration++;preview(file,Math.round(now()));}});
 $('alarm-paste').addEventListener('click',()=>{if(ocrBusy || submitting)return;$('alarm-preview-confirm').disabled=true;$('alarm-preview-time').textContent='';$('alarm-preview').showModal();readClipboard();});
 try{const response=await fetch('boss-presets.json?v=20261005-51',{cache:'no-store'});if(!response.ok)throw new Error();presets=await response.json();optionList($('alarm-boss'));}catch{$('alarm-status').textContent='알람 이름 목록을 불러오지 못했습니다. 새로고침해주세요.';$('alarm-manual').querySelector('button').disabled=true;}
-toggleState();render();refresh();setInterval(refresh,15000);setInterval(()=>{tick();if(records.some(record=>record.spawn_at<=now()))render();},1000);
+toggleState();filterUI();render();refresh();setInterval(refresh,15000);setInterval(()=>{tick();if(records.some(record=>record.spawn_at<=now()))render();},1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){refresh();render();audioStatus();}});
 window.addEventListener('pagehide',()=>stopSound());
