@@ -1,4 +1,4 @@
-const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin'];
+const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'admin'];
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
