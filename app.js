@@ -1,4 +1,4 @@
-const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'admin'];
+const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin'];
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -345,7 +345,7 @@ function appendTipEmbed(body,url){
     } else if(['video','audio'].includes(media.kind)){
       node=element(media.kind);node.controls=true;node.preload='none';node.src=media.src;if(media.kind==='video')node.playsInline=true;
     } else {
-      node=element('iframe');node.title=media.title;node.loading='lazy';node.referrerPolicy='no-referrer';node.setAttribute('sandbox',automatic?'allow-scripts allow-same-origin allow-presentation':'allow-scripts allow-presentation');node.allow='encrypted-media; picture-in-picture; fullscreen';node.allowFullscreen=true;node.dataset.embedSrc=media.src;node.src=media.src;
+      node=element('iframe');node.title=media.title;node.loading='lazy';node.referrerPolicy=new URL(media.src).hostname==='www.youtube-nocookie.com'?'strict-origin-when-cross-origin':'no-referrer';node.setAttribute('sandbox',automatic?'allow-scripts allow-same-origin allow-presentation':'allow-scripts allow-presentation');node.allow='encrypted-media; picture-in-picture; fullscreen';node.allowFullscreen=true;node.dataset.embedSrc=media.src;node.src=media.src;
       figure.classList.add(media.video?'tip-video-embed':'tip-page-embed');
     }
     node.addEventListener('error',()=>{node.hidden=true;figure.prepend(element('p','미디어를 불러오지 못했습니다. 원본 링크를 확인해주세요.','media-error'));},{once:true});mounted=node;figure.prepend(node);if(preview)preview.hidden=true;
