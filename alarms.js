@@ -78,7 +78,12 @@ function render(){
 async function refresh(){
   if(polling)return;polling=true;const start=Date.now();
   try{const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('공유 서버 연결 실패');const data=await response.json();if(!Array.isArray(data.alarms) || !Number.isFinite(data.serverNow))throw new Error('알람 응답 오류');offset=data.serverNow-(start+Date.now())/2;
-    const next=new Map(data.alarms.map(record=>[record.id,record.updated_at]));if(loaded)for(const record of data.alarms)if(versions.get(record.id)!==record.updated_at)toast(record.boss+' 알람 '+(versions.has(record.id)?'변경':'등록'),`${record.author} · ${format(record.spawn_at)}`,0,record.id);
+    const next=new Map(data.alarms.map(record=>[record.id,record.updated_at]));
+    if(loaded){
+      const changes=[...new Map(data.alarms.filter(record=>versions.get(record.id)!==record.updated_at).map(record=>[record.boss,record])).values()];
+      if(changes.length===1){const record=changes[0];toast(record.boss+' 알람 '+(versions.has(record.id)?'변경':'등록'),`${record.author} · ${format(record.spawn_at)}`);}
+      else if(changes.length>1)toast('공유 알람 '+changes.length+'개 등록·변경',changes.map(record=>record.boss+' ('+record.author+')').join(', '));
+    }
     records=data.alarms;versions=next;loaded=true;$('alarm-status').textContent='';render();
   }catch(error){$('alarm-status').textContent='공유 알람 연결을 확인하지 못했습니다. 자동으로 다시 연결합니다.';if(!loaded)render();}finally{polling=false;}
 }
