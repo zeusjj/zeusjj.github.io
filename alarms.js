@@ -115,7 +115,15 @@ async function scan(file,source_at){
       const grouped=new Map();for(const word of line.words || []){const col=Math.min(columns-1,Math.floor((word.bbox.x0+word.bbox.x1)/2/(cardWidth*scale))),row=Math.min(rows-1,Math.floor((word.bbox.y0+word.bbox.y1)/2/(cardHeight*scale))),index=row*columns+col;const group=grouped.get(index) || [];group.push(word.text);grouped.set(index,group);}
       for(const [index,words] of grouped)cells[index].push(words.join(' '));
     }
-    const candidates=[];for(const [index,lines] of cells.entries()){if(!lines.length)continue;const preset=lines.map(text=>matchBoss(text,presets)).find(Boolean);if(preset?.hours)continue;let timer=lines.map(remainingTime).find(value=>value!==null);
+    async function retryTitle(index,threshold){
+      const left=(index%columns)*cardWidth+cardWidth*.09,top=Math.floor(index/columns)*cardHeight+cardHeight*.04,width=cardWidth*.8,height=cardHeight*.18;
+      const crop=make('canvas');crop.width=Math.ceil(width*3)+20;crop.height=Math.ceil(height*3)+20;const ctx=crop.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,crop.width,crop.height);ctx.drawImage(bitmap,left,top,width,height,10,10,width*3,height*3);
+      const pixels=ctx.getImageData(10,10,crop.width-20,crop.height-20);for(let i=0;i<pixels.data.length;i+=4){const luminance=pixels.data[i]*.299+pixels.data[i+1]*.587+pixels.data[i+2]*.114;pixels.data[i]=pixels.data[i+1]=pixels.data[i+2]=luminance>threshold?0:255;}ctx.putImageData(pixels,10,10);
+      await engine.setParameters({tessedit_pageseg_mode:'7'});try{return (await engine.recognize(crop)).data.text.trim();}finally{await engine.setParameters({tessedit_pageseg_mode:'11'});}
+    }
+    const candidates=[];for(const [index,lines] of cells.entries()){if(!lines.length)continue;let preset=lines.map(text=>matchBoss(text,presets)).find(Boolean);
+      if(!preset)for(const threshold of [35,70]){const title=await retryTitle(index,threshold);lines.push('이름 재인식: '+title);preset=matchBoss(title,presets);if(preset)break;}
+      if(preset?.hours)continue;let timer=lines.map(remainingTime).find(value=>value!==null);
       if(timer===undefined && !preset?.days){const crop=make('canvas'),left=(index%columns)*cardWidth,top=Math.floor(index/columns)*cardHeight+cardHeight*.81;crop.width=Math.ceil(cardWidth*.65*3)+20;crop.height=Math.ceil(cardHeight*.18*3)+20;const ctx=crop.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,crop.width,crop.height);ctx.drawImage(bitmap,left+4,top,cardWidth*.65,cardHeight*.18,10,10,cardWidth*.65*3,cardHeight*.18*3);const image=ctx.getImageData(10,10,crop.width-20,crop.height-20);for(let i=0;i<image.data.length;i+=4){const l=image.data[i]*.299+image.data[i+1]*.587+image.data[i+2]*.114;image.data[i]=image.data[i+1]=image.data[i+2]=l>55?0:255;}ctx.putImageData(image,10,10);await engine.setParameters({tessedit_pageseg_mode:'7'});const retry=await engine.recognize(crop);lines.push('시간 재인식: '+retry.data.text.trim());timer=remainingTime(retry.data.text);await engine.setParameters({tessedit_pageseg_mode:'11'});}
       const text=lines.join(' / '),duration=timer ?? (preset?.days?nextWeekly(preset,source_at)-source_at:null);candidates.push({boss:preset?.name,text,duration});}
     $('alarm-ocr-status').textContent=`${candidates.length}개 인식 · 확인 후 등록`;review(candidates,source_at);
