@@ -3,7 +3,10 @@ const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.c
 const $=id=>document.getElementById(id);
 const make=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const format=at=>new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(at);
-let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=true,audio,ringTimer,lastPulse=0,worker,ocrBusy=false,submitting=false;
+let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=true,audio,masterGain,ringTimer,lastPulse=0,worker,ocrBusy=false,submitting=false;
+const soundPatterns={chime:{type:'sine',notes:[[660,0],[880,.2],[660,.4]],length:.2,peak:.08},bell:{type:'triangle',notes:[[880,0],[1175,.22],[1568,.44]],length:.4,peak:.065},electronic:{type:'square',notes:[[1000,0],[1000,.2],[1000,.4]],length:.12,peak:.045}};
+const soundDefaults={tone:'chime',volume:70};let soundSettings={...soundDefaults};
+try{const saved=JSON.parse(localStorage.getItem('guild-alarm-sound-v1'));if(saved && Object.hasOwn(soundPatterns,saved.tone))soundSettings.tone=saved.tone;if(Number.isFinite(saved?.volume))soundSettings.volume=Math.round(Math.min(100,Math.max(0,saved.volume)));}catch{}
 const ringing=new Map(),oscillators=new Set();
 const handled=new Set();let versions=new Map();
 try{enabled=localStorage.getItem('guild-alarm-enabled')!=='false';$('alarm-author').value=localStorage.getItem('guild-alarm-author') || '';}catch{}
@@ -21,14 +24,24 @@ function stopSound(key){
 }
 function pulse(){
   if(!enabled || audio?.state!=='running')return;
-  const start=audio.currentTime;
-  for(const [frequency,delay] of [[660,0],[880,.2],[660,.4]]){const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.connect(gain);gain.connect(audio.destination);oscillator.frequency.value=frequency;gain.gain.setValueAtTime(0,start+delay);gain.gain.linearRampToValueAtTime(.08,start+delay+.025);gain.gain.exponentialRampToValueAtTime(.001,start+delay+.18);oscillators.add(oscillator);oscillator.onended=()=>oscillators.delete(oscillator);oscillator.start(start+delay);oscillator.stop(start+delay+.2);}
+  const start=audio.currentTime,pattern=soundPatterns[soundSettings.tone];
+  for(const [frequency,delay] of pattern.notes){const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.type=pattern.type;oscillator.connect(gain);gain.connect(masterGain);oscillator.frequency.value=frequency;gain.gain.setValueAtTime(0,start+delay);gain.gain.linearRampToValueAtTime(pattern.peak,start+delay+.025);gain.gain.exponentialRampToValueAtTime(.001,start+delay+pattern.length-.02);oscillators.add(oscillator);oscillator.onended=()=>oscillators.delete(oscillator);oscillator.start(start+delay);oscillator.stop(start+delay+pattern.length);}
 }
 function sound(duration=0,key,boss){
   pulse();lastPulse=Date.now();if(!duration)return;ringing.set(key,{until:Date.now()+duration,boss});if(key==='test')render();ringUI();
   if(!ringTimer)ringTimer=setInterval(()=>{for(const [key,entry] of ringing)if(Date.now()>=entry.until)stopSound(key);if(!enabled)stopSound();else if(ringing.size && Date.now()-lastPulse>=3000){pulse();lastPulse=Date.now();}},1000);
 }
-async function activateAudio(){audio ||= new AudioContext();await audio.resume();audioStatus();}
+async function activateAudio(){if(!audio){audio=new AudioContext();masterGain=audio.createGain();masterGain.connect(audio.destination);masterGain.gain.setValueAtTime(soundSettings.volume/100,audio.currentTime);}await audio.resume();audioStatus();}
+function soundSettingsUI(){
+  $('alarm-tone').value=soundSettings.tone;$('alarm-volume').value=soundSettings.volume;$('alarm-volume-value').textContent=soundSettings.volume+'%';
+  if(masterGain)masterGain.gain.setValueAtTime(soundSettings.volume/100,audio.currentTime);
+}
+function saveSoundSettings(){soundSettingsUI();try{localStorage.setItem('guild-alarm-sound-v1',JSON.stringify(soundSettings));$('alarm-preferences-status').textContent='이 브라우저에 저장되었습니다.';}catch{$('alarm-preferences-status').textContent='브라우저 저장이 제한되어 이번 접속에만 적용됩니다.';}}
+$('alarm-preferences').addEventListener('click',()=>{soundSettingsUI();$('alarm-preferences-status').textContent='';$('alarm-preferences-dialog').showModal();});
+$('alarm-tone').addEventListener('change',event=>{soundSettings.tone=event.target.value;saveSoundSettings();});
+$('alarm-volume').addEventListener('input',event=>{soundSettings.volume=Number(event.target.value);saveSoundSettings();});
+$('alarm-sound-reset').addEventListener('click',()=>{soundSettings={...soundDefaults};saveSoundSettings();});
+$('alarm-sound-preview').addEventListener('click',async()=>{if(!enabled){$('alarm-preferences-status').textContent='알람 수신이 Off입니다. On으로 켠 뒤 미리듣기를 눌러주세요.';return;}try{await activateAudio();pulse();}catch{$('alarm-preferences-status').textContent='브라우저에서 소리를 허용해주세요.';}});
 function audioStatus(){
   $('alarm-audio-status').replaceChildren();
 }

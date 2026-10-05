@@ -5,13 +5,13 @@
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css?v=20261005-38">
-  <link rel="stylesheet" href="alarms.css?v=20261005-46">
+  <link rel="stylesheet" href="alarms.css?v=20261005-47">
   <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261005-42" defer></script>
   <script src="admin-statistics.js?v=20261005-36" defer></script>
   <script type="module" src="collection-calculator.js?v=20261004-23"></script>
   <script type="module" src="skill-calculator.js?v=20261005-31"></script>
   <script src="visitors.js?v=20261004-26" defer></script>
-  <script type="module" src="alarms.js?v=20261005-46"></script>
+  <script type="module" src="alarms.js?v=20261005-47"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -27,7 +27,7 @@
       <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능</span></button>
       <button data-tab="alarms"><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
-    <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button></div><div class="visitor-counter"><i data-lucide="footprints"></i><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
+    <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><i data-lucide="footprints"></i><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
   </aside>
   <div class="workspace">
     <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong></div></header>
@@ -83,7 +83,18 @@
         </div>
         <p id="alarm-status" role="status"></p><p id="alarm-audio-status" role="status"></p>
         <div class="alarm-list-heading"><span>알람 이름</span><span>출현 시각 / 남은 시간</span><span>등록자</span><span>알림 상태</span></div><div id="alarm-list"></div>
-        <section class="alarm-help"><h2>알람 이용 가이드</h2><p>게임의 콘텐츠 현황판 → 보스 현황판을 스크린샷으로 찍어 클립보드에 복사해주세요.</p><p>스크린샷 붙여넣기 → 미리보기 확인 → 확인 → OCR 인식 결과 확인 후 등록</p><p>사진을 다시 찍었다면 팝업의 ‘현재 스크린샷으로 갱신’을 눌러주세요. 남은 시간은 사진을 불러온 시각을 기준으로 계산합니다.</p><p>수동 등록은 알람 이름을 선택하고 남은 시간을 입력한 뒤 등록을 누르면 됩니다. 같은 이름이 이미 등록되어 있으면 덮어쓰기를 확인합니다.</p><p>테스트를 누르면 소리와 토스트를 확인할 수 있습니다. 다시 누르면 중단되며, 테스트 알람은 서버에 저장되지 않습니다.</p><p>알림 중인 행의 중단 버튼 또는 토스트를 누르면 해당 알람 소리가 멈춥니다. 왼쪽 알람 수신을 Off로 바꾸면 울리던 소리가 모두 꺼집니다.</p><p>등록된 알람은 길드원 모두에게 공유됩니다. 출현 3분 전에 1분간 알리며, 심연의 틈은 매일 00:00 · 12:00 · 18:00에 반복됩니다. 사이트를 닫거나 PC가 절전 상태이면 소리가 울리지 않습니다.</p></section>
+        <section class="alarm-help">
+          <h2>알람 이용 가이드</h2>
+          <p>게임의 콘텐츠 현황판 → 보스 현황판을 스크린샷으로 찍어 클립보드에 복사해주세요.</p>
+          <img class="alarm-guide-image" src="assets/boss-dashboard-guide.png" alt="보스 이름과 남은 출현 시간이 표시된 게임 보스 현황판 예시" width="937" height="540" loading="lazy" decoding="async">
+          <p>스크린샷 붙여넣기 → 미리보기 확인 → 확인 → OCR 인식 결과 확인 후 등록</p>
+          <p>사진을 다시 찍었다면 팝업의 ‘현재 스크린샷으로 갱신’을 눌러주세요. 남은 시간은 사진을 불러온 시각을 기준으로 계산합니다.</p>
+          <p>수동 등록은 알람 이름을 선택하고 남은 시간을 입력한 뒤 등록을 누르면 됩니다. 같은 이름이 이미 등록되어 있으면 덮어쓰기를 확인합니다.</p>
+          <p>테스트를 누르면 소리와 토스트를 확인할 수 있습니다. 다시 누르면 중단되며, 테스트 알람은 서버에 저장되지 않습니다.</p>
+          <p>알람 수신 옆 설정 아이콘에서 알람음과 볼륨을 변경할 수 있습니다. 설정은 현재 브라우저에만 저장됩니다.</p>
+          <p>알림 중인 행의 중단 버튼 또는 토스트를 누르면 해당 알람 소리가 멈춥니다. 왼쪽 알람 수신을 Off로 바꾸면 울리던 소리가 모두 꺼집니다.</p>
+          <p>등록된 알람은 길드원 모두에게 공유됩니다. 출현 3분 전에 1분간 알리며, 심연의 틈은 매일 00:00 · 12:00 · 18:00에 반복됩니다. 사이트를 닫거나 PC가 절전 상태이면 소리가 울리지 않습니다.</p>
+        </section>
       </section>
       <section id="tools" hidden>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="계산기"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button></div></div>
@@ -160,6 +171,7 @@
         </div>
       </section>
     </main>
+    <dialog id="alarm-preferences-dialog" aria-labelledby="alarm-preferences-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-preferences-title">내 알람 소리</h2><div class="alarm-sound-fields"><label for="alarm-tone">알람음</label><select id="alarm-tone"><option value="chime">차임</option><option value="bell">벨</option><option value="electronic">전자음</option></select><label for="alarm-volume">소리 크기</label><div class="alarm-volume-control"><input id="alarm-volume" type="range" min="0" max="100" step="1" value="70"><output id="alarm-volume-value" for="alarm-volume">70%</output></div></div><p id="alarm-preferences-status" role="status"></p><div class="form-actions"><button id="alarm-sound-preview" type="button" class="secondary-button"><i data-lucide="volume-2"></i>미리듣기</button><button id="alarm-sound-reset" type="button" class="icon-button" title="소리 설정 초기화" aria-label="소리 설정 초기화"><i data-lucide="rotate-ccw"></i></button><form method="dialog"><button class="primary-button">완료</button></form></div></dialog>
     <dialog id="alarm-preview" aria-labelledby="alarm-preview-title"><button id="alarm-preview-close" type="button" class="icon-button alarm-preview-close" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button><h2 id="alarm-preview-title">클립보드 미리보기</h2><p id="alarm-preview-time"></p><div class="alarm-preview-stage"><img id="alarm-preview-image" alt="등록할 보스 현황판 스크린샷" hidden></div><p id="alarm-preview-status" role="status" aria-live="polite"></p><div class="form-actions"><button id="alarm-preview-refresh" type="button" class="secondary-button"><i data-lucide="refresh-cw"></i>현재 스크린샷으로 갱신</button><button id="alarm-preview-confirm" type="button" class="primary-button" disabled>확인</button></div></dialog>
     <dialog id="alarm-review" aria-labelledby="alarm-review-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-review-title">스크린샷 인식 확인</h2><p id="alarm-review-time"></p><div id="alarm-review-rows"></div><p id="alarm-review-status" role="status"></p><div class="form-actions"><button id="alarm-review-register" type="button" class="primary-button">선택한 알람 등록</button></div></dialog>
     <dialog id="alarm-conflicts" aria-labelledby="alarm-conflicts-title"><h2 id="alarm-conflicts-title">기존 알람 덮어쓰기</h2><ul id="alarm-conflict-list"></ul><div class="form-actions"><button id="alarm-conflict-cancel" class="secondary-button" type="button">취소</button><button id="alarm-conflict-confirm" class="primary-button" type="button">덮어쓰기</button></div></dialog>
