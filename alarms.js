@@ -21,6 +21,7 @@ function audioStatus(){
   if(enabled && audio?.state!=='running'){const button=make('button','소리 활성화','secondary-button');button.type='button';button.addEventListener('click',()=>activateAudio().catch(()=>status.textContent='브라우저에서 소리를 허용해주세요.'));status.append(button);}
 }
 function toggleState(){const button=$('alarm-toggle');button.textContent=enabled?'On':'Off';button.setAttribute('aria-checked',String(enabled));button.title=enabled?'알람 수신 끄기':'알람 수신 켜기';audioStatus();}
+for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=>{if(enabled && audio?.state!=='running')activateAudio().catch(()=>{});});
 $('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem('guild-alarm-enabled',String(enabled));}catch{}if(enabled)await activateAudio().catch(()=>{});else {stopSound();$('alarm-toasts').replaceChildren();}toggleState();});
 function toast(title,message,duration=0){
   if(!enabled)return;
