@@ -1,4 +1,4 @@
-const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools'];
+const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'admin'];
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -16,11 +16,11 @@ function switchTab(tab) {
   if (!tabs.includes(tab)) tab = 'rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
-    const active = button.dataset.tab === tab;
+    const active = button.dataset.tab === tab || (tab==='admin' && button.dataset.tab==='notices');
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
   }
-  const label=document.querySelector(`[data-tab="${tab}"]`).textContent.trim();
+  const label=tab==='admin'?'관리자':document.querySelector(`[data-tab="${tab}"]`).textContent.trim();
   document.getElementById('current-view').textContent=label;
   document.title=`${label} | 절대중립`;
   window.scrollTo({top:0,behavior:'instant'});
@@ -29,6 +29,7 @@ function switchTab(tab) {
   else if(tab==='tips')openSharedTip();
   if(tab==='notices' && !noticesLoaded) loadNotices();
   if(tab==='members')requestAnimationFrame(centerMemberToday);
+  if(tab==='admin')window.dispatchEvent(new Event('guild-admin-open'));
   document.querySelectorAll(`#${tab} .board-entry[open]`).forEach(entry=>entry.dispatchEvent(new Event('guild-view')));
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
@@ -226,7 +227,7 @@ function renderNotices(records){
       });actions.append(edit,remove);body.append(actions);
     }
     entry.append(summary,body);target.append(entry);
-  }refreshIcons();
+  }refreshIcons();window.dispatchEvent(new Event('guild-admin-auth'));
 }
 async function loadNotices(){
   if(noticesLoading)return;noticesLoading=true;

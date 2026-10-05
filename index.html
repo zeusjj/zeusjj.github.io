@@ -4,8 +4,9 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261005-35">
-  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261005-35" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261005-36">
+  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261005-36" defer></script>
+  <script src="admin-statistics.js?v=20261005-36" defer></script>
   <script type="module" src="collection-calculator.js?v=20261004-23"></script>
   <script type="module" src="skill-calculator.js?v=20261005-31"></script>
   <script src="visitors.js?v=20261004-26" defer></script>
@@ -41,6 +42,24 @@
         <div class="board-toolbar"><span id="notice-count"></span><button id="refresh-notices" class="icon-button" type="button" aria-label="공지 새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="notices-status" role="status"></p>
         <div class="board-column-head"><span>제목</span><span>작성일</span></div>
         <div id="notices-list" class="notice-list"></div>
+        <a id="open-admin" class="notice-admin-link" href="#admin" title="관리자 페이지" aria-label="관리자 페이지"><i data-lucide="settings"></i></a>
+      </section>
+      <section id="admin" hidden>
+        <div class="page-heading"><div><h1>관리자</h1><p>방문자 통계</p></div><div class="notice-actions"><a class="secondary-button" href="#notices"><i data-lucide="arrow-left"></i>공지사항</a><button id="admin-logout" class="secondary-button" type="button" hidden><i data-lucide="log-out"></i>로그아웃</button></div></div>
+        <form id="admin-login" class="tip-form notice-login"><h2>관리자 로그인</h2><label>비밀번호<input name="password" type="password" autocomplete="current-password" maxlength="200" required></label><div class="form-actions"><span id="admin-login-status" role="status"></span><button class="primary-button" type="submit">로그인</button></div></form>
+        <div id="admin-statistics" hidden>
+          <div class="admin-statistics-toolbar"><span id="admin-statistics-updated"></span><button id="admin-refresh" class="icon-button" type="button" title="통계 새로고침" aria-label="통계 새로고침"><i data-lucide="refresh-cw"></i></button></div>
+          <p id="admin-statistics-status" role="status" aria-live="polite"></p>
+          <div id="admin-statistics-content" hidden>
+            <div id="admin-metrics" class="admin-metrics"></div>
+            <p id="admin-tracking-note" class="admin-tracking-note"></p>
+            <div class="admin-statistics-columns">
+              <section class="admin-statistics-period"><div class="admin-period-heading"><h2>일별 방문자</h2><label>기간<select id="admin-days"><option value="7">최근 7일</option><option value="30" selected>최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option></select></label></div><div class="admin-statistics-table"><table><thead><tr><th scope="col">날짜</th><th scope="col">고유 방문자</th><th scope="col">추이</th></tr></thead><tbody id="admin-daily"></tbody></table></div></section>
+              <section class="admin-statistics-period"><div class="admin-period-heading"><h2>주별 방문자</h2><label>기간<select id="admin-weeks"><option value="4">최근 4주</option><option value="12" selected>최근 12주</option><option value="26">최근 26주</option><option value="52">최근 1년</option></select></label></div><div class="admin-statistics-table"><table><thead><tr><th scope="col">기간</th><th scope="col">고유 방문자</th><th scope="col">방문일 합계</th></tr></thead><tbody id="admin-weekly"></tbody></table></div><p class="admin-period-note">주별 고유 방문자는 같은 브라우저의 재방문을 제외합니다. 방문일 합계는 일별 방문자 수를 더한 값으로, 같은 브라우저도 다른 날짜에는 다시 포함됩니다.</p></section>
+            </div>
+            <p class="admin-period-note">한국시간 05:00에 날짜가 바뀝니다. 한 주는 월요일 05:00부터 다음 월요일 05:00까지입니다. 브라우저·기기가 다르거나 저장 정보를 지우면 별도 방문자로 집계될 수 있습니다.</p>
+          </div>
+        </div>
       </section>
       <section id="members" hidden>
         <div class="page-heading"><div><h1>길드원 참여 현황</h1><p>길드 콘텐츠 참여 기록</p></div><span id="member-count" class="count-label"></span></div>
