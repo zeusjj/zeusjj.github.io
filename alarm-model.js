@@ -12,6 +12,10 @@ export function nextWeekly(preset,at){
   const local=new Date(at+KST),midnight=Date.UTC(local.getUTCFullYear(),local.getUTCMonth(),local.getUTCDate())-KST;
   return Math.min(...preset.days.map(day=>{let target=midnight+((day-local.getUTCDay()+7)%7)*86400000+preset.hour*60*MINUTE; if(target<=at)target+=7*86400000;return target;}));
 }
+export function weeklyTime(text,at){
+  const times=[...text.replace(/\s/g,'').matchAll(/([일월화수목금토])요일(\d{1,2})시(?:(\d{1,2})분)?/g)].filter(match=>Number(match[2])<24 && Number(match[3] || 0)<60).map(match=>nextWeekly({days:['일월화수목금토'.indexOf(match[1])],hour:Number(match[2])+Number(match[3] || 0)/60},at));
+  return times.length?Math.min(...times):null;
+}
 export function fixedOccurrences(at){
   const local=new Date(at+KST),midnight=Date.UTC(local.getUTCFullYear(),local.getUTCMonth(),local.getUTCDate())-KST;
   return [-1,0,1].flatMap(day=>[0,12,18].map(hour=>midnight+day*86400000+hour*60*MINUTE));
