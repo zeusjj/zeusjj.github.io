@@ -17,12 +17,13 @@ export function fixedOccurrences(at){
   return [-1,0,1].flatMap(day=>[0,12,18].map(hour=>midnight+day*86400000+hour*60*MINUTE));
 }
 export function isDue(spawn,at){return at>=spawn-LEAD && at<spawn-LEAD+DURATION;}
-function normalized(text){return text.replace(/[^가-힣a-z0-9]/gi,'').toLowerCase();}
+function normalized(text){return text.replace(/[^가-힣0-9]/g,'');}
 function distance(a,b){let row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const next=[i];for(let j=1;j<=b.length;j++)next[j]=Math.min(next[j-1]+1,row[j]+1,row[j-1]+(a[i-1]!==b[j-1]));row=next;}return row[b.length];}
 export function matchBoss(text,presets){
   const title=normalized(text.replace(/Lv\.?\s*\d+/gi,'').replace(/^[^가-힣]*/,''));
   const exact=presets.filter(p=>title.includes(normalized(p.name))).sort((a,b)=>b.name.length-a.name.length);
-  if(exact.length)return exact[0];
-  const ranked=presets.map(p=>({preset:p,score:distance(title,normalized(p.name))/Math.max(title.length,normalized(p.name).length)})).sort((a,b)=>a.score-b.score);
-  return ranked[0]?.score<=.32 && ranked[1]?.score-ranked[0].score>.08?ranked[0].preset:null;
+  if(exact.length)return {...exact[0],ocrSimilarity:1};
+  if(title.length<2)return null;
+  const ranked=presets.map(p=>{const name=normalized(p.name),a=title.normalize('NFD'),b=name.normalize('NFD');return {preset:p,score:.65*distance(title,name)/Math.max(title.length,name.length)+.35*distance(a,b)/Math.max(a.length,b.length)};}).sort((a,b)=>a.score-b.score);
+  return ranked[0]?.score<=.36 && ranked[1]?.score-ranked[0].score>.08?{...ranked[0].preset,ocrSimilarity:1-ranked[0].score}:null;
 }

@@ -1,33 +1,46 @@
-import {MINUTE,LEAD,DURATION,remainingTime,nextWeekly,fixedOccurrences,isDue,matchBoss} from './alarm-model.js';
+import {MINUTE,LEAD,DURATION,remainingTime,nextWeekly,fixedOccurrences,isDue,matchBoss} from './alarm-model.js?v=20261005-45';
 const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/alarms';
 const $=id=>document.getElementById(id);
 const make=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const format=at=>new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(at);
-let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=false,audio,ringTimer,ringUntil=0,worker,ocrBusy=false,submitting=false;
+let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=true,audio,ringTimer,lastPulse=0,worker,ocrBusy=false,submitting=false;
+const ringing=new Map(),oscillators=new Set();
 const handled=new Set();let versions=new Map();
-try{enabled=localStorage.getItem('guild-alarm-enabled')==='true';$('alarm-author').value=localStorage.getItem('guild-alarm-author') || '';}catch{}
+try{enabled=localStorage.getItem('guild-alarm-enabled')!=='false';$('alarm-author').value=localStorage.getItem('guild-alarm-author') || '';}catch{}
 const now=()=>Date.now()+offset;
 function icons(){window.lucide?.createIcons();}
-function stopSound(){clearInterval(ringTimer);ringTimer=null;ringUntil=0;}
+function ringUI(){
+  for(const row of document.querySelectorAll('[data-alarm-key]')){const active=ringing.has(row.dataset.alarmKey);row.classList.toggle('is-ringing',active);row.querySelector('.alarm-ring-status').textContent=active?'알림 중':'대기';row.querySelector('.alarm-stop').disabled=!active;}
+  const testing=ringing.has('test');$('alarm-test').setAttribute('aria-pressed',String(testing));$('alarm-test').querySelector('span').textContent=testing?'테스트 중단':'테스트';
+}
+function stopSound(key){
+  if(key===undefined)ringing.clear();else ringing.delete(key);
+  for(const toast of document.querySelectorAll('.alarm-toast[data-ring-key]'))if(key===undefined || toast.dataset.ringKey===key)toast.remove();
+  if(!ringing.size){clearInterval(ringTimer);ringTimer=null;for(const oscillator of oscillators){try{oscillator.stop();}catch{}}oscillators.clear();}
+  if(key==='test' || key===undefined)document.querySelector('[data-alarm-key=test]')?.remove();ringUI();
+}
 function pulse(){
   if(!enabled || audio?.state!=='running')return;
   const start=audio.currentTime;
-  for(const [frequency,delay] of [[660,0],[880,.2],[660,.4]]){const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.connect(gain);gain.connect(audio.destination);oscillator.frequency.value=frequency;gain.gain.setValueAtTime(0,start+delay);gain.gain.linearRampToValueAtTime(.08,start+delay+.025);gain.gain.exponentialRampToValueAtTime(.001,start+delay+.18);oscillator.start(start+delay);oscillator.stop(start+delay+.2);}
+  for(const [frequency,delay] of [[660,0],[880,.2],[660,.4]]){const oscillator=audio.createOscillator(),gain=audio.createGain();oscillator.connect(gain);gain.connect(audio.destination);oscillator.frequency.value=frequency;gain.gain.setValueAtTime(0,start+delay);gain.gain.linearRampToValueAtTime(.08,start+delay+.025);gain.gain.exponentialRampToValueAtTime(.001,start+delay+.18);oscillators.add(oscillator);oscillator.onended=()=>oscillators.delete(oscillator);oscillator.start(start+delay);oscillator.stop(start+delay+.2);}
 }
-function sound(duration=0){pulse();if(!duration || audio?.state!=='running')return;ringUntil=Math.max(ringUntil,Date.now()+duration);if(!ringTimer)ringTimer=setInterval(()=>{if(Date.now()>=ringUntil || !enabled)stopSound();else pulse();},3000);}
+function sound(duration=0,key,boss){
+  pulse();lastPulse=Date.now();if(!duration)return;ringing.set(key,{until:Date.now()+duration,boss});if(key==='test')render();ringUI();
+  if(!ringTimer)ringTimer=setInterval(()=>{for(const [key,entry] of ringing)if(Date.now()>=entry.until)stopSound(key);if(!enabled)stopSound();else if(ringing.size && Date.now()-lastPulse>=3000){pulse();lastPulse=Date.now();}},1000);
+}
 async function activateAudio(){audio ||= new AudioContext();await audio.resume();audioStatus();}
 function audioStatus(){
-  const status=$('alarm-audio-status');status.replaceChildren();
-  if(enabled && audio?.state!=='running'){const button=make('button','소리 활성화','secondary-button');button.type='button';button.addEventListener('click',()=>activateAudio().catch(()=>status.textContent='브라우저에서 소리를 허용해주세요.'));status.append(button);}
+  $('alarm-audio-status').replaceChildren();
 }
 function toggleState(){const button=$('alarm-toggle');button.textContent=enabled?'On':'Off';button.setAttribute('aria-checked',String(enabled));button.title=enabled?'알람 수신 끄기':'알람 수신 켜기';audioStatus();}
 for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=>{if(enabled && audio?.state!=='running')activateAudio().catch(()=>{});});
 $('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem('guild-alarm-enabled',String(enabled));}catch{}if(enabled)await activateAudio().catch(()=>{});else {stopSound();$('alarm-toasts').replaceChildren();}toggleState();});
-function toast(title,message,duration=0){
+function toast(title,message,duration=0,key,boss){
   if(!enabled)return;
-  const node=make('div',undefined,'alarm-toast'),heading=make('strong',title),body=make('p',message),dismiss=make('button',undefined,'icon-button');dismiss.type='button';dismiss.title='알림 닫기';dismiss.setAttribute('aria-label','알림 닫기');dismiss.append(make('span','×'));dismiss.addEventListener('click',()=>node.remove());node.append(heading,body,dismiss);
-  if(duration){const mute=make('button','소리 끄기','secondary-button');mute.addEventListener('click',stopSound);node.append(mute);}
-  $('alarm-toasts').append(node);while($('alarm-toasts').children.length>4)$('alarm-toasts').firstChild.remove();setTimeout(()=>node.remove(),Math.max(15000,duration));sound(duration);
+  const node=make('div',undefined,'alarm-toast'),heading=make('strong',title),body=make('p',message),dismiss=make('button',undefined,'icon-button');dismiss.type='button';dismiss.title='알림 닫기';dismiss.setAttribute('aria-label','알림 닫기');dismiss.append(make('span','×'));node.append(heading,body,dismiss);
+  const end=()=>{if(key!==undefined)stopSound(key);node.remove();};node.addEventListener('click',end);if(key!==undefined)node.dataset.ringKey=key;
+  if(duration){node.tabIndex=0;node.setAttribute('role','button');node.setAttribute('aria-label',title+' 중단');node.addEventListener('keydown',event=>{if(event.target===node && ['Enter',' '].includes(event.key)){event.preventDefault();end();}});const mute=make('button','중단','secondary-button');node.append(mute);}
+  $('alarm-toasts').append(node);while($('alarm-toasts').children.length>4)$('alarm-toasts').firstChild.remove();setTimeout(()=>node.remove(),Math.max(15000,duration));sound(duration,key,boss);
 }
 function claim(key){
   if(handled.has(key))return false;handled.add(key);
@@ -37,19 +50,22 @@ function claim(key){
 function tick(){
   const at=now();for(const node of document.querySelectorAll('[data-spawn]')){const left=Math.max(0,Number(node.dataset.spawn)-at);node.textContent=left?`${Math.floor(left/3600000)}시간 ${Math.floor(left/MINUTE)%60}분 ${Math.floor(left/1000)%60}초`:'출현';}
   if(!enabled)return;
-  for(const record of records)if(isDue(record.spawn_at,at) && claim(`shared:${record.id}:${record.updated_at}`))toast(record.boss+' 출현 3분 전',format(record.spawn_at),Math.max(0,record.spawn_at-LEAD+DURATION-at));
-  for(const spawn of fixedOccurrences(at))if(isDue(spawn,at) && claim('fixed:'+spawn))toast('심연의 틈 출현 3분 전',format(spawn),Math.max(0,spawn-LEAD+DURATION-at));
+  for(const record of records)if(isDue(record.spawn_at,at) && claim(`shared:${record.id}:${record.updated_at}`))toast(record.boss+' 출현 3분 전',format(record.spawn_at),Math.max(0,record.spawn_at-LEAD+DURATION-at),record.id,record.boss);
+  for(const spawn of fixedOccurrences(at))if(isDue(spawn,at) && claim('fixed:'+spawn))toast('심연의 틈 출현 3분 전',format(spawn),Math.max(0,spawn-LEAD+DURATION-at),'fixed','심연의 틈');
 }
 function render(){
   const list=$('alarm-list');list.replaceChildren();const at=now(),fixed=fixedOccurrences(at).filter(time=>time>at).sort((a,b)=>a-b)[0];
-  for(const record of [...records.filter(r=>r.spawn_at>at),{boss:'심연의 틈',spawn_at:fixed,author:'매일 00:00 · 12:00 · 18:00',fixed:true}].sort((a,b)=>a.spawn_at-b.spawn_at)){
-    const row=make('div',undefined,'alarm-row'),name=make('strong',record.boss),time=make('div'),author=make('span',record.author,'alarm-author');time.append(make('time',format(record.spawn_at)));const countdown=make('small');countdown.dataset.spawn=record.spawn_at;time.append(countdown);if(record.fixed)name.append(make('small','고정','alarm-fixed'));row.append(name,time,author);list.append(row);
-  }tick();
+  const entries=[...records.filter(r=>r.spawn_at>at),{id:'fixed',boss:'심연의 틈',spawn_at:fixed,author:'매일 00:00 · 12:00 · 18:00',fixed:true}];if(ringing.has('test'))entries.unshift({id:'test',boss:ringing.get('test').boss,spawn_at:at,author:'테스트 · 서버 미등록',test:true});
+  for(const record of entries.sort((a,b)=>a.spawn_at-b.spawn_at)){
+    const row=make('div',undefined,'alarm-row'),name=make('strong',record.boss),time=make('div'),author=make('span',record.author,'alarm-author');row.dataset.alarmKey=record.id;
+    if(record.test)time.append(make('span','테스트 알림'));else {time.append(make('time',format(record.spawn_at)));const countdown=make('small');countdown.dataset.spawn=record.spawn_at;time.append(countdown);}
+    if(record.fixed)name.append(make('small','고정','alarm-fixed'));const controls=make('div',undefined,'alarm-ring-controls'),status=make('span','대기','alarm-ring-status'),stop=make('button',undefined,'secondary-button alarm-stop');stop.type='button';stop.title=record.boss+' 알림 중단';const icon=make('i');icon.dataset.lucide='volume-x';stop.append(icon,make('span','중단'));stop.addEventListener('click',()=>stopSound(record.id));controls.append(status,stop);row.append(name,time,author,controls);list.append(row);
+  }tick();ringUI();icons();
 }
 async function refresh(){
   if(polling)return;polling=true;const start=Date.now();
   try{const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('공유 서버 연결 실패');const data=await response.json();if(!Array.isArray(data.alarms) || !Number.isFinite(data.serverNow))throw new Error('알람 응답 오류');offset=data.serverNow-(start+Date.now())/2;
-    const next=new Map(data.alarms.map(record=>[record.id,record.updated_at]));if(loaded)for(const record of data.alarms)if(versions.get(record.id)!==record.updated_at)toast(record.boss+' 알람 '+(versions.has(record.id)?'변경':'등록'),`${record.author} · ${format(record.spawn_at)}`);
+    const next=new Map(data.alarms.map(record=>[record.id,record.updated_at]));if(loaded)for(const record of data.alarms)if(versions.get(record.id)!==record.updated_at)toast(record.boss+' 알람 '+(versions.has(record.id)?'변경':'등록'),`${record.author} · ${format(record.spawn_at)}`,0,record.id);
     records=data.alarms;versions=next;loaded=true;$('alarm-status').textContent='';render();
   }catch(error){$('alarm-status').textContent='공유 알람 연결을 확인하지 못했습니다. 자동으로 다시 연결합니다.';if(!loaded)render();}finally{polling=false;}
 }
@@ -77,13 +93,15 @@ async function register(alarms,status){
   finally{submitting=false;document.querySelectorAll('#alarm-manual button,#alarm-review-register').forEach(b=>b.disabled=false);}
 }
 $('alarm-manual').addEventListener('submit',async event=>{event.preventDefault();const source_at=Math.round(now()),minutes=Number($('alarm-hours').value)*60+Number($('alarm-minutes').value);await register([{boss:$('alarm-boss').value,source_at,spawn_at:source_at+minutes*MINUTE}],$('alarm-status'));});
+$('alarm-test').addEventListener('click',async()=>{if(ringing.has('test')){stopSound('test');return;}if(!enabled){$('alarm-status').textContent='알람 수신을 On으로 켠 뒤 테스트해주세요.';return;}try{await activateAudio();if(audio.state!=='running')throw new Error();toast('알람 테스트',$('alarm-boss').value+' · 테스트 알림 · 실제로 등록되지 않습니다.',DURATION,'test',$('alarm-boss').value);}catch{$('alarm-status').textContent='브라우저에서 소리를 허용한 뒤 다시 테스트해주세요.';}});
 function optionList(select,blank=false){if(blank)select.append(new Option('이름 확인 필요',''));for(const preset of presets.filter(p=>!p.hours))select.append(new Option(preset.name,preset.name));}
 let reviewRows=[];
 function review(candidates,source_at){
+  if($('alarm-preview').open)$('alarm-preview').close();
   reviewRows=[];$('alarm-review-rows').replaceChildren();$('alarm-review-time').textContent=`붙여넣은 시각: ${format(source_at)} · 남은 시간의 기준 시각`;
   $('alarm-review-status').textContent='인식된 이름과 시간을 확인해주세요. 심연의 틈은 자동으로 제외됩니다.';
   for(const candidate of candidates){
-    const row=make('div',undefined,'alarm-review-row'),checkbox=make('input'),select=make('select'),hours=make('input'),minutes=make('input'),note=make('small',candidate.text),spawn=make('small');checkbox.type='checkbox';checkbox.checked=Boolean(candidate.boss && candidate.duration!==null);checkbox.setAttribute('aria-label','이 알람 등록');optionList(select,true);select.value=candidate.boss || '';select.setAttribute('aria-label','알람 이름');
+    const row=make('div',undefined,'alarm-review-row'),checkbox=make('input'),select=make('select'),hours=make('input'),minutes=make('input'),note=make('small',candidate.text+(candidate.similarity<1?` · 유사도 ${Math.round(candidate.similarity*100)}%`:'')),spawn=make('small');checkbox.type='checkbox';checkbox.checked=Boolean(candidate.boss && candidate.duration!==null);checkbox.setAttribute('aria-label','이 알람 등록');optionList(select,true);select.value=candidate.boss || '';select.setAttribute('aria-label','알람 이름');
     for(const [input,label,max,value] of [[hours,'남은 시간',744,Math.floor((candidate.duration || 0)/3600000)],[minutes,'남은 분',59,Math.floor((candidate.duration || 0)/MINUTE)%60]]){input.type='number';input.min=0;input.max=max;input.step=1;input.value=value;input.setAttribute('aria-label',label);}
     const hourLabel=make('label'),minuteLabel=make('label');hourLabel.append(hours,make('span','시간'));minuteLabel.append(minutes,make('span','분'));const item={checkbox,select,hours,minutes,source_at};reviewRows.push(item);
     const update=()=>spawn.textContent='출현 '+format(source_at+(Number(hours.value)*60+Number(minutes.value))*MINUTE);hours.addEventListener('input',update);minutes.addEventListener('input',update);update();row.append(checkbox,select,hourLabel,minuteLabel,note,spawn);$('alarm-review-rows').append(row);
@@ -97,13 +115,13 @@ async function getWorker(){
   if(worker)return worker;
   if(!window.Tesseract)await new Promise((resolve,reject)=>{const script=make('script');script.src='vendor/ocr/tesseract.min.js';script.onload=resolve;script.onerror=()=>{script.remove();reject(new Error('OCR 도구를 불러오지 못했습니다.'));};document.head.append(script);});
   const directory=new URL('vendor/ocr/',location.href).href;
-  worker=await window.Tesseract.createWorker('kor+eng',1,{workerPath:directory+'worker.min.js',corePath:directory,langPath:directory,logger:progress=>{$('alarm-ocr-status').textContent=progress.status==='recognizing text'?`문자 인식 ${Math.round((progress.progress || 0)*100)}%`:'OCR 준비 중…';}});
+  worker=await window.Tesseract.createWorker('kor+eng',1,{workerPath:directory+'worker.min.js',corePath:directory,langPath:directory,logger:progress=>{const message=progress.status==='recognizing text'?`OCR 읽는 중… ${Math.round((progress.progress || 0)*100)}%`:'OCR 로딩 중…';$('alarm-ocr-status').textContent=message;$('alarm-preview-status').textContent=message;}});
   await worker.setParameters({tessedit_pageseg_mode:'11',preserve_interword_spaces:'1'});return worker;
 }
 async function scan(file,source_at){
   if(ocrBusy || submitting){$('alarm-ocr-status').textContent='진행 중인 인식이나 등록을 먼저 완료해주세요.';return;}
   if(!file || file.size>15*1024*1024){$('alarm-ocr-status').textContent='15MB 이하 사진을 선택해주세요.';return;}
-  ocrBusy=true;$('alarm-paste').disabled=true;$('alarm-file').disabled=true;
+  ocrBusy=true;$('alarm-paste').disabled=true;$('alarm-file').disabled=true;$('alarm-preview-confirm').disabled=true;$('alarm-preview-refresh').disabled=true;$('alarm-preview-status').textContent='OCR 읽는 중…';$('alarm-preview').setAttribute('aria-busy','true');
   let bitmap;
   try{bitmap=await createImageBitmap(file);if(bitmap.width<200 || bitmap.width*bitmap.height>20000000)throw new Error('사진 크기를 확인해주세요.');const columns=bitmap.width/bitmap.height>2.7?2:3,cardWidth=bitmap.width/columns,rows=Math.max(1,Math.round(bitmap.height/(cardWidth*.57))),cardHeight=bitmap.height/rows,scale=Math.min(2,3000/Math.max(bitmap.width,bitmap.height));
     const canvas=make('canvas');canvas.width=bitmap.width*scale;canvas.height=bitmap.height*scale;const context=canvas.getContext('2d',{willReadFrequently:true});context.fillStyle='#fff';context.fillRect(0,0,canvas.width,canvas.height);
@@ -125,15 +143,32 @@ async function scan(file,source_at){
       if(!preset)for(const threshold of [35,70]){const title=await retryTitle(index,threshold);lines.push('이름 재인식: '+title);preset=matchBoss(title,presets);if(preset)break;}
       if(preset?.hours)continue;let timer=lines.map(remainingTime).find(value=>value!==null);
       if(timer===undefined && !preset?.days){const crop=make('canvas'),left=(index%columns)*cardWidth,top=Math.floor(index/columns)*cardHeight+cardHeight*.81;crop.width=Math.ceil(cardWidth*.65*3)+20;crop.height=Math.ceil(cardHeight*.18*3)+20;const ctx=crop.getContext('2d',{willReadFrequently:true});ctx.fillStyle='#fff';ctx.fillRect(0,0,crop.width,crop.height);ctx.drawImage(bitmap,left+4,top,cardWidth*.65,cardHeight*.18,10,10,cardWidth*.65*3,cardHeight*.18*3);const image=ctx.getImageData(10,10,crop.width-20,crop.height-20);for(let i=0;i<image.data.length;i+=4){const l=image.data[i]*.299+image.data[i+1]*.587+image.data[i+2]*.114;image.data[i]=image.data[i+1]=image.data[i+2]=l>55?0:255;}ctx.putImageData(image,10,10);await engine.setParameters({tessedit_pageseg_mode:'7'});const retry=await engine.recognize(crop);lines.push('시간 재인식: '+retry.data.text.trim());timer=remainingTime(retry.data.text);await engine.setParameters({tessedit_pageseg_mode:'11'});}
-      const text=lines.join(' / '),duration=timer ?? (preset?.days?nextWeekly(preset,source_at)-source_at:null);candidates.push({boss:preset?.name,text,duration});}
+      const text=lines.join(' / '),duration=timer ?? (preset?.days?nextWeekly(preset,source_at)-source_at:null);candidates.push({boss:preset?.name,text,duration,similarity:preset?.ocrSimilarity});}
     $('alarm-ocr-status').textContent=`${candidates.length}개 인식 · 확인 후 등록`;review(candidates,source_at);
-  }catch(error){$('alarm-ocr-status').textContent=error.message || '사진 인식에 실패했습니다.';if(worker){await worker.terminate().catch(()=>{});worker=null;}}
-  finally{bitmap?.close();ocrBusy=false;$('alarm-paste').disabled=false;$('alarm-file').disabled=false;}
+  }catch(error){$('alarm-ocr-status').textContent=error.message || '사진 인식에 실패했습니다.';$('alarm-preview-status').textContent=$('alarm-ocr-status').textContent;if(worker){await worker.terminate().catch(()=>{});worker=null;}}
+  finally{bitmap?.close();ocrBusy=false;$('alarm-paste').disabled=false;$('alarm-file').disabled=false;$('alarm-preview-refresh').disabled=false;$('alarm-preview-confirm').disabled=!previewFile;$('alarm-preview').removeAttribute('aria-busy');}
 }
-$('alarm-file').addEventListener('change',event=>{const source=Math.round(now());scan(event.target.files[0],source);event.target.value='';});
-document.addEventListener('paste',event=>{if($('alarms').hidden)return;const file=[...event.clipboardData.items].find(item=>item.type.startsWith('image/'))?.getAsFile();if(file){event.preventDefault();scan(file,Math.round(now()));}});
-$('alarm-paste').addEventListener('click',async()=>{const source=Math.round(now());try{const items=await navigator.clipboard.read();for(const item of items){const type=item.types.find(type=>type.startsWith('image/'));if(type){await scan(await item.getType(type),source);return;}}throw new Error('클립보드에 사진이 없습니다.');}catch(error){$('alarm-ocr-status').textContent='사진을 복사한 뒤 이 화면에서 Ctrl+V로 붙여넣거나 사진 선택을 이용해주세요.';}});
+let previewFile=null,previewSource=0,previewURL='',previewGeneration=0;
+function preview(file,source){
+  if(ocrBusy || submitting || $('alarm-review').open)return;
+  if(!file || !file.type.startsWith('image/') || file.size>15*1024*1024){$('alarm-preview-status').textContent='15MB 이하 사진을 선택해주세요.';return;}
+  if(previewURL)URL.revokeObjectURL(previewURL);previewFile=file;previewSource=source;previewURL=URL.createObjectURL(file);$('alarm-preview-image').src=previewURL;$('alarm-preview-image').hidden=false;$('alarm-preview-confirm').disabled=false;$('alarm-preview-refresh').disabled=false;$('alarm-preview-time').textContent='사진 기준 시각: '+format(source);$('alarm-preview-status').textContent='';if(!$('alarm-preview').open)$('alarm-preview').showModal();
+}
+async function readClipboard(){
+  const source=Math.round(now()),generation=++previewGeneration;$('alarm-preview-refresh').disabled=true;$('alarm-preview-status').textContent='클립보드 사진 불러오는 중…';
+  try{const items=await navigator.clipboard.read();for(const item of items){const type=item.types.find(type=>type.startsWith('image/'));if(type){const file=await item.getType(type);if(generation===previewGeneration && $('alarm-preview').open)preview(file,source);return;}}throw new Error('클립보드에 사진이 없습니다.');}
+  catch{$('alarm-preview-status').textContent='사진을 복사한 뒤 이 팝업에서 Ctrl+V로 붙여넣어주세요.';}
+  finally{if(generation===previewGeneration)$('alarm-preview-refresh').disabled=false;}
+}
+$('alarm-preview').addEventListener('cancel',event=>{if(ocrBusy)event.preventDefault();});
+$('alarm-preview').addEventListener('close',()=>{previewGeneration++;if(previewURL)URL.revokeObjectURL(previewURL);previewURL='';previewFile=null;$('alarm-preview-image').removeAttribute('src');$('alarm-preview-image').hidden=true;});
+$('alarm-preview-close').addEventListener('click',()=>{if(!ocrBusy)$('alarm-preview').close();});
+$('alarm-preview-refresh').addEventListener('click',readClipboard);
+$('alarm-preview-confirm').addEventListener('click',()=>{if(previewFile)scan(previewFile,previewSource);});
+$('alarm-file').addEventListener('change',event=>{preview(event.target.files[0],Math.round(now()));event.target.value='';});
+document.addEventListener('paste',event=>{if($('alarms').hidden || ocrBusy || submitting)return;const file=[...event.clipboardData.items].find(item=>item.type.startsWith('image/'))?.getAsFile();if(file){event.preventDefault();previewGeneration++;preview(file,Math.round(now()));}});
+$('alarm-paste').addEventListener('click',()=>{if(ocrBusy || submitting)return;$('alarm-preview-confirm').disabled=true;$('alarm-preview-time').textContent='';$('alarm-preview').showModal();readClipboard();});
 try{const response=await fetch('boss-presets.json');if(!response.ok)throw new Error();presets=await response.json();optionList($('alarm-boss'));}catch{$('alarm-status').textContent='알람 이름 목록을 불러오지 못했습니다. 새로고침해주세요.';$('alarm-manual').querySelector('button').disabled=true;}
 toggleState();render();refresh();setInterval(refresh,15000);setInterval(()=>{tick();if(records.some(record=>record.spawn_at<=now()))render();},1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){refresh();render();audioStatus();}});
-window.addEventListener('pagehide',stopSound);
+window.addEventListener('pagehide',()=>stopSound());
