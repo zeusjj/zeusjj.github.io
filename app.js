@@ -4,6 +4,7 @@ let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
 let noticesLoading=false;
 let memberData=null,memberCentered=false;
+let memberSort=null;
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -434,7 +435,7 @@ const classWeaponPaths={
   greatsword:['M12 2 8 7v8h8V7z','M6 15h12M10.5 15v6h3v-6M9 22h6','M12 7v8'],
   bow:['M5 2c16 4 16 16 0 20','M5 2l7 10-7 10','M3 12h18m-3-3 3 3-3 3'],
   warhammer:['M5 3h14v7H5z','M10.5 10v11h3V10','M8 3v7m8-7v7'],
-  mace:['M12 1l2 2h3v2l2 2-2 2v2h-3l-2 2-2-2H7V9L5 7l2-2V3h3z','M10.5 12v9h3v-9M9 22h6','M12 5v4m-2-2h4']
+  mace:['M2.5 3.5l2.5-1 6 18-2.5 1z','M5 4c2-4 7-3 8 0s-1 5 2 6 4 1 3 3','M18 12l1.5 2 2.5-.5-.5 2.5 2 1.5-2 1.5.5 2.5-2.5-.5-1.5 2-1.5-2-2.5.5.5-2.5-2-1.5 2-1.5-.5-2.5 2.5.5z']
 };
 function classIcon(name){
   const symbol=classSymbols[name];if(!symbol)return element('span',name);
@@ -464,11 +465,25 @@ function centerMemberToday(){
   const rect=target.getBoundingClientRect();scroll.scrollLeft+=rect.left+rect.width/2-(box.left+fixed+(scroll.clientWidth-fixed)/2);memberCentered=true;
 }
 function renderMembers(data, query='') {
+  const source=data;
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
   data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:data.members.map(row=>order.map(index=>row[index]))};
   memberData=data;
   const nameIndex=data.headers.indexOf('닉네임');
   const rows=data.members.filter(row=>String(row[nameIndex]).toLowerCase().includes(query.toLowerCase()));
+  if(memberSort){
+    const index=data.headers.indexOf(memberSort.title),direction=memberSort.direction==='descending'?-1:1;
+    const rank=value=>{const text=String(value??'').trim().toUpperCase();return text==='O'||text==='ㅇ'?2:text==='X'?1:0;};
+    const isStatus=index===data.headers.indexOf('단톡') || (index>=4 && data.members.every(row=>['O','ㅇ','X','-',''].includes(String(row[index]??'').trim().toUpperCase())));
+    const isNumeric=index===0 || (index>=4 && !isStatus);
+    rows.sort((a,b)=>{
+      let compared;
+      if(isStatus)compared=rank(a[index])-rank(b[index]);
+      else if(isNumeric){const number=value=>value===null || String(value).trim()==='' || value==='-'?-Infinity:Number(String(value).replaceAll(',',''));const left=number(a[index]),right=number(b[index]);compared=left===right?0:left<right?-1:1;}
+      else compared=String(a[index]??'').localeCompare(String(b[index]??''),'ko',{numeric:true});
+      return compared*direction || Number(a[0])-Number(b[0]);
+    });
+  }
   const table=document.getElementById('member-table');table.replaceChildren();
   const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=chatIndex+1;
   const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':undefined;
@@ -477,8 +492,14 @@ function renderMembers(data, query='') {
   const head=element('thead'),titles=element('tr');
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
   data.headers.forEach((title,index)=>{
-    const cell=element('th',undefined,identityClass(index));cell.scope='col';cell.append(element('span',title,'column-title'));
-    const dates=data.dates?.[index];if(dates?.start || dates?.end){const label=element('small',undefined,'content-date');if(dates.start)label.append(element('span',shortDate(dates.start)));if(dates.end)label.append(element('span','~ '+shortDate(dates.end)));cell.append(label);}
+    const cell=element('th',undefined,identityClass(index));cell.scope='col';
+    const active=memberSort?.title===title,next=active && memberSort.direction==='descending'?'ascending':'descending';
+    cell.setAttribute('aria-sort',active?memberSort.direction:'none');
+    const button=element('button',undefined,'member-sort');button.type='button';button.dataset.column=title;button.setAttribute('aria-label',`${title}, ${next==='descending'?'내림차순':'오름차순'} 정렬`);button.title=button.getAttribute('aria-label');button.append(element('span',title,'column-title'));
+    const indicator=element('i');indicator.dataset.lucide=active?(memberSort.direction==='descending'?'chevron-down':'chevron-up'):'chevrons-up-down';button.append(indicator);
+    button.addEventListener('click',()=>{memberSort={title,direction:next};renderMembers(source,query);[...table.querySelectorAll('.member-sort')].find(item=>item.dataset.column===title)?.focus({preventScroll:true});});
+    const dates=data.dates?.[index];if(dates?.start || dates?.end){const label=element('small',undefined,'content-date');if(dates.start)label.append(element('span',shortDate(dates.start)));if(dates.end)label.append(element('span','~ '+shortDate(dates.end)));button.append(label);}
+    cell.append(button);
     titles.append(cell);
   });head.append(titles);table.append(head);
   const body=element('tbody');
