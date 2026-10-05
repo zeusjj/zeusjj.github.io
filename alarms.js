@@ -84,8 +84,10 @@ async function refresh(){
 }
 $('alarm-refresh').addEventListener('click',refresh);
 let resolveConflict;
-function confirmOverwrite(conflicts){
-  $('alarm-conflict-list').replaceChildren(...conflicts.map(record=>make('li',record.boss)));
+function timeLeft(at,reference){const minutes=Math.max(0,Math.ceil((at-reference)/MINUTE));return `${Math.floor(minutes/60)}시간 ${minutes%60}분 남음`;}
+function confirmOverwrite(conflicts,alarms){
+  const reference=now();
+  $('alarm-conflict-list').replaceChildren(...conflicts.map(record=>{const item=make('li'),incoming=alarms.find(alarm=>alarm.boss===record.boss);item.append(make('strong',record.boss),make('div',`${Number.isFinite(record.spawn_at)?timeLeft(record.spawn_at,reference):'기존 시간 확인 불가'} → ${timeLeft(incoming.spawn_at,reference)}`));return item;}));
   $('alarm-conflicts').returnValue='';
   $('alarm-conflicts').showModal();return new Promise(resolve=>{resolveConflict=resolve;});
 }
@@ -94,12 +96,21 @@ $('alarm-conflict-confirm').addEventListener('click',()=>$('alarm-conflicts').cl
 $('alarm-conflicts').addEventListener('close',()=>{resolveConflict?.($('alarm-conflicts').returnValue==='yes');resolveConflict=null;});
 async function register(alarms,status){
   if(submitting)return false;
+  alarms=alarms.map(alarm=>({...alarm,boss:alarm.boss==='키니 레우리'?'키니 러우리':alarm.boss}));
   if(!alarms.length || new Set(alarms.map(a=>a.boss)).size!==alarms.length){status.textContent='알람을 선택하고, 같은 이름이 두 번 선택되지 않았는지 확인해주세요.';return false;}
   if(alarms.some(a=>!a.boss || a.spawn_at<=now())){status.textContent='이름과 남은 시간을 확인해주세요. 이미 지난 시간은 등록할 수 없습니다.';return false;}
+  const invalid=alarms.find(a=>!presets.some(p=>p.name===a.boss && !p.hours) || !Number.isSafeInteger(a.spawn_at) || !Number.isSafeInteger(a.source_at) || a.source_at<now()-86400000 || a.source_at>now()+300000 || a.spawn_at>now()+32*86400000);
+  if(invalid){status.textContent=`${invalid.boss || '이름 미선택'}: 프리셋 이름과 남은 시간을 확인해주세요. 사진은 24시간 이내, 출현은 32일 이내여야 합니다.`;return false;}
   submitting=true;document.querySelectorAll('#alarm-manual button,#alarm-review-register').forEach(b=>b.disabled=true);let overwrite={};
   try{for(let attempt=0;attempt<4;attempt++){
     status.textContent='등록 중입니다.';const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({alarms,overwrite,author:$('alarm-author').value}),signal:AbortSignal.timeout(15000)});const data=await response.json();
-    if(response.status===409 && data.conflicts?.length){status.textContent='기존 알람 덮어쓰기 확인이 필요합니다.';if(!await confirmOverwrite(data.conflicts)){status.textContent='등록을 취소했습니다.';return false;}overwrite=Object.fromEntries(data.conflicts.map(record=>[record.boss,record.updated_at]));continue;}
+    if(response.status===409 && data.conflicts?.length){
+      const currentResponse=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!currentResponse.ok)throw new Error('기존 알람 시간을 확인하지 못했습니다. 다시 시도해주세요.');const current=await currentResponse.json();
+      const conflicts=data.conflicts.map(record=>{const latest=current.alarms?.find(item=>item.boss===record.boss && item.updated_at===record.updated_at);return {...record,...latest};});
+      const changed=conflicts.filter(record=>!Number.isFinite(record.spawn_at) || Math.abs(record.spawn_at-alarms.find(alarm=>alarm.boss===record.boss).spawn_at)>MINUTE);
+      if(changed.length){status.textContent='기존 알람 덮어쓰기 확인이 필요합니다.';if(!await confirmOverwrite(changed,alarms)){status.textContent='등록을 취소했습니다.';return false;}}
+      overwrite=Object.fromEntries(conflicts.map(record=>[record.boss,record.updated_at]));continue;
+    }
     if(!response.ok)throw new Error(data.error || '등록 실패');status.textContent='알람이 등록되었습니다.';try{localStorage.setItem('guild-alarm-author',$('alarm-author').value);}catch{}await refresh();return true;
   }throw new Error('다른 길드원이 알람을 변경했습니다. 다시 등록해주세요.');
   }catch(error){status.textContent=error.name==='TimeoutError'?'응답이 지연되었습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;return false;}
@@ -181,7 +192,7 @@ $('alarm-preview-confirm').addEventListener('click',()=>{if(previewFile)scan(pre
 $('alarm-file').addEventListener('change',event=>{preview(event.target.files[0],Math.round(now()));event.target.value='';});
 document.addEventListener('paste',event=>{if($('alarms').hidden || ocrBusy || submitting)return;const file=[...event.clipboardData.items].find(item=>item.type.startsWith('image/'))?.getAsFile();if(file){event.preventDefault();previewGeneration++;preview(file,Math.round(now()));}});
 $('alarm-paste').addEventListener('click',()=>{if(ocrBusy || submitting)return;$('alarm-preview-confirm').disabled=true;$('alarm-preview-time').textContent='';$('alarm-preview').showModal();readClipboard();});
-try{const response=await fetch('boss-presets.json');if(!response.ok)throw new Error();presets=await response.json();optionList($('alarm-boss'));}catch{$('alarm-status').textContent='알람 이름 목록을 불러오지 못했습니다. 새로고침해주세요.';$('alarm-manual').querySelector('button').disabled=true;}
+try{const response=await fetch('boss-presets.json?v=20261005-48',{cache:'no-store'});if(!response.ok)throw new Error();presets=await response.json();optionList($('alarm-boss'));}catch{$('alarm-status').textContent='알람 이름 목록을 불러오지 못했습니다. 새로고침해주세요.';$('alarm-manual').querySelector('button').disabled=true;}
 toggleState();render();refresh();setInterval(refresh,15000);setInterval(()=>{tick();if(records.some(record=>record.spawn_at<=now()))render();},1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){refresh();render();audioStatus();}});
 window.addEventListener('pagehide',()=>stopSound());
