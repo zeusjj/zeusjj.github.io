@@ -299,6 +299,7 @@ async function copyTipLink(id,button){
 }
 function tipUrl(value){try{const url=new URL(value);return ['http:','https:'].includes(url.protocol) && !url.username && !url.password?url:null;}catch{return null;}}
 function tipMedia(url){
+  if(url.protocol!=='https:')return null;
   const host=url.hostname.toLowerCase(),parts=url.pathname.split('/').filter(Boolean);
   let videoId='';
   if(['youtube.com','www.youtube.com','m.youtube.com','music.youtube.com','youtube-nocookie.com','www.youtube-nocookie.com'].includes(host))videoId=url.searchParams.get('v') || (['embed','shorts','live'].includes(parts[0])?parts[1]:'');
@@ -334,19 +335,29 @@ function appendTipContent(body,content,urls){
 }
 function appendTipEmbed(body,url){
   const media=tipMedia(url),figure=element('figure',undefined,'tip-embed');
-  if(media){
+  const automatic=media?.kind==='frame' && ['www.youtube-nocookie.com','player.vimeo.com'].includes(new URL(media.src).hostname);
+  let mounted=null,preview=null;
+  const load=()=>{
+    if(!media || mounted)return;
     let node;
     if(media.kind==='image'){
-      node=element('img');node.alt='팁 첨부 이미지';node.loading='lazy';node.decoding='async';node.src=media.src;
+      node=element('img');node.alt='팁 첨부 이미지';node.loading='lazy';node.decoding='async';node.referrerPolicy='no-referrer';node.src=media.src;
     } else if(['video','audio'].includes(media.kind)){
       node=element(media.kind);node.controls=true;node.preload='none';node.src=media.src;if(media.kind==='video')node.playsInline=true;
     } else {
-      node=element('iframe');node.title=media.title;node.loading='lazy';node.referrerPolicy='strict-origin-when-cross-origin';node.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups allow-presentation');node.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';node.allowFullscreen=true;node.dataset.embedSrc=media.src;node.src=media.src;
+      node=element('iframe');node.title=media.title;node.loading='lazy';node.referrerPolicy='no-referrer';node.setAttribute('sandbox',automatic?'allow-scripts allow-same-origin allow-presentation':'allow-scripts allow-presentation');node.allow='encrypted-media; picture-in-picture; fullscreen';node.allowFullscreen=true;node.dataset.embedSrc=media.src;node.src=media.src;
       figure.classList.add(media.video?'tip-video-embed':'tip-page-embed');
     }
-    node.addEventListener('error',()=>{node.hidden=true;figure.prepend(element('p','미디어를 불러오지 못했습니다. 원본 링크를 확인해주세요.','media-error'));},{once:true});figure.append(node);
-  }
+    node.addEventListener('error',()=>{node.hidden=true;figure.prepend(element('p','미디어를 불러오지 못했습니다. 원본 링크를 확인해주세요.','media-error'));},{once:true});mounted=node;figure.prepend(node);if(preview)preview.hidden=true;
+  };
+  if(media && !automatic){
+    preview=element('button',undefined,'secondary-button tip-preview');preview.type='button';preview.title=url.hostname+' 미리보기 열기';
+    const icon=element('i');icon.dataset.lucide='eye';preview.append(icon,document.createTextNode('미리보기 열기'));
+    preview.addEventListener('click',load);figure.append(preview);
+    figure.addEventListener('tip-preview-reset',()=>{if(mounted){if(mounted.tagName==='IFRAME')mounted.src='about:blank';else if(['VIDEO','AUDIO'].includes(mounted.tagName)){mounted.pause();mounted.removeAttribute('src');mounted.load();}mounted.remove();mounted=null;}figure.querySelectorAll('.media-error').forEach(node=>node.remove());preview.hidden=false;});
+  }else if(automatic)load();
   const caption=element('figcaption');caption.append(tipLink(url,url.hostname+' · 원본 열기'));figure.append(caption);body.append(figure);
+  refreshIcons();
 }
 function tipManageForm(tip,mode,item,body){
   body.querySelector('.tip-manage-form')?.remove();
@@ -389,7 +400,7 @@ function renderTips(tips){
     const mediaBody=element('div',undefined,'tip-media');body.append(mediaBody);
     item.addEventListener('toggle',()=>{
       if(item.open){if(!embedded){embedded=true;for(const url of [...urls.values()].slice(0,10))appendTipEmbed(mediaBody,url);}else body.querySelectorAll('iframe').forEach(frame=>{frame.src=frame.dataset.embedSrc;});}
-      else {body.querySelectorAll('video,audio').forEach(media=>media.pause());body.querySelectorAll('iframe').forEach(frame=>{frame.src='about:blank';});}
+      else {body.querySelectorAll('video,audio').forEach(media=>media.pause());body.querySelectorAll('iframe').forEach(frame=>{frame.src='about:blank';});body.querySelectorAll('.tip-embed').forEach(figure=>figure.dispatchEvent(new Event('tip-preview-reset')));}
     });
     const actions=element('div',undefined,'tip-entry-actions');
     for(const [mode,title,icon] of [['edit','수정','square-pen'],['delete','삭제','trash-2']]){
