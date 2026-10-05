@@ -57,6 +57,7 @@ function updateResults() {
       if (index === 0) cell.scope = 'row';
       if (index === 1) {cell.className = 'collection-mean';cell.title='평균 '+numberFormat.format(result.mean)+' 다이아 · 표준편차 '+numberFormat.format(result.standardDeviation);}
       if (index >= 2) cell.className = 'collection-risk';
+      if (index === 3) cell.classList.add('collection-median');
       cell.textContent = value;
       if(index===0){const chance=document.createElement('small');chance.textContent=result.successProbability<1e-6?(result.successProbability*100).toExponential(2)+'%':probabilityFormat.format(result.successProbability*100)+'%';chance.title='한 아이템으로 목표 강화에 도달할 확률';cell.append(chance);}
       row.append(cell);
