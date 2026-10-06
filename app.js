@@ -483,7 +483,7 @@ function renderMembers(data, query='') {
   const nameIndex=data.headers.indexOf('닉네임');
   const rows=data.members.filter(row=>String(row[nameIndex]).toLowerCase().includes(query.toLowerCase()));
   if(memberSort){
-    const index=data.headers.indexOf(memberSort.title),direction=memberSort.direction==='descending'?-1:1;
+    const index=memberSort.index,direction=memberSort.direction==='descending'?-1:1;
     const rank=value=>{const text=String(value??'').trim().toUpperCase();return text==='O'||text==='ㅇ'?2:text==='X'?1:0;};
     const isStatus=index===data.headers.indexOf('단톡') || (index>=4 && data.members.every(row=>['O','ㅇ','X','-',''].includes(String(row[index]??'').trim().toUpperCase())));
     const isNumeric=index===0 || (index>=4 && !isStatus);
@@ -504,11 +504,11 @@ function renderMembers(data, query='') {
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
   data.headers.forEach((title,index)=>{
     const cell=element('th',undefined,identityClass(index));cell.scope='col';
-    const active=memberSort?.title===title,next=active && memberSort.direction==='descending'?'ascending':'descending';
+    const active=memberSort?.index===index,next=active && memberSort.direction==='descending'?'ascending':'descending';
     cell.setAttribute('aria-sort',active?memberSort.direction:'none');
     const button=element('button',undefined,'member-sort');button.type='button';button.dataset.column=title;button.setAttribute('aria-label',`${title}, ${next==='descending'?'내림차순':'오름차순'} 정렬`);button.title=button.getAttribute('aria-label');button.append(element('span',title,'column-title'));
     const indicator=element('i');indicator.dataset.lucide=active?(memberSort.direction==='descending'?'chevron-down':'chevron-up'):'chevrons-up-down';button.append(indicator);
-    button.addEventListener('click',()=>{memberSort={title,direction:next};renderMembers(source,query);[...table.querySelectorAll('.member-sort')].find(item=>item.dataset.column===title)?.focus({preventScroll:true});});
+    button.addEventListener('click',()=>{memberSort={index,direction:next};renderMembers(source,query);table.querySelectorAll('.member-sort')[index]?.focus({preventScroll:true});});
     const dates=data.dates?.[index];if(dates?.start || dates?.end){const label=element('small',undefined,'content-date');if(dates.start)label.append(element('span',shortDate(dates.start)));if(dates.end)label.append(element('span','~ '+shortDate(dates.end)));button.append(label);}
     cell.append(button);
     titles.append(cell);
