@@ -4,9 +4,10 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261007-61">
+  <link rel="stylesheet" href="style.css?v=20261007-62">
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261007-61" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261007-62" defer></script>
+  <script type="module" src="member-distributions.js?v=20261007-62"></script>
   <script src="admin-statistics.js?v=20261005-36" defer></script>
   <script type="module" src="collection-calculator.js?v=20261006-54"></script>
   <script type="module" src="skill-calculator.js?v=20261005-31"></script>
@@ -71,6 +72,7 @@
         <div class="page-heading"><div><h1>길드원 참여 현황</h1><p>길드 콘텐츠 참여 기록</p></div><span id="member-count" class="count-label"></span></div>
         <div class="toolbar"><label class="search-field"><i data-lucide="search"></i><input id="search" type="search" placeholder="닉네임 검색" aria-label="닉네임 검색"></label><span class="legend"><b class="yes">ㅇ 참여</b><b class="no">x 미참여</b><b class="pending">- 가입 전 / 미기록</b></span></div>
         <div class="member-grid"><div class="member-group-bar"><span>길드원</span><span>단톡</span><span>길드 컨텐츠</span></div><div class="table-scroll"><table id="member-table"></table></div></div><p id="empty-search" hidden>검색 결과가 없습니다.</p>
+        <div class="member-distributions"><section class="member-distribution"><div class="member-distribution-heading"><h2>직업 분포</h2><span id="member-class-total"></span></div><div class="member-class-distribution"><div class="member-pie-frame"><canvas id="member-class-chart" role="img" aria-label="직업 분포"></canvas></div><ul id="member-class-legend"></ul></div></section><section class="member-distribution"><div class="member-distribution-heading"><h2>성장도 분포</h2><span id="member-growth-total"></span></div><div id="member-growth-chart"></div></section></div>
       </section>
       <section id="distribution" hidden><div class="page-heading"><div><h1>분배 기록</h1><p>회차별 아이템과 낙찰 내역</p></div><span class="date-label"><i data-lucide="arrow-down-wide-narrow"></i>최신 회차순</span></div><div id="distribution-content"></div></section>
       <section id="tips" hidden>

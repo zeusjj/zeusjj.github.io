@@ -528,6 +528,7 @@ function renderMembers(data, query='') {
   for(const row of rows) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
   table.append(body);document.getElementById('member-count').textContent=`${data.members.length} / 60 명`;
   document.getElementById('empty-search').hidden=rows.length>0;
+  window.dispatchEvent(new CustomEvent('guild-members-data',{detail:source}));
   refreshIcons();
   requestAnimationFrame(centerMemberToday);
 }
