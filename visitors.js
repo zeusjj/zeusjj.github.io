@@ -33,6 +33,17 @@
     }catch{count.title='방문자 수를 불러오지 못했습니다. 잠시 후 다시 확인합니다.';}
     finally{busy=false;}
   }
+  document.addEventListener('click',async event=>{
+    const menu=event.target.closest('button[data-tab]')?.dataset.tab;
+    if(!['rules','notices','members','distribution','tips','tools','alarms'].includes(menu))return;
+    const id=crypto.randomUUID();
+    try{
+      visitorId ||= await identity();
+      const options={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,menu,visitorId}),keepalive:true};
+      try{await fetch(endpoint.replace(/\/visitors$/,'/menu-clicks'),{...options,signal:AbortSignal.timeout(10000)});}
+      catch{await fetch(endpoint.replace(/\/visitors$/,'/menu-clicks'),{...options,signal:AbortSignal.timeout(10000)});}
+    }catch{}
+  });
   setInterval(()=>{if(!document.hidden)refresh();},60000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
   window.addEventListener('pageshow',refresh);
