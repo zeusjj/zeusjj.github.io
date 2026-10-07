@@ -182,7 +182,7 @@ document.getElementById('add-notice-image').addEventListener('click',()=>documen
 document.getElementById('notice-image-input').addEventListener('change',event=>{queueNoticeImages([...event.target.files]);event.target.value='';});
 function noticeAdmin(){return !!noticeToken && Date.now()<noticeExpiry;}
 function showNoticeEditor(record=null){
-  editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';
+  editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';noticeForm.elements.category.value=record?.category || '공지';
   noticeImageGeneration++;noticeImages=(record?.images || []).map(({id,mime})=>({id,mime}));renderNoticeImagePreviews();
   document.getElementById('notice-form-heading').textContent=record?'공지 수정':'새 공지';noticeForm.querySelector('[type="submit"]').textContent=record?'저장':'등록';
   document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
@@ -213,12 +213,17 @@ function bindBoardViews(entry,summary,record,board){
 }
 function renderNotices(records){
   noticeRecords=records;const target=document.getElementById('notices-list');target.replaceChildren();
-  document.getElementById('notice-count').textContent=`공지 ${records.length}건`;document.getElementById('notices-status').textContent=records.length?'':'등록된 공지가 없습니다.';
+  const filter=document.getElementById('notice-filter').value;
+  const visible=records.filter(record=>filter==='all' || (record.category || '공지')===filter);
+  document.getElementById('notice-count').textContent=filter==='all'?`전체 ${records.length}건`:`${filter} ${visible.length}건 / 전체 ${records.length}건`;document.getElementById('notices-status').textContent=visible.length?'':records.length?'해당 태그의 글이 없습니다.':'등록된 공지가 없습니다.';
   document.getElementById('notice-logout').hidden=!noticeAdmin();
-  for(const record of records){
+  for(const record of visible){
     const entry=element('details',undefined,'board-entry'),summary=element('summary');
-    const date=new Date(record.created_at),time=element('time',date.toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}));time.dateTime=date.toISOString();
-    const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span','공지','notice-tag'),element('span',record.title,'entry-title'),time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
+    const date=new Date(record.created_at),time=element('time',date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}));time.dateTime=date.toISOString();
+    const category=record.category || '공지',categoryClass={'공지':'announcement','운영':'operations','한마디':'chat'}[category] || 'announcement';
+    const title=element('span',undefined,'entry-title');title.append(element('span',record.title,'notice-title-text'));
+    const age=Date.now()-date.getTime();if(age>=0 && age<86400000){const badge=element('span','New','notice-new');badge.title='작성 후 24시간 이내';title.append(badge);}
+    const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span',category,'notice-tag notice-tag-'+categoryClass),title,time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
     const body=element('div',undefined,'entry-body');body.append(element('p',record.content,'notice-content'));
     for(const [index,image] of (record.images || []).entries()){
       const link=element('a',undefined,'notice-photo');link.href=noticeImageUrl(record.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`공지 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);
@@ -251,6 +256,8 @@ document.getElementById('new-notice').addEventListener('click',()=>{
 document.getElementById('cancel-notice-login').addEventListener('click',closeNoticeForms);
 document.getElementById('cancel-notice').addEventListener('click',closeNoticeForms);
 document.getElementById('refresh-notices').addEventListener('click',loadNotices);
+document.getElementById('notice-filter').addEventListener('change',()=>renderNotices(noticeRecords));
+setInterval(()=>{if(noticesLoaded && !document.getElementById('notices').hidden){const now=Date.now();document.querySelectorAll('#notices-list .notice-new').forEach(badge=>{if(now-new Date(badge.closest('summary').querySelector('time').dateTime).getTime()>=86400000)badge.remove();});}},60000);
 document.getElementById('notice-logout').addEventListener('click',async()=>{
   try{await noticeWrite('/session','DELETE');}catch{}noticeToken='';noticeExpiry=0;closeNoticeForms();renderNotices(noticeRecords);
 });
