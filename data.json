@@ -1257,8 +1257,19 @@
   ],
   "distribution": [
     {
-      "title": "길드레이드 4차",
+      "title": "길드레이드 5차",
       "records": []
+    },
+    {
+      "title": "길드레이드 4차",
+      "records": [
+        {
+          "name": "도주님",
+          "item": "찬란한 반지 T5",
+          "amount": 6151,
+          "bidding": "자유입찰"
+        }
+      ]
     },
     {
       "title": "길드레이드 3차",
@@ -1266,7 +1277,8 @@
         {
           "name": "케이론",
           "item": "5T 목걸이",
-          "amount": 4446
+          "amount": 4446,
+          "bidding": "-"
         }
       ]
     },
@@ -1276,17 +1288,20 @@
         {
           "name": "화현",
           "item": "5T 투구",
-          "amount": 3272
+          "amount": 3272,
+          "bidding": "자유입찰"
         },
         {
           "name": "화현",
           "item": "5T 장갑",
-          "amount": 3446
+          "amount": 3446,
+          "bidding": "자유입찰"
         },
         {
           "name": "먼지박사",
           "item": "영웅 스킬북",
-          "amount": null
+          "amount": 1304,
+          "bidding": "자유입찰"
         }
       ]
     }
