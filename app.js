@@ -70,7 +70,11 @@ function renderRules(text) {
     wrapper.append(element('h2',match[1].replace(/^\d+\.\s*/,'')));
     const body=element('div',undefined,'policy-body');
     const content=match[2].trim();
-    if(kind==='schedule') {
+    if(kind==='target') {
+      const match=content.match(/^(.*?)\s*(\([^)]*\))$/);
+      if(match){const line=element('p');line.append(document.createTextNode(match[1]+' '),element('small',match[2]));body.append(line);}
+      else bodyContent(content,body);
+    } else if(kind==='schedule') {
       const schedule=content.match(/^-\s*(\S+)\s+(\d+:\d+)/m);
       if(schedule){const time=element('div',undefined,'schedule-time');time.append(element('span',schedule[1]),element('strong',schedule[2]));body.append(time);}
       bodyContent(content.replace(/^-\s*\S+\s+\d+:\d+\s*$/m,''),body);
