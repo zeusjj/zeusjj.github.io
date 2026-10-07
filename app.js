@@ -394,6 +394,18 @@ function tipManageForm(tip,mode,item,body){
     finally{submit.disabled=false;cancel.disabled=false;}
   });body.append(form);item.open=true;password.focus({preventScroll:true});form.scrollIntoView({block:'nearest'});
 }
+function bindTipLikes(item,summary,body,tip){
+  const views=summary.querySelector('.entry-views'),engagement=element('span',undefined,'entry-engagement');views.replaceWith(engagement);engagement.append(views);
+  const badge=element('span',undefined,'entry-likes'),badgeIcon=element('i'),badgeNumber=element('span');badgeIcon.dataset.lucide='heart';badge.append(badgeIcon,badgeNumber);engagement.append(badge);
+  const footer=element('div',undefined,'tip-like-footer'),button=element('button',undefined,'tip-like-button'),icon=element('i'),count=element('span'),status=element('p',undefined,'tip-like-status');
+  icon.dataset.lucide='heart';button.type='button';button.append(icon,count);status.setAttribute('role','status');footer.append(button,status);body.append(footer);
+  let likes=Math.max(0,Number(tip.likes)||0),liked=false,busy=false,initialized=false;
+  function display(){badgeNumber.textContent=likes.toLocaleString('ko-KR');badge.title='좋아요';badge.setAttribute('aria-label',`좋아요 ${likes}`);count.textContent=likes.toLocaleString('ko-KR');button.disabled=busy || liked;button.classList.toggle('is-liked',liked);button.setAttribute('aria-pressed',String(liked));button.setAttribute('aria-label',liked?'좋아요 완료':'좋아요');button.title=liked?'좋아요 완료':'좋아요';button.setAttribute('aria-busy',String(busy));}
+  async function request(method){const visitorId=await window.guildVisitorIdentity();const response=await fetch(tipsApi+'/'+encodeURIComponent(tip.id)+'/like'+(method==='GET'?'?visitorId='+encodeURIComponent(visitorId):''),{method,cache:'no-store',signal:AbortSignal.timeout(10000),...(method==='POST'?{headers:{'Content-Type':'application/json'},body:JSON.stringify({visitorId})}:{})});const data=await response.json();if(!response.ok)throw new Error(data.error || '좋아요를 확인하지 못했습니다.');if(!Number.isSafeInteger(data.likes) || data.likes<0 || typeof data.liked!=='boolean')throw new Error('좋아요 응답을 확인하지 못했습니다.');likes=Math.max(likes,data.likes);liked ||= data.liked;initialized=true;}
+  async function synchronize(){if(!item.open || initialized || busy)return;busy=true;display();try{await request('GET');status.textContent='';}catch{status.textContent='좋아요 상태를 확인하지 못했습니다. 다시 시도해주세요.';}finally{busy=false;display();}}
+  button.addEventListener('click',async()=>{if(busy || liked)return;busy=true;display();status.textContent='';try{await request('POST');}catch(error){status.textContent=['TimeoutError','AbortError'].includes(error.name)?'응답을 확인하지 못했습니다. 다시 눌러 확인해주세요.':error.message;}finally{busy=false;display();}});
+  item.addEventListener('toggle',synchronize);display();
+}
 function renderTips(tips){
   const opened=new Set([...document.querySelectorAll('#tips-list details[open]')].map(item=>item.dataset.tipId));
   const list=document.getElementById('tips-list');list.replaceChildren();
@@ -413,6 +425,7 @@ function renderTips(tips){
       if(item.open){if(!embedded){embedded=true;for(const url of [...urls.values()].slice(0,10))appendTipEmbed(mediaBody,url);}else body.querySelectorAll('iframe').forEach(frame=>{frame.src=frame.dataset.embedSrc;});}
       else {body.querySelectorAll('video,audio').forEach(media=>media.pause());body.querySelectorAll('iframe').forEach(frame=>{frame.src='about:blank';});body.querySelectorAll('.tip-embed').forEach(figure=>figure.dispatchEvent(new Event('tip-preview-reset')));}
     });
+    bindTipLikes(item,summary,body,tip);
     const actions=element('div',undefined,'tip-entry-actions');
     for(const [mode,title,icon] of [['edit','수정','square-pen'],['delete','삭제','trash-2']]){
       const button=element('button',undefined,'secondary-button');button.type='button';const symbol=element('i');symbol.dataset.lucide=icon;button.append(symbol,document.createTextNode(title));button.addEventListener('click',()=>tipManageForm(tip,mode,item,body));actions.append(button);
@@ -432,7 +445,7 @@ function loadTips({force=false}={}){
   tipsRequest=(async()=>{
     try{
       const response=await fetch(tipsApi,{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error('load');const data=await response.json();if(!validTips(data.tips))throw new Error('format');
-      try{const saved=JSON.stringify({savedAt:Date.now(),tips:data.tips.map(({id,title,content,url,author,created_at,views})=>({id,title,content,url,author,created_at,views}))});if(saved.length<=2000000)localStorage.setItem('guild-tips-cache-v1',saved);}catch{}
+      try{const saved=JSON.stringify({savedAt:Date.now(),tips:data.tips.map(({id,title,content,url,author,created_at,views,likes})=>({id,title,content,url,author,created_at,views,likes}))});if(saved.length<=2000000)localStorage.setItem('guild-tips-cache-v1',saved);}catch{}
       if(!force && (!tipForm.hidden || document.querySelector('.tip-manage-form')))pendingTips=data.tips;
       else {pendingTips=null;renderTips(data.tips);}tipsLoaded=true;
     }catch{status.textContent=tipsLoaded?'최신 팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.':'팁을 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}

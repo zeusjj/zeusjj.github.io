@@ -18,6 +18,7 @@
     if(!Number.isSafeInteger(data.count) || data.count<0 || !/^\d{4}-\d{2}-\d{2}$/.test(data.day) || !Number.isFinite(data.serverNow) || !Number.isFinite(data.nextResetAt))throw new Error('Invalid visitor data');
     return data;
   }
+  window.guildVisitorIdentity=async()=>visitorId ||= await identity();
   async function refresh() {
     if(busy)return;busy=true;
     try{
