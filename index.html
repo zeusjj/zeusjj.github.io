@@ -11,7 +11,7 @@
   <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="app.js?v=20261009-68" defer></script>
   <script type="module" src="member-growth-history.js?v=20261009-73"></script>
   <script type="module" src="member-distributions.js?v=20261009-72"></script>
-  <script src="admin-statistics.js?v=20261005-36" defer></script>
+  <script src="admin-statistics.js?v=20261009-76" defer></script>
   <script type="module" src="collection-calculator.js?v=20261006-54"></script>
   <script type="module" src="skill-calculator.js?v=20261005-31"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
@@ -57,7 +57,7 @@
         <a id="open-admin" class="notice-admin-link" href="#admin" title="관리자 페이지" aria-label="관리자 페이지"><i data-lucide="settings"></i></a>
       </section>
       <section id="admin" hidden>
-        <div class="page-heading"><div><h1>관리자</h1><p>방문자 통계</p></div><div class="notice-actions"><a class="secondary-button" href="#notices"><i data-lucide="arrow-left"></i>공지사항</a><button id="admin-logout" class="secondary-button" type="button" hidden><i data-lucide="log-out"></i>로그아웃</button></div></div>
+        <div class="page-heading"><div><h1>관리자</h1><p id="admin-statistics-subtitle" hidden>방문자 통계</p></div><div class="notice-actions"><a class="secondary-button" href="#notices"><i data-lucide="arrow-left"></i>공지사항</a><button id="admin-logout" class="secondary-button" type="button" hidden><i data-lucide="log-out"></i>로그아웃</button></div></div>
         <form id="admin-login" class="tip-form notice-login"><h2>관리자 로그인</h2><label>비밀번호<input name="password" type="password" autocomplete="current-password" maxlength="200" required></label><div class="form-actions"><span id="admin-login-status" role="status"></span><button class="primary-button" type="submit">로그인</button></div></form>
         <div id="admin-statistics" hidden>
           <div class="admin-statistics-toolbar"><span id="admin-statistics-updated"></span><button id="admin-refresh" class="icon-button" type="button" title="통계 새로고침" aria-label="통계 새로고침"><i data-lucide="refresh-cw"></i></button></div>

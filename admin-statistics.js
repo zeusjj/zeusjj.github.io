@@ -7,6 +7,7 @@
   const active=()=>!document.getElementById('admin').hidden;
   function access(){
     const authorized=noticeAdmin();login.hidden=authorized;statistics.hidden=!authorized;logout.hidden=!authorized;
+    document.getElementById('admin-statistics-subtitle').hidden=!authorized;
     clearTimeout(expiryTimer);
     if(authorized)expiryTimer=setTimeout(()=>{noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);access();},Math.max(1,noticeExpiry-Date.now()));
     else{
