@@ -5,7 +5,8 @@
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/quill.snow.css">
-  <link rel="stylesheet" href="style.css?v=20261009-71">
+  <link rel="stylesheet" href="style.css?v=20261009-74">
+  <script type="module" src="official-news.js?v=20261009-74"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="app.js?v=20261009-68" defer></script>
   <script type="module" src="member-growth-history.js?v=20261009-73"></script>
@@ -51,6 +52,7 @@
         <div class="board-toolbar"><div class="notice-filter-controls"><label for="notice-filter">태그<select id="notice-filter"><option value="all">전체</option><option>공지</option><option>운영</option><option>한마디</option></select></label><span id="notice-count"></span></div><button id="refresh-notices" class="icon-button" type="button" aria-label="공지 새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="notices-status" role="status"></p>
         <div class="board-column-head"><span>제목</span><span>작성일</span></div>
         <div id="notices-list" class="notice-list"></div>
+        <section class="official-news" aria-labelledby="official-news-heading"><div class="official-news-heading"><h2 id="official-news-heading">제우스 공식 소식</h2><span>최근 2주</span><small id="official-news-updated"></small></div><p id="official-news-status" role="status">공식 소식을 불러오는 중입니다.</p><ul id="official-news-list"></ul></section>
         <a id="open-admin" class="notice-admin-link" href="#admin" title="관리자 페이지" aria-label="관리자 페이지"><i data-lucide="settings"></i></a>
       </section>
       <section id="admin" hidden>
