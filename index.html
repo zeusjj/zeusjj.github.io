@@ -4,9 +4,9 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css?v=20261007-65">
+  <link rel="stylesheet" href="style.css?v=20261009-66">
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261007-65" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="app.js?v=20261009-66" defer></script>
   <script type="module" src="member-distributions.js?v=20261007-62"></script>
   <script src="admin-statistics.js?v=20261005-36" defer></script>
   <script type="module" src="collection-calculator.js?v=20261006-54"></script>
@@ -14,7 +14,7 @@
   <script src="visitors.js?v=20261007-65" defer></script>
   <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
   <script src="guestbook.js?v=20261007-60" defer></script>
-  <script src="admin-guestbook.js?v=20261007-60" defer></script>
+  <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261005-52"></script>
 </head>
 <body>
@@ -31,7 +31,7 @@
       <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능</span></button>
       <button data-tab="alarms"><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
-    <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="방명록 열기" title="방명록" aria-haspopup="dialog"><i data-lucide="footprints"></i></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
+    <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
   </aside>
   <div class="workspace">
     <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong></div></header>
@@ -106,7 +106,7 @@
       </section>
       <section id="tools" hidden>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="계산기"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button></div></div>
-        <div class="page-heading"><div><h1 id="calculator-heading">컬렉션 기대값 계산기</h1></div></div>
+        <div class="page-heading"><div><h1 id="calculator-heading">컬렉션 기대값 계산기</h1></div><button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button></div>
         <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">
