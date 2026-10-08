@@ -167,6 +167,8 @@ function closeNoticeForms(){if(noticeSaving)return;noticeRich.reset();noticeForm
 const boardViews=new Map(),viewRequests=new Map();
 function bindBoardViews(entry,summary,record,board){
   const key='guild-post-view-v1:'+board+':'+record.id;
+  const sharedKey='guild-post-view-v2:'+board+':'+record.id;
+  const recentView=()=>{try{const saved=JSON.parse(localStorage.getItem(sharedKey));if(Number.isSafeInteger(saved?.views)&&saved.views>0&&Number.isFinite(saved.viewedAt)&&Date.now()-saved.viewedAt<86400000)return saved.views;}catch{}return 0;};
   let stored;try{stored=Number(sessionStorage.getItem(key));}catch{}
   if(stored>0)boardViews.set(key,stored);
   const badge=element('span',undefined,'entry-views'),icon=element('i'),number=element('span');icon.dataset.lucide='eye';badge.append(icon,number);summary.append(badge);
@@ -175,12 +177,16 @@ function bindBoardViews(entry,summary,record,board){
     if(!entry.open || entry.closest('section')?.hidden)return;
     if(boardViews.has(key)){display();return;}
     if(!viewRequests.has(key)){
-      const request=(async()=>{
+      const register=async()=>{
+        const recent=recentView();if(recent){boardViews.set(key,recent);return;}
         const response=await fetch((board==='tips'?tipsApi:noticesApi)+'/'+encodeURIComponent(record.id)+'/view',{method:'POST',signal:AbortSignal.timeout(10000)});
         if(!response.ok)throw new Error('View unavailable');const data=await response.json();
         if(!Number.isSafeInteger(data.views) || data.views<1)throw new Error('Invalid view count');
         boardViews.set(key,data.views);try{sessionStorage.setItem(key,String(data.views));}catch{}
-      })();viewRequests.set(key,request);
+        try{localStorage.setItem(sharedKey,JSON.stringify({views:data.views,viewedAt:Date.now()}));}catch{}
+      };
+      // Serialize registrations across tabs before checking the shared cooldown.
+      const request=navigator.locks?.request?navigator.locks.request(sharedKey,register):register();viewRequests.set(key,request);
     }
     const request=viewRequests.get(key);
     try{await request;display();}catch{}finally{if(viewRequests.get(key)===request)viewRequests.delete(key);}
