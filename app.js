@@ -140,16 +140,8 @@ function renderRules(text) {
 const noticesApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/notices';
 const noticeLogin=document.getElementById('notice-login'),noticeForm=document.getElementById('notice-form');
 let noticeToken='',noticeExpiry=0,noticeRecords=[],editingNotice=null;
-let noticeImages=[],noticeImageGeneration=0,noticeImageWork=Promise.resolve(),noticeSaving=false;
+let noticeSaving=false;
 const noticeImageUrl=(postId,imageId)=>noticesApi+'/'+encodeURIComponent(postId)+'/images/'+encodeURIComponent(imageId);
-function renderNoticeImagePreviews(){
-  const target=document.getElementById('notice-image-previews');target.replaceChildren();
-  noticeImages.forEach((image,index)=>{
-    const figure=element('figure'),preview=element('img');preview.src=image.id?noticeImageUrl(editingNotice,image.id):`data:${image.mime};base64,${image.data}`;preview.alt=`첨부 사진 ${index+1}`;
-    const remove=element('button',undefined,'icon-button');remove.type='button';remove.title='사진 삭제';remove.setAttribute('aria-label',`첨부 사진 ${index+1} 삭제`);const icon=element('i');icon.dataset.lucide='x';remove.append(icon);remove.disabled=noticeSaving;
-    remove.addEventListener('click',()=>{if(noticeSaving)return;noticeImages.splice(index,1);renderNoticeImagePreviews();});figure.append(preview,remove);target.append(figure);
-  });refreshIcons();
-}
 async function encodeNoticeImage(file){
   if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('PNG, JPG, WebP 사진을 첨부해주세요.');
   if(file.size>20971520)throw new Error('원본 사진은 20MB 이하여야 합니다.');
@@ -162,36 +154,16 @@ async function encodeNoticeImage(file){
     }throw new Error('사진 용량이 큽니다. 더 작은 사진을 첨부해주세요.');
   }finally{bitmap.close();}
 }
-function queueNoticeImages(files){
-  if(noticeSaving)return;
-  const generation=noticeImageGeneration;
-  noticeImageWork=noticeImageWork.then(async()=>{
-    const status=document.getElementById('notice-form-status');
-    for(const file of files){
-      if(generation!==noticeImageGeneration || noticeForm.hidden)return;
-      if(noticeImages.length>=5){status.textContent='사진은 최대 5장까지 첨부할 수 있습니다.';return;}
-      try{status.textContent='사진을 준비 중입니다.';const image=await encodeNoticeImage(file);if(generation!==noticeImageGeneration)return;noticeImages.push(image);renderNoticeImagePreviews();status.textContent='';}
-      catch(error){if(generation===noticeImageGeneration)status.textContent=error.message;}
-    }
-  });
-}
-noticeForm.addEventListener('paste',event=>{
-  const files=[...event.clipboardData.items].filter(item=>item.kind==='file' && item.type.startsWith('image/')).map(item=>item.getAsFile()).filter(Boolean);
-  if(files.length){event.preventDefault();queueNoticeImages(files);}
-});
-document.getElementById('add-notice-image').addEventListener('click',()=>document.getElementById('notice-image-input').click());
-document.getElementById('notice-image-input').addEventListener('change',event=>{queueNoticeImages([...event.target.files]);event.target.value='';});
-async function clipboardPictures(){const items=await navigator.clipboard.read();const pictures=[];for(const item of items){const type=item.types.find(type=>['image/png','image/jpeg','image/webp'].includes(type));if(type)pictures.push(await item.getType(type));}if(!pictures.length)throw new Error('클립보드에 스크린샷이 없습니다.');return pictures;}
-const noticePaste=element('button',undefined,'secondary-button');noticePaste.type='button';const pasteIcon=element('i');pasteIcon.dataset.lucide='clipboard-paste';noticePaste.append(pasteIcon,document.createTextNode('스크린샷 붙여넣기'));document.getElementById('add-notice-image').after(noticePaste);
-noticePaste.addEventListener('click',async()=>{if(noticeSaving)return;try{queueNoticeImages(await clipboardPictures());}catch(error){document.getElementById('notice-form-status').textContent=error.name==='NotAllowedError'?'클립보드 접근을 허용하거나 내용 칸에 Ctrl+V로 붙여넣어주세요.':error.message;}});
+noticeForm.querySelector('.notice-attachments').remove();
+const noticeRich=GuildRich.editor(noticeForm,{status:document.getElementById('notice-form-status'),url:image=>noticeImageUrl(editingNotice,image.id),encode:encodeNoticeImage});
 function noticeAdmin(){return !!noticeToken && Date.now()<noticeExpiry;}
 function showNoticeEditor(record=null){
   editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';noticeForm.elements.category.value=record?.category || '공지';
-  noticeImageGeneration++;noticeImages=(record?.images || []).map(({id,mime})=>({id,mime}));renderNoticeImagePreviews();
+  noticeRich.reset(record?.content || '',record?.images || []);
   document.getElementById('notice-form-heading').textContent=record?'공지 수정':'새 공지';noticeForm.querySelector('[type="submit"]').textContent=record?'저장':'등록';
   document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
 }
-function closeNoticeForms(){if(noticeSaving)return;noticeImageGeneration++;noticeImages=[];renderNoticeImagePreviews();noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
+function closeNoticeForms(){if(noticeSaving)return;noticeRich.reset();noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
 const boardViews=new Map(),viewRequests=new Map();
 function bindBoardViews(entry,summary,record,board){
   const key='guild-post-view-v1:'+board+':'+record.id;
@@ -229,8 +201,8 @@ function renderNotices(records){
     const age=Date.now()-date.getTime();if(age>=0 && age<86400000){const badge=element('span','New','notice-new');badge.title='작성 후 24시간 이내';title.append(badge);}
     const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span',category,'notice-tag notice-tag-'+categoryClass),title,time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
     const share=element('button',undefined,'icon-button notice-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','공지 링크 복사');const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(record.id,share,'notices');});summary.append(share);
-    const body=element('div',undefined,'entry-body');body.append(element('p',record.content,'notice-content'));
-    for(const [index,image] of (record.images || []).entries()){
+    const body=element('div',undefined,'entry-body'),rich=GuildRich.render(body,record.content,record.images || [],image=>noticeImageUrl(record.id,image.id));if(!rich)body.append(element('p',record.content,'notice-content'));
+    for(const [index,image] of (rich?[]:record.images || []).entries()){
       const link=element('a',undefined,'notice-photo');link.href=noticeImageUrl(record.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`공지 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);
     }
     if(noticeAdmin()){
@@ -277,24 +249,15 @@ noticeLogin.addEventListener('submit',async event=>{
   catch(error){status.textContent=error.name==='TimeoutError'?'응답이 지연되고 있습니다. 다시 시도해주세요.':error.message;}finally{submit.disabled=false;}
 });
 noticeForm.addEventListener('submit',async event=>{
-  event.preventDefault();if(noticeSaving)return;noticeSaving=true;const submit=noticeForm.querySelector('[type="submit"]'),status=document.getElementById('notice-form-status');submit.disabled=true;document.getElementById('cancel-notice').disabled=true;document.getElementById('add-notice-image').disabled=true;renderNoticeImagePreviews();
-  try{await noticeImageWork;if(!noticeForm.elements.content.value.trim() && !noticeImages.length)throw new Error('내용이나 사진을 추가해주세요.');status.textContent='저장 중입니다.';const values=Object.fromEntries(new FormData(noticeForm));values.images=noticeImages.map(({id,mime,data})=>id?{id}:{mime,data});if(editingNotice)values.updated_at=noticeRecords.find(record=>record.id===editingNotice)?.updated_at;await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',values);noticeForm.reset();noticeSaving=false;closeNoticeForms();await loadNotices();}
-  catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}finally{noticeSaving=false;submit.disabled=false;document.getElementById('cancel-notice').disabled=false;document.getElementById('add-notice-image').disabled=false;renderNoticeImagePreviews();}
+  event.preventDefault();if(noticeSaving)return;noticeSaving=true;const submit=noticeForm.querySelector('[type="submit"]'),status=document.getElementById('notice-form-status');submit.disabled=true;document.getElementById('cancel-notice').disabled=true;
+  try{const rich=await noticeRich.values();status.textContent='저장 중입니다.';const values={...Object.fromEntries(new FormData(noticeForm)),...rich};if(editingNotice)values.updated_at=noticeRecords.find(record=>record.id===editingNotice)?.updated_at;await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',values);noticeForm.reset();noticeSaving=false;closeNoticeForms();await loadNotices();}
+  catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}finally{noticeSaving=false;submit.disabled=false;document.getElementById('cancel-notice').disabled=false;noticeRich.unlock();}
 });
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
 const tipForm=document.getElementById('tip-form');
 tipForm.elements.content.required=false;
 function tipImageUrl(id,imageId){return tipsApi+'/'+encodeURIComponent(id)+'/images/'+encodeURIComponent(imageId);}
-function tipImageEditor(form,status,initial=[],postId=''){
-  let images=initial.map(({id,mime})=>({id,mime})),work=Promise.resolve(),generation=0,locked=false;
-  const area=element('div',undefined,'tip-image-editor'),paste=element('button',undefined,'secondary-button'),icon=element('i'),previews=element('div',undefined,'tip-image-previews');icon.dataset.lucide='clipboard-paste';paste.type='button';paste.append(icon,document.createTextNode('스크린샷 붙여넣기'));area.append(paste,previews);form.querySelector('.form-actions').before(area);
-  function render(){previews.replaceChildren();for(const [index,image] of images.entries()){const figure=element('figure'),photo=element('img'),remove=element('button',undefined,'icon-button'),symbol=element('i');photo.src=image.id?tipImageUrl(postId,image.id):`data:${image.mime};base64,${image.data}`;photo.alt=`첨부 사진 ${index+1}`;remove.type='button';remove.title='사진 삭제';remove.setAttribute('aria-label',`첨부 사진 ${index+1} 삭제`);symbol.dataset.lucide='x';remove.append(symbol);remove.disabled=locked;remove.addEventListener('click',()=>{images.splice(index,1);render();});figure.append(photo,remove);previews.append(figure);}paste.disabled=locked;refreshIcons();}
-  function queue(files){if(locked)return;const current=generation;work=work.then(async()=>{for(const file of files){if(current!==generation)return;if(images.length>=5){status.textContent='사진은 최대 5장까지 첨부할 수 있습니다.';return;}try{status.textContent='사진을 준비 중입니다.';const image=await encodeNoticeImage(file);if(current!==generation)return;images.push(image);render();status.textContent='';}catch(error){status.textContent=error.message;}}});}
-  form.addEventListener('paste',event=>{const files=[...event.clipboardData.items].filter(item=>item.kind==='file' && item.type.startsWith('image/')).map(item=>item.getAsFile()).filter(Boolean);if(files.length){event.preventDefault();queue(files);}});
-  paste.addEventListener('click',async()=>{try{queue(await clipboardPictures());}catch(error){status.textContent=error.name==='NotAllowedError'?'클립보드 접근을 허용하거나 내용 칸에 Ctrl+V로 붙여넣어주세요.':error.message;}});
-  render();return {async values(){locked=true;render();await work;return images.map(({id,mime,data})=>id?{id}:{mime,data});},unlock(){locked=false;render();},reset(){generation++;images=[];locked=false;render();}};
-}
-const tipAttachments=tipImageEditor(tipForm,document.getElementById('tip-form-status'));
+const tipAttachments=GuildRich.editor(tipForm,{status:document.getElementById('tip-form-status'),url:image=>tipImageUrl('',image.id),encode:encodeNoticeImage});
 document.getElementById('suggest-tool').addEventListener('click',()=>{location.hash='tips';showTipForm(true);if(!tipForm.elements.title.value)tipForm.elements.title.value='[편의 기능 건의] ';requestAnimationFrame(()=>{tipForm.scrollIntoView({block:'start'});tipForm.elements.title.focus();});});
 const tipSearch=document.getElementById('tip-search');
 const normalizeTipSearch=value=>String(value).normalize('NFKC').toLocaleLowerCase('ko-KR');
@@ -406,11 +369,11 @@ function tipManageForm(tip,mode,item,body){
   const actions=element('div',undefined,'form-actions'),status=element('span');status.setAttribute('role','status');
   const cancel=element('button','취소','secondary-button');cancel.type='button';cancel.addEventListener('click',()=>{form.remove();applyPendingTips();});
   const submit=element('button',mode==='edit'?'저장':'삭제',mode==='edit'?'primary-button':'danger-button');submit.type='submit';actions.append(status,cancel,submit);form.append(actions);
-  const attachments=mode==='edit'?tipImageEditor(form,status,tip.images || [],tip.id):null;
+  const attachments=mode==='edit'?GuildRich.editor(form,{status,content:tip.content,images:tip.images || [],url:image=>tipImageUrl(tip.id,image.id),encode:encodeNoticeImage}):null;
   form.addEventListener('submit',async event=>{
     event.preventDefault();submit.disabled=true;cancel.disabled=true;status.textContent='처리 중입니다.';
     try{
-      const values=Object.fromEntries(new FormData(form));if(attachments){values.images=await attachments.values();if(!values.content.trim() && !values.images.length)throw new Error('내용이나 사진을 추가해주세요.');}
+      const values=Object.fromEntries(new FormData(form));if(attachments)Object.assign(values,await attachments.values());
       const response=await fetch(tipsApi+'/'+encodeURIComponent(tip.id),{method:mode==='edit'?'PUT':'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify(values),signal:AbortSignal.timeout(60000)});
       const result=await response.json();if(!response.ok)throw new Error(result.error || '처리하지 못했습니다.');
       const id=tip.id;if(mode==='delete' && sharedTipId()===id)history.replaceState(null,'','#tips');
@@ -436,14 +399,14 @@ function renderTips(tips){
   const list=document.getElementById('tips-list');list.replaceChildren();
   for(const tip of tips){
     const item=element('details',undefined,'board-entry');item.dataset.tipId=tip.id;const summary=element('summary');
-    item.dataset.searchText=normalizeTipSearch([tip.title,tip.content,tip.author,tip.url].join(' '));
+    item.dataset.searchText=normalizeTipSearch([tip.title,GuildRich.text(tip.content),tip.author,tip.url].join(' '));
     const disclosure=element('i',undefined,'disclosure-icon');disclosure.dataset.lucide='chevron-down';
     const share=element('button',undefined,'icon-button tip-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','팁 링크 복사');
     const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);
     share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(tip.id,share);});
     summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')));bindBoardViews(item,summary,tip,'tips');summary.append(disclosure,share);
-    const body=element('div',undefined,'entry-body'),urls=new Map();appendTipContent(body,tip.content,urls);
-    for(const [index,image] of (tip.images || []).entries()){const link=element('a',undefined,'notice-photo');link.href=tipImageUrl(tip.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`팁 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);}
+    const body=element('div',undefined,'entry-body'),urls=new Map(),rich=GuildRich.render(body,tip.content,tip.images || [],image=>tipImageUrl(tip.id,image.id));if(!rich)appendTipContent(body,tip.content,urls);else for(const match of GuildRich.text(tip.content).matchAll(/https?:\/\/[^\s]+/g)){const url=tipUrl(match[0]);if(url)urls.set(url.href,url);}
+    for(const [index,image] of (rich?[]:tip.images || []).entries()){const link=element('a',undefined,'notice-photo');link.href=tipImageUrl(tip.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`팁 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);}
     const url=tipUrl(tip.url);if(url)urls.set(url.href,url);
     let embedded=false;
     const mediaBody=element('div',undefined,'tip-media');body.append(mediaBody);
@@ -482,7 +445,7 @@ document.getElementById('refresh-tips').addEventListener('click',()=>loadTips())
 tipForm.addEventListener('submit',async event=>{
   event.preventDefault();const status=document.getElementById('tip-form-status');const submit=tipForm.querySelector('[type="submit"]');submit.disabled=true;status.textContent='등록 중입니다.';
   const values=Object.fromEntries(new FormData(tipForm));
-  try{values.images=await tipAttachments.values();if(!values.content.trim() && !values.images.length)throw new Error('내용이나 사진을 추가해주세요.');const response=await fetch(tipsApi,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values),signal:AbortSignal.timeout(60000)});const result=await response.json();if(!response.ok)throw new Error(result.error || '등록하지 못했습니다.');tipForm.reset();tipAttachments.reset();status.textContent='';showTipForm(false);await loadTips({force:true});}
+  try{Object.assign(values,await tipAttachments.values());const response=await fetch(tipsApi,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values),signal:AbortSignal.timeout(60000)});const result=await response.json();if(!response.ok)throw new Error(result.error || '등록하지 못했습니다.');tipForm.reset();tipAttachments.reset();status.textContent='';showTipForm(false);await loadTips({force:true});}
   catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}
   finally{submit.disabled=false;tipAttachments.unlock();}
 });
