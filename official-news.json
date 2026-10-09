@@ -1,7 +1,14 @@
 {
-  "collectedAt": "2026-10-09T05:31:16.850Z",
+  "collectedAt": "2026-10-09T06:37:58.347Z",
   "days": 14,
   "items": [
+    {
+      "id": "d41bb6fc-c5e8-4bd8-b957-bf4ba4c099b6",
+      "title": "10월 10일(토) 임시 점검 안내",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-09T06:00:00.000Z",
+      "url": "https://zeus.com2us.com/p/d41bb6fc-c5e8-4bd8-b957-bf4ba4c099b6"
+    },
     {
       "id": "925080dc-1441-485c-83e0-0a432d1f4925",
       "title": "10월 8일(목) 데이터 패치 안내",
@@ -260,13 +267,6 @@
       "tag": "공지사항",
       "publishedAt": "2026-09-26T08:24:00.000Z",
       "url": "https://zeus.com2us.com/p/695c33b1-ea66-4d27-a59a-966a92180cfb"
-    },
-    {
-      "id": "12a944d3-ed90-4455-b54d-2a9822a279fd",
-      "title": "9월 25일(금) 운영정책 위반 계정 조치 안내 (40차)",
-      "tag": "공지사항",
-      "publishedAt": "2026-09-25T06:06:00.000Z",
-      "url": "https://zeus.com2us.com/p/12a944d3-ed90-4455-b54d-2a9822a279fd"
     }
   ]
 }
