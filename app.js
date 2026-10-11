@@ -269,7 +269,7 @@ document.getElementById('cancel-notice-login').addEventListener('click',closeNot
 document.getElementById('cancel-notice').addEventListener('click',closeNoticeForms);
 document.getElementById('refresh-notices').addEventListener('click',loadNotices);
 document.getElementById('notice-filter').addEventListener('change',()=>{noticePage=1;clearSharedNotice();renderNotices(noticeRecords);});
-setInterval(()=>{refreshMenuNew();if(noticesLoaded){document.querySelectorAll('#notices-list .notice-new').forEach(badge=>{if(!recentBoardUpdate(badge.closest('summary').querySelector('time').dateTime))badge.remove();});}},60000);
+setInterval(()=>{refreshMenuNew();document.querySelectorAll('#notices-list .notice-new, #tips-list .notice-new').forEach(badge=>{if(!recentBoardUpdate(badge.closest('summary').querySelector('time').dateTime))badge.remove();});},60000);
 document.getElementById('notice-logout').addEventListener('click',async()=>{
   try{await noticeWrite('/session','DELETE');}catch{}noticeToken='';noticeExpiry=0;closeNoticeForms();renderNotices(noticeRecords);
 });
@@ -435,7 +435,10 @@ function renderTips(tips){
     const share=element('button',undefined,'icon-button tip-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','팁 링크 복사');
     const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);
     share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(tip.id,share);});
-    summary.append(element('span',tip.title,'entry-title'),element('span',tip.author,'entry-author'),element('time',new Date(tip.created_at).toLocaleDateString('ko-KR')));bindBoardViews(item,summary,tip,'tips');summary.append(disclosure,share);
+    const title=element('span',tip.title,'entry-title'),date=new Date(tip.created_at),time=element('time',date.toLocaleDateString('ko-KR'));
+    time.dateTime=date.toISOString();
+    if(recentBoardUpdate(tip.created_at)){const badge=element('span','New','notice-new');badge.title='작성 후 24시간 이내';title.append(badge);}
+    summary.append(title,element('span',tip.author,'entry-author'),time);bindBoardViews(item,summary,tip,'tips');summary.append(disclosure,share);
     const body=element('div',undefined,'entry-body'),urls=new Map(),rich=GuildRich.render(body,tip.content,tip.images || [],image=>tipImageUrl(tip.id,image.id));if(!rich)appendTipContent(body,tip.content,urls);else for(const match of GuildRich.text(tip.content).matchAll(/https?:\/\/[^\s]+/g)){const url=tipUrl(match[0]);if(url)urls.set(url.href,url);}
     for(const [index,image] of (rich?[]:tip.images || []).entries()){const link=element('a',undefined,'notice-photo');link.href=tipImageUrl(tip.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`팁 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);}
     const url=tipUrl(tip.url);if(url)urls.set(url.href,url);
