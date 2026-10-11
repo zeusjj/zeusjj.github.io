@@ -7,8 +7,10 @@
   <link rel="stylesheet" href="vendor/quill.snow.css">
   <link rel="stylesheet" href="style.css?v=20261011-86">
   <script type="module" src="official-news.js?v=20261009-74"></script>
+  <link rel="stylesheet" href="probabilities.css?v=20261012-89">
+  <script type="module" src="probabilities.js?v=20261012-89"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="app.js?v=20261012-88" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="app.js?v=20261012-89" defer></script>
   <script type="module" src="member-growth-history.js?v=20261011-83"></script>
   <script type="module" src="member-distributions.js?v=20261009-72"></script>
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
@@ -33,6 +35,7 @@
       <button data-tab="distribution"><i data-lucide="package-open"></i><span>분배 기록 <small id="distribution-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="tips"><i data-lucide="messages-square"></i><span>팁 공유 <small id="tip-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능</span></button>
+      <button data-tab="probabilities"><i data-lucide="list-ordered"></i><span>확률표</span></button>
       <button data-tab="alarms"><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
     <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
@@ -111,6 +114,13 @@
           <p>알림 중인 행의 중단 버튼 또는 토스트를 누르면 해당 알람 소리가 멈춥니다. 왼쪽 알람 수신을 Off로 바꾸면 울리던 소리가 모두 꺼집니다.</p>
           <p>등록된 알람은 길드원 모두에게 공유됩니다. 출현 3분 전에 1분간 알리며, 심연의 틈은 매일 00:00 · 12:00 · 18:00에 반복됩니다. 사이트를 닫거나 PC가 절전 상태이면 소리가 울리지 않습니다.</p>
         </section>
+      </section>
+      <section id="probabilities" hidden>
+        <div class="page-heading"><h1>확률표</h1><a id="probability-original" class="secondary-button" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>공식 원문</a></div>
+        <div class="probability-layout">
+          <nav class="probability-navigation" aria-label="확률표 항목"><label class="probability-search"><i data-lucide="search"></i><input id="probability-search" type="search" placeholder="확률표 검색" aria-label="확률표 검색"></label><div id="probability-menu"></div></nav>
+          <div class="probability-view"><h2 id="probability-title"></h2><p id="probability-status" role="status">확률표 목록을 불러오는 중입니다.</p><iframe id="probability-frame" title="제우스 공식 확률표" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe></div>
+        </div>
       </section>
       <section id="tools" hidden>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="계산기"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button></div></div>
