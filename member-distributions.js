@@ -1,5 +1,5 @@
-import {memberDistribution} from './member-distribution-model.js';
-const canvas=document.getElementById('member-class-chart'),frame=canvas.parentElement,legend=document.getElementById('member-class-legend'),growth=document.getElementById('member-growth-chart');
+import {memberDistribution} from './member-distribution-model.js?v=20261012-92';
+const canvas=document.getElementById('member-class-chart'),frame=canvas.parentElement,legend=document.getElementById('member-class-legend'),growth=document.getElementById('member-growth-chart'),levels=document.getElementById('member-level-chart');
 const palette={'버서커':'#b94b50','나이트':'#577d9a','레인저':'#30836a','어쌔신':'#785b93','아티산':'#9c7738','블레':'#c26338','오라클':'#a68a26','엘리':'#438d9d','미기록':'#929b9f'};
 const number=new Intl.NumberFormat('ko-KR');let summary;
 function node(tag,text,className){const element=document.createElement(tag);if(text!==undefined)element.textContent=text;if(className)element.className=className;return element;}
@@ -14,7 +14,11 @@ function draw(){
  }
 }
 function render(data){
- summary=memberDistribution(data);legend.replaceChildren();growth.replaceChildren();
+ summary=memberDistribution(data);legend.replaceChildren();growth.replaceChildren();levels.replaceChildren();
+ document.getElementById('member-level-total').textContent=summary.levelRecorded+'명 · 미기록 '+(summary.total-summary.levelRecorded)+'명';
+ const levelMax=Math.max(5,Math.ceil(Math.max(...summary.levelBins.map(item=>item.count))/5)*5),levelAxis=node('div',undefined,'member-growth-axis');
+ for(let count=0;count<=levelMax;count+=5)levelAxis.append(node('span',count+'명'));levels.append(levelAxis);
+ for(const item of summary.levelBins){const row=node('div',undefined,'member-growth-bin');row.append(node('span',item.label,'member-growth-label'));const track=node('div',undefined,'member-growth-track'),bar=node('span');bar.style.width=item.count/levelMax*100+'%';track.append(bar);track.setAttribute('aria-hidden','true');row.append(track,node('strong',item.count+'명'));levels.append(row);}
  document.getElementById('member-class-total').textContent=summary.total+'명';document.getElementById('member-growth-total').textContent=summary.recorded+'명 · 미기록 '+summary.missing+'명';
  for(const item of summary.classes){const row=node('li');const swatch=node('span',undefined,'member-class-swatch');swatch.style.backgroundColor=palette[item.name];const label=node('span',item.name),count=node('strong',item.count+'명'),percent=node('small',summary.total?(item.count/summary.total*100).toFixed(1)+'%':'0.0%');row.append(swatch,label,count,percent);legend.append(row);}
  canvas.setAttribute('aria-label','직업 분포: '+summary.classes.map(item=>item.name+' '+item.count+'명').join(', '));
