@@ -147,7 +147,14 @@ function clearSharedNotice(){if(location.hash.startsWith('#notices/'))history.re
 function renderNoticePagination(count){
   const nav=document.getElementById('notice-pagination'),pages=Math.max(1,Math.ceil(count/noticePageSize));nav.replaceChildren();nav.hidden=pages<=1;
   if(nav.hidden)return;
-  const change=page=>{noticePage=page;clearSharedNotice();renderNotices(noticeRecords);requestAnimationFrame(()=>{document.getElementById('notices-list').scrollIntoView({block:'start'});document.querySelector('#notice-pagination [aria-current=page]')?.focus({preventScroll:true});});};
+  const change=page=>{
+    const left=window.scrollX,top=window.scrollY;
+    noticePage=page;clearSharedNotice();renderNotices(noticeRecords);
+    requestAnimationFrame(()=>{
+      document.querySelector('#notice-pagination [aria-current=page]')?.focus({preventScroll:true});
+      window.scrollTo({left,top,behavior:'instant'});
+    });
+  };
   const arrow=(icon,label,page,disabled)=>{const button=element('button',undefined,'icon-button');button.type='button';button.title=label;button.setAttribute('aria-label',label);button.disabled=disabled;const glyph=element('i');glyph.dataset.lucide=icon;button.append(glyph);button.addEventListener('click',()=>change(page));nav.append(button);};
   arrow('chevron-left','이전 공지 페이지',noticePage-1,noticePage===1);
   const numbers=[...new Set([1,...Array.from({length:5},(_,i)=>noticePage+i-2).filter(p=>p>0&&p<=pages),pages])].sort((a,b)=>a-b);
