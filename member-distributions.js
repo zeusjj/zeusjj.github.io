@@ -1,4 +1,4 @@
-import {memberDistribution} from './member-distribution-model.js?v=20261012-92';
+import {memberDistribution} from './member-distribution-model.js?v=20261012-94';
 const canvas=document.getElementById('member-class-chart'),frame=canvas.parentElement,legend=document.getElementById('member-class-legend'),growth=document.getElementById('member-growth-chart'),levels=document.getElementById('member-level-chart');
 const palette={'버서커':'#b94b50','나이트':'#577d9a','레인저':'#30836a','어쌔신':'#785b93','아티산':'#9c7738','블레':'#c26338','오라클':'#a68a26','엘리':'#438d9d','미기록':'#929b9f'};
 const number=new Intl.NumberFormat('ko-KR');let summary;
