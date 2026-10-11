@@ -534,7 +534,7 @@ function renderMembers(data, query='') {
   data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:data.members.map(row=>order.map(index=>row[index]))};
   memberData=data;
   const nameIndex=data.headers.indexOf('닉네임');
-  const rows=data.members.filter(row=>String(row[nameIndex]).toLowerCase().includes(query.toLowerCase()));
+  const rows=data.members.filter(row=>GuildNicknameSearch.matches(row[nameIndex],query));
   if(memberSort){
     const index=memberSort.index,direction=memberSort.direction==='descending'?-1:1;
     const rank=value=>{const text=String(value??'').trim().toUpperCase();return text==='O'||text==='ㅇ'?2:text==='X'?1:0;};
