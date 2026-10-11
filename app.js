@@ -217,7 +217,7 @@ function renderNotices(records){
   for(const record of visible.slice((noticePage-1)*noticePageSize,noticePage*noticePageSize)){
     const entry=element('details',undefined,'board-entry'),summary=element('summary');entry.dataset.noticeId=record.id;
     const date=new Date(record.created_at),time=element('time',date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}));time.dateTime=date.toISOString();
-    const category=record.category || '공지',categoryClass={'공지':'announcement','운영':'operations','한마디':'chat'}[category] || 'announcement';
+    const category=record.category || '공지',categoryClass={'공지':'announcement','운영':'operations','한마디':'chat','안내':'guide'}[category] || 'announcement';
     const title=element('span',undefined,'entry-title');title.append(element('span',record.title,'notice-title-text'));
     const age=Date.now()-date.getTime();if(age>=0 && age<86400000){const badge=element('span','New','notice-new');badge.title='작성 후 24시간 이내';title.append(badge);}
     const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span',category,'notice-tag notice-tag-'+categoryClass),title,time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
