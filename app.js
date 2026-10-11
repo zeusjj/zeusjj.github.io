@@ -21,7 +21,7 @@ function switchTab(tab) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
   }
-  const label=tab==='admin'?'관리자':document.querySelector(`[data-tab="${tab}"]`).textContent.trim();
+  const label=tab==='admin'?'관리자':document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
   document.getElementById('current-view').textContent=label;
   document.title=`${label} | 절대중립`;
   window.scrollTo({top:0,behavior:'instant'});
@@ -139,7 +139,21 @@ function renderRules(text) {
 }
 const noticesApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/notices';
 const noticeLogin=document.getElementById('notice-login'),noticeForm=document.getElementById('notice-form');
-let noticeToken='',noticeExpiry=0,noticeRecords=[],editingNotice=null;
+let noticeToken='',noticeExpiry=0,noticeRecords=[],editingNotice=null,noticePage=1,menuTips=[];
+const noticePageSize=7;
+function recentBoardUpdate(value){const age=Date.now()-new Date(value).getTime();return age>=0 && age<86400000;}
+function refreshMenuNew(){document.getElementById('notice-menu-new').hidden=!noticeRecords.some(record=>recentBoardUpdate(record.created_at));document.getElementById('member-menu-new').hidden=!recentBoardUpdate(memberData?.membersUpdatedAt);document.getElementById('tip-menu-new').hidden=!menuTips.some(record=>recentBoardUpdate(record.created_at));document.getElementById('distribution-menu-new').hidden=!recentBoardUpdate(memberData?.distributionUpdatedAt);}
+function clearSharedNotice(){if(location.hash.startsWith('#notices/'))history.replaceState(null,'','#notices');}
+function renderNoticePagination(count){
+  const nav=document.getElementById('notice-pagination'),pages=Math.max(1,Math.ceil(count/noticePageSize));nav.replaceChildren();nav.hidden=pages<=1;
+  if(nav.hidden)return;
+  const change=page=>{noticePage=page;clearSharedNotice();renderNotices(noticeRecords);requestAnimationFrame(()=>{document.getElementById('notices-list').scrollIntoView({block:'start'});document.querySelector('#notice-pagination [aria-current=page]')?.focus({preventScroll:true});});};
+  const arrow=(icon,label,page,disabled)=>{const button=element('button',undefined,'icon-button');button.type='button';button.title=label;button.setAttribute('aria-label',label);button.disabled=disabled;const glyph=element('i');glyph.dataset.lucide=icon;button.append(glyph);button.addEventListener('click',()=>change(page));nav.append(button);};
+  arrow('chevron-left','이전 공지 페이지',noticePage-1,noticePage===1);
+  const numbers=[...new Set([1,...Array.from({length:5},(_,i)=>noticePage+i-2).filter(p=>p>0&&p<=pages),pages])].sort((a,b)=>a-b);
+  for(const [index,page] of numbers.entries()){if(index && page>numbers[index-1]+1)nav.append(element('span','…','pagination-gap'));const button=element('button',String(page),'notice-page');button.type='button';button.setAttribute('aria-label',`공지 ${page}페이지`);if(page===noticePage)button.setAttribute('aria-current','page');button.addEventListener('click',()=>change(page));nav.append(button);}
+  arrow('chevron-right','다음 공지 페이지',noticePage+1,noticePage===pages);
+}
 let noticeSaving=false;
 const noticeImageUrl=(postId,imageId)=>noticesApi+'/'+encodeURIComponent(postId)+'/images/'+encodeURIComponent(imageId);
 async function encodeNoticeImage(file){
@@ -197,9 +211,10 @@ function renderNotices(records){
   noticeRecords=records;const target=document.getElementById('notices-list');target.replaceChildren();
   const filter=document.getElementById('notice-filter').value;
   const visible=records.filter(record=>filter==='all' || (record.category || '공지')===filter);
+  noticePage=Math.max(1,Math.min(noticePage,Math.max(1,Math.ceil(visible.length/noticePageSize))));
   document.getElementById('notice-count').textContent=filter==='all'?`전체 ${records.length}건`:`${filter} ${visible.length}건 / 전체 ${records.length}건`;document.getElementById('notices-status').textContent=visible.length?'':records.length?'해당 태그의 글이 없습니다.':'등록된 공지가 없습니다.';
   document.getElementById('notice-logout').hidden=!noticeAdmin();
-  for(const record of visible){
+  for(const record of visible.slice((noticePage-1)*noticePageSize,noticePage*noticePageSize)){
     const entry=element('details',undefined,'board-entry'),summary=element('summary');entry.dataset.noticeId=record.id;
     const date=new Date(record.created_at),time=element('time',date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}));time.dateTime=date.toISOString();
     const category=record.category || '공지',categoryClass={'공지':'announcement','운영':'operations','한마디':'chat'}[category] || 'announcement';
@@ -220,10 +235,12 @@ function renderNotices(records){
       });actions.append(edit,remove);body.append(actions);
     }
     entry.append(summary,body);target.append(entry);
-  }refreshIcons();window.dispatchEvent(new Event('guild-admin-auth'));openSharedNotice();
+  }renderNoticePagination(visible.length);refreshMenuNew();refreshIcons();window.dispatchEvent(new Event('guild-admin-auth'));openSharedNotice();
 }
 function openSharedNotice(){let id;try{id=location.hash.startsWith('#notices/')?decodeURIComponent(location.hash.slice(9)):'';}catch{return;}if(!id)return;
   if(document.getElementById('notice-filter').value!=='all'){document.getElementById('notice-filter').value='all';renderNotices(noticeRecords);return;}
+  const index=noticeRecords.findIndex(record=>record.id===id),page=Math.floor(index/noticePageSize)+1;
+  if(index>=0 && noticePage!==page){noticePage=page;renderNotices(noticeRecords);return;}
   const entry=[...document.querySelectorAll('#notices-list details')].find(entry=>entry.dataset.noticeId===id);if(!entry){document.getElementById('notices-status').textContent='공유된 공지를 찾을 수 없습니다.';return;}
   entry.open=true;requestAnimationFrame(()=>{if(location.hash==='#notices/'+encodeURIComponent(id)){entry.scrollIntoView({block:'start'});entry.querySelector('summary').focus({preventScroll:true});}});
 }
@@ -244,8 +261,8 @@ document.getElementById('new-notice').addEventListener('click',()=>{
 document.getElementById('cancel-notice-login').addEventListener('click',closeNoticeForms);
 document.getElementById('cancel-notice').addEventListener('click',closeNoticeForms);
 document.getElementById('refresh-notices').addEventListener('click',loadNotices);
-document.getElementById('notice-filter').addEventListener('change',()=>renderNotices(noticeRecords));
-setInterval(()=>{if(noticesLoaded && !document.getElementById('notices').hidden){const now=Date.now();document.querySelectorAll('#notices-list .notice-new').forEach(badge=>{if(now-new Date(badge.closest('summary').querySelector('time').dateTime).getTime()>=86400000)badge.remove();});}},60000);
+document.getElementById('notice-filter').addEventListener('change',()=>{noticePage=1;clearSharedNotice();renderNotices(noticeRecords);});
+setInterval(()=>{refreshMenuNew();if(noticesLoaded){document.querySelectorAll('#notices-list .notice-new').forEach(badge=>{if(!recentBoardUpdate(badge.closest('summary').querySelector('time').dateTime))badge.remove();});}},60000);
 document.getElementById('notice-logout').addEventListener('click',async()=>{
   try{await noticeWrite('/session','DELETE');}catch{}noticeToken='';noticeExpiry=0;closeNoticeForms();renderNotices(noticeRecords);
 });
@@ -401,6 +418,7 @@ function bindTipLikes(item,summary,body,tip){
   item.addEventListener('toggle',synchronize);display();
 }
 function renderTips(tips){
+  menuTips=tips;refreshMenuNew();
   const opened=new Set([...document.querySelectorAll('#tips-list details[open]')].map(item=>item.dataset.tipId));
   const list=document.getElementById('tips-list');list.replaceChildren();
   for(const tip of tips){
@@ -544,6 +562,7 @@ function renderMembers(data, query='') {
   for(const [line,row] of rows.entries()) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===0)td.textContent=line+1;else if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const status=element('span',typeof value==='number'?value.toLocaleString('ko-KR'):value??'-','status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>cell.hidden=hiddenColumn(index)));
   table.append(body);document.getElementById('member-count').textContent=`${data.members.length} / 60 명`;
+  refreshMenuNew();
   document.getElementById('empty-search').hidden=rows.length>0;
   window.dispatchEvent(new CustomEvent('guild-members-data',{detail:source}));
   refreshIcons();
