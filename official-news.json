@@ -1,7 +1,21 @@
 {
-  "collectedAt": "2026-10-12T08:36:54.030Z",
+  "collectedAt": "2026-10-12T09:36:05.791Z",
   "days": 14,
   "items": [
+    {
+      "id": "aab91b85-5766-48d8-bb39-a88bdb19a65e",
+      "title": "10월 12일(월) 운영정책 위반 계정 조치 안내 (49차)",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-12T09:30:00.000Z",
+      "url": "https://zeus.com2us.com/p/aab91b85-5766-48d8-bb39-a88bdb19a65e"
+    },
+    {
+      "id": "ba409f94-2caf-4cab-87c2-19c79e80f062",
+      "title": "10월 14일(수) 업데이트 점검 안내",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-12T09:00:00.000Z",
+      "url": "https://zeus.com2us.com/p/ba409f94-2caf-4cab-87c2-19c79e80f062"
+    },
     {
       "id": "11e966a4-5abd-40b2-948b-0d41c7971199",
       "title": "주말 한정 신규 상품 안내",
@@ -246,13 +260,6 @@
       "tag": "공지사항",
       "publishedAt": "2026-09-29T09:09:00.000Z",
       "url": "https://zeus.com2us.com/p/0f022efb-ca3a-4ceb-bd53-264dd43b41a6"
-    },
-    {
-      "id": "c19f7551-4d04-481a-9047-79364f69c163",
-      "title": "9월 30일(수) 업데이트 점검 안내 (완료)",
-      "tag": "공지사항",
-      "publishedAt": "2026-09-28T09:00:00.000Z",
-      "url": "https://zeus.com2us.com/p/c19f7551-4d04-481a-9047-79364f69c163"
     }
   ]
 }
