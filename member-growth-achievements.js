@@ -1,13 +1,13 @@
 import {growthHistory} from './member-growth-history.js?v=20261013-104';
 
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
- const cutoff=new Date(Date.parse(today+'T00:00:00Z')-2*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
+ const cutoff=new Date(Date.parse(today+'T00:00:00Z')-2*86400000).toISOString().slice(0,10),milestoneCutoff=new Date(Date.parse(today+'T00:00:00Z')-4*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
  for(const row of data.members){
   const name=row[nameIndex],history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),recent=history.filter(point=>point.date>=cutoff);
   if(recent.length>=2){const first=recent[0],last=recent.at(-1),increase=last.value-first.value;if(increase>0)rankings.push({name,increase,from:first.date,to:last.date});}
   let highest=null;
   for(const point of history){
-   if(highest!==null&&point.date>=cutoff){for(let threshold=Math.max(40000,(Math.floor(highest/10000)+1)*10000);threshold<=point.value;threshold+=10000){if(!milestones.has(threshold))milestones.set(threshold,[]);milestones.get(threshold).push({name,date:point.date,value:point.value});}}
+   if(highest!==null&&point.date>=milestoneCutoff){for(let threshold=Math.max(40000,(Math.floor(highest/10000)+1)*10000);threshold<=point.value;threshold+=10000){if(!milestones.has(threshold))milestones.set(threshold,[]);milestones.get(threshold).push({name,date:point.date,value:point.value});}}
    highest=Math.max(highest??point.value,point.value);
   }
  }
