@@ -1,7 +1,7 @@
 import {growthHistory} from './member-growth-history.js?v=20261013-106';
 
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
- const cutoff=new Date(Date.parse(today+'T00:00:00Z')-86400000).toISOString().slice(0,10),milestoneCutoff=new Date(Date.parse(today+'T00:00:00Z')-4*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
+ const cutoff=new Date(Date.parse(today+'T00:00:00Z')-86400000).toISOString().slice(0,10),milestoneCutoff=new Date(Date.parse(today+'T00:00:00Z')-6*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
  for(const row of data.members){
   const name=row[nameIndex],history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),increments=history.flatMap((point,index)=>index&&point.date>=cutoff?[{date:point.date,previousDate:history[index-1].date,value:point.value-history[index-1].value}]:[]);
   const increase=increments.reduce((sum,point)=>sum+point.value,0);if(increase>=1000)rankings.push({name,increase,from:increments[0].date,to:increments.at(-1).date});
