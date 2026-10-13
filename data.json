@@ -1808,11 +1808,18 @@
     }
   },
   "membersUpdatedAt": "2026-10-13T15:54:12Z",
-  "distributionUpdatedAt": null,
+  "distributionUpdatedAt": "2026-10-13T16:10:12Z",
   "distribution": [
     {
       "title": "길드레이드 5차",
-      "records": []
+      "records": [
+        {
+          "name": "-",
+          "item": "T5 찬란한 귀걸이",
+          "amount": null,
+          "bidding": "방어구,장신구 - 분배타입A"
+        }
+      ]
     },
     {
       "title": "길드레이드 4차",
