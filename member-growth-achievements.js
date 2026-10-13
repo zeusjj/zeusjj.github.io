@@ -22,6 +22,7 @@ if(typeof document!=='undefined'){
   if(!source)return;const result=recentGrowthAchievements(source);host.replaceChildren();
   function card(title,icon,records,ranked){
    const article=document.createElement('section'),heading=document.createElement('h3'),symbol=document.createElement('i'),caption=document.createElement('span'),list=document.createElement('ol');article.className='member-achievement'+(ranked?' member-achievement-ranked':'');symbol.dataset.lucide=icon;caption.textContent=title;heading.append(symbol,caption);article.append(heading,list);
+   if(!ranked){const period=document.createElement('span');period.className='member-achievement-period';period.textContent='최근 7일';heading.append(period);}
    for(const [index,record] of records.entries()){const item=document.createElement('li'),name=document.createElement('span'),value=document.createElement('span');name.className='member-achievement-name';name.textContent=record.name;value.className='member-achievement-value';value.textContent=ranked?'+'+number.format(record.increase):record.date.slice(5).replace('-','/');if(ranked){const rank=document.createElement('span');rank.className='member-achievement-rank';rank.textContent=index+1;item.append(rank);item.title=record.from+' ~ '+record.to;}else item.title=number.format(record.value);item.append(name,value);list.append(item);}host.append(article);
   }
   if(result.rankings.length)card('최근 2일 급상승','trending-up',result.rankings,true);
