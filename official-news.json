@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-10-13T22:41:39.078Z",
+  "collectedAt": "2026-10-13T23:38:46.515Z",
   "days": 14,
   "items": [
     {
@@ -281,27 +281,6 @@
       "tag": "공지사항",
       "publishedAt": "2026-09-30T03:28:00.000Z",
       "url": "https://zeus.com2us.com/p/843a9f18-eb3e-455d-bc6d-aff4f8fa8e72"
-    },
-    {
-      "id": "2fda03d9-b86e-499f-b082-547bf77ef32d",
-      "title": "제전 참여 인증 이벤트",
-      "tag": "진행 중인 이벤트",
-      "publishedAt": "2026-09-29T23:00:00.000Z",
-      "url": "https://zeus.com2us.com/p/2fda03d9-b86e-499f-b082-547bf77ef32d"
-    },
-    {
-      "id": "7b6caf35-e3f3-4d25-9ae5-6c84eba28121",
-      "title": "9월 30일(수) 업데이트 상세 안내",
-      "tag": "업데이트",
-      "publishedAt": "2026-09-29T23:00:00.000Z",
-      "url": "https://zeus.com2us.com/p/7b6caf35-e3f3-4d25-9ae5-6c84eba28121"
-    },
-    {
-      "id": "a1ffbd55-0875-4eb1-9e7f-7c311ebb38dc",
-      "title": "9월 30일(수) 신규 상품 안내",
-      "tag": "공지사항",
-      "publishedAt": "2026-09-29T23:00:00.000Z",
-      "url": "https://zeus.com2us.com/p/a1ffbd55-0875-4eb1-9e7f-7c311ebb38dc"
     }
   ]
 }
