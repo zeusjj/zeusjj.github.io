@@ -1,4 +1,4 @@
-import {growthHistory} from './member-growth-history.js?v=20261013-102';
+import {growthHistory} from './member-growth-history.js?v=20261013-104';
 
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
  const cutoff=new Date(Date.parse(today+'T00:00:00Z')-2*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
