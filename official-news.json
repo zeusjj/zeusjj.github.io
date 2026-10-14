@@ -1,7 +1,14 @@
 {
-  "collectedAt": "2026-10-14T10:44:46.515Z",
+  "collectedAt": "2026-10-14T11:44:42.354Z",
   "days": 14,
   "items": [
+    {
+      "id": "e76beba5-1fc6-41b6-9f6f-cec93f19c3d6",
+      "title": "10월 15일(목) 일부 서버 임시 점검 안내 (디오니소스, 하데스 서버 그룹)",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-14T10:52:00.000Z",
+      "url": "https://zeus.com2us.com/p/e76beba5-1fc6-41b6-9f6f-cec93f19c3d6"
+    },
     {
       "id": "a019a9ed-7107-463e-bd3f-d633677f8122",
       "title": "팬아트 게시판 오픈 및 이용 안내",
@@ -274,13 +281,6 @@
       "tag": "공지사항",
       "publishedAt": "2026-09-30T16:50:00.000Z",
       "url": "https://zeus.com2us.com/p/3d45efc1-ee2d-49ad-a8fb-ccbfc4676c39"
-    },
-    {
-      "id": "2485c6d0-faf2-48b5-a8f0-1c3bf6266be1",
-      "title": "10월 1일(목) 월간 패키지 세부 구성품 안내",
-      "tag": "공지사항",
-      "publishedAt": "2026-09-30T11:00:00.000Z",
-      "url": "https://zeus.com2us.com/p/2485c6d0-faf2-48b5-a8f0-1c3bf6266be1"
     }
   ]
 }
