@@ -288,7 +288,6 @@ const tipForm=document.getElementById('tip-form');
 tipForm.elements.content.required=false;
 function tipImageUrl(id,imageId){return tipsApi+'/'+encodeURIComponent(id)+'/images/'+encodeURIComponent(imageId);}
 const tipAttachments=GuildRich.editor(tipForm,{status:document.getElementById('tip-form-status'),url:image=>tipImageUrl('',image.id),encode:encodeNoticeImage});
-document.getElementById('suggest-tool').addEventListener('click',()=>{location.hash='tips';showTipForm(true);if(!tipForm.elements.title.value)tipForm.elements.title.value='[편의 기능 건의] ';requestAnimationFrame(()=>{tipForm.scrollIntoView({block:'start'});tipForm.elements.title.focus();});});
 const tipSearch=document.getElementById('tip-search');
 const normalizeTipSearch=value=>String(value).normalize('NFKC').toLocaleLowerCase('ko-KR');
 function filterTips(){

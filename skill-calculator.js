@@ -16,7 +16,7 @@ function update() {
   error.hidden = valid;
   if (!valid) {error.textContent = '보유 주문서는 0~10,000 사이의 정수로 입력해주세요.';body.replaceChildren();return;}
   const grade = form.elements.grade.value;
-  if (!cache.has(grade)) cache.set(grade, [7, 8, 9].map(start => skillDistribution(grade, start, start + 1)));
+  if (!cache.has(grade)) cache.set(grade, [4, 5, 6, 7, 8, 9].map(start => skillDistribution(grade, start, start + 1)));
   body.replaceChildren();
   for (const result of cache.get(grade)) {
     const row = document.createElement('tr');

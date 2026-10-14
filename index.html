@@ -5,19 +5,19 @@
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/quill.snow.css">
-  <link rel="stylesheet" href="style.css?v=20261014-113">
+  <link rel="stylesheet" href="style.css?v=20261014-114">
   <script type="module" src="official-news.js?v=20261009-74"></script>
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
   <script type="module" src="probabilities.js?v=20261012-89"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261014-112" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261014-114" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261013-106"></script>
   <script type="module" src="member-growth-achievements.js?v=20261014-110"></script>
   <script type="module" src="member-distributions.js?v=20261012-97"></script>
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
   <script src="admin-statistics.js?v=20261009-76" defer></script>
-  <script type="module" src="collection-calculator.js?v=20261006-54"></script>
-  <script type="module" src="skill-calculator.js?v=20261005-31"></script>
+  <script type="module" src="collection-calculator.js?v=20261014-114"></script>
+  <script type="module" src="skill-calculator.js?v=20261014-114"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
   <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
   <script src="guestbook.js?v=20261007-60" defer></script>
@@ -79,6 +79,7 @@
           </div>
           <section class="admin-menu-statistics"><div class="admin-period-heading"><h2>메뉴 클릭 순위</h2><label>기간<select id="admin-menu-days"><option value="0">전체</option><option value="1">오늘</option><option value="7">최근 7일</option><option value="30" selected>최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option></select></label></div><p id="admin-menu-status" role="status"></p><div class="admin-statistics-table"><table class="menu-statistics-table"><thead><tr><th scope="col">메뉴</th><th scope="col">클릭 수</th><th scope="col">고유 브라우저</th><th scope="col">비율</th></tr></thead><tbody id="admin-menu-rows"></tbody></table></div><p id="admin-menu-note" class="admin-period-note"></p></section>
           <section class="admin-guestbook"><div class="admin-period-heading"><h2>날짜별 방명록</h2><div class="admin-guestbook-controls"><label>날짜<input id="guestbook-day" type="date"></label><button id="guestbook-refresh" class="icon-button" type="button" title="방명록 새로고침" aria-label="방명록 새로고침"><i data-lucide="refresh-cw"></i></button></div></div><p id="admin-guestbook-status" role="status"></p><div class="admin-statistics-table"><table class="guestbook-table"><thead><tr><th scope="col">작성 시각</th><th scope="col">닉네임</th><th scope="col">메모</th></tr></thead><tbody id="admin-guestbook-rows"></tbody></table></div><button id="guestbook-more" type="button" class="secondary-button" hidden>더 보기</button><p class="admin-period-note">방명록 날짜도 한국시간 05:00 기준입니다. 닉네임은 작성자가 입력한 이름이며 본인 인증 기록은 아닙니다.</p></section>
+          <section class="admin-suggestions"><div class="admin-period-heading"><h2>편의 기능 건의</h2><button id="suggestions-refresh" class="icon-button" type="button" title="건의 새로고침" aria-label="건의 새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="admin-suggestions-status" role="status"></p><div id="admin-suggestions-list"></div><button id="suggestions-more" type="button" class="secondary-button" hidden>더 보기</button></section>
         </div>
       </section>
       <section id="members" hidden>
@@ -204,6 +205,7 @@
     <dialog id="alarm-review" aria-labelledby="alarm-review-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-review-title">스크린샷 인식 확인</h2><p id="alarm-review-time"></p><div id="alarm-review-rows"></div><p id="alarm-review-status" role="status"></p><div class="form-actions"><button id="alarm-review-register" type="button" class="primary-button">선택한 알람 등록</button></div></dialog>
     <dialog id="alarm-conflicts" aria-labelledby="alarm-conflicts-title"><h2 id="alarm-conflicts-title">기존 알람을 다음 시간으로 덮어쓰겠습니까?</h2><ul id="alarm-conflict-list"></ul><div class="form-actions"><button id="alarm-conflict-cancel" class="secondary-button" type="button">취소</button><button id="alarm-conflict-confirm" class="primary-button" type="button">확인</button></div></dialog>
     <dialog id="guestbook-dialog" aria-labelledby="guestbook-title"><button id="guestbook-close" class="icon-button" type="button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button><h2 id="guestbook-title">방명록</h2><form id="guestbook-form"><label for="guestbook-nickname">닉네임</label><div class="guestbook-name-field"><input id="guestbook-nickname" name="nickname" maxlength="30" required autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="guestbook-suggestions" aria-expanded="false"><ul id="guestbook-suggestions" role="listbox" aria-label="길드원 닉네임 추천" hidden></ul></div><label for="guestbook-memo">메모</label><textarea id="guestbook-memo" name="memo" rows="3" maxlength="500" required>출석 체크</textarea><p id="guestbook-status" role="status" aria-live="polite"></p><div class="form-actions"><button class="primary-button" type="submit">확인</button></div></form></dialog><div id="guestbook-toast" role="status" hidden></div>
+    <dialog id="suggestion-dialog" aria-labelledby="suggestion-title"><button id="suggestion-close" class="icon-button" type="button" aria-label="건의 닫기" title="닫기"><i data-lucide="x"></i></button><h2 id="suggestion-title">편의 기능 건의</h2><form id="suggestion-form"><label for="suggestion-nickname">닉네임 <small>선택</small></label><input id="suggestion-nickname" name="nickname" maxlength="30" autocomplete="off"><label for="suggestion-content">건의 내용</label><textarea id="suggestion-content" name="content" rows="5" maxlength="2000" required></textarea><p id="suggestion-status" role="status" aria-live="polite"></p><div class="form-actions"><button class="primary-button" type="submit">확인</button></div></form></dialog><div id="suggestion-toast" role="status" hidden></div>
     <div id="alarm-toasts" aria-live="polite" aria-atomic="false"></div>
     <footer>절대중립<span>아테나2 길드</span></footer>
   </div>
