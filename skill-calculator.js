@@ -16,16 +16,17 @@ function update() {
   error.hidden = valid;
   if (!valid) {error.textContent = '보유 주문서는 0~10,000 사이의 정수로 입력해주세요.';body.replaceChildren();return;}
   const grade = form.elements.grade.value;
-  if (!cache.has(grade)) cache.set(grade, [4, 5, 6, 7, 8, 9].map(start => skillDistribution(grade, start, start + 1)));
+  const rates=skillRates(grade);
+  if (!cache.has(grade)) cache.set(grade, rates.filter(rate=>rate.down>0&&rate.up<1).map(rate=>({...skillDistribution(grade,rate.target-1,rate.target),successProbability:rate.up})));
   body.replaceChildren();
   for (const result of cache.get(grade)) {
     const row = document.createElement('tr');
-    const values = [`${result.start} → ${result.target}강`, decimal.format(result.mean) + '개', ...result.quantiles.map(value => integer.format(value) + '개'), percent(result.probability(input.valueAsNumber)), percent(result.overMean), percent(result.overDoubleMean)];
+    const values = [`${result.start} → ${result.target}강`, integer.format(result.successProbability*100)+'%', decimal.format(result.mean) + '개', ...result.quantiles.map(value => integer.format(value) + '개'), percent(result.probability(input.valueAsNumber)), percent(result.overMean), percent(result.overDoubleMean)];
     values.forEach((value, index) => {
       const cell = document.createElement(index === 0 ? 'th' : 'td');
       if (index === 0) cell.scope = 'row';
-      if (index === 1) cell.className = 'collection-mean';
-      if (index === 5) cell.className = 'skill-budget-chance';
+      if (index === 2) cell.className = 'collection-mean';
+      if (index === 6) cell.className = 'skill-budget-chance';
       cell.textContent = value;
       row.append(cell);
     });
@@ -34,7 +35,7 @@ function update() {
   document.getElementById('skill-stock-caption').textContent = `보유 ${integer.format(input.valueAsNumber)}개 기준`;
   const ratesBody = document.querySelector('#skill-rates tbody');
   ratesBody.replaceChildren();
-  for (const rate of skillRates(grade)) {
+  for (const rate of rates.filter(rate=>rate.up<1)) {
     const row = document.createElement('tr');
     [rate.target + '강 도전', rate.up, rate.stay, rate.down].forEach((value, index) => {
       const cell = document.createElement(index === 0 ? 'th' : 'td');
