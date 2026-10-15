@@ -1,10 +1,17 @@
 {
-  "collectedAt": "2026-10-15T09:44:38.874Z",
+  "collectedAt": "2026-10-15T10:44:57.446Z",
   "days": 14,
   "items": [
     {
+      "id": "6339e2f9-bec0-4361-bb43-29d7fbc47637",
+      "title": "10월 15일(목) 운영정책 위반 계정 조치 안내 (52차)",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-15T10:00:00.000Z",
+      "url": "https://zeus.com2us.com/p/6339e2f9-bec0-4361-bb43-29d7fbc47637"
+    },
+    {
       "id": "0956ee2a-680e-44ff-8a84-650ee4bf3829",
-      "title": "10월 14일(화) 운영정책 위반 계정 조치 안내 (51차)",
+      "title": "10월 14일(수) 운영정책 위반 계정 조치 안내 (51차)",
       "tag": "공지사항",
       "publishedAt": "2026-10-14T14:25:00.000Z",
       "url": "https://zeus.com2us.com/p/0956ee2a-680e-44ff-8a84-650ee4bf3829"
@@ -274,13 +281,6 @@
       "tag": "공지사항",
       "publishedAt": "2026-10-02T01:00:00.000Z",
       "url": "https://zeus.com2us.com/p/8746aaf1-3391-478d-a8bf-6a495da0801c"
-    },
-    {
-      "id": "97d81bd2-347d-400c-afb6-5917764eb3ab",
-      "title": "10월 1일(목) 운영정책 위반 계정 조치 안내 (44차)",
-      "tag": "공지사항",
-      "publishedAt": "2026-10-01T10:30:00.000Z",
-      "url": "https://zeus.com2us.com/p/97d81bd2-347d-400c-afb6-5917764eb3ab"
     }
   ]
 }
