@@ -20,6 +20,8 @@
   <script type="module" src="skill-calculator.js?v=20261014-115"></script>
   <link rel="stylesheet" href="fate-prices.css?v=20261017-118">
   <script type="module" src="fate-prices.js?v=20261017-118"></script>
+  <link rel="stylesheet" href="site-updates.css?v=20261017-119">
+  <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
   <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
   <script src="guestbook.js?v=20261007-60" defer></script>
@@ -49,6 +51,10 @@
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
       <section id="rules" hidden>
+        <section id="site-updates" class="site-updates" aria-labelledby="site-updates-heading" hidden>
+          <h2 id="site-updates-heading"><i data-lucide="history"></i>홈페이지 업데이트</h2>
+          <div class="site-updates-scroll" tabindex="0" role="region" aria-label="홈페이지 업데이트 내역"><ol id="site-updates-list"></ol></div>
+        </section>
         <div class="page-heading"><div><h1>운영 방식</h1><p>함께 활동하는 길드의 약속</p></div><span class="date-label"><i data-lucide="calendar-days"></i>2026.10.02 공지</span></div>
         <div class="chapter-navigation" aria-label="운영 규칙 목차"><button data-scroll="guild-operations">길드 운영</button><button data-scroll="guild-distribution">분배 기준</button><button data-scroll="guild-allocation">아이템 분배</button></div>
         <div id="rule-content"></div>
