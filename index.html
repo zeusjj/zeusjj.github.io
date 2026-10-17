@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
   <script type="module" src="probabilities.js?v=20261012-89"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-141" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
-  <script type="module" src="member-growth-history.js?v=20261013-106"></script>
-  <script type="module" src="member-growth-achievements.js?v=20261014-110"></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-144" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script type="module" src="member-growth-history.js?v=20261018-143"></script>
+  <script type="module" src="member-growth-achievements.js?v=20261018-143"></script>
   <script type="module" src="member-distributions.js?v=20261012-97"></script>
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
   <script src="admin-statistics.js?v=20261009-76" defer></script>
@@ -29,8 +29,8 @@
   <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
   <script src="guestbook.js?v=20261007-60" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
-  <script type="module" src="alarms.js?v=20261005-52"></script>
-  <link rel="stylesheet" href="site-design.css?v=20261018-141">
+  <script type="text/plain" data-src="alarms.js?v=20261005-52" data-feature-disabled="alarms"></script>
+  <link rel="stylesheet" href="site-design.css?v=20261018-144">
   <script src="site-design.js?v=20261018-141" defer></script>
 </head>
 <body>
@@ -50,7 +50,7 @@
       <button data-tab="tips"><i data-lucide="messages-square"></i><span>팁 공유 <small id="tip-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능 <small id="tools-menu-new" class="menu-new" data-new-parent="tools" hidden>New</small></span></button>
       <button data-tab="probabilities"><i data-lucide="list-ordered"></i><span>확률표</span></button>
-      <button data-tab="alarms"><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
+      <button data-tab="alarms" hidden inert><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
     <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
     <button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button>

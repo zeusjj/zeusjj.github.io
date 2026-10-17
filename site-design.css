@@ -211,3 +211,4 @@ footer{padding:18px var(--space-page);font-size:12px}
   footer{padding:16px 20px;font-size:12px;flex-wrap:wrap}
 }
 @media(prefers-reduced-motion:reduce){button,a{transition:none!important}}
+.alarm-reception,[data-tab="alarms"]{display:none!important}
