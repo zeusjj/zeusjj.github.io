@@ -312,11 +312,11 @@ function openSharedTip(){
   item.open=true;requestAnimationFrame(()=>{if(sharedTipId()!==id)return;item.scrollIntoView({block:'start'});item.querySelector('summary').focus({preventScroll:true});});
 }
 async function copyTipLink(id,button,board='tips'){
-  const url=new URL(location.href);url.search='';url.hash=board+'/'+encodeURIComponent(id);
-  if(board==='notices'){
-    const shared=new URL('/share/notices/'+encodeURIComponent(id),noticesApi),record=noticeRecords.find(record=>record.id===id);
-    if(Number.isSafeInteger(record?.updated_at))shared.searchParams.set('v',String(record.updated_at));
-    url.href=shared.href;
+  const url=new URL('/share/'+board+'/'+encodeURIComponent(id),noticesApi),record=(board==='notices'?noticeRecords:menuTips).find(record=>record.id===id);
+  if(board==='notices'&&Number.isSafeInteger(record?.updated_at))url.searchParams.set('v',String(record.updated_at));
+  else if(board==='tips'&&record?.title){
+    const revision=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(record.title))),byte=>byte.toString(16).padStart(2,'0')).join('').slice(0,12);
+    url.searchParams.set('v',revision);
   }
   const status=document.getElementById(board==='tips'?'tips-status':'notices-status');
   try {
