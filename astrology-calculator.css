@@ -87,6 +87,8 @@
 .astrology-priority select{width:100%;padding:8px;border:1px solid var(--line);border-radius:4px;background:var(--surface,#fff);color:var(--ink);font:inherit}
 #astrology-recommendation{font-size:14px;font-weight:600;color:var(--accent);line-height:1.8;min-height:26px;margin:24px 0 8px;overflow-wrap:anywhere}
 .astrology-budget-note{font-size:11px;line-height:1.9;color:var(--muted);margin:8px 0 16px}
+.astrology-completion-summary{border-top:1px solid var(--line,#dce3e8);padding-top:16px;margin:20px 0 0;font-size:14px;line-height:1.8;overflow-wrap:anywhere}
+.astrology-completion-summary strong{color:var(--teal,#1d7472);font-size:18px;font-variant-numeric:tabular-nums}
 .astrology-comparison-wrap{width:100%;min-width:0}
 .astrology-comparison{width:100%;border-collapse:collapse;font-size:12px;text-align:left;table-layout:fixed}
 .astrology-comparison caption{text-align:left;font-size:13px;font-weight:600;padding:12px 0;color:var(--ink)}

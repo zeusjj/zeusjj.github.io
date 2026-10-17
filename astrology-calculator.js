@@ -57,8 +57,9 @@ for(const star of astrologyConstellations){
     effectCount.textContent=current+' / '+star.central+' 달성';
     items.forEach((item,index)=>{item.dataset.achieved=String(index<current);item.dataset.next=String(index===current);statuses[index].textContent=index<current?'획득':index===current?'다음':'';if(index===current)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
     row.dataset.current=String(current);
+    row.dataset.completionMean=String(model.means[current]);
     cancelAnimationFrame(alignFrame);alignFrame=requestAnimationFrame(alignEffects);
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261018-140');
+import('./astrology-budget.js?v=20261018-142');
