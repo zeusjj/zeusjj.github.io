@@ -8,7 +8,7 @@ const select=section.querySelector('select'),slider=section.querySelector('input
 slider.max='30000';section.querySelector('.astrology-budget-scale span:last-child').textContent='30,000개';
 const stats=[...new Set(stars.flatMap(s=>[...s.effects,...s.completion].filter(Boolean).map(e=>e[0])))];
 for(const stat of ['', '공격력',...stats.filter(s=>s!=='공격력')]){const option=document.createElement('option');option.value=stat;option.textContent=stat||'없음';select.append(option);}
-section.querySelector('.astrology-budget-note').textContent='추천은 다음 1회 대상입니다. 우선 스탯이 없으면 모든 스탯 수치를 1:1로 합산한 기대 총량을 비교합니다. 실제 전투력 환산은 아니며, 개수별 달성·완성 효과만 포함합니다. 스탯을 고르면 해당 스탯만 비교합니다.';
+section.querySelector('.astrology-budget-note').textContent='현재 단계와 보유량을 기준으로 먼저 점성술을 진행할 별자리입니다. 결과에 따라 추천 대상은 달라질 수 있습니다. 우선 스탯이 없으면 달성·완성 스탯 수치의 단순 합계를, 선택하면 해당 스탯만 비교합니다. 실제 전투력 환산은 아닙니다.';
 let worker=null,sequence=0,timer;
 const percent=value=>value>0&&value<.0005?'0.1% 미만':value<1&&value>.9995?'99.9% 초과':(value*100).toFixed(1)+'%';
 const gain=value=>value>0&&value<.005?'0.01 미만':number.format(value);
@@ -26,7 +26,7 @@ function update(){
         worker?.terminate();worker=null;
         if(data.error){status.textContent='추천 계산을 완료하지 못했습니다.';return;}
         const {choice,best,comparisons}=data.result;
-        status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+statLabel+' 추가 기대값이 없습니다.'):'다음 1회 추천: '+stars[choice].name+' · 예산 전체 '+statLabel+' 기대 증가 +'+gain(best);
+        status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+statLabel+' 추가 기대값이 없습니다.'):'먼저 올릴 별자리: '+stars[choice].name+' · 예산 전체 '+statLabel+' 기대 증가 +'+gain(best);
         stars.forEach((s,i)=>{
           const k=counts[i],comparison=comparisons[i],row=document.createElement('tr');row.dataset.recommended=String(i===choice);
           const nextChance=k===s.central?'완료':document.querySelector('[aria-label="'+s.name+'"] .astrology-roll-cost').textContent.split('중앙 추가 등장 ')[1];
