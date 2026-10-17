@@ -10,17 +10,7 @@ export const fatePrices=[
   {grade:'영웅',kind:'heroic',prices:[100,120,200,300,450,600,800,1200,1800,2500,3500,5000],flows:[200,240,400,600,900,1200,1600,2400,3600,5000,7000,10000]},
 ];
 
-export function isFateNew(now=Date.now()){
-  return now>=Date.parse('2026-10-17T00:00:00+09:00')&&now<Date.parse('2026-10-24T00:00:00+09:00');
-}
-
 if(typeof document!=='undefined'){
-  const badge=document.getElementById('fate-menu-new');
-  const refreshBadge=()=>{badge.hidden=!isFateNew();};
-  refreshBadge();
-  const remaining=Date.parse('2026-10-24T00:00:00+09:00')-Date.now();
-  if(remaining>0)setTimeout(refreshBadge,remaining+50);
-  document.addEventListener('visibilitychange',refreshBadge);
   const body=document.querySelector('#fate-price-table tbody'),number=new Intl.NumberFormat('ko-KR');
   for(const {grade,kind,prices,flows} of fatePrices){
     const row=document.createElement('tr'),heading=document.createElement('th');heading.scope='row';heading.textContent=grade;heading.className='fate-grade-'+kind;row.append(heading);

@@ -19,7 +19,8 @@
   <script type="module" src="collection-calculator.js?v=20261014-115"></script>
   <script type="module" src="skill-calculator.js?v=20261017-121"></script>
   <link rel="stylesheet" href="fate-prices.css?v=20261017-121">
-  <script type="module" src="fate-prices.js?v=20261017-121"></script>
+  <script type="module" src="fate-prices.js?v=20261017-122"></script>
+  <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
@@ -39,7 +40,7 @@
       <button data-tab="members"><i data-lucide="users-round"></i><span>길드원 참여 현황 <small id="member-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="distribution"><i data-lucide="package-open"></i><span>분배 기록 <small id="distribution-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="tips"><i data-lucide="messages-square"></i><span>팁 공유 <small id="tip-menu-new" class="menu-new" hidden>New</small></span></button>
-      <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능</span></button>
+      <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능 <small id="tools-menu-new" class="menu-new" data-new-parent="tools" hidden>New</small></span></button>
       <button data-tab="probabilities"><i data-lucide="list-ordered"></i><span>확률표</span></button>
       <button data-tab="alarms"><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
@@ -133,7 +134,7 @@
         </div>
       </section>
       <section id="tools" hidden>
-        <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button><button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" hidden>New</small></button></div></div>
+        <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button><button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-17T00:00:00+09:00" data-new-until="2026-10-24T00:00:00+09:00" hidden>New</small></button></div></div>
         <div class="page-heading"><div><h1 id="calculator-heading">컬렉션 기대값 계산기</h1></div><button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button></div>
         <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
