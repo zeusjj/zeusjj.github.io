@@ -313,6 +313,11 @@ function openSharedTip(){
 }
 async function copyTipLink(id,button,board='tips'){
   const url=new URL(location.href);url.search='';url.hash=board+'/'+encodeURIComponent(id);
+  if(board==='notices'){
+    const shared=new URL('/share/notices/'+encodeURIComponent(id),noticesApi),record=noticeRecords.find(record=>record.id===id);
+    if(Number.isSafeInteger(record?.updated_at))shared.searchParams.set('v',String(record.updated_at));
+    url.href=shared.href;
+  }
   const status=document.getElementById(board==='tips'?'tips-status':'notices-status');
   try {
     try{await navigator.clipboard.writeText(url.href);}catch{
