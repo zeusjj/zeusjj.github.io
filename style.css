@@ -87,4 +87,9 @@ input,select,textarea{color:var(--ink)}
 .sidebar #suggest-tool{display:flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;width:100%;margin:16px 0 0;font-size:11px}
 .sidebar #suggest-tool svg{width:14px;height:14px;flex-shrink:0}
 .sidebar #suggest-tool+.official-home-link{margin-top:8px}
+.calculator-title{display:flex;align-items:center;gap:10px;min-width:0}
+.calculator-title h1{min-width:0;overflow-wrap:anywhere}
+#calculator-share{flex-shrink:0;width:28px;height:28px;color:var(--accent)}
+#calculator-share svg{width:15px;height:15px}
+#calculator-share-status{font-size:11px;color:var(--accent);align-self:center}
 @media(max-width:700px){.sidebar #suggest-tool{margin:0 0 8px}.sidebar #suggest-tool+.official-home-link{margin-top:0}}

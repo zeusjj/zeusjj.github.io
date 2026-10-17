@@ -5,7 +5,7 @@
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/quill.snow.css">
-  <link rel="stylesheet" href="style.css?v=20261018-128">
+  <link rel="stylesheet" href="style.css?v=20261018-132">
   <script type="module" src="official-news.js?v=20261009-74"></script>
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
   <script type="module" src="probabilities.js?v=20261012-89"></script>
@@ -17,12 +17,12 @@
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
   <script src="admin-statistics.js?v=20261009-76" defer></script>
   <script type="module" src="collection-calculator.js?v=20261014-115"></script>
-  <script type="module" src="skill-calculator.js?v=20261018-128"></script>
+  <script type="module" src="skill-calculator.js?v=20261018-132"></script>
   <link rel="stylesheet" href="fate-prices.css?v=20261017-124">
   <script type="module" src="fate-prices.js?v=20261017-122"></script>
   <script type="module" src="menu-new.js?v=20261017-122"></script>
-  <link rel="stylesheet" href="astrology-calculator.css?v=20261018-129">
-  <script type="module" src="astrology-calculator.js?v=20261018-130"></script>
+  <link rel="stylesheet" href="astrology-calculator.css?v=20261018-134">
+  <script type="module" src="astrology-calculator.js?v=20261018-135"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
@@ -138,7 +138,7 @@
       </section>
       <section id="tools" hidden>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button><button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-17T00:00:00+09:00" data-new-until="2026-10-24T00:00:00+09:00" hidden>New</small></button><button id="astrology-heading" type="button" role="tab" data-calculator="astrology" aria-selected="false" aria-controls="astrology-panel" tabindex="-1"><i data-lucide="sparkles"></i><span>점성술 계산기</span><small id="astrology-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button></div></div>
-        <div class="page-heading"><div><h1 id="calculator-heading">컬렉션 기대값 계산기</h1></div></div>
+        <div class="page-heading"><div class="calculator-title"><h1 id="calculator-heading">컬렉션 기대값 계산기</h1><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
         <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">

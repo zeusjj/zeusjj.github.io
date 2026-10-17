@@ -35,7 +35,7 @@ export function distributionChart(){
   svg.addEventListener('keydown',event=>{if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;event.preventDefault();selected=Math.max(0,Math.min(23,selected+(event.key==='ArrowRight'?1:-1)));describe(selected);});
   new ResizeObserver(draw).observe(figure);
   return {element:figure,update(model,current,target,label){
-    const next=target===current+1,complete=current===model.central,mean=next?model.nextMeans[current]:model.means[current],quantiles=next?model.nextQuantiles[current]:model.quantiles[current],max=complete?0:Math.ceil(quantiles[2]*1.6/240)*240;
+    const next=target===current+1,complete=current===model.central,mean=next?model.nextMeans[current]:model.means[current],quantiles=next?model.nextQuantiles[current]:model.quantiles[current],unit=complete?10:next?model.costs[current]:10,max=complete?0:Math.ceil(quantiles[2]*1.6/(24*unit))*24*unit;
     state={label,complete,mean,quantiles,max,cdf:complete?null:astrologyDistribution(model,current,target,max)};selected=-1;draw();
   }};
 }

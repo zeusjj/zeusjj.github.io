@@ -1,6 +1,6 @@
 import {astrologyConstellations} from './astrology-data.js?v=20261018-127';
 import {astrologyModel} from './astrology-model.js?v=20261018-127';
-import {distributionChart} from './astrology-distribution.js?v=20261018-127';
+import {distributionChart} from './astrology-distribution.js?v=20261018-135';
 const host=document.getElementById('astrology-rows'),number=new Intl.NumberFormat('ko-KR');
 const storageKey='guild-astrology-central-v1';let saved={};
 try{const value=JSON.parse(localStorage.getItem(storageKey));if(value&&typeof value==='object'&&!Array.isArray(value))saved=value;}catch{}
@@ -8,7 +8,8 @@ const make=(tag,text,className)=>{const node=document.createElement(tag);if(text
 const effectText=effect=>effect?effect[0]+' +'+effect[1]:'효과 확인 중';
 for(const star of astrologyConstellations){
   const model=astrologyModel(star),row=make('section',undefined,'astrology-row'),main=make('div',undefined,'astrology-row-main'),state=make('div',undefined,'astrology-state'),heading=make('div',undefined,'astrology-state-heading'),label=make('label',star.name),output=make('output'),slider=make('input');
-  const rollCost=make('div',undefined,'astrology-roll-cost');
+  const rollCost=make('div',undefined,'astrology-roll-cost'),sectionHeader=make('header',undefined,'astrology-section-header'),sectionTitle=make('h2',star.name),sectionProgress=make('p',undefined,'astrology-section-progress'),effectHeading=make('h3','현재 단계 · 효과','astrology-column-title');
+  sectionHeader.append(sectionTitle,sectionProgress);label.textContent='현재 중앙 별';state.append(effectHeading);
   row.setAttribute('aria-label',star.name);label.htmlFor='astrology-'+star.id;slider.id=label.htmlFor;slider.type='range';slider.min='0';slider.max=String(star.central);slider.step='1';slider.value=String(Number.isInteger(saved[star.id])&&saved[star.id]>=0&&saved[star.id]<=star.central?saved[star.id]:0);slider.setAttribute('aria-label',star.name+' 현재 중앙 별 개수');output.htmlFor=slider.id;heading.append(label,output);state.append(heading,slider,rollCost);main.append(state);
   const values=[],budgetRows=[],charts=[];
   for(let target=0;target<2;target++){
@@ -27,9 +28,11 @@ for(const star of astrologyConstellations){
   for(const [stat,value]of star.completion){const tr=make('tr'),th=make('th',stat);th.scope='row';tr.append(th,make('td','+'+value));completionBody.append(tr);}
   const details=make('table',undefined,'astrology-stat-table astrology-effect-details'),list=make('tbody'),items=[],statuses=[],effectCaption=make('caption','개수별 달성 효과'),effectCount=make('small');effectCaption.append(effectCount);details.append(effectCaption,list);
   star.effects.forEach((effect,index)=>{const item=make('tr'),th=make('th'),status=make('small',undefined,'astrology-effect-status');th.scope='row';th.append(make('span',(index+1)+'개 일치'),status);item.append(th,make('td',effectText(effect)));items.push(item);statuses.push(status);list.append(item);});
-  completionBox.append(completion,completionStatus);state.append(completionBox,next,details);row.append(main);host.append(row);
+  const effectScroll=make('div',undefined,'astrology-effect-scroll');effectScroll.tabIndex=0;effectScroll.setAttribute('aria-label',star.name+' 개수별 달성 효과');effectScroll.append(details);
+  completionBox.append(completion,completionStatus);state.append(completionBox,next,effectScroll);row.append(sectionHeader,main);host.append(row);
   function update(){
     const current=Number(slider.value);output.textContent=current+' / '+star.central;slider.setAttribute('aria-valuetext','중앙 '+current+'개, 전체 '+star.central+'개');
+    sectionProgress.textContent=current===star.central?'중앙 '+star.central+'개 모두 완성':current+'개 달성 · '+(star.central-current)+'개 남음';
     rollCost.textContent=current===star.central?'추가 점성술 없음':'현재 1회 '+number.format(model.costs[current])+'개 · 중앙 추가 등장 '+((1-model.transitions[current][0])*100).toFixed(1)+'%';
     budgetRows[0].textContent=current===star.central?'다음 단계 없음':(current+1)+'개 완성 예산';
     budgetRows[1].textContent='활성화 완료 예산';

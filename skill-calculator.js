@@ -55,6 +55,13 @@ update();
 
 const toolTabs = [...document.querySelectorAll('[data-calculator]')];
 const toolTabStorageKey = 'guild-tool-tab-v1';
+const shareButton = document.getElementById('calculator-share');
+const shareStatus = document.getElementById('calculator-share-status');
+let shareTimer;
+function linkedCalculator() {
+  const parts = location.hash.slice(1).split('/');
+  return parts.length === 2 && parts[0] === 'tools' ? toolTabs.find(tab => tab.dataset.calculator === parts[1]) : null;
+}
 function selectCalculator(button, persist = true) {
   for (const tab of toolTabs) {
     const active = tab === button;
@@ -64,12 +71,28 @@ function selectCalculator(button, persist = true) {
     document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
   }
   document.getElementById('calculator-heading').textContent = button.querySelector('span').textContent;
+  clearTimeout(shareTimer);shareStatus.textContent='';shareButton.title='링크 복사';shareButton.setAttribute('aria-label',button.querySelector('span').textContent+' 링크 복사');
   if (persist) {try {localStorage.setItem(toolTabStorageKey, button.dataset.calculator);} catch {}}
+  if (persist && location.hash.split('/')[0] === '#tools') history.replaceState(null, '', '#tools/' + button.dataset.calculator);
 }
-try {
-  const savedTab = toolTabs.find(tab => tab.dataset.calculator === localStorage.getItem(toolTabStorageKey));
-  if (savedTab) selectCalculator(savedTab, false);
-} catch {}
+let savedTab;
+try {savedTab = toolTabs.find(tab => tab.dataset.calculator === localStorage.getItem(toolTabStorageKey));} catch {}
+const initialTab=linkedCalculator()||savedTab;
+if(initialTab)selectCalculator(initialTab);
+window.addEventListener('hashchange',()=>{const linked=linkedCalculator();if(linked)selectCalculator(linked);});
+shareButton.addEventListener('click',async()=>{
+  const selected=toolTabs.find(tab=>tab.getAttribute('aria-selected')==='true');
+  const url=new URL('/share/tools/'+selected.dataset.calculator,noticesApi);url.searchParams.set('v','1');
+  try{
+    try{await navigator.clipboard.writeText(url.href);}catch{
+      const input=document.createElement('textarea');input.value=url.href;input.readOnly=true;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();
+      let copied=false;try{copied=document.execCommand('copy');}finally{input.remove();shareButton.focus({preventScroll:true});}if(!copied)throw new Error('clipboard');
+    }
+    if(selected.getAttribute('aria-selected')!=='true')return;
+    shareStatus.textContent='링크를 복사했습니다.';shareButton.title='복사 완료';
+    shareTimer=setTimeout(()=>{shareStatus.textContent='';shareButton.title='링크 복사';},2500);
+  }catch{window.prompt('편의 기능 공유 링크',url.href);}
+});
 for (const [index, tab] of toolTabs.entries()) {
   tab.addEventListener('click', () => selectCalculator(tab));
   tab.addEventListener('keydown', event => {
