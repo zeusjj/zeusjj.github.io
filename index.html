@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
   <script type="module" src="probabilities.js?v=20261012-89"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261017-117" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-141" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261013-106"></script>
   <script type="module" src="member-growth-achievements.js?v=20261014-110"></script>
   <script type="module" src="member-distributions.js?v=20261012-97"></script>
@@ -30,12 +30,18 @@
   <script src="guestbook.js?v=20261007-60" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261005-52"></script>
+  <link rel="stylesheet" href="site-design.css?v=20261018-141">
+  <script src="site-design.js?v=20261018-141" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
   <aside class="sidebar">
+    <div class="sidebar-brand">
     <div class="game-brand"><img src="assets/zeus-wordmark.png" alt="ZEUS" width="180" height="69"><span>제우스: 오만의 신</span></div>
     <a href="#rules" class="guild-brand"><span class="guild-emblem"><img src="assets/guild-emblem.png" alt="" width="48" height="48"></span><span><strong>절대중립</strong><small>아테나2</small></span></a>
+    </div>
+    <button id="navigation-toggle" class="icon-button" type="button" aria-label="메뉴 펼치기" title="메뉴 펼치기" aria-expanded="false" aria-controls="site-navigation"><i data-lucide="menu" aria-hidden="true"></i></button>
+    <div id="site-navigation">
     <nav aria-label="메인 메뉴">
       <button data-tab="rules" class="active"><i data-lucide="book-open"></i><span>운영 방식</span></button>
       <button data-tab="notices"><i data-lucide="megaphone"></i><span>공지사항 <small id="notice-menu-new" class="menu-new" hidden>New</small></span></button>
@@ -49,6 +55,7 @@
     <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
     <button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button>
     <a class="official-home-link" href="https://zeus.com2us.com/" target="_blank" rel="noopener noreferrer"><span>제우스 공식 홈페이지로 이동</span><i data-lucide="external-link" aria-hidden="true"></i></a>
+    </div>
   </aside>
   <div class="workspace">
     <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong></div></header>

@@ -559,9 +559,12 @@ function renderMembers(data, query='') {
   const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
   table.style.setProperty('--content-count',data.headers.filter((_,index)=>index>=identityCount && !hiddenColumn(index)).length);
   const head=element('thead'),titles=element('tr');
+  const koreaDate=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
   data.headers.forEach((title,index)=>{
     const cell=element('th',undefined,identityClass(index));cell.scope='col';
+    const period=data.dates?.[index];
+    if(period?.start)cell.dataset.period=period.start>koreaDate?'future':(period.end||period.start)>=koreaDate?'current':'past';
     cell.hidden=hiddenColumn(index);
     const active=memberSort?.index===index,next=active && memberSort.direction==='descending'?'ascending':'descending';
     cell.setAttribute('aria-sort',active?memberSort.direction:'none');
@@ -586,7 +589,7 @@ function renderDistribution(groups) {
   const target=document.getElementById('distribution-content');
   for(const group of groups){const section=element('section',undefined,'distribution-group');const heading=element('div',undefined,'distribution-heading');heading.append(element('h2',group.title),element('span',`${group.records.length}건`,'record-count'));section.append(heading);
     if(!group.records.length){section.append(element('p','등록된 분배 기록이 없습니다.','empty'));}
-    else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액','입찰방식'].forEach(label=>headings.append(element('th',label)));head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'-':record.amount.toLocaleString('ko-KR'),record.bidding || '-'].forEach(value=>row.append(element('td',value)));body.append(row);}table.append(body);section.append(table);}target.append(section);
+    else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액','입찰방식'].forEach(label=>{const th=element('th',label);th.scope='col';headings.append(th);});head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'미정':record.amount.toLocaleString('ko-KR'),record.bidding || '-'].forEach((value,index)=>row.append(element('td',value,record.amount===null&&index===2?'distribution-pending':undefined)));body.append(row);}table.append(body);section.append(table);}target.append(section);
   }
 }
 fetch('data.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('load');return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort && hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(data,document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
