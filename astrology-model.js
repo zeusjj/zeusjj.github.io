@@ -36,5 +36,28 @@ export function astrologyModel({central,outer,outerWeight,baseCost},lockCost=10)
     }
   }
   if(unfinished)throw new Error('Astrology quantile convergence failed');
-  return {central,transitions,costs,means,quantiles};
+  const nextMeans=Array(central+1).fill(0),nextQuantiles=Array.from({length:central+1},()=>[0,0,0]);
+  for(let k=0;k<central;k++){
+    const failure=transitions[k][0];
+    nextMeans[k]=costs[k]/(1-failure);
+    nextQuantiles[k]=thresholds.map(q=>Math.ceil(Math.log1p(-q)/Math.log(failure))*costs[k]);
+  }
+  return {central,transitions,costs,means,quantiles,nextMeans,nextQuantiles};
+}
+
+export function astrologyDistribution(model,current,target,limit){
+  const units=Math.ceil(limit/10),cdf=new Float64Array(units+1);
+  if(current>=target){cdf.fill(1);return cdf;}
+  if(target===current+1){
+    for(let b=0;b<=units;b++)cdf[b]=1-model.transitions[current][0]**Math.floor(b*10/model.costs[current]);
+    return cdf;
+  }
+  const rows=Array.from({length:target},()=>new Float64Array(units+1));
+  for(let b=0;b<=units;b++)for(let k=target-1;k>=current;k--){
+    const before=b-model.costs[k]/10;if(before<0)continue;
+    const p=model.transitions[k];let probability=0;
+    for(let hits=0;hits<p.length;hits++)probability+=p[hits]*(k+hits>=target?1:rows[k+hits][before]);
+    rows[k][b]=probability;
+  }
+  return rows[current];
 }
