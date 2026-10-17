@@ -18,7 +18,7 @@
   <script src="admin-statistics.js?v=20261009-76" defer></script>
   <script type="module" src="collection-calculator.js?v=20261014-115"></script>
   <script type="module" src="skill-calculator.js?v=20261017-121"></script>
-  <link rel="stylesheet" href="fate-prices.css?v=20261017-123">
+  <link rel="stylesheet" href="fate-prices.css?v=20261017-124">
   <script type="module" src="fate-prices.js?v=20261017-122"></script>
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
@@ -207,10 +207,14 @@
           <details class="collection-method"><summary><span>계산 과정과 통계 모델</span><i data-lucide="chevron-down"></i></summary><div class="collection-method-body"><h3>1. 파괴 없이 상승·유지·하락</h3><p>제공된 일반·고급·희귀 확률표를 사용합니다. 표의 +8단계는 7→8강 도전에 해당합니다. 한 번 시도할 때 주문서 1개를 쓰며, 상승하면 +1강, 유지하면 같은 단계, 하락하면 −1강입니다. 목표 도달 즉시 계산을 끝냅니다. 보호·확률 보정·천장 효과는 포함하지 않습니다.</p><h3>2. 수학적 기댓값</h3><p>현재 i강에서 i+1강까지 올라가는 평균 시도 수를 mᵢ, 상승 확률을 uᵢ, 하락 확률을 dᵢ라 하면 아래 식으로 낮은 단계부터 계산합니다. 하락한 경우 아래 단계에서 돌아오는 시도와 다시 도전하는 시도가 모두 포함됩니다.</p><div class="collection-equations">m₀ = 1 / u₀<br>mᵢ = (1 + dᵢ · mᵢ₋₁) / uᵢ</div><h3>3. 주문서 개수별 완료 확률</h3><p>시작 강화에 확률 1을 두고, 주문서 1개마다 각 단계의 확률을 상승·유지·하락 확률에 따라 다음 상태로 전달합니다. 목표 단계로 넘어간 확률을 누적해 F(n) = Pr(총소모 ≤ n)을 구합니다. F(n)이 25%·50%·75% 이상이 되는 최초의 정수 n이 표의 개수입니다.</p><p>평균 초과 확률은 1 − F(⌊평균⌋), 평균의 2배 초과 확률은 1 − F(⌊2 × 평균⌋)입니다. 정규분포를 가정하지 않으며, 무작위 시뮬레이션도 사용하지 않습니다. 미완료 확률이 10⁻¹³ 미만이 될 때까지 누적하며, 부동소수점 계산에 따른 미세한 오차가 있을 수 있습니다.</p></div></details>
         </div>
         <div id="fate-panel" class="calculator-panel" role="tabpanel" aria-labelledby="fate-heading" hidden>
+          <div class="fate-price-note">
+            <p>운명의 흐름은 장신구를 분해하면 얻을 수 있습니다.</p>
+            <p>아래 표는 거래소에서 장신구를 구매할 때 적정 가격을 판단하기 위한 기준표입니다.</p>
+            <p>고급 0강 장신구 10다이아를 기준으로 계산했으며, 표의 가격보다 저렴한 매물이 있다면 구매하시면 됩니다.</p>
+          </div>
           <div class="fate-table-scroll" tabindex="0" role="region" aria-label="운명의 흐름 장신구 등급별 구매 상한가">
             <table id="fate-price-table"><caption class="visually-hidden">장신구 구매 상한가 (다이아). 각 가격 아래 운명의 흐름 개수.</caption><thead><tr><th scope="col">등급</th><th scope="col">0~1강</th><th scope="col">2강</th><th scope="col">3강</th><th scope="col">4강</th><th scope="col">5강</th><th scope="col">6강</th><th scope="col">7강</th><th scope="col">8강</th><th scope="col">9강</th><th scope="col">10강</th><th scope="col">11강</th><th scope="col">12강</th></tr></thead><tbody></tbody></table>
           </div>
-          <p class="fate-price-note">고급 0강 장신구 가격 10다이아를 기준으로 계산한 표입니다. 표에 표시된 가격보다 저렴한 매물이 있다면 구매하시면 됩니다.</p>
         </div>
       </section>
     </main>
