@@ -13,7 +13,7 @@ export function thresholdProbability(model,current,target,budget){
 }
 
 export function recommendAstrology(stars,counts,budget,stat){
-  if(!Number.isInteger(budget)||budget<0||budget>10000||budget%10||counts.length!==stars.length||counts.some((k,i)=>!Number.isInteger(k)||k<0||k>stars[i].central))throw new RangeError('Invalid astrology budget state');
+  if(!Number.isInteger(budget)||budget<0||budget>30000||budget%10||counts.length!==stars.length||counts.some((k,i)=>!Number.isInteger(k)||k<0||k>stars[i].central))throw new RangeError('Invalid astrology budget state');
   const models=stars.map(s=>astrologyModel(s)),dimensions=stars.map((s,i)=>s.central-counts[i]+1),strides=[];
   let size=1;for(const dimension of dimensions){strides.push(size);size*=dimension;}
   const gains=stars.map((s,i)=>Array.from({length:s.central+1},(_,k)=>{
@@ -28,23 +28,23 @@ export function recommendAstrology(stars,counts,budget,stat){
     if(k<stars[i].central)states[state].push({i,cost:models[i].costs[k]/10,p:models[i].transitions[k],stride:strides[i]});
   }
   // Bellman recurrence includes failures, multi-hit rolls, changing lock costs and switching after each observed roll.
-  const limit=budget/10,values=new Float64Array((limit+1)*size);
+  const limit=budget/10,window=Math.max(1,...states.flatMap(actions=>actions.map(a=>a.cost)))+1,values=new Float64Array(window*size);
   function actionValue(state,action,b){
     const before=b-action.cost;if(before<0)return null;
     let value=0;
     for(let hits=0;hits<action.p.length;hits++){
       const next=state+hits*action.stride;
-      value+=action.p[hits]*(utilities[next]-utilities[state]+values[before*size+next]);
+      value+=action.p[hits]*(utilities[next]-utilities[state]+values[(before%window)*size+next]);
     }
     return value;
   }
   for(let b=1;b<=limit;b++)for(let state=0;state<size;state++){
     let best=0;
     for(const action of states[state]){const value=actionValue(state,action,b);if(value!==null&&value>best)best=value;}
-    values[b*size+state]=best;
+    values[(b%window)*size+state]=best;
   }
   const actions=stars.map((s,i)=>{const action=states[0].find(a=>a.i===i);return action?actionValue(0,action,limit):null;});
-  const best=values[limit*size],choice=best>1e-12?actions.findIndex(v=>v!==null&&Math.abs(v-best)<1e-10):-1;
+  const best=values[(limit%window)*size],choice=best>1e-12?actions.findIndex(v=>v!==null&&Math.abs(v-best)<1e-10):-1;
   const comparisons=stars.map((s,i)=>{
     const k=counts[i],probabilities=s.effects.map((_,j)=>j<k?1:thresholdProbability(models[i],k,j+1,budget));
     const effects={};

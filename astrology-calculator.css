@@ -1,7 +1,7 @@
 .astrology-assumptions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 22px;color:var(--muted);font-size:12px}
 .astrology-assumptions svg{width:15px;height:15px;color:var(--accent)}
 .astrology-row{border-top:1px solid var(--line);padding:22px 0}
-.astrology-row-main{display:grid;grid-template-columns:minmax(200px,1fr) minmax(0,3fr);gap:12px 24px;align-items:start}
+.astrology-row-main{display:grid;grid-template-columns:minmax(260px,1.15fr) minmax(0,3fr);gap:12px 30px;align-items:start}
 .astrology-row-main>.astrology-state{grid-row:1/3}
 .astrology-budget-row{display:grid;grid-template-columns:minmax(105px,1fr) repeat(4,minmax(0,1fr));gap:12px;align-items:center;grid-column:2}
 .astrology-budget-row+ .astrology-budget-row{border-top:1px solid var(--line);padding-top:12px}
@@ -15,11 +15,11 @@
 .astrology-chart-bar.selected{opacity:1}
 .astrology-chart-marker{stroke:var(--ink);opacity:.4;stroke-dasharray:3 3;stroke-width:1}
 .astrology-chart-marker.marker-2{stroke:#91682e;opacity:.8}
-.astrology-state label{font-size:15px;font-weight:650;color:var(--ink)}
+.astrology-state label{font-size:17px;font-weight:650;color:var(--ink)}
 .astrology-state-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.astrology-state output{font-size:12px;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:650}
+.astrology-state output{font-size:14px;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:650}
 .astrology-state input{display:block;width:100%;height:24px;padding:0;margin:10px 0 0;accent-color:var(--accent);cursor:pointer}
-.astrology-roll-cost{font-size:10px;line-height:1.7;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.astrology-roll-cost{font-size:11px;line-height:1.7;color:var(--muted);margin-top:5px;font-variant-numeric:tabular-nums}
 .astrology-metric{margin:0;font-variant-numeric:tabular-nums}
 .astrology-metric dt{font-size:11px;color:var(--muted);margin-bottom:4px}
 .astrology-metric dt small{display:block;font-size:10px;font-weight:400;line-height:1.6;margin-top:2px}
@@ -36,17 +36,35 @@
 .astrology-effect-details li[data-achieved=true]{color:var(--accent)}
 .astrology-effect-details li span:first-child{color:var(--muted);white-space:nowrap}
 .astrology-effect-details li span:last-child{text-align:right;overflow-wrap:anywhere}
-.astrology-next-effect{font-size:11px;color:var(--muted);line-height:1.8;margin:14px 0}
+.astrology-next-effect{font-size:12px;color:var(--muted);line-height:1.8;margin:14px 0 18px}
 .astrology-next-effect strong{color:var(--ink);font-weight:550;margin-right:6px}
-.astrology-stat-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:18px 0 0;font-size:11px}
-.astrology-stat-table caption{text-align:left;padding:0 0 8px;font-size:12px;font-weight:600;color:var(--ink)}
-.astrology-stat-table th,.astrology-stat-table td{padding:6px 5px;border-bottom:1px solid var(--line);line-height:1.7;overflow-wrap:anywhere}
+.astrology-stat-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:18px 0 0;font-size:13px}
+.astrology-stat-table caption{text-align:left;padding:0 0 12px;font-size:14px;font-weight:600;color:var(--ink)}
+.astrology-stat-table caption small{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:5px}
+.astrology-stat-table th,.astrology-stat-table td{padding:9px 8px;border-bottom:1px solid var(--line);line-height:1.7;overflow-wrap:anywhere;background:transparent}
 .astrology-stat-table th{text-align:left;font-weight:400;width:35%;color:var(--muted)}
-.astrology-stat-table td{text-align:right;color:var(--muted)}
+.astrology-stat-table td{text-align:right;color:#667581;font-variant-numeric:tabular-nums}
 .astrology-completion-table th{width:70%}
-.astrology-stat-table tr[data-achieved=true] td,.astrology-completion-table[data-achieved=true] td{color:var(--accent)}
-.astrology-stat-table tr[data-next=true]{background:rgba(24,135,124,.07)}
+.astrology-stat-table tr[data-achieved=true]{background:rgba(24,135,124,.035)}
+.astrology-stat-table tr[data-achieved=true] th,.astrology-stat-table tr[data-achieved=true] td,.astrology-completion-table[data-achieved=true] td{color:var(--accent)}
+.astrology-stat-table tr[data-achieved=true] td{font-weight:550}
+.astrology-stat-table tr[data-next=true]{background:#e4f2ed;box-shadow:inset 3px 0 #358a75;animation:astrology-next-glow 2.8s ease-in-out infinite}
 .astrology-stat-table tr[data-next=true] th,.astrology-stat-table tr[data-next=true] td{font-weight:600;color:var(--ink)}
+.astrology-effect-status{display:block;font-size:10px;line-height:1.4;min-height:14px;color:var(--accent);font-weight:500}
+.astrology-effect-details th>span{white-space:nowrap}
+.astrology-completion{margin-top:20px;padding:17px 18px 13px;border:1px solid #d8c79f;border-radius:8px;background:#fffdf5;box-shadow:0 3px 12px #6d572309}
+.astrology-completion .astrology-completion-table{margin:0}
+.astrology-completion .astrology-completion-table caption{font-size:15px;color:#846526;padding-bottom:12px}
+.astrology-completion .astrology-completion-table th{width:73%;padding:7px 0;color:#6f6550;font-size:13px;border:0}
+.astrology-completion .astrology-completion-table td{padding:7px 0;font-size:23px;font-weight:650;color:#9b762c;border:0;line-height:1.3}
+.astrology-completion-status{margin:12px 0 0;padding-top:11px;border-top:1px solid #e8dfcc;font-size:11px;color:#887653;line-height:1.7}
+.astrology-completion[data-next=true]{border-color:#b99b56;animation:astrology-completion-glow 2.8s ease-in-out infinite}
+.astrology-completion[data-achieved=true]{background:#eef8f3;border-color:#7ead9d;box-shadow:0 3px 14px #20776412}
+.astrology-completion[data-achieved=true] .astrology-completion-table caption,.astrology-completion[data-achieved=true] .astrology-completion-table th,.astrology-completion[data-achieved=true] .astrology-completion-table td,.astrology-completion[data-achieved=true] .astrology-completion-status{color:#25705d}
+.astrology-completion[data-achieved=true] .astrology-completion-status{border-color:#cfe3da}
+@keyframes astrology-next-glow{0%,100%{background-color:#e8f3ee}50%{background-color:#d1ebdf}}
+@keyframes astrology-completion-glow{0%,100%{box-shadow:0 0 0 1px #b99b5612,0 3px 12px #b99b5610}50%{box-shadow:0 0 0 2px #b99b5638,0 3px 18px #b99b562a}}
+@media(prefers-reduced-motion:reduce){.astrology-stat-table tr[data-next=true],.astrology-completion[data-next=true]{animation:none}}
 .astrology-method{margin-top:6px;border-top:1px solid var(--line);padding:16px 0;font-size:12px;color:var(--muted)}
 .astrology-method summary{cursor:pointer;width:max-content;color:#526970}
 .astrology-method p{margin:12px 0 0;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere}

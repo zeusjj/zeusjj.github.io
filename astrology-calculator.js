@@ -22,12 +22,12 @@ for(const star of astrologyConstellations){
     const chart=distributionChart();charts.push(chart);budgetRow.append(chart.element);
     values.push(cells);main.append(budgetRow);
   }
-  const next=make('p',undefined,'astrology-next-effect'),completion=make('table',undefined,'astrology-stat-table astrology-completion-table'),completionBody=make('tbody');
+  const next=make('p',undefined,'astrology-next-effect'),completionBox=make('div',undefined,'astrology-completion'),completion=make('table',undefined,'astrology-stat-table astrology-completion-table'),completionBody=make('tbody'),completionStatus=make('p',undefined,'astrology-completion-status');
   completion.append(make('caption','완성 효과'),completionBody);
   for(const [stat,value]of star.completion){const tr=make('tr'),th=make('th',stat);th.scope='row';tr.append(th,make('td','+'+value));completionBody.append(tr);}
-  const details=make('table',undefined,'astrology-stat-table astrology-effect-details'),list=make('tbody'),items=[];details.append(make('caption','개수별 달성 효과'),list);
-  star.effects.forEach((effect,index)=>{const item=make('tr'),th=make('th',(index+1)+'개 일치');th.scope='row';item.append(th,make('td',effectText(effect)));items.push(item);list.append(item);});
-  state.append(next,completion,details);row.append(main);host.append(row);
+  const details=make('table',undefined,'astrology-stat-table astrology-effect-details'),list=make('tbody'),items=[],statuses=[],effectCaption=make('caption','개수별 달성 효과'),effectCount=make('small');effectCaption.append(effectCount);details.append(effectCaption,list);
+  star.effects.forEach((effect,index)=>{const item=make('tr'),th=make('th'),status=make('small',undefined,'astrology-effect-status');th.scope='row';th.append(make('span',(index+1)+'개 일치'),status);item.append(th,make('td',effectText(effect)));items.push(item);statuses.push(status);list.append(item);});
+  completionBox.append(completion,completionStatus);state.append(completionBox,next,details);row.append(main);host.append(row);
   function update(){
     const current=Number(slider.value);output.textContent=current+' / '+star.central;slider.setAttribute('aria-valuetext','중앙 '+current+'개, 전체 '+star.central+'개');
     rollCost.textContent=current===star.central?'추가 점성술 없음':'현재 1회 '+number.format(model.costs[current])+'개 · 중앙 추가 등장 '+((1-model.transitions[current][0])*100).toFixed(1)+'%';
@@ -40,9 +40,12 @@ for(const star of astrologyConstellations){
     charts[1].update(model,current,star.central,budgetRows[1].textContent);
     next.replaceChildren(make('strong',current===star.central?'완성':'다음 '+(current+1)+'개 일치'),document.createTextNode(current===star.central?'추가 소모 없음':effectText(star.effects[current])));
     completion.dataset.achieved=String(current===star.central);
-    items.forEach((item,index)=>{item.dataset.achieved=String(index<current);item.dataset.next=String(index===current);if(index===current)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
+    completionBox.dataset.achieved=String(current===star.central);completionBox.dataset.next=String(current===star.central-1);
+    completionStatus.textContent=current===star.central?'완성 효과 활성화':current===star.central-1?'다음 1개 달성 시 활성화':star.central+'개 모두 일치하면 활성화';
+    effectCount.textContent=current+' / '+star.central+' 달성';
+    items.forEach((item,index)=>{item.dataset.achieved=String(index<current);item.dataset.next=String(index===current);statuses[index].textContent=index<current?'획득':index===current?'다음':'';if(index===current)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
     row.dataset.current=String(current);
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261018-128');
+import('./astrology-budget.js?v=20261018-130');
