@@ -1,6 +1,6 @@
 import {astrologyConstellations} from './astrology-data.js?v=20261018-127';
 import {astrologyModel} from './astrology-model.js?v=20261018-127';
-import {distributionChart} from './astrology-distribution.js?v=20261018-135';
+import {distributionChart} from './astrology-distribution.js?v=20261018-136';
 const host=document.getElementById('astrology-rows'),number=new Intl.NumberFormat('ko-KR');
 const storageKey='guild-astrology-central-v1';let saved={};
 try{const value=JSON.parse(localStorage.getItem(storageKey));if(value&&typeof value==='object'&&!Array.isArray(value))saved=value;}catch{}
@@ -51,4 +51,4 @@ for(const star of astrologyConstellations){
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261018-130');
+import('./astrology-budget.js?v=20261018-136');

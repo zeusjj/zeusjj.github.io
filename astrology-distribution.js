@@ -12,9 +12,9 @@ export function distributionChart(){
   };
   function draw(){
     if(!state)return;
-    const {label,mean,quantiles,cdf,max,complete}=state,width=Math.max(260,Math.round(figure.clientWidth)),height=180,left=38,right=16,top=38,bottom=30,plotWidth=width-left-right,plotHeight=height-top-bottom;
+    const {label,mean,quantiles,cdf,max,complete}=state,width=Math.max(260,Math.round(figure.clientWidth)),height=132,left=38,right=16,top=38,bottom=26,plotWidth=width-left-right,plotHeight=height-top-bottom;
     svg.replaceChildren();svg.setAttribute('viewBox','0 0 '+width+' '+height);svg.setAttribute('aria-label',label+(complete?' 완료, 추가 소모 없음':' 소모량 분포. 평균 '+number.format(Math.ceil(mean))+'개. 같은 조건 100명 중 50명은 '+number.format(quantiles[0])+'개, 90명은 '+number.format(quantiles[1])+'개, 95명은 '+number.format(quantiles[2])+'개 이내에 달성하는 추정 분포.'));
-    if(complete){svg.append(svgNode('text',{x:width/2,y:90,'text-anchor':'middle',class:'astrology-chart-text'},'완료 · 추가 소모 0개'));caption.textContent='중앙 별 전체 일치';bins=[];return;}
+    if(complete){svg.append(svgNode('text',{x:width/2,y:height/2,'text-anchor':'middle',class:'astrology-chart-text'},'완료 · 추가 소모 0개'));caption.textContent='중앙 별 전체 일치';bins=[];return;}
     bins=[];
     for(let i=0;i<24;i++){
       const low=Math.floor(max*i/24/10)*10,high=Math.floor(max*(i+1)/24/10)*10,cumulative=cdf[Math.floor(high/10)],previous=cdf[Math.floor(low/10)];
@@ -30,7 +30,7 @@ export function distributionChart(){
       const x=left+plotWidth*value/max;
       svg.append(svgNode('line',{x1:x,x2:x,y1:top-5,y2:top+plotHeight,class:'astrology-chart-marker marker-'+i}),svgNode('text',{x,y:10+i*12,'text-anchor':'middle',class:'astrology-chart-text'},['운 보통','운 나쁨','운 매우 나쁨'][i]));
     });
-    caption.textContent='동일 조건 100명 기준 · 가로: 사용한 별 개수 · 세로: 이 구간에서 달성한 인원 · '+number.format(max)+'개 초과 '+((1-cdf[cdf.length-1])*100).toFixed(1)+'명';
+    caption.textContent='100명 기준 · 가로: 별 개수 · 세로: 달성 인원 · '+number.format(max)+'개 초과 '+((1-cdf[cdf.length-1])*100).toFixed(1)+'명';
   }
   svg.addEventListener('keydown',event=>{if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;event.preventDefault();selected=Math.max(0,Math.min(23,selected+(event.key==='ArrowRight'?1:-1)));describe(selected);});
   new ResizeObserver(draw).observe(figure);

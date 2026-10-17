@@ -29,9 +29,15 @@ function update(){
         stars.forEach((s,i)=>{
           const k=counts[i],comparison=comparisons[i],row=document.createElement('tr');row.dataset.recommended=String(i===choice);
           const nextChance=k===s.central?'완료':document.querySelector('[aria-label="'+s.name+'"] .astrology-roll-cost').textContent.split('중앙 추가 등장 ')[1];
-          const expected=Object.entries(comparison.effects).filter(([,v])=>v>0).map(([name,value])=>name+' +'+gain(value)).join(' · ')||'—';
-          const cells=[s.name+' '+k+'/'+s.central,nextChance,k===s.central?'완료':percent(comparison.next),k===s.central?'완료':percent(comparison.completion),k===s.central?'—':s.effects[k][0]+' +'+s.effects[k][1],s.completion.map(e=>e[0]+' +'+e[1]).join(' · '),expected];
-          cells.forEach((text,j)=>{const cell=document.createElement(j===0?'th':'td');if(j===0)cell.scope='row';cell.textContent=text;row.append(cell);});body.append(row);
+          const expected=Object.entries(comparison.effects).filter(([,v])=>v>0).map(([name,value])=>name+' +'+gain(value));
+          const cells=[s.name+' '+k+'/'+s.central,nextChance,k===s.central?'완료':percent(comparison.next),k===s.central?'완료':percent(comparison.completion),k===s.central?'—':s.effects[k][0]+' +'+s.effects[k][1],s.completion.map(e=>e[0]+' +'+e[1]),expected.length?expected:['—']];
+          const headers=section.querySelectorAll('thead th');
+          cells.forEach((text,j)=>{
+            const cell=document.createElement(j===0?'th':'td'),value=document.createElement('span');value.className='astrology-comparison-value';cell.dataset.label=headers[j].textContent;
+            if(j===0)cell.scope='row';
+            if(Array.isArray(text))for(const line of text){const item=document.createElement('span');item.textContent=line;value.append(item);}else value.textContent=text;
+            cell.append(value);row.append(cell);
+          });body.append(row);
         });
       };
       worker.postMessage({id,budget,counts,stat});
