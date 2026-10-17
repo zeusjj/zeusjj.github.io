@@ -10,6 +10,7 @@
 .astrology-effect-scroll{flex:1 1 0;min-height:0;overflow:auto;scrollbar-gutter:stable}
 .astrology-effect-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .astrology-effect-scroll .astrology-stat-table{margin-top:0}
+.astrology-effect-scroll .astrology-stat-table th,.astrology-effect-scroll .astrology-stat-table td{height:auto}
 .astrology-effect-scroll caption{position:sticky;top:0;background:#f5f6f8;z-index:1}
 .astrology-column-title{margin:0 0 10px;font-size:15px;font-weight:600;color:#415d54}
 .astrology-budget-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 12px;align-items:center;align-content:start;grid-column:2;height:100%;min-height:0;overflow:auto;scrollbar-gutter:stable}
@@ -103,6 +104,14 @@
 .astrology-comparison td:last-child .astrology-comparison-value>span{margin:0}
 .astrology-comparison tr[data-recommended=true]{background:rgba(24,135,124,.06)}
 .astrology-comparison tr[data-recommended=true] th{color:var(--accent)}
+.astrology-budget{border-top:2px solid #b8cdc6;padding-top:0;margin-top:10px}
+.astrology-budget>h3{padding:18px 20px;margin:0 0 24px;font-size:22px;line-height:1.5;color:#244e46;background:#eaf0ed;border-bottom:1px solid #d1ddd7;overflow-wrap:anywhere}
+.astrology-comparison tbody tr{border-top:2px solid #cedbd5}
+.astrology-comparison tbody th{font-size:14px;font-weight:650;color:var(--ink)}
+.astrology-comparison tbody th strong{display:block;font-size:14px}
+.astrology-comparison tbody th small{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:5px}
+@media(max-width:1050px){.astrology-completion{padding-top:10px;padding-bottom:8px}.astrology-effect-details caption{padding-bottom:6px}}
+@media(max-width:1050px){.astrology-state>.astrology-column-title{margin-bottom:6px}.astrology-state>.astrology-next-effect{margin:6px 0 8px}.astrology-effect-details caption small{display:inline-block;float:right;margin-top:2px}.astrology-completion{height:124px}.astrology-completion-table tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.astrology-completion-table tr{display:flex;align-items:center;justify-content:space-between;gap:8px}.astrology-completion .astrology-completion-table th,.astrology-completion .astrology-completion-table td{width:auto;height:auto}.astrology-completion .astrology-completion-table td{flex-shrink:0}}
 @media(max-width:700px){.astrology-budget-controls{grid-template-columns:minmax(0,1fr);gap:18px}.astrology-priority{max-width:260px}}
 @media(max-width:1050px){.astrology-row-main{grid-template-columns:minmax(0,1fr);grid-template-rows:420px repeat(2,minmax(0,1fr));height:1040px;gap:16px}.astrology-row-main>.astrology-state{grid-row:auto;width:100%;border-right:0;border-bottom:2px solid #cedbd5;padding:0 0 16px}.astrology-budget-row{grid-column:1}}
 @media(max-width:900px){.astrology-comparison,.astrology-comparison tbody,.astrology-comparison caption{display:block;width:100%}.astrology-comparison thead{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}.astrology-comparison tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px;padding:16px 12px;border-bottom:1px solid var(--line)}.astrology-comparison tbody th,.astrology-comparison tbody td{display:block;min-width:0;width:auto;padding:0;border:0;text-align:left;background:transparent}.astrology-comparison tbody th{grid-column:1/-1;font-size:14px}.astrology-comparison tbody td::before{content:attr(data-label);display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:400}.astrology-comparison tbody td:last-child{grid-column:1/-1}.astrology-comparison-value>span{overflow-wrap:anywhere}}

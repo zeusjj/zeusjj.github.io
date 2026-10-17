@@ -28,8 +28,17 @@ for(const star of astrologyConstellations){
   for(const [stat,value]of star.completion){const tr=make('tr'),th=make('th',stat);th.scope='row';tr.append(th,make('td','+'+value));completionBody.append(tr);}
   const details=make('table',undefined,'astrology-stat-table astrology-effect-details'),list=make('tbody'),items=[],statuses=[],effectCaption=make('caption','개수별 달성 효과'),effectCount=make('small');effectCaption.append(effectCount);details.append(effectCaption,list);
   star.effects.forEach((effect,index)=>{const item=make('tr'),th=make('th'),status=make('small',undefined,'astrology-effect-status');th.scope='row';th.append(make('span',(index+1)+'개 일치'),status);item.append(th,make('td',effectText(effect)));items.push(item);statuses.push(status);list.append(item);});
-  const effectScroll=make('div',undefined,'astrology-effect-scroll');effectScroll.tabIndex=0;effectScroll.setAttribute('aria-label',star.name+' 개수별 달성 효과');effectScroll.append(details);
+  const effectScroll=make('div',undefined,'astrology-effect-scroll'),effectSpace=make('div');effectSpace.setAttribute('aria-hidden','true');effectScroll.tabIndex=0;effectScroll.setAttribute('aria-label',star.name+' 개수별 달성 효과');effectScroll.append(details,effectSpace);
   completionBox.append(completion,completionStatus);state.append(completionBox,next,effectScroll);row.append(sectionHeader,main);host.append(row);
+  let alignFrame;
+  function alignEffects(){
+    if(!effectScroll.clientHeight)return;
+    const captionHeight=effectCaption.getBoundingClientRect().height,target=items[Math.max(0,Number(slider.value)-1)];
+    // Leave enough trailing space to align even the final row below the sticky caption.
+    effectSpace.style.height=Math.max(0,effectScroll.clientHeight-captionHeight-items.at(-1).getBoundingClientRect().height)+'px';
+    effectScroll.scrollTop=Math.max(0,effectScroll.scrollTop+target.getBoundingClientRect().top-effectScroll.getBoundingClientRect().top-captionHeight);
+  }
+  new ResizeObserver(alignEffects).observe(effectScroll);
   function update(){
     const current=Number(slider.value);output.textContent=current+' / '+star.central;slider.setAttribute('aria-valuetext','중앙 '+current+'개, 전체 '+star.central+'개');
     sectionProgress.textContent=current===star.central?'중앙 '+star.central+'개 모두 완성':current+'개 달성 · '+(star.central-current)+'개 남음';
@@ -48,7 +57,8 @@ for(const star of astrologyConstellations){
     effectCount.textContent=current+' / '+star.central+' 달성';
     items.forEach((item,index)=>{item.dataset.achieved=String(index<current);item.dataset.next=String(index===current);statuses[index].textContent=index<current?'획득':index===current?'다음':'';if(index===current)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
     row.dataset.current=String(current);
+    cancelAnimationFrame(alignFrame);alignFrame=requestAnimationFrame(alignEffects);
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261018-136');
+import('./astrology-budget.js?v=20261018-138');

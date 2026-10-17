@@ -3,6 +3,7 @@ const host=document.getElementById('astrology-rows'),section=document.createElem
 section.className='astrology-budget';
 section.innerHTML='<h3>보유 별로 다음 선택</h3><div class="astrology-budget-controls"><div class="astrology-state"><div class="astrology-state-heading"><label for="astrology-budget">보유 별의 조각</label><output for="astrology-budget" id="astrology-budget-value">1,000개</output></div><input id="astrology-budget" type="range" min="0" max="10000" step="100" value="1000"><div class="astrology-budget-scale"><span>0개</span><span>10,000개</span></div></div><label class="astrology-priority">우선 스탯<select id="astrology-priority"></select></label></div><p id="astrology-recommendation" role="status" aria-live="polite"></p><p class="astrology-budget-note">추천은 다음 1회 대상입니다. 이후 성공 결과에 따라 대상을 바꾸는 전략의 기대 증가량을 비교합니다. 개수별 달성·완성 효과만 포함하며 다른 스탯은 점수에 합산하지 않습니다.</p><div class="astrology-comparison-wrap"><table class="astrology-comparison"><caption>현재 단계 · 예산별 비교</caption><thead><tr><th scope="col">별자리</th><th scope="col">다음 1회 추가 일치</th><th scope="col">예산 내 N+1 달성</th><th scope="col">예산 내 전체 완성</th><th scope="col">다음 달성 효과</th><th scope="col">완성 효과</th><th scope="col">예산 내 기대 스탯</th></tr></thead><tbody></tbody></table></div><p class="astrology-budget-note">표의 예산 내 확률·기대 스탯은 각 별자리 한 곳에 예산을 모두 사용할 때의 값입니다. 추천의 기대값은 여러 별자리를 오가는 전략으로 별도 계산합니다. 예산이 충분하지 않으면 멈추며, 확률은 보장이 아닙니다.</p>';
 host.after(section);
+section.querySelector('h3').textContent='별의 조각 보유 개수별 우선순위 선택 도우미';
 const select=section.querySelector('select'),slider=section.querySelector('input'),status=section.querySelector('[role=status]'),body=section.querySelector('tbody'),number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 slider.max='30000';section.querySelector('.astrology-budget-scale span:last-child').textContent='30,000개';
 const stats=[...new Set(stars.flatMap(s=>[...s.effects,...s.completion].filter(Boolean).map(e=>e[0])))];
@@ -34,8 +35,8 @@ function update(){
           const headers=section.querySelectorAll('thead th');
           cells.forEach((text,j)=>{
             const cell=document.createElement(j===0?'th':'td'),value=document.createElement('span');value.className='astrology-comparison-value';cell.dataset.label=headers[j].textContent;
-            if(j===0)cell.scope='row';
-            if(Array.isArray(text))for(const line of text){const item=document.createElement('span');item.textContent=line;value.append(item);}else value.textContent=text;
+            if(j===0){cell.scope='row';const name=document.createElement('strong'),stage=document.createElement('small');name.textContent=s.name;stage.textContent=k+' / '+s.central+'개';value.append(name,stage);}
+            else if(Array.isArray(text))for(const line of text){const item=document.createElement('span');item.textContent=line;value.append(item);}else value.textContent=text;
             cell.append(value);row.append(cell);
           });body.append(row);
         });
