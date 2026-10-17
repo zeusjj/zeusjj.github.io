@@ -62,7 +62,7 @@ function selectCalculator(button) {
     tab.tabIndex = active ? 0 : -1;
     document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
   }
-  document.getElementById('calculator-heading').textContent = button.textContent;
+  document.getElementById('calculator-heading').textContent = button.querySelector('span').textContent;
 }
 for (const [index, tab] of toolTabs.entries()) {
   tab.addEventListener('click', () => selectCalculator(tab));

@@ -17,9 +17,9 @@
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
   <script src="admin-statistics.js?v=20261009-76" defer></script>
   <script type="module" src="collection-calculator.js?v=20261014-115"></script>
-  <script type="module" src="skill-calculator.js?v=20261014-115"></script>
-  <link rel="stylesheet" href="fate-prices.css?v=20261017-118">
-  <script type="module" src="fate-prices.js?v=20261017-118"></script>
+  <script type="module" src="skill-calculator.js?v=20261017-121"></script>
+  <link rel="stylesheet" href="fate-prices.css?v=20261017-121">
+  <script type="module" src="fate-prices.js?v=20261017-121"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
@@ -133,7 +133,7 @@
         </div>
       </section>
       <section id="tools" hidden>
-        <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button><button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span></button></div></div>
+        <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능"><button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button><button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button><button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" hidden>New</small></button></div></div>
         <div class="page-heading"><div><h1 id="calculator-heading">컬렉션 기대값 계산기</h1></div><button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button></div>
         <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>

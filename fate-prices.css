@@ -1,4 +1,5 @@
 .fate-table-scroll{width:100%;overflow:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+#tools .calculator-tabs button:not(.active) .menu-new{color:#ffe1a2}
 .fate-table-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 #fate-price-table{width:100%;min-width:1000px;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:12px;font-variant-numeric:tabular-nums}
 #fate-price-table th,#fate-price-table td{padding:14px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
