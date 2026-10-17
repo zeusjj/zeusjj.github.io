@@ -1,0 +1,17 @@
+.fate-table-scroll{width:100%;overflow:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.fate-table-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#fate-price-table{width:100%;min-width:1000px;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:12px;font-variant-numeric:tabular-nums}
+#fate-price-table th,#fate-price-table td{padding:14px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+#fate-price-table thead th{background:#f0f5f4;color:#61746f;font-size:11px;font-weight:550}
+#fate-price-table th:first-child{position:sticky;left:0;z-index:1;width:90px;text-align:left;border-right:1px solid var(--line);background:white;padding-left:16px;font-weight:650}
+#fate-price-table thead th:first-child{background:#f0f5f4}
+#fate-price-table strong{display:block;font-size:13px;font-weight:650;color:var(--ink)}
+#fate-price-table small{display:block;margin-top:4px;font-size:10px;font-weight:400;color:var(--muted)}
+#fate-price-table .fate-grade-normal{color:#63717b}
+#fate-price-table .fate-grade-advanced{color:var(--accent)}
+#fate-price-table .fate-grade-rare{color:#416c94}
+#fate-price-table .fate-grade-heroic{color:#97752a}
+#fate-price-table .fate-unavailable{color:#9da7ae}
+#fate-price-table tbody tr:hover>*{background:#f4f8f7}
+#fate-price-table tbody tr:last-child>*{border-bottom:0}
+@media(max-width:700px){#tools .calculator-tabs{flex-wrap:wrap}#tools .calculator-tabs button{flex:1 1 150px;min-height:54px}#fate-price-table{min-width:980px}#fate-price-table th,#fate-price-table td{padding-top:13px;padding-bottom:13px}}
