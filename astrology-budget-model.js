@@ -18,8 +18,8 @@ export function recommendAstrology(stars,counts,budget,stat){
   let size=1;for(const dimension of dimensions){strides.push(size);size*=dimension;}
   const gains=stars.map((s,i)=>Array.from({length:s.central+1},(_,k)=>{
     let value=0;
-    for(let j=counts[i];j<k;j++)if(s.effects[j]?.[0]===stat)value+=s.effects[j][1];
-    if(k===s.central&&counts[i]<s.central)for(const effect of s.completion)if(effect[0]===stat)value+=effect[1];
+    for(let j=counts[i];j<k;j++)if(s.effects[j]&&(!stat||s.effects[j][0]===stat))value+=s.effects[j][1];
+    if(k===s.central&&counts[i]<s.central)for(const effect of s.completion)if(!stat||effect[0]===stat)value+=effect[1];
     return value;
   }));
   const utilities=new Float64Array(size),states=Array.from({length:size},()=>[]);

@@ -5,25 +5,26 @@ section.innerHTML='<h3>보유 별로 다음 선택</h3><div class="astrology-bud
 host.after(section);
 const select=section.querySelector('select'),slider=section.querySelector('input'),status=section.querySelector('[role=status]'),body=section.querySelector('tbody'),number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const stats=[...new Set(stars.flatMap(s=>[...s.effects,...s.completion].filter(Boolean).map(e=>e[0])))];
-for(const stat of ['공격력',...stats.filter(s=>s!=='공격력')]){const option=document.createElement('option');option.value=option.textContent=stat;select.append(option);}
+for(const stat of ['', '공격력',...stats.filter(s=>s!=='공격력')]){const option=document.createElement('option');option.value=stat;option.textContent=stat||'없음';select.append(option);}
+section.querySelector('.astrology-budget-note').textContent='추천은 다음 1회 대상입니다. 우선 스탯이 없으면 모든 스탯 수치를 1:1로 합산한 기대 총량을 비교합니다. 실제 전투력 환산은 아니며, 개수별 달성·완성 효과만 포함합니다. 스탯을 고르면 해당 스탯만 비교합니다.';
 let worker=null,sequence=0,timer;
 const percent=value=>value>0&&value<.0005?'0.1% 미만':value<1&&value>.9995?'99.9% 초과':(value*100).toFixed(1)+'%';
 const gain=value=>value>0&&value<.005?'0.01 미만':number.format(value);
 function update(){
   clearTimeout(timer);worker?.terminate();worker=null;sequence++;
-  const id=sequence,budget=Number(slider.value),counts=stars.map(s=>Number(document.getElementById('astrology-'+s.id).value)),stat=select.value;
+  const id=sequence,budget=Number(slider.value),counts=stars.map(s=>Number(document.getElementById('astrology-'+s.id).value)),stat=select.value,statLabel=stat||'스탯 총량';
   section.querySelector('output').textContent=number.format(budget)+'개';
   status.textContent='예산별 선택 계산 중…';body.replaceChildren();
   timer=setTimeout(()=>{
     try{
-      worker=new Worker(new URL('./astrology-budget-worker.js?v=20261018-126',import.meta.url),{type:'module'});
+      worker=new Worker(new URL('./astrology-budget-worker.js?v=20261018-128',import.meta.url),{type:'module'});
       worker.onerror=()=>{if(id===sequence)status.textContent='추천 계산을 불러오지 못했습니다. 잠시 후 다시 조절해 주세요.';worker?.terminate();worker=null;};
       worker.onmessage=({data})=>{
         if(data.id!==sequence)return;
         worker?.terminate();worker=null;
         if(data.error){status.textContent='추천 계산을 완료하지 못했습니다.';return;}
         const {choice,best,comparisons}=data.result;
-        status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+stat+' 추가 기대값이 없습니다.'):'다음 1회 추천: '+stars[choice].name+' · 예산 전체 '+stat+' 기대 증가 +'+gain(best);
+        status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+statLabel+' 추가 기대값이 없습니다.'):'다음 1회 추천: '+stars[choice].name+' · 예산 전체 '+statLabel+' 기대 증가 +'+gain(best);
         stars.forEach((s,i)=>{
           const k=counts[i],comparison=comparisons[i],row=document.createElement('tr');row.dataset.recommended=String(i===choice);
           const nextChance=k===s.central?'완료':document.querySelector('[aria-label="'+s.name+'"] .astrology-roll-cost').textContent.split('중앙 추가 등장 ')[1];

@@ -22,10 +22,12 @@ for(const star of astrologyConstellations){
     const chart=distributionChart();charts.push(chart);budgetRow.append(chart.element);
     values.push(cells);main.append(budgetRow);
   }
-  const effects=make('div',undefined,'astrology-effects'),next=make('span'),completion=make('span');completion.append(make('strong','완성 효과'),document.createTextNode(star.completion.map(effectText).join(' · ')));effects.append(next,completion);
-  const details=make('details',undefined,'astrology-effect-details'),list=make('ol'),items=[];details.append(make('summary','중앙 개수별 달성 효과'),list);
-  star.effects.forEach((effect,index)=>{const item=make('li');item.append(make('span',(index+1)+'개 일치'),make('span',effectText(effect)));items.push(item);list.append(item);});
-  row.append(main,effects,details);host.append(row);
+  const next=make('p',undefined,'astrology-next-effect'),completion=make('table',undefined,'astrology-stat-table astrology-completion-table'),completionBody=make('tbody');
+  completion.append(make('caption','완성 효과'),completionBody);
+  for(const [stat,value]of star.completion){const tr=make('tr'),th=make('th',stat);th.scope='row';tr.append(th,make('td','+'+value));completionBody.append(tr);}
+  const details=make('table',undefined,'astrology-stat-table astrology-effect-details'),list=make('tbody'),items=[];details.append(make('caption','개수별 달성 효과'),list);
+  star.effects.forEach((effect,index)=>{const item=make('tr'),th=make('th',(index+1)+'개 일치');th.scope='row';item.append(th,make('td',effectText(effect)));items.push(item);list.append(item);});
+  state.append(next,completion,details);row.append(main);host.append(row);
   function update(){
     const current=Number(slider.value);output.textContent=current+' / '+star.central;slider.setAttribute('aria-valuetext','중앙 '+current+'개, 전체 '+star.central+'개');
     rollCost.textContent=current===star.central?'추가 점성술 없음':'현재 1회 '+number.format(model.costs[current])+'개 · 중앙 추가 등장 '+((1-model.transitions[current][0])*100).toFixed(1)+'%';
@@ -37,9 +39,10 @@ for(const star of astrologyConstellations){
     charts[0].update(model,current,Math.min(current+1,star.central),budgetRows[0].textContent);
     charts[1].update(model,current,star.central,budgetRows[1].textContent);
     next.replaceChildren(make('strong',current===star.central?'완성':'다음 '+(current+1)+'개 일치'),document.createTextNode(current===star.central?'추가 소모 없음':effectText(star.effects[current])));
-    items.forEach((item,index)=>item.dataset.achieved=String(index<current));
+    completion.dataset.achieved=String(current===star.central);
+    items.forEach((item,index)=>{item.dataset.achieved=String(index<current);item.dataset.next=String(index===current);if(index===current)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
     row.dataset.current=String(current);
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261018-126');
+import('./astrology-budget.js?v=20261018-128');

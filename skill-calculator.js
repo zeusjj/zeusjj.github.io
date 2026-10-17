@@ -54,7 +54,8 @@ form.addEventListener('reset', () => queueMicrotask(update));
 update();
 
 const toolTabs = [...document.querySelectorAll('[data-calculator]')];
-function selectCalculator(button) {
+const toolTabStorageKey = 'guild-tool-tab-v1';
+function selectCalculator(button, persist = true) {
   for (const tab of toolTabs) {
     const active = tab === button;
     tab.classList.toggle('active', active);
@@ -63,7 +64,12 @@ function selectCalculator(button) {
     document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
   }
   document.getElementById('calculator-heading').textContent = button.querySelector('span').textContent;
+  if (persist) {try {localStorage.setItem(toolTabStorageKey, button.dataset.calculator);} catch {}}
 }
+try {
+  const savedTab = toolTabs.find(tab => tab.dataset.calculator === localStorage.getItem(toolTabStorageKey));
+  if (savedTab) selectCalculator(savedTab, false);
+} catch {}
 for (const [index, tab] of toolTabs.entries()) {
   tab.addEventListener('click', () => selectCalculator(tab));
   tab.addEventListener('keydown', event => {

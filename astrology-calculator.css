@@ -36,6 +36,17 @@
 .astrology-effect-details li[data-achieved=true]{color:var(--accent)}
 .astrology-effect-details li span:first-child{color:var(--muted);white-space:nowrap}
 .astrology-effect-details li span:last-child{text-align:right;overflow-wrap:anywhere}
+.astrology-next-effect{font-size:11px;color:var(--muted);line-height:1.8;margin:14px 0}
+.astrology-next-effect strong{color:var(--ink);font-weight:550;margin-right:6px}
+.astrology-stat-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:18px 0 0;font-size:11px}
+.astrology-stat-table caption{text-align:left;padding:0 0 8px;font-size:12px;font-weight:600;color:var(--ink)}
+.astrology-stat-table th,.astrology-stat-table td{padding:6px 5px;border-bottom:1px solid var(--line);line-height:1.7;overflow-wrap:anywhere}
+.astrology-stat-table th{text-align:left;font-weight:400;width:35%;color:var(--muted)}
+.astrology-stat-table td{text-align:right;color:var(--muted)}
+.astrology-completion-table th{width:70%}
+.astrology-stat-table tr[data-achieved=true] td,.astrology-completion-table[data-achieved=true] td{color:var(--accent)}
+.astrology-stat-table tr[data-next=true]{background:rgba(24,135,124,.07)}
+.astrology-stat-table tr[data-next=true] th,.astrology-stat-table tr[data-next=true] td{font-weight:600;color:var(--ink)}
 .astrology-method{margin-top:6px;border-top:1px solid var(--line);padding:16px 0;font-size:12px;color:var(--muted)}
 .astrology-method summary{cursor:pointer;width:max-content;color:#526970}
 .astrology-method p{margin:12px 0 0;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere}
