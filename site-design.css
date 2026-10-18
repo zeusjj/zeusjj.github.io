@@ -261,7 +261,7 @@ footer{padding:18px var(--space-page);font-size:12px}
 /* Shared roles: neutral reading surfaces, teal actions, gold milestones. */
 body{color:var(--ink)}
 .sidebar,.sidebar nav button,.chapter-navigation button{color:var(--muted)}
-.guild-emblem{background:var(--accent)}
+.guild-emblem{background:transparent}
 .sidebar nav button svg{color:var(--muted)}
 .sidebar nav button.active svg,.chapter-navigation button.active,.inline-link,.schedule-time strong{color:var(--accent)}
 .sidebar nav button:hover,.board-entry[open] summary{background:var(--accent-soft)}
