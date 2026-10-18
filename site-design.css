@@ -1,11 +1,14 @@
 :root{
-  --ink:#293a38;--muted:#60716f;--line:#d9e2df;--accent:#216f65;
-  --surface:#fff;--page:#f4f6f6;--success:#286e50;--warning:#8a6827;--danger:#a94f45;
+  --ink:#28312f;--muted:#596460;--line:#d3dad7;--accent:#246b60;
+  --surface:#fff;--page:#f5f6f7;--success:#286e50;--warning:#876024;--danger:#a94f45;
+  --surface-subtle:#edf0ef;--accent-soft:#e6eeea;--accent-line:#b9cbc3;
+  --week-a:#f1f3f5;--week-b:#e6eeea;--week-head-a:#e5e9ec;--week-head-b:#d8e3dd;
+  --gold-soft:#faf4e7;--gold-line:#d9c69e;
   --sidebar-width:224px;--space-page:36px;
   background:var(--page);color:var(--ink);
 }
 body{background:var(--page)}
-.sidebar{width:var(--sidebar-width);padding:24px 16px 16px;background:#edf2ef;border-color:var(--line)}
+.sidebar{width:var(--sidebar-width);padding:24px 16px 16px;background:var(--surface-subtle);border-color:var(--line)}
 .sidebar-brand{flex-shrink:0}
 .game-brand{margin:0 0 16px;padding:0 8px 16px}
 .game-brand img{width:142px}
@@ -240,16 +243,56 @@ footer{padding:18px var(--space-page);font-size:12px}
 .page-heading .rules-dates{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
 .rules-dates>span{display:flex;align-items:center;gap:6px}
 .rules-dates small{font-size:12px;color:var(--muted);line-height:1.4}
-#member-table td[data-week-tone=a]{background:#eef3f8}
-#member-table td[data-week-tone=b]{background:#edf5ef}
-#member-table th[data-week-tone=a]{background:#e0e9f2}
-#member-table th[data-week-tone=b]{background:#dfece2}
-#member-table [data-week-start=true]{border-left:2px solid #c8d7cf}
-#member-table tbody tr:hover td[data-week-tone=a]{background:#e4ecf5}
-#member-table tbody tr:hover td[data-week-tone=b]{background:#e2eee5}
-#member-table th[data-week][data-period=current]{background:#e0efe8}
+#member-table td[data-week-tone=a]{background:var(--week-a)}
+#member-table td[data-week-tone=b]{background:var(--week-b)}
+#member-table th[data-week-tone=a]{background:var(--week-head-a)}
+#member-table th[data-week-tone=b]{background:var(--week-head-b)}
+#member-table [data-week-start=true]{border-left:2px solid var(--accent-line)}
+#member-table tbody tr:hover td[data-week-tone=a]{background:#e8ecef}
+#member-table tbody tr:hover td[data-week-tone=b]{background:#dce7e1}
+#member-table th[data-week][data-period=current]{background:var(--week-head-b)}
 #members #member-table th,#members #member-table .member-sort{height:96px}
 #member-table th[data-week] .member-sort{padding-bottom:25px}
 #member-table th[data-period=current] .content-date{font-weight:750;color:#235d49}
-#member-table .member-date-badge{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;min-width:35px;height:17px;padding:0 6px;border-radius:3px;font-size:10px;font-weight:700;line-height:1;white-space:nowrap;border:1px solid #bacde0;background:#edf3fa;color:#41678d}
-#member-table .member-date-badge[data-kind=today]{background:#286d57;border-color:#286d57;color:white}
+#member-table .member-date-badge{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;min-width:35px;height:17px;padding:0 6px;border-radius:3px;font-size:10px;font-weight:700;line-height:1;white-space:nowrap;border:1px solid #c4ceca;background:#f3f5f4;color:#596460}
+#member-table .member-date-badge[data-kind=today]{background:var(--accent);border-color:var(--accent);color:white}
+#member-table .member-date-badge[aria-label="1일 후 일정"]{background:var(--gold-soft);border-color:var(--gold-line);color:var(--warning)}
+
+/* Shared roles: neutral reading surfaces, teal actions, gold milestones. */
+body{color:var(--ink)}
+.sidebar,.sidebar nav button,.chapter-navigation button{color:var(--muted)}
+.guild-emblem{background:var(--accent)}
+.sidebar nav button svg{color:var(--muted)}
+.sidebar nav button.active svg,.chapter-navigation button.active,.inline-link,.schedule-time strong{color:var(--accent)}
+.sidebar nav button:hover,.board-entry[open] summary{background:var(--accent-soft)}
+.secondary-button,.sidebar .official-home-link,.sidebar #suggest-tool{color:var(--ink)}
+.sidebar .alarm-register-link,.sidebar #guestbook-open,.sidebar #suggest-tool,.sidebar .official-home-link{border-color:var(--line)}
+.board-entry summary:hover{background:var(--surface-subtle)}
+.board-column-head,.entry-author,.board-entry time,.date-label,.count-label,.policy-note,.allocation-facts dt,.record-count,.official-news-heading small,.official-news-row time,footer{color:var(--muted)}
+.policy-types h3,.condition-columns h3,.schedule-rail h2,.policy-growth>.policy-body>p,.price-explanation li,.price-rates dt{color:var(--ink)}
+.chapter-heading,.distribution-heading,.member-grid,.collection-table-scroll,.fate-table-scroll{border-color:var(--line)}
+.price-band{background:var(--accent-soft);border-color:var(--accent)}
+.price-rates dd{color:var(--accent)}
+#tools .calculator-tabs button{color:var(--muted)}
+#tools .calculator-tabs button.active{background:var(--accent-soft);color:var(--accent)}
+#tools .calculator-tabs button:not(.active):hover{background:var(--surface-subtle);color:var(--ink)}
+#member-table td,#member-table .member-name{color:var(--ink)}
+#member-table th .column-title,#member-table .content-date{color:var(--muted)}
+#member-table th[data-period=future],#member-table th[data-period=future] .content-date{color:var(--muted)}
+#member-table th[data-period=current] .column-title,#member-table th[data-period=current] .content-date{color:var(--accent)}
+.astrology-section-header,.astrology-budget>h3{background:var(--surface-subtle);border-color:var(--line);color:var(--ink)}
+.astrology-section-header h2,.astrology-column-title{color:var(--ink)}
+.astrology-section-progress,.astrology-stat-table td,.astrology-effect-details li,.astrology-method summary{color:var(--muted)}
+.astrology-row,.astrology-row-main>.astrology-state,.astrology-budget-row+.astrology-budget-row{border-color:var(--accent-line)}
+.astrology-effect-scroll caption{background:var(--page)}
+.astrology-stat-table tr[data-achieved=true]{background:var(--surface-subtle)}
+.astrology-stat-table tr[data-achieved=true] th,.astrology-stat-table tr[data-achieved=true] td{color:var(--ink)}
+.astrology-stat-table tr[data-next=true]{background:var(--accent-soft);box-shadow:inset 3px 0 var(--accent)}
+.astrology-completion{background:var(--gold-soft);border-color:var(--gold-line);box-shadow:none}
+.astrology-completion .astrology-completion-table caption,.astrology-completion .astrology-completion-table td,.astrology-metric-tail dd{color:var(--warning)}
+.astrology-completion .astrology-completion-table th,.astrology-completion-status{color:#75613b}
+.astrology-completion[data-achieved=true]{background:var(--gold-soft);border-color:var(--gold-line);box-shadow:none}
+.astrology-completion[data-achieved=true] .astrology-completion-table caption,.astrology-completion[data-achieved=true] .astrology-completion-table th,.astrology-completion[data-achieved=true] .astrology-completion-table td,.astrology-completion[data-achieved=true] .astrology-completion-status{color:var(--warning)}
+.astrology-completion[data-achieved=true] .astrology-completion-status{border-color:var(--gold-line)}
+@keyframes astrology-next-glow{0%,100%{background-color:#e6eeea}50%{background-color:#d8e7df}}
+@media(max-width:700px){.sidebar{background:var(--surface-subtle)}}
