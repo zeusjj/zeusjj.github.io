@@ -88,10 +88,12 @@ function tick(){
   const at=now();for(const node of document.querySelectorAll('[data-spawn]')){const left=Math.max(0,Number(node.dataset.spawn)-at);node.textContent=left?`${Math.floor(left/3600000)}시간 ${Math.floor(left/MINUTE)%60}분 ${Math.floor(left/1000)%60}초`:'출현';}
   if(!enabled)return;
   for(const record of records)if(receives(record.boss) && isDue(record.spawn_at,at) && claim(`shared:${record.id}:${record.updated_at}`))toast(record.boss+' 출현 3분 전',format(record.spawn_at),Math.max(0,record.spawn_at-LEAD+DURATION-at),record.id,record.boss);
+  for(const spawn of fixedOccurrences(at))if(receives('심연의 틈') && isDue(spawn,at) && claim('fixed:'+spawn))toast('심연의 틈 출현 3분 전',format(spawn),Math.max(0,spawn-LEAD+DURATION-at),'fixed','심연의 틈');
 }
 function render(){
   const list=$('alarm-list');list.replaceChildren();const at=now();
-  const entries=records.filter(r=>r.spawn_at>at);if(ringing.has('test'))entries.unshift({id:'test',boss:ringing.get('test').boss,spawn_at:at,author:'테스트 · 서버 미등록',test:true});
+  const fixed=fixedOccurrences(at).filter(time=>time>at).sort((a,b)=>a-b)[0];
+  const entries=[...records.filter(r=>r.spawn_at>at),{id:'fixed',boss:'심연의 틈',spawn_at:fixed,author:'매일 00:00 · 12:00 · 18:00',fixed:true}];if(ringing.has('test'))entries.unshift({id:'test',boss:ringing.get('test').boss,spawn_at:at,author:'테스트 · 서버 미등록',test:true});
   for(const record of entries.sort((a,b)=>a.spawn_at-b.spawn_at)){
     const row=make('div',undefined,'alarm-row'),name=make('strong',record.boss),time=make('div'),author=make('span',record.author,'alarm-author');row.dataset.alarmKey=record.id;row.dataset.boss=record.boss;
     if(record.test)time.append(make('span','테스트 알림'));else {time.append(make('time',format(record.spawn_at)));const countdown=make('small');countdown.dataset.spawn=record.spawn_at;time.append(countdown);}
@@ -233,6 +235,6 @@ $('alarm-file').addEventListener('change',event=>{preview(event.target.files[0],
 document.addEventListener('paste',event=>{if($('alarms').hidden || ocrBusy || submitting)return;const file=[...event.clipboardData.items].find(item=>item.type.startsWith('image/'))?.getAsFile();if(file){event.preventDefault();previewGeneration++;preview(file,Math.round(now()));}});
 $('alarm-paste').addEventListener('click',()=>{if(ocrBusy || submitting)return;$('alarm-preview-confirm').disabled=true;$('alarm-preview-time').textContent='';$('alarm-preview').showModal();readClipboard();});
 try{const response=await fetch('boss-presets.json?v=20261005-51',{cache:'no-store'});if(!response.ok)throw new Error();presets=await response.json();optionList($('alarm-boss'));}catch{$('alarm-status').textContent='알람 이름 목록을 불러오지 못했습니다. 새로고침해주세요.';$('alarm-manual').querySelector('button').disabled=true;}
-toggleState();filterUI();render();refresh();setInterval(refresh,15000);setInterval(()=>{tick();if(records.some(record=>record.spawn_at<=now()))render();},1000);
+toggleState();filterUI();render();refresh();setInterval(refresh,15000);setInterval(()=>{tick();if(records.some(record=>record.spawn_at<=now())||Number(document.querySelector('[data-alarm-key="fixed"] [data-spawn]')?.dataset.spawn)<=now())render();},1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){refresh();render();audioStatus();}});
 window.addEventListener('pagehide',()=>stopSound());
