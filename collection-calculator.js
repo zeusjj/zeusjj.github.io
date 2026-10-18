@@ -7,6 +7,20 @@ const pricePairs = [
   [document.getElementById('collection-item-price'), document.getElementById('collection-item-slider')],
   [document.getElementById('collection-scroll-price'), document.getElementById('collection-scroll-slider')],
 ];
+const scrollPriceKey='guild-collection-scroll-price-v1';
+const [scrollInput,scrollSlider]=pricePairs[1];
+try{
+  const saved=localStorage.getItem(scrollPriceKey);
+  if(saved!==null){
+    scrollInput.value=saved;
+    if(scrollInput.validity.valid)scrollSlider.value=scrollInput.value;
+    else scrollInput.value=scrollInput.defaultValue;
+  }
+}catch{}
+function saveScrollPrice(){
+  if(!scrollInput.validity.valid)return;
+  try{localStorage.setItem(scrollPriceKey,scrollInput.value);}catch{}
+}
 const numberFormat = new Intl.NumberFormat('ko-KR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const probabilityFormat = new Intl.NumberFormat('ko-KR', {maximumSignificantDigits: 6});
 const compactFormat = new Intl.NumberFormat('ko-KR', {notation:'compact', maximumFractionDigits:2});
@@ -72,19 +86,23 @@ function updateResults() {
 pricePairs.forEach(([input, slider]) => {
   input.addEventListener('input', () => {
     if (input.validity.valid) slider.value = input.value;
+    if(input===scrollInput)saveScrollPrice();
     updateResults();
   });
   slider.addEventListener('input', () => {
     input.value = slider.value;
+    if(input===scrollInput)saveScrollPrice();
     updateResults();
   });
 });
 form.addEventListener('change', updateResults);
+scrollInput.addEventListener('change',saveScrollPrice);
 form.addEventListener('submit', event => event.preventDefault());
 form.addEventListener('reset', event => {
   event.preventDefault();
   form.querySelectorAll('input[type=radio]').forEach(input => {input.checked = input.defaultChecked;});
   pricePairs.forEach(pair => pair.forEach(input => {input.value = input.defaultValue;}));
+  try{localStorage.removeItem(scrollPriceKey);}catch{}
   updateResults();
 });
 updateResults();
