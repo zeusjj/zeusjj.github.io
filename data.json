@@ -2209,8 +2209,13 @@
     "2026-10-18": "2026-10-18T10:59:33Z"
   },
   "membersUpdatedAt": "2026-10-18T11:52:31Z",
-  "distributionUpdatedAt": "2026-10-14T12:24:45Z",
+  "distributionUpdatedAt": "2026-10-18T11:58:01Z",
   "distribution": [
+    {
+      "title": "길드레이드 6차",
+      "records": [],
+      "schedule": "분배 10/21 21:00 진행 예정"
+    },
     {
       "title": "길드레이드 5차",
       "records": [

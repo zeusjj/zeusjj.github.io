@@ -96,6 +96,9 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var
 .distribution-group{padding:0 0 32px 24px}
 .distribution-heading{gap:12px;padding:12px 0;margin-bottom:12px;border-bottom:2px solid #cbdad2}
 .distribution-heading h2{font-size:20px;line-height:1.5}
+.distribution-schedule{font-size:14px;font-weight:600;color:var(--accent);line-height:1.8;margin:0 0 18px}
+.workspace-bar #main-menu-share{width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:var(--accent)}
+.workspace-bar #main-menu-share svg{width:15px;height:15px;color:inherit}
 .record-count{font-size:12px}
 .distribution-group td,.distribution-group th{font-size:14px;line-height:1.8;padding:14px 16px}
 .distribution-group td:nth-child(2){font-weight:550}
@@ -155,7 +158,7 @@ footer{padding:18px var(--space-page);font-size:12px}
   .sidebar #suggest-tool{margin:10px 0 8px;min-height:44px}
   .sidebar .official-home-link{margin:0 0 6px;min-height:44px}
   .workspace{margin-left:0}
-  .workspace-bar{height:36px;padding:0 20px}
+  .workspace-bar{height:48px;padding:0 20px}
   main{padding:24px 20px 36px}
   .page-heading{align-items:flex-start;gap:12px;margin-bottom:20px}
   .page-heading h1{font-size:26px}

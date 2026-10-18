@@ -12,7 +12,7 @@
   <script type="module" src="probabilities.js?v=20261012-89"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="browser-nickname.js?v=20261018-156" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-159" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-163" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-162"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-162"></script>
   <script type="module" src="member-distributions.js?v=20261018-162"></script>
@@ -34,9 +34,10 @@
   <script src="guestbook.js?v=20261018-156" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261018-156"></script>
-  <link rel="stylesheet" href="site-design.css?v=20261018-161">
+  <link rel="stylesheet" href="site-design.css?v=20261018-163">
   <link rel="stylesheet" href="site-themes.css?v=20261018-162">
   <script src="site-design.js?v=20261018-141" defer></script>
+  <script src="main-menu-share.js?v=20261018-164" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -66,7 +67,7 @@
     </div>
   </aside>
   <div class="workspace">
-    <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="sage">세이지</option><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
+    <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="sage">세이지</option><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
       <section id="rules" hidden>

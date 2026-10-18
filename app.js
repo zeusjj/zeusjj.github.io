@@ -624,8 +624,9 @@ function renderMembers(data, query='') {
 }
 function renderDistribution(groups) {
   const target=document.getElementById('distribution-content');
-  for(const group of groups){const section=element('section',undefined,'distribution-group');const heading=element('div',undefined,'distribution-heading');heading.append(element('h2',group.title),element('span',`${group.records.length}건`,'record-count'));section.append(heading);
-    if(!group.records.length){section.append(element('p','등록된 분배 기록이 없습니다.','empty'));}
+  for(const group of groups){const section=element('section',undefined,'distribution-group');const heading=element('div',undefined,'distribution-heading');heading.append(element('h2',group.title),element('span',group.schedule&&!group.records.length?'분배 예정':`${group.records.length}건`,'record-count'));section.append(heading);
+    if(group.schedule)section.append(element('p',group.schedule,'distribution-schedule'));
+    if(!group.records.length){if(!group.schedule)section.append(element('p','등록된 분배 기록이 없습니다.','empty'));}
     else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액','입찰방식'].forEach(label=>{const th=element('th',label);th.scope='col';headings.append(th);});head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'미정':record.amount.toLocaleString('ko-KR'),record.bidding || '-'].forEach((value,index)=>row.append(element('td',value,record.amount===null&&index===2?'distribution-pending':undefined)));body.append(row);}table.append(body);section.append(table);}target.append(section);
   }
 }
