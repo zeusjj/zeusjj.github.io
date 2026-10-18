@@ -7,7 +7,7 @@
 .astrology-row-main{display:grid;grid-template-columns:minmax(290px,1.2fr) minmax(0,3fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:16px 26px;align-items:start;height:600px;overflow:hidden}
 .astrology-row-main>.astrology-state{grid-row:1/3;border-right:2px solid #cedbd5;padding-right:26px;align-self:stretch;display:flex;flex-direction:column;min-height:0;height:100%;overflow:hidden}
 .astrology-state>*{flex-shrink:0}
-.astrology-effect-scroll{flex:1 1 0;min-height:0;overflow:auto;scrollbar-gutter:stable}
+.astrology-effect-scroll{flex:1 1 0;min-height:0;overflow:hidden;touch-action:pan-y pinch-zoom;scrollbar-gutter:stable}
 .astrology-effect-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .astrology-effect-scroll .astrology-stat-table{margin-top:0}
 .astrology-effect-scroll .astrology-stat-table th,.astrology-effect-scroll .astrology-stat-table td{height:auto}
@@ -112,7 +112,6 @@
 .astrology-comparison tbody th{font-size:14px;font-weight:650;color:var(--ink)}
 .astrology-comparison tbody th strong{display:block;font-size:14px}
 .astrology-comparison tbody th small{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:5px}
-@media(max-width:700px){.astrology-effect-scroll{overflow:hidden;touch-action:pan-y pinch-zoom}}
 @media(max-width:1050px){.astrology-completion{padding-top:10px;padding-bottom:8px}.astrology-effect-details caption{padding-bottom:6px}}
 @media(max-width:1050px){.astrology-state>.astrology-column-title{margin-bottom:6px}.astrology-state>.astrology-next-effect{margin:6px 0 8px}.astrology-effect-details caption small{display:inline-block;float:right;margin-top:2px}.astrology-completion{height:124px}.astrology-completion-table tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.astrology-completion-table tr{display:flex;align-items:center;justify-content:space-between;gap:8px}.astrology-completion .astrology-completion-table th,.astrology-completion .astrology-completion-table td{width:auto;height:auto}.astrology-completion .astrology-completion-table td{flex-shrink:0}}
 @media(max-width:700px){.astrology-budget-controls{grid-template-columns:minmax(0,1fr);gap:18px}.astrology-priority{max-width:260px}}

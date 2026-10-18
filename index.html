@@ -23,16 +23,16 @@
   <link rel="stylesheet" href="sinkwa-prices.css?v=20261018-146">
   <script type="module" src="sinkwa-prices.js?v=20261018-146"></script>
   <script type="module" src="menu-new.js?v=20261017-122"></script>
-  <link rel="stylesheet" href="astrology-calculator.css?v=20261018-142">
-  <script type="module" src="astrology-calculator.js?v=20261018-142"></script>
+  <link rel="stylesheet" href="astrology-calculator.css?v=20261018-149">
+  <script type="module" src="astrology-calculator.js?v=20261018-150"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="visitors.js?v=20261007-65" defer></script>
   <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
   <script src="guestbook.js?v=20261007-60" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
-  <script type="module" src="alarms.js?v=20261018-148"></script>
-  <link rel="stylesheet" href="site-design.css?v=20261018-147">
+  <script type="module" src="alarms.js?v=20261018-151"></script>
+  <link rel="stylesheet" href="site-design.css?v=20261018-151">
   <script src="site-design.js?v=20261018-141" defer></script>
 </head>
 <body>
@@ -56,7 +56,7 @@
     </nav>
     <div class="sidebar-foot">
       <div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div>
-      <div class="alarm-reception"><button id="alarm-open" class="alarm-register-link" data-tab="alarms" type="button"><i data-lucide="alarm-clock"></i><span>알람 등록</span></button><button id="alarm-toggle" type="button" role="switch" aria-checked="false" aria-label="알람 수신" title="알람 수신 켜기">Off</button></div>
+      <div class="alarm-reception"><div class="alarm-reception-setting"><span>알람 수신</span><small id="alarm-toggle-label" aria-hidden="true">Off</small><button id="alarm-toggle" type="button" role="switch" aria-checked="false" aria-label="알람 수신" title="알람 수신 켜기">Off</button></div><button id="alarm-open" class="alarm-register-link" data-tab="alarms" type="button"><i data-lucide="alarm-clock"></i><span>알람 등록</span></button></div>
     </div>
     <button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button>
     <a class="official-home-link" href="https://zeus.com2us.com/" target="_blank" rel="noopener noreferrer"><span>제우스 공식 홈페이지로 이동</span><i data-lucide="external-link" aria-hidden="true"></i></a>

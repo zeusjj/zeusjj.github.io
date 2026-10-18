@@ -22,7 +22,7 @@ function update(){
   section.querySelector('output').textContent=number.format(budget)+'개';
   const completionMean=[...host.querySelectorAll('.astrology-row')].reduce((total,row)=>total+Number(row.dataset.completionMean),0);
   completionValue.textContent=new Intl.NumberFormat('ko-KR').format(Math.max(0,Math.ceil(completionMean-1e-9)))+'개';
-  status.textContent='예산별 선택 계산 중…';body.replaceChildren();
+  status.textContent='예산별 선택 계산 중…';
   timer=setTimeout(()=>{
     try{
       worker=new Worker(new URL('./astrology-budget-worker.js?v=20261018-130',import.meta.url),{type:'module'});
@@ -33,6 +33,7 @@ function update(){
         if(data.error){status.textContent='추천 계산을 완료하지 못했습니다.';return;}
         const {choice,best,comparisons}=data.result;
         status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+statLabel+' 추가 기대값이 없습니다.'):'먼저 올릴 별자리: '+stars[choice].name+' · 예산 전체 '+statLabel+' 기대 증가 +'+gain(best);
+        const rows=document.createDocumentFragment();
         stars.forEach((s,i)=>{
           const k=counts[i],comparison=comparisons[i],row=document.createElement('tr');row.dataset.recommended=String(i===choice);
           const nextChance=k===s.central?'완료':document.querySelector('[aria-label="'+s.name+'"] .astrology-roll-cost').textContent.split('중앙 추가 등장 ')[1];
@@ -44,12 +45,14 @@ function update(){
             if(j===0){cell.scope='row';const name=document.createElement('strong'),stage=document.createElement('small');name.textContent=s.name;stage.textContent=k+' / '+s.central+'개';value.append(name,stage);}
             else if(Array.isArray(text))for(const line of text){const item=document.createElement('span');item.textContent=line;value.append(item);}else value.textContent=text;
             cell.append(value);row.append(cell);
-          });body.append(row);
+          });rows.append(row);
         });
+        body.replaceChildren(rows);
       };
       worker.postMessage({id,budget,counts,stat});
     }catch{status.textContent='추천 계산은 웹 주소에서 사용할 수 있습니다.';}
   },180);
 }
-slider.addEventListener('input',update);select.addEventListener('change',update);host.addEventListener('input',update);
+slider.addEventListener('input',()=>{section.querySelector('output').textContent=number.format(Number(slider.value))+'개';});
+slider.addEventListener('change',update);select.addEventListener('change',update);host.addEventListener('input',update);
 update();

@@ -68,7 +68,7 @@ $('alarm-filter-all').addEventListener('click',()=>{const all=presets.every(pres
 function audioStatus(){
   $('alarm-audio-status').replaceChildren();
 }
-function toggleState(){const button=$('alarm-toggle');button.textContent=enabled?'On':'Off';button.setAttribute('aria-checked',String(enabled));button.title=enabled?'알람 수신 끄기':'알람 수신 켜기';audioStatus();}
+function toggleState(){const button=$('alarm-toggle');button.textContent=enabled?'On':'Off';$('alarm-toggle-label').textContent=button.textContent;button.setAttribute('aria-checked',String(enabled));button.title=enabled?'알람 수신 끄기':'알람 수신 켜기';audioStatus();}
 for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=>{if(enabled && audio?.state!=='running')activateAudio().catch(()=>{});});
 $('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem(enabledKey,String(enabled));}catch{}toggleState();if(enabled){await activateAudio().catch(()=>{});refresh();}else {stopSound();$('alarm-toasts').replaceChildren();}});
 window.addEventListener('storage',event=>{if(event.key!==enabledKey)return;enabled=event.newValue==='true';if(!enabled){stopSound();$('alarm-toasts').replaceChildren();}toggleState();if(enabled)refresh();});
