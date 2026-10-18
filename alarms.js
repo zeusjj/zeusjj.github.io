@@ -4,7 +4,12 @@ const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.c
 const $=id=>document.getElementById(id);
 const make=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const format=at=>new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(at);
-let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=true,audio,masterGain,ringTimer,lastPulse=0,worker,ocrBusy=false,submitting=false;
+let presets=[],records=[],offset=0,loaded=false,polling=false,enabled=false,audio,masterGain,ringTimer,lastPulse=0,worker,ocrBusy=false,submitting=false;
+const enabledKey='guild-alarm-enabled-v2',ownerKey='guild-alarm-owner-v1';
+const readOwner=()=>{let token;try{token=localStorage.getItem(ownerKey);}catch{}if(!/^[a-f0-9]{64}$/.test(token||'')){token=Array.from(crypto.getRandomValues(new Uint8Array(32)),byte=>byte.toString(16).padStart(2,'0')).join('');try{localStorage.setItem(ownerKey,token);}catch{}}return token;};
+const ownerToken=await(navigator.locks?navigator.locks.request(ownerKey,readOwner):readOwner());
+const ownerHeaders={Authorization:'Bearer '+ownerToken};
+$('alarm-refresh').before($('alarm-preferences'));
 const soundPatterns={chime:{type:'sine',notes:[[660,0],[880,.2],[660,.4]],length:.2,peak:.08},bell:{type:'triangle',notes:[[880,0],[1175,.22],[1568,.44]],length:.4,peak:.065},electronic:{type:'square',notes:[[1000,0],[1000,.2],[1000,.4]],length:.12,peak:.045}};
 const soundDefaults={tone:'chime',volume:70};let soundSettings={...soundDefaults};
 const filterKey='guild-alarm-muted-bosses-v1';let mutedBosses=new Set();
@@ -13,7 +18,7 @@ const receives=boss=>!mutedBosses.has(boss);
 try{const saved=JSON.parse(localStorage.getItem('guild-alarm-sound-v1'));if(saved && Object.hasOwn(soundPatterns,saved.tone))soundSettings.tone=saved.tone;if(Number.isFinite(saved?.volume))soundSettings.volume=Math.round(Math.min(100,Math.max(0,saved.volume)));}catch{}
 const ringing=new Map(),oscillators=new Set();
 const handled=new Set();let versions=new Map();
-try{enabled=localStorage.getItem('guild-alarm-enabled')!=='false';$('alarm-author').value=localStorage.getItem('guild-alarm-author') || '';}catch{}
+try{enabled=localStorage.getItem(enabledKey)==='true';$('alarm-author').value=localStorage.getItem('guild-alarm-author') || '';}catch{}
 const now=()=>Date.now()+offset;
 function icons(){window.lucide?.createIcons();}
 function ringUI(){
@@ -65,7 +70,8 @@ function audioStatus(){
 }
 function toggleState(){const button=$('alarm-toggle');button.textContent=enabled?'On':'Off';button.setAttribute('aria-checked',String(enabled));button.title=enabled?'알람 수신 끄기':'알람 수신 켜기';audioStatus();}
 for(const event of ['pointerdown','keydown'])document.addEventListener(event,()=>{if(enabled && audio?.state!=='running')activateAudio().catch(()=>{});});
-$('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem('guild-alarm-enabled',String(enabled));}catch{}if(enabled)await activateAudio().catch(()=>{});else {stopSound();$('alarm-toasts').replaceChildren();}toggleState();});
+$('alarm-toggle').addEventListener('click',async()=>{enabled=!enabled;try{localStorage.setItem(enabledKey,String(enabled));}catch{}toggleState();if(enabled){await activateAudio().catch(()=>{});refresh();}else {stopSound();$('alarm-toasts').replaceChildren();}});
+window.addEventListener('storage',event=>{if(event.key!==enabledKey)return;enabled=event.newValue==='true';if(!enabled){stopSound();$('alarm-toasts').replaceChildren();}toggleState();if(enabled)refresh();});
 function toast(title,message,duration=0,key,boss){
   if(!enabled)return;
   const node=make('div',undefined,'alarm-toast'),heading=make('strong',title),body=make('p',message),dismiss=make('button',undefined,'icon-button');dismiss.type='button';dismiss.title='알림 닫기';dismiss.setAttribute('aria-label','알림 닫기');dismiss.append(make('span','×'));node.append(heading,body,dismiss);
@@ -82,20 +88,26 @@ function tick(){
   const at=now();for(const node of document.querySelectorAll('[data-spawn]')){const left=Math.max(0,Number(node.dataset.spawn)-at);node.textContent=left?`${Math.floor(left/3600000)}시간 ${Math.floor(left/MINUTE)%60}분 ${Math.floor(left/1000)%60}초`:'출현';}
   if(!enabled)return;
   for(const record of records)if(receives(record.boss) && isDue(record.spawn_at,at) && claim(`shared:${record.id}:${record.updated_at}`))toast(record.boss+' 출현 3분 전',format(record.spawn_at),Math.max(0,record.spawn_at-LEAD+DURATION-at),record.id,record.boss);
-  for(const spawn of fixedOccurrences(at))if(receives('심연의 틈') && isDue(spawn,at) && claim('fixed:'+spawn))toast('심연의 틈 출현 3분 전',format(spawn),Math.max(0,spawn-LEAD+DURATION-at),'fixed','심연의 틈');
 }
 function render(){
-  const list=$('alarm-list');list.replaceChildren();const at=now(),fixed=fixedOccurrences(at).filter(time=>time>at).sort((a,b)=>a-b)[0];
-  const entries=[...records.filter(r=>r.spawn_at>at),{id:'fixed',boss:'심연의 틈',spawn_at:fixed,author:'매일 00:00 · 12:00 · 18:00',fixed:true}];if(ringing.has('test'))entries.unshift({id:'test',boss:ringing.get('test').boss,spawn_at:at,author:'테스트 · 서버 미등록',test:true});
+  const list=$('alarm-list');list.replaceChildren();const at=now();
+  const entries=records.filter(r=>r.spawn_at>at);if(ringing.has('test'))entries.unshift({id:'test',boss:ringing.get('test').boss,spawn_at:at,author:'테스트 · 서버 미등록',test:true});
   for(const record of entries.sort((a,b)=>a.spawn_at-b.spawn_at)){
     const row=make('div',undefined,'alarm-row'),name=make('strong',record.boss),time=make('div'),author=make('span',record.author,'alarm-author');row.dataset.alarmKey=record.id;row.dataset.boss=record.boss;
     if(record.test)time.append(make('span','테스트 알림'));else {time.append(make('time',format(record.spawn_at)));const countdown=make('small');countdown.dataset.spawn=record.spawn_at;time.append(countdown);}
     if(record.fixed)name.append(make('small','고정','alarm-fixed'));const controls=make('div',undefined,'alarm-ring-controls'),status=make('span','대기','alarm-ring-status'),stop=make('button',undefined,'secondary-button alarm-stop');stop.type='button';stop.title=record.boss+' 알림 중단';const icon=make('i');icon.dataset.lucide='volume-x';stop.append(icon,make('span','중단'));stop.addEventListener('click',()=>stopSound(record.id));controls.append(status,stop);row.append(name,time,author,controls);list.append(row);
+    if(record.can_delete){const remove=make('button',undefined,'icon-button alarm-delete'),icon=make('i');icon.dataset.lucide='trash-2';remove.type='button';remove.title=record.boss+' 알람 삭제';remove.setAttribute('aria-label',remove.title);remove.append(icon);remove.addEventListener('click',()=>deleteAlarm(record,remove));controls.append(remove);}
   }tick();ringUI();icons();
 }
+async function deleteAlarm(record,button){
+  if(!confirm(record.boss+' 알람을 삭제하시겠습니까?'))return;button.disabled=true;
+  try{const response=await fetch(endpoint,{method:'DELETE',headers:{...ownerHeaders,'Content-Type':'application/json'},body:JSON.stringify({id:record.id,updated_at:record.updated_at}),signal:AbortSignal.timeout(10000)});const data=await response.json();if(!response.ok)throw new Error(data.error||'삭제하지 못했습니다.');stopSound(record.id);await refresh();}
+  catch(error){$('alarm-status').textContent=error.message;button.disabled=false;}
+}
 async function refresh(){
+  if(!enabled&&$('alarms').hidden)return;
   if(polling)return;polling=true;const start=Date.now();
-  try{const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('공유 서버 연결 실패');const data=await response.json();if(!Array.isArray(data.alarms) || !Number.isFinite(data.serverNow))throw new Error('알람 응답 오류');offset=data.serverNow-(start+Date.now())/2;
+  try{const response=await fetch(endpoint,{headers:ownerHeaders,cache:'no-store',signal:AbortSignal.timeout(10000)});if(!response.ok)throw new Error('공유 서버 연결 실패');const data=await response.json();if(!Array.isArray(data.alarms) || !Number.isFinite(data.serverNow))throw new Error('알람 응답 오류');offset=data.serverNow-(start+Date.now())/2;
     const next=new Map(data.alarms.map(record=>[record.id,record.updated_at]));
     if(loaded){
       const changes=[...new Map(data.alarms.filter(record=>receives(record.boss) && versions.get(record.id)!==record.updated_at).map(record=>[record.boss,record])).values()];
@@ -106,6 +118,7 @@ async function refresh(){
   }catch(error){$('alarm-status').textContent='공유 알람 연결을 확인하지 못했습니다. 자동으로 다시 연결합니다.';if(!loaded)render();}finally{polling=false;}
 }
 $('alarm-refresh').addEventListener('click',refresh);
+window.addEventListener('guild-alarms-open',refresh);
 let resolveConflict;
 function timeLeft(at,reference){const minutes=Math.max(0,Math.ceil((at-reference)/MINUTE));return `${Math.floor(minutes/60)}시간 ${minutes%60}분 남음`;}
 function confirmOverwrite(conflicts,alarms){
@@ -126,9 +139,9 @@ async function register(alarms,status){
   if(invalid){status.textContent=`${invalid.boss || '이름 미선택'}: 프리셋 이름과 남은 시간을 확인해주세요. 사진은 24시간 이내, 출현은 32일 이내여야 합니다.`;return false;}
   submitting=true;document.querySelectorAll('#alarm-manual button,#alarm-review-register').forEach(b=>b.disabled=true);let overwrite={};
   try{for(let attempt=0;attempt<4;attempt++){
-    status.textContent='등록 중입니다.';const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({alarms,overwrite,author:$('alarm-author').value}),signal:AbortSignal.timeout(15000)});const data=await response.json();
+    status.textContent='등록 중입니다.';const response=await fetch(endpoint,{method:'POST',headers:{...ownerHeaders,'Content-Type':'application/json'},body:JSON.stringify({alarms,overwrite,author:$('alarm-author').value}),signal:AbortSignal.timeout(15000)});const data=await response.json();
     if(response.status===409 && data.conflicts?.length){
-      const currentResponse=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!currentResponse.ok)throw new Error('기존 알람 시간을 확인하지 못했습니다. 다시 시도해주세요.');const current=await currentResponse.json();
+      const currentResponse=await fetch(endpoint,{headers:ownerHeaders,cache:'no-store',signal:AbortSignal.timeout(10000)});if(!currentResponse.ok)throw new Error('기존 알람 시간을 확인하지 못했습니다. 다시 시도해주세요.');const current=await currentResponse.json();
       const conflicts=data.conflicts.map(record=>{const latest=current.alarms?.find(item=>item.boss===record.boss && item.updated_at===record.updated_at);return {...record,...latest};});
       const changed=conflicts.filter(record=>!Number.isFinite(record.spawn_at) || Math.abs(record.spawn_at-alarms.find(alarm=>alarm.boss===record.boss).spawn_at)>MINUTE);
       if(changed.length){status.textContent='기존 알람 덮어쓰기 확인이 필요합니다.';if(!await confirmOverwrite(changed,alarms)){status.textContent='등록을 취소했습니다.';return false;}}

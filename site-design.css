@@ -211,4 +211,9 @@ footer{padding:18px var(--space-page);font-size:12px}
   footer{padding:16px 20px;font-size:12px;flex-wrap:wrap}
 }
 @media(prefers-reduced-motion:reduce){button,a{transition:none!important}}
-.alarm-reception,[data-tab="alarms"]{display:none!important}
+.sidebar nav [data-tab="alarms"]{display:none!important}
+.sidebar .sidebar-foot{flex-direction:column;align-items:stretch}
+.sidebar .alarm-reception{display:flex;gap:8px;width:100%;align-items:center}
+.sidebar .alarm-register-link{display:flex;align-items:center;gap:8px;flex:1;min-height:44px;padding:8px 0;border:0;background:transparent;color:var(--ink);font-size:13px;text-align:left}
+.sidebar .alarm-register-link svg{width:16px;height:16px}
+.sidebar #alarm-toggle{min-width:48px;min-height:44px;font-size:12px}

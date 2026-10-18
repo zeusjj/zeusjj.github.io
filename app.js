@@ -14,7 +14,6 @@ function updateChapterNavigation(){
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(tab) {
   tab=tab.split('/')[0];
-  if(tab==='alarms'){tab='rules';history.replaceState(null,'','#rules');}
   if (!tabs.includes(tab)) tab = 'rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
@@ -32,6 +31,7 @@ function switchTab(tab) {
   if(tab==='notices' && !noticesLoaded) loadNotices();
   else if(tab==='notices')openSharedNotice();
   if(tab==='members')requestAnimationFrame(centerMemberToday);
+  if(tab==='alarms')window.dispatchEvent(new Event('guild-alarms-open'));
   if(tab==='admin')window.dispatchEvent(new Event('guild-admin-open'));
   document.querySelectorAll(`#${tab} .board-entry[open]`).forEach(entry=>entry.dispatchEvent(new Event('guild-view')));
 }

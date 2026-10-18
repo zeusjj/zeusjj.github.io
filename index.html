@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
   <script type="module" src="probabilities.js?v=20261012-89"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-144" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261012-99" defer></script><script src="app.js?v=20261018-147" defer></script><script src="tool-suggestions.js?v=20261014-114" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-143"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-143"></script>
   <script type="module" src="member-distributions.js?v=20261012-97"></script>
@@ -31,8 +31,8 @@
   <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
   <script src="guestbook.js?v=20261007-60" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
-  <script type="text/plain" data-src="alarms.js?v=20261005-52" data-feature-disabled="alarms"></script>
-  <link rel="stylesheet" href="site-design.css?v=20261018-144">
+  <script type="module" src="alarms.js?v=20261018-147"></script>
+  <link rel="stylesheet" href="site-design.css?v=20261018-147">
   <script src="site-design.js?v=20261018-141" defer></script>
 </head>
 <body>
@@ -54,7 +54,10 @@
       <button data-tab="probabilities"><i data-lucide="list-ordered"></i><span>확률표</span></button>
       <button data-tab="alarms" hidden inert><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
-    <div class="sidebar-foot"><div class="alarm-reception"><i data-lucide="bell"></i><span>알람 수신</span><button id="alarm-toggle" type="button" role="switch" aria-checked="true" aria-label="알람 수신" title="알람 수신 끄기">On</button><button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button></div><div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div></div>
+    <div class="sidebar-foot">
+      <div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div>
+      <div class="alarm-reception"><button id="alarm-open" class="alarm-register-link" data-tab="alarms" type="button"><i data-lucide="alarm-clock"></i><span>알람 등록</span></button><button id="alarm-toggle" type="button" role="switch" aria-checked="false" aria-label="알람 수신" title="알람 수신 켜기">Off</button></div>
+    </div>
     <button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button>
     <a class="official-home-link" href="https://zeus.com2us.com/" target="_blank" rel="noopener noreferrer"><span>제우스 공식 홈페이지로 이동</span><i data-lucide="external-link" aria-hidden="true"></i></a>
     </div>
@@ -118,6 +121,7 @@
       </section>
       <section id="alarms" hidden>
         <div class="page-heading"><div><h1>공유 알람</h1><p>출현 3분 전 · 1분간 알림 · 한국 시간</p></div><div class="alarm-heading-actions"><button id="alarm-filter" type="button" class="icon-button" title="알람 수신 필터" aria-label="알람 수신 필터" aria-haspopup="dialog"><i data-lucide="list-filter"></i></button><button id="alarm-refresh" type="button" class="icon-button" title="새로고침" aria-label="알람 새로고침"><i data-lucide="refresh-cw"></i></button></div></div>
+        <button id="alarm-preferences" type="button" class="icon-button" title="내 알람 소리 설정" aria-label="내 알람 소리 설정"><i data-lucide="sliders-horizontal"></i></button>
         <div class="alarm-register">
           <div class="alarm-import"><button id="alarm-paste" class="secondary-button" type="button"><i data-lucide="clipboard-paste"></i>스크린샷 붙여넣기</button><input id="alarm-file" type="file" accept="image/png,image/jpeg,image/webp" hidden><span id="alarm-ocr-status" role="status"></span></div>
           <form id="alarm-manual"><label>알람 이름<select id="alarm-boss" required></select></label><label>남은 시간<input id="alarm-hours" type="number" min="0" max="744" step="1" value="0" required><span>시간</span></label><label><span class="visually-hidden">남은 분</span><input id="alarm-minutes" type="number" min="0" max="59" step="1" value="10" required><span>분</span></label><label>등록자<input id="alarm-author" maxlength="30" placeholder="익명"></label><button class="primary-button" type="submit"><i data-lucide="plus"></i>등록</button><button id="alarm-test" type="button" class="secondary-button" aria-pressed="false"><i data-lucide="bell-ring"></i><span>테스트</span></button></form>
@@ -132,10 +136,10 @@
           <p>사진을 다시 찍었다면 팝업의 ‘현재 스크린샷으로 갱신’을 눌러주세요. 남은 시간은 사진을 불러온 시각을 기준으로 계산합니다.</p>
           <p>수동 등록은 알람 이름을 선택하고 남은 시간을 입력한 뒤 등록을 누르면 됩니다. 같은 이름이 이미 등록되어 있으면 덮어쓰기를 확인합니다.</p>
           <p>테스트를 누르면 소리와 토스트를 확인할 수 있습니다. 다시 누르면 중단되며, 테스트 알람은 서버에 저장되지 않습니다.</p>
-          <p>알람 수신 옆 설정 아이콘에서 알람음과 볼륨을 변경할 수 있습니다. 설정은 현재 브라우저에만 저장됩니다.</p>
-          <p>공유 알람 상단의 필터 아이콘에서 보스별 수신을 켜거나 끌 수 있습니다. 기본값은 모두 수신이며, 수신을 꺼도 공유 목록에는 그대로 표시됩니다. 필터 설정도 현재 브라우저에만 저장됩니다.</p>
+          <p>공유 알람 상단의 소리 설정 아이콘에서 알람음과 볼륨을 변경할 수 있습니다. 설정은 현재 브라우저에만 저장됩니다.</p>
+          <p>알람 수신은 기본 Off이며, 출석체크 아래 토글에서 켤 수 있습니다. 수신 여부와 상단 필터의 보스별 수신 설정은 현재 브라우저에 저장됩니다.</p>
           <p>알림 중인 행의 중단 버튼 또는 토스트를 누르면 해당 알람 소리가 멈춥니다. 왼쪽 알람 수신을 Off로 바꾸면 울리던 소리가 모두 꺼집니다.</p>
-          <p>등록된 알람은 길드원 모두에게 공유됩니다. 출현 3분 전에 1분간 알리며, 심연의 틈은 매일 00:00 · 12:00 · 18:00에 반복됩니다. 사이트를 닫거나 PC가 절전 상태이면 소리가 울리지 않습니다.</p>
+          <p>등록된 알람은 길드원 모두에게 공유됩니다. 이 브라우저에서 등록한 알람에는 삭제 버튼이 표시됩니다. 출현 3분 전에 1분간 알리며, 사이트를 닫거나 PC가 절전 상태이면 소리가 울리지 않습니다.</p>
         </section>
       </section>
       <section id="probabilities" hidden>
