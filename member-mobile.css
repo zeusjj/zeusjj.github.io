@@ -13,9 +13,9 @@
   #members #member-table td{height:34px;padding:5px 3px;font-size:10px}
   #member-table td .status{min-width:20px;padding:0 3px;line-height:20px}
   #member-table .member-date-badge{font-size:9px;min-width:32px;height:16px}
-  #member-table :is(th,td){touch-action:pan-x pinch-zoom}
+  #member-table :is(th,td){touch-action:pinch-zoom}
   #member-table :is(th,td).member-name{touch-action:pan-y pinch-zoom}
-  #members .table-scroll{touch-action:auto;overscroll-behavior-x:contain}
+  #members .table-scroll{touch-action:auto;overscroll-behavior-x:contain;max-height:min(48svh,var(--member-ten-row-height,428px))}
   #members .member-scrollbar-horizontal{touch-action:pan-x pinch-zoom}
   #members .member-scrollbar-vertical{touch-action:pan-y pinch-zoom}
 }

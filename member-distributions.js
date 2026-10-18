@@ -8,13 +8,21 @@ let tooltipRow=null;
 function hideTooltip(){tooltip.hidden=true;tooltipRow?.removeAttribute('aria-describedby');tooltipRow=null;}
 function bindTooltip(row,item,label){
  row.tabIndex=0;row.setAttribute('aria-label',label+' · '+item.count+'명');
+ let touchFocus=false;
  function show(event){
-  hideTooltip();tooltipRow=row;tooltip.replaceChildren(node('strong',label+' · '+item.count+'명'),node('p',item.names.length?item.names.join(', '):'해당 길드원이 없습니다.'));tooltip.hidden=false;row.setAttribute('aria-describedby',tooltip.id);
+  if(tooltipRow!==row){tooltipRow?.removeAttribute('aria-describedby');tooltipRow=row;tooltip.replaceChildren(node('strong',label+' · '+item.count+'명'),node('p',item.names.length?item.names.join(', '):'해당 길드원이 없습니다.'));}
+  if(tooltip.hidden)tooltip.hidden=false;row.setAttribute('aria-describedby',tooltip.id);
   const rect=row.getBoundingClientRect(),box=tooltip.getBoundingClientRect(),x=event?.clientX??rect.left,y=event?.clientY??rect.bottom;
   tooltip.style.left=Math.max(8,Math.min(x+12,innerWidth-box.width-8))+'px';
   tooltip.style.top=Math.max(8,Math.min(y+12+box.height>innerHeight-8?y-box.height-12:y+12,innerHeight-box.height-8))+'px';
  }
- row.addEventListener('pointerenter',show);row.addEventListener('pointermove',show);row.addEventListener('pointerleave',hideTooltip);row.addEventListener('pointercancel',hideTooltip);row.addEventListener('focus',()=>show());row.addEventListener('blur',hideTooltip);row.addEventListener('click',show);
+ row.addEventListener('pointerdown',event=>{touchFocus=event.pointerType==='touch';});
+ row.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')show(event);});
+ row.addEventListener('pointermove',event=>{if(event.pointerType!=='touch')show(event);});
+ row.addEventListener('pointerleave',event=>{if(event.pointerType!=='touch')hideTooltip();});
+ row.addEventListener('pointercancel',hideTooltip);
+ row.addEventListener('focus',()=>{if(!touchFocus)show();});row.addEventListener('blur',()=>{touchFocus=false;hideTooltip();});row.addEventListener('click',show);
+ row.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();touchFocus=false;show();}});
 }
 document.addEventListener('keydown',event=>{if(event.key==='Escape')hideTooltip();});
 document.addEventListener('click',event=>{if(!event.target.closest('#member-growth-chart .member-growth-bin, #member-level-chart .member-growth-bin'))hideTooltip();});

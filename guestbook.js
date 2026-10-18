@@ -2,14 +2,13 @@
  const dialog=document.getElementById('guestbook-dialog'),form=document.getElementById('guestbook-form'),input=document.getElementById('guestbook-nickname'),list=document.getElementById('guestbook-suggestions'),status=document.getElementById('guestbook-status'),close=document.getElementById('guestbook-close');
  const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/guestbook';
  let names=[],namesRequest,selected=-1,matches=[],saving=false,id,toastTimer;
- const normalize=value=>value.replace(/\s/g,'').toLocaleLowerCase('ko-KR');
  function hide(){list.hidden=true;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');selected=-1;}
- function choose(index){if(matches[index]){input.value=matches[index];GuildNickname.set(input.value);id=crypto.randomUUID();hide();input.focus();}}
+ function choose(name){if(matches.includes(name)){input.value=name;GuildNickname.set(name);id=crypto.randomUUID();input.focus({preventScroll:true});hide();}}
  function highlight(){[...list.children].forEach((item,index)=>item.setAttribute('aria-selected',String(index===selected)));if(selected>=0){input.setAttribute('aria-activedescendant',list.children[selected].id);list.children[selected].scrollIntoView({block:'nearest'});}else input.removeAttribute('aria-activedescendant');}
  function suggest(){
-  const query=normalize(input.value);matches=names.filter(name=>!query || normalize(name).includes(query)).sort((a,b)=>Number(normalize(b).startsWith(query))-Number(normalize(a).startsWith(query))).slice(0,8);list.replaceChildren();selected=-1;
+  matches=GuildNicknameSearch.suggest(names,input.value,8);list.replaceChildren();selected=-1;
   if(!matches.length){hide();return;}
-  for(const [index,name] of matches.entries()){const option=document.createElement('li');option.role='option';option.id='guestbook-option-'+index;option.textContent=name;option.setAttribute('aria-selected','false');option.addEventListener('pointerdown',event=>event.preventDefault());option.addEventListener('click',()=>choose(index));list.append(option);}
+  for(const [index,name] of matches.entries()){const option=document.createElement('li');option.role='option';option.id='guestbook-option-'+index;option.textContent=name;option.setAttribute('aria-selected','false');list.append(option);}
   list.hidden=false;input.setAttribute('aria-expanded','true');input.removeAttribute('aria-activedescendant');
  }
  async function loadNames(){
@@ -18,11 +17,12 @@
  }
  document.getElementById('guestbook-open').addEventListener('click',()=>{form.reset();GuildNickname.fill(input);id=crypto.randomUUID();status.textContent='';hide();dialog.showModal();input.focus();loadNames();});
  close.addEventListener('click',()=>{if(!saving)dialog.close();});dialog.addEventListener('cancel',event=>{if(saving)event.preventDefault();});dialog.addEventListener('close',hide);
- input.addEventListener('input',()=>{id=crypto.randomUUID();suggest();});form.elements.memo.addEventListener('input',()=>{id=crypto.randomUUID();});input.addEventListener('focus',()=>{if(names.length)suggest();});input.addEventListener('blur',hide);
+ input.addEventListener('input',()=>{id=crypto.randomUUID();suggest();});form.elements.memo.addEventListener('input',()=>{id=crypto.randomUUID();});input.addEventListener('focus',()=>{if(names.length)suggest();});
+ GuildNicknameSearch.bindOptions(input,list,{choose,hide});
  input.addEventListener('keydown',event=>{
   if(list.hidden)return;
   if(event.key==='ArrowDown' || event.key==='ArrowUp'){event.preventDefault();selected=event.key==='ArrowDown'?(selected+1)%matches.length:(selected<=0?matches.length-1:selected-1);highlight();}
-  else if(event.key==='Enter' && selected>=0){event.preventDefault();choose(selected);}
+  else if(event.key==='Enter' && selected>=0){event.preventDefault();choose(matches[selected]);}
   else if(event.key==='Escape'){event.preventDefault();event.stopPropagation();hide();}
  });
  form.addEventListener('submit',async event=>{
