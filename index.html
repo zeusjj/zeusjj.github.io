@@ -32,7 +32,7 @@
   <script src="guestbook.js?v=20261007-60" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261018-151"></script>
-  <link rel="stylesheet" href="site-design.css?v=20261018-153">
+  <link rel="stylesheet" href="site-design.css?v=20261018-154">
   <script src="site-design.js?v=20261018-141" defer></script>
 </head>
 <body>
@@ -55,7 +55,7 @@
       <button data-tab="alarms" hidden inert><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
     <div class="sidebar-foot">
-      <div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><i data-lucide="footprints"></i><span>출석체크</span></button><strong id="visitor-count" aria-label="방문자 수" aria-live="polite">-</strong></div>
+      <div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><span class="attendance-label"><i data-lucide="footprints"></i><span>출석체크</span></span><span class="attendance-visitors"><span class="visitor-today-mark" aria-hidden="true"><i data-lucide="calendar-days"></i><span>Today</span></span><strong id="visitor-count" aria-label="오늘 방문자 수" aria-live="polite">-</strong></span></button></div>
       <div class="alarm-reception"><button id="alarm-open" class="alarm-register-link" data-tab="alarms" type="button"><i data-lucide="alarm-clock"></i><span>알람 등록</span></button><small id="alarm-toggle-label" class="visually-hidden" aria-hidden="true">Off</small><button id="alarm-toggle" type="button" role="switch" aria-checked="false" aria-label="알람 수신" title="알람 수신 켜기">Off</button></div>
     </div>
     <button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button>
