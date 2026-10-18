@@ -536,6 +536,23 @@ function isContributionColumn(data,index){
 function hiddenMemberColumn(data,index){
   return (!document.getElementById('member-growth-toggle').checked && data.headers[index]==='성장도 기록') || (!document.getElementById('member-contribution-toggle').checked && isContributionColumn(data,index));
 }
+function memberWeekGroups(data,identityCount,hiddenColumn){
+  const weeks=data.headers.map((header,index)=>{
+    if(index<identityCount)return null;
+    const festival=header.match(/^(\d+차 제전) 기여$/),eventIndex=festival?data.headers.indexOf(festival[1]):-1;
+    const day=data.dates?.[eventIndex>=0?eventIndex:index]?.start;
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(day||''))return null;
+    const date=new Date(day+'T00:00:00Z');date.setUTCDate(date.getUTCDate()-date.getUTCDay());
+    return date.toISOString().slice(0,10);
+  });
+  const ordered=[...new Set(weeks.filter(Boolean))].sort();let previous=null;
+  return weeks.map((week,index)=>{
+    if(!week)return null;
+    const start=!hiddenColumn(index)&&week!==previous;
+    if(!hiddenColumn(index))previous=week;
+    return {week,tone:ordered.indexOf(week)%2?'b':'a',start};
+  });
+}
 function renderMembers(data, query='') {
   const source=data;
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
@@ -559,6 +576,8 @@ function renderMembers(data, query='') {
   const table=document.getElementById('member-table');table.replaceChildren();
   const hiddenColumn=index=>hiddenMemberColumn(data,index);
   const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=chatIndex+1;
+  const weekGroups=memberWeekGroups(data,identityCount,hiddenColumn);
+  const markWeek=(cell,index)=>{const group=weekGroups[index];if(!group)return;cell.dataset.week=group.week;cell.dataset.weekTone=group.tone;if(group.start)cell.dataset.weekStart='true';};
   const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':undefined;
   const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
   table.style.setProperty('--content-count',data.headers.filter((_,index)=>index>=identityCount && !hiddenColumn(index)).length);
@@ -567,6 +586,7 @@ function renderMembers(data, query='') {
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
   data.headers.forEach((title,index)=>{
     const cell=element('th',undefined,identityClass(index));cell.scope='col';
+    markWeek(cell,index);
     const period=data.dates?.[index];
     if(period?.start)cell.dataset.period=period.start>koreaDate?'future':(period.end||period.start)>=koreaDate?'current':'past';
     cell.hidden=hiddenColumn(index);
@@ -582,6 +602,7 @@ function renderMembers(data, query='') {
   const body=element('tbody');
   for(const [line,row] of rows.entries()) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===0)td.textContent=line+1;else if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const level=data.headers[index]==='성장도 기록'?data.levels?.[data.dates?.[index]?.start]?.[row[nameIndex]]:null;const text=typeof value==='number'?value.toLocaleString('ko-KR')+(Number.isInteger(level)?` (${level})`:''):value??'-';const status=element('span',text,'status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else td.textContent=value;tr.append(td);});body.append(tr);}
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>cell.hidden=hiddenColumn(index)));
+  body.querySelectorAll('tr').forEach(row=>[...row.children].forEach(markWeek));
   table.append(body);document.getElementById('member-count').textContent=`${data.members.length} / 60 명`;
   refreshMenuNew();
   document.getElementById('empty-search').hidden=rows.length>0;
