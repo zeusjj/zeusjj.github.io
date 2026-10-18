@@ -237,3 +237,6 @@ footer{padding:18px var(--space-page);font-size:12px}
 .visitor-today-mark{display:flex;align-items:center;gap:3px;height:24px;padding:3px 4px;border:1px solid #c9dfd4;border-radius:4px;background:#edf6f0;color:#376a52;box-shadow:inset 0 2px #d9eadd;font-size:9px;font-weight:650;line-height:1}
 .sidebar #guestbook-open .visitor-today-mark svg{width:11px;height:11px;animation:none;fill:none;color:#7c8849}
 .sidebar #guestbook-open #visitor-count{font-size:13px;line-height:1;min-width:2ch;text-align:right;color:var(--accent);font-weight:750}
+.page-heading .rules-dates{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.rules-dates>span{display:flex;align-items:center;gap:6px}
+.rules-dates small{font-size:12px;color:var(--muted);line-height:1.4}

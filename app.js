@@ -42,6 +42,9 @@ window.addEventListener('hashchange', () => switchTab(location.hash.slice(1)));
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
   const target=document.getElementById('rule-content');
+  const modified=document.getElementById('rules-modified-date'),lastModified=text.match(/마지막 수정일:\s*(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
+  modified.hidden=!lastModified;
+  if(lastModified){modified.textContent=lastModified[2].padStart(2,'0')+'.'+lastModified[3].padStart(2,'0')+' 수정';modified.title=lastModified[1]+'년 '+lastModified[2]+'월 '+lastModified[3]+'일 마지막 수정';}
   target.replaceChildren();
   const sections=new Map();
   function bodyContent(text, parent) {
