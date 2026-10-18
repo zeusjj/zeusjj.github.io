@@ -240,11 +240,11 @@ footer{padding:18px var(--space-page);font-size:12px}
 .page-heading .rules-dates{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
 .rules-dates>span{display:flex;align-items:center;gap:6px}
 .rules-dates small{font-size:12px;color:var(--muted);line-height:1.4}
-#member-table td[data-week-tone=a]{background:#fff}
-#member-table td[data-week-tone=b]{background:#f2f6f4}
-#member-table th[data-week-tone=a]{background:#f3f6f5}
-#member-table th[data-week-tone=b]{background:#e5eeea}
+#member-table td[data-week-tone=a]{background:#eef3f8}
+#member-table td[data-week-tone=b]{background:#edf5ef}
+#member-table th[data-week-tone=a]{background:#e0e9f2}
+#member-table th[data-week-tone=b]{background:#dfece2}
 #member-table [data-week-start=true]{border-left:2px solid #c8d7cf}
-#member-table tbody tr:hover td[data-week-tone=a]{background:#f4f7f5}
-#member-table tbody tr:hover td[data-week-tone=b]{background:#e9f0ec}
+#member-table tbody tr:hover td[data-week-tone=a]{background:#e4ecf5}
+#member-table tbody tr:hover td[data-week-tone=b]{background:#e2eee5}
 #member-table th[data-week][data-period=current]{background:#e0efe8}
