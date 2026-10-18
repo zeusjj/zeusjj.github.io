@@ -1,0 +1,21 @@
+@media(max-width:700px) and (orientation:portrait){
+  #members .member-grid{--number-width:0px;--class-width:0px;--chat-width:0px;--name-width:60px;--identity-width:60px;--content-width:78px}
+  #member-table :is(.number-column,.class-column,.chat-column,.member-number,.member-class,.member-chat){display:none}
+  #members .member-group-bar{grid-template-columns:var(--name-width) minmax(0,1fr);font-size:10px}
+  #members .member-group-bar>span:nth-child(2){display:none}
+  #member-table .member-name{left:0;box-shadow:1px 0 var(--line)}
+  #member-table td.member-name{padding:0 4px;font-size:11px;line-height:1.4}
+  #member-table td.member-name .member-name-label{display:none}
+  #member-table td.member-name::after{content:attr(data-short-name)}
+  #members #member-table th,#members #member-table .member-sort{height:88px}
+  #member-table .column-title{font-size:10px;line-height:1.4}
+  #member-table .content-date{font-size:10px;line-height:1.3;margin-top:5px}
+  #members #member-table td{height:34px;padding:5px 3px;font-size:10px}
+  #member-table td .status{min-width:20px;padding:0 3px;line-height:20px}
+  #member-table .member-date-badge{font-size:9px;min-width:32px;height:16px}
+  #member-table :is(th,td){touch-action:pan-x pinch-zoom}
+  #member-table :is(th,td).member-name{touch-action:pan-y pinch-zoom}
+  #members .table-scroll{touch-action:auto;overscroll-behavior-x:contain}
+  #members .member-scrollbar-horizontal{touch-action:pan-x pinch-zoom}
+  #members .member-scrollbar-vertical{touch-action:pan-y pinch-zoom}
+}

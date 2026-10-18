@@ -125,6 +125,10 @@ tbody tr:hover td{background:var(--hover)}
 .alarm-row small[data-spawn]{color:var(--warning)}
 #guestbook-dialog,#suggestion-dialog,#alarm-review,#alarm-conflicts,#alarm-preferences-dialog,#alarm-filter-dialog,.member-history-tooltip,.ql-snow .ql-picker-options{background:var(--surface);color:var(--ink);border-color:var(--line)}
 #members .member-nickname-search input::placeholder{color:var(--muted)}
+.member-history-combo,#member-history-names,#member-history-names>button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.member-history-combo>button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+#member-history-names>button:hover,#member-history-names>button[aria-selected=true]{background:var(--accent-soft);color:var(--accent)}
+.member-history-filters select:disabled{background:var(--surface-subtle);color:var(--muted)}
 .notice-filter-controls select,.notice-category-field select,.admin-period-heading select{background:var(--surface);color:var(--ink);border-color:var(--line)}
 .notice-pagination button{background:var(--surface);color:var(--ink);border-color:var(--line)}
 .notice-pagination button[aria-current=page]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
