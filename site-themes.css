@@ -32,10 +32,18 @@
   --success:#91d8ac;--success-soft:#213c31;--danger:#efaaa4;--danger-soft:#422b2b;
   --chart-series:#82c8b6,#ed9da7,#91b6dc,#c0a4e1,#e7c27d,#7ec1d2;
 }
-.workspace-bar .theme-picker{display:none;margin-left:auto;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+.workspace-bar .theme-picker{display:flex;margin-left:auto;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
 .theme-picker svg{width:16px;height:16px;color:var(--accent)}
 .theme-picker select{width:154px;min-height:36px;padding:6px 9px;font-size:12px;border-color:var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
-@media(min-width:1024px){.workspace-bar .theme-picker{display:flex}}
+@media(max-width:700px){
+  .workspace-bar,.workspace:has(#members:not([hidden])) .workspace-bar{display:grid;grid-template-columns:minmax(0,1fr) 156px;gap:8px;height:auto;min-height:56px;padding:6px 12px}
+  .workspace-bar>div{min-width:0;gap:4px}
+  .workspace-bar>div>span:not(.visually-hidden),.workspace-bar>div>svg{display:none}
+  .workspace-bar #current-view{min-width:0;flex:1;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+  .workspace-bar .theme-picker{width:100%;min-width:0;margin:0;gap:0}
+  .theme-picker>span,.theme-picker>svg{display:none}
+  .workspace-bar .theme-picker select{width:100%;min-width:0;min-height:44px;font-size:16px;padding:6px}
+}
 
 /* Map existing components to the same palette without recoloring game assets. */
 .sidebar,.astrology-section-header,.astrology-budget>h3{background:var(--surface-subtle)}

@@ -15,6 +15,7 @@
   apply(saved);
   document.addEventListener('DOMContentLoaded',()=>{
     const select=document.getElementById('site-theme');
+    select.setAttribute('aria-label','테마');
     select.value=root.dataset.theme;
     select.addEventListener('change',()=>{
       apply(select.value);
