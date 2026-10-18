@@ -248,3 +248,8 @@ footer{padding:18px var(--space-page);font-size:12px}
 #member-table tbody tr:hover td[data-week-tone=a]{background:#e4ecf5}
 #member-table tbody tr:hover td[data-week-tone=b]{background:#e2eee5}
 #member-table th[data-week][data-period=current]{background:#e0efe8}
+#members #member-table th,#members #member-table .member-sort{height:96px}
+#member-table th[data-week] .member-sort{padding-bottom:25px}
+#member-table th[data-period=current] .content-date{font-weight:750;color:#235d49}
+#member-table .member-date-badge{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;min-width:35px;height:17px;padding:0 6px;border-radius:3px;font-size:10px;font-weight:700;line-height:1;white-space:nowrap;border:1px solid #bacde0;background:#edf3fa;color:#41678d}
+#member-table .member-date-badge[data-kind=today]{background:#286d57;border-color:#286d57;color:white}

@@ -5,6 +5,7 @@ let noticesLoaded=false;
 let noticesLoading=false;
 let memberData=null,memberCentered=false;
 let memberSort=null;
+let memberDateTimer;
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -553,6 +554,13 @@ function memberWeekGroups(data,identityCount,hiddenColumn){
     return {week,tone:ordered.indexOf(week)%2?'b':'a',start};
   });
 }
+function memberDateBadge(period,today){
+  if(!period?.start)return null;
+  const days=(Date.parse(period.start+'T00:00:00Z')-Date.parse(today+'T00:00:00Z'))/86400000;
+  if(days<=0&&(period.end||period.start)>=today)return {label:'Today',kind:'today',description:'오늘 일정'};
+  if(days>=1&&days<=3)return {label:'D-'+days,kind:'upcoming',description:days+'일 후 일정'};
+  return null;
+}
 function renderMembers(data, query='') {
   const source=data;
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
@@ -583,6 +591,8 @@ function renderMembers(data, query='') {
   table.style.setProperty('--content-count',data.headers.filter((_,index)=>index>=identityCount && !hiddenColumn(index)).length);
   const head=element('thead'),titles=element('tr');
   const koreaDate=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  clearTimeout(memberDateTimer);
+  memberDateTimer=setTimeout(()=>renderMembers(source,document.getElementById('search').value),Math.max(1000,Date.parse(koreaDate+'T00:00:00+09:00')+86400000-Date.now()+100));
   const shortDate=value=>{const match=String(value || '').match(/^\d{4}-(\d{2})-(\d{2})$/);return match?Number(match[1])+'/'+Number(match[2]):value;};
   data.headers.forEach((title,index)=>{
     const cell=element('th',undefined,identityClass(index));cell.scope='col';
@@ -596,6 +606,8 @@ function renderMembers(data, query='') {
     const indicator=element('i');indicator.dataset.lucide=active?(memberSort.direction==='descending'?'chevron-down':'chevron-up'):'chevrons-up-down';button.append(indicator);
     button.addEventListener('click',()=>{memberSort={index,direction:next};renderMembers(source,query);table.querySelectorAll('.member-sort')[index]?.focus({preventScroll:true});});
     const dates=data.dates?.[index];if(dates?.start || dates?.end){const label=element('small',undefined,'content-date');if(dates.start)label.append(element('span',shortDate(dates.start)));if(dates.end)label.append(element('span','~ '+shortDate(dates.end)));button.append(label);}
+    const badge=memberDateBadge(dates,koreaDate);
+    if(badge){const marker=element('span',badge.label,'member-date-badge');marker.dataset.kind=badge.kind;marker.setAttribute('aria-label',badge.description);button.append(marker);}
     cell.append(button);
     titles.append(cell);
   });head.append(titles);table.append(head);
