@@ -1,0 +1,131 @@
+:root{
+  color-scheme:light;
+  --on-accent:#fff;--hover:#e8efeb;--week-hover-a:#e8ecef;--week-hover-b:#dce7e1;
+  --success-soft:#e7f2eb;--danger-soft:#faeae6;--chart-secondary:#577d9a;
+  --chart-series:#237b70,#b64f58,#547b9b,#906bb0,#aa7c28,#448f9f;
+}
+:root[data-theme=mono]{
+  --ink:#292b2e;--muted:#606369;--line:#d3d5da;--accent:#41464f;--on-accent:#fff;
+  --page:#f3f4f6;--surface:#fff;--surface-subtle:#e6e8ec;--accent-soft:#e0e3e8;--accent-line:#b9bec7;--hover:#e8eaee;
+  --week-a:#f1f2f4;--week-b:#e4e6eb;--week-head-a:#e5e7eb;--week-head-b:#d4d8e0;
+  --week-hover-a:#e8eaee;--week-hover-b:#dce0e6;--chart-secondary:#777f8e;
+}
+:root[data-theme=blue]{
+  --ink:#263446;--muted:#57687b;--line:#cdd8e5;--accent:#295e9f;--on-accent:#fff;
+  --page:#f1f5fa;--surface:#fff;--surface-subtle:#e2ebf6;--accent-soft:#dce8f8;--accent-line:#aebfd6;--hover:#e4edf8;
+  --week-a:#f0f4f9;--week-b:#e0e9f5;--week-head-a:#e4ebf5;--week-head-b:#cddcf0;
+  --week-hover-a:#e4ecf7;--week-hover-b:#d4e1f1;--chart-secondary:#729aaa;
+}
+:root[data-theme=rose]{
+  --ink:#3c2d34;--muted:#73606a;--line:#e0cfd6;--accent:#963e5b;--on-accent:#fff;
+  --page:#faf4f6;--surface:#fff;--surface-subtle:#f0e3e8;--accent-soft:#f2dfe7;--accent-line:#d0adb9;--hover:#f4e6ec;
+  --week-a:#f8f1f4;--week-b:#eee0e6;--week-head-a:#f0e4e9;--week-head-b:#e3cbd5;
+  --week-hover-a:#f2e5eb;--week-hover-b:#e7d3dd;--chart-secondary:#89759b;
+}
+:root[data-theme=graphite]{
+  color-scheme:dark;
+  --ink:#e8ecea;--muted:#b0b8b4;--line:#454c49;--accent:#82c8b6;--on-accent:#16251f;
+  --page:#1c1f22;--surface:#252a2d;--surface-subtle:#2d3336;--accent-soft:#293f39;--accent-line:#536d63;--hover:#343c3f;
+  --week-a:#292e32;--week-b:#333d3b;--week-head-a:#363e43;--week-head-b:#3d5049;
+  --week-hover-a:#343e42;--week-hover-b:#40514a;--chart-secondary:#91adc5;
+  --gold-soft:#393225;--gold-line:#8b774f;--warning:#e7c27d;
+  --success:#91d8ac;--success-soft:#213c31;--danger:#efaaa4;--danger-soft:#422b2b;
+  --chart-series:#82c8b6,#ed9da7,#91b6dc,#c0a4e1,#e7c27d,#7ec1d2;
+}
+.workspace-bar .theme-picker{display:none;margin-left:auto;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+.theme-picker svg{width:16px;height:16px;color:var(--accent)}
+.theme-picker select{width:154px;min-height:36px;padding:6px 9px;font-size:12px;border-color:var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+@media(min-width:1024px){.workspace-bar .theme-picker{display:flex}}
+
+/* Map existing components to the same palette without recoloring game assets. */
+.sidebar,.astrology-section-header,.astrology-budget>h3{background:var(--surface-subtle)}
+.workspace-bar,.schedule-rail,.board-entry,.tip-form,.tool,.armor-step,.member-grid,.member-scroll-frame,.collection-table-scroll,.member-achievement,.alarm-row,.alarm-toast,.member-distribution-tooltip,#member-history-scroll,dialog{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.sidebar nav button.active,.sidebar .alarm-register-link,.sidebar #guestbook-open,.sidebar #suggest-tool,.sidebar .official-home-link,.secondary-button,.icon-button,.search-field,#members .member-toolbar .member-nickname-search,.probability-search,#navigation-toggle{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.sidebar nav button.active{color:var(--accent);border-left-color:var(--accent)}
+.sidebar nav button.active svg,.sidebar #guestbook-open #visitor-count,.sidebar nav button:hover svg{color:var(--accent)}
+.primary-button{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.sidebar nav button:hover,.sidebar #guestbook-open:hover,.sidebar .alarm-register-link:hover,.sidebar #suggest-tool:hover,.sidebar .official-home-link:hover,.secondary-button:hover,.icon-button:hover,.board-entry summary:hover,.official-news-row:hover,.member-growth-bin:hover{background:var(--hover)}
+input:not([type=range]):not([type=checkbox]):not([type=radio]),select,textarea{background:var(--surface);color:var(--ink);border-color:var(--line)}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--accent)}
+.search-field input,.probability-search input{background:transparent}
+.sidebar #alarm-toggle[aria-checked=true]::before,.member-growth-control input:checked+.member-switch{background:var(--accent)}
+.guild-emblem{background:transparent}
+.guild-brand small,.sidebar-foot,.sidebar nav button,.workspace-bar>div>span,.workspace-bar svg,.schedule-time span,.form-fields label,.collection-filters legend,.collection-price>label,.collection-range,.astrology-roll-cost,.astrology-budget-scale{color:var(--muted)}
+.chapter-navigation button.active,.inline-link,.price-rates dd,.schedule-time strong,.member-achievement-value,.member-achievement:first-child h3 .lucide{color:var(--accent)}
+.chapter-heading svg,.sidebar nav button svg{color:var(--muted)}
+.sidebar-foot,.chapter-heading,.distribution-heading,.policy-system,.price-rates>div,.collection-price-input,.allocation-facts>div,.official-news,#official-news-list,.entry-body,.board-column-head,.board-entry,.member-group-bar,.member-group-bar>span+span,.collection-settings,.skill-settings{border-color:var(--line)}
+.board-entry[open] summary,.count-label,.server-label,.visitor-today-mark,.notice-tag,.notice-pagination button[aria-current=page],.collection-segments input:checked+span,.member-history-modes input:checked+span,.probability-navigation a[aria-current=page],#tools .calculator-tabs button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
+.visitor-today-mark{box-shadow:none}
+.sidebar #guestbook-open .visitor-today-mark svg,.sidebar #guestbook-open .attendance-label svg{color:var(--accent)}
+.site-updates-scroll{background:var(--surface);border-color:var(--accent-line);scrollbar-color:var(--accent-line) transparent}
+.site-updates-scroll::-webkit-scrollbar-thumb{background:var(--accent-line)}
+.member-group-bar,.alarm-list-heading,.collection-segments,.member-history-modes{background:var(--surface-subtle);color:var(--muted)}
+table th,table td{border-color:var(--line)}
+table th{background:var(--surface-subtle);color:var(--muted)}
+table td{color:var(--ink)}
+tbody tr:hover td{background:var(--hover)}
+#member-table :is(.member-number,.member-class,.member-name,.member-chat){background:var(--surface);color:var(--ink)}
+#member-table th:is(.member-number,.member-class,.member-name,.member-chat){background:var(--surface-subtle)}
+#member-table tbody tr:hover :is(.member-number,.member-class,.member-name,.member-chat){background:var(--hover)}
+#member-table td[data-week-tone=a]{background:var(--week-a)}
+#member-table td[data-week-tone=b]{background:var(--week-b)}
+#member-table th[data-week-tone=a]{background:var(--week-head-a)}
+#member-table th[data-week-tone=b]{background:var(--week-head-b)}
+#member-table tbody tr:hover td[data-week-tone=a]{background:var(--week-hover-a)}
+#member-table tbody tr:hover td[data-week-tone=b]{background:var(--week-hover-b)}
+#member-table th[data-week][data-period=current]{background:var(--week-head-b);box-shadow:inset 0 3px var(--accent)}
+#member-table [data-week-start=true]{border-left-color:var(--accent-line)}
+#member-table .member-sort:hover,#member-table th[aria-sort]:not([aria-sort=none]) .member-sort{background:var(--accent-soft);color:var(--accent)}
+#member-table .member-chat{box-shadow:2px 0 var(--line)}
+#member-table .member-date-badge{background:var(--surface);color:var(--muted);border-color:var(--line)}
+#member-table .member-date-badge[data-kind=today]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+#member-table .member-date-badge[aria-label="1일 후 일정"]{background:var(--gold-soft);border-color:var(--gold-line);color:var(--warning)}
+.yes{background:var(--success-soft);color:var(--success)}
+.no{background:var(--danger-soft);color:var(--danger)}
+.pending{background:var(--gold-soft);color:var(--warning)}
+.member-scrollbar,.member-scrollbar::-webkit-scrollbar-track{background:var(--surface-subtle)}
+.member-scrollbar{scrollbar-color:var(--accent-line) var(--surface-subtle)}
+.member-scrollbar::-webkit-scrollbar-thumb{background:var(--accent-line);border-color:var(--surface-subtle)}
+.member-growth-track{background:var(--surface-subtle)}
+.member-growth-track span{background:var(--chart-secondary)}
+.member-distributions #member-level-chart .member-growth-track span{background:var(--accent)}
+.member-growth-label,.member-growth-bin strong,#member-class-legend strong,.member-class-legend{color:var(--ink)}
+.member-growth-axis,#member-class-legend small,.member-distribution-heading>span{color:var(--muted)}
+#collection-results :is(th,td),#skill-results :is(th,td),#skill-rates :is(th,td),#fate-price-table :is(th,td){border-color:var(--line)}
+#collection-results th:first-child,#skill-results th:first-child,#fate-price-table th:first-child{background:var(--surface);color:var(--ink)}
+#collection-results thead th,#skill-results thead th,#skill-rates thead th,#fate-price-table thead th,#sinkwa-price-table thead th{background:var(--surface-subtle);color:var(--muted)}
+#collection-results .collection-mean,#skill-results .collection-mean,#collection-results td.collection-median,#skill-results .skill-budget-chance{background:var(--accent-soft);color:var(--accent)}
+#collection-results thead .collection-mean,#skill-results thead .collection-mean,#collection-results thead th:nth-child(4){background:var(--accent);color:var(--on-accent)}
+#collection-results tbody tr:hover>*,#skill-results tbody tr:hover>*,#fate-price-table tbody tr:hover>*,#sinkwa-price-table tbody tr:hover{background:var(--hover)}
+.distribution-group table,.collection-segments input:checked+span,.member-history-modes input:checked+span{background:var(--surface)}
+.astrology-row,.astrology-row-main>.astrology-state,.astrology-budget-row+.astrology-budget-row{border-color:var(--accent-line)}
+.astrology-section-header h2,.astrology-budget>h3,.astrology-column-title{color:var(--ink)}
+.astrology-stat-table th,.astrology-stat-table td{background:transparent}
+.astrology-effect-scroll caption{background:var(--page)}
+.astrology-stat-table tr[data-achieved=true]{background:var(--surface-subtle)}
+.astrology-stat-table tr[data-next=true]{animation:none;background:var(--accent-soft);box-shadow:inset 3px 0 var(--accent)}
+.astrology-stat-table tr[data-next=true] th,.astrology-stat-table tr[data-next=true] td{color:var(--ink)}
+.astrology-completion,.astrology-completion[data-achieved=true]{background:var(--gold-soft);border-color:var(--gold-line)}
+.astrology-completion .astrology-completion-table :is(caption,th,td),.astrology-completion-status,.astrology-completion[data-achieved=true] .astrology-completion-table :is(caption,th,td),.astrology-completion[data-achieved=true] .astrology-completion-status{background:transparent;color:var(--warning)}
+.astrology-completion-status,.astrology-completion[data-achieved=true] .astrology-completion-status{border-color:var(--gold-line)}
+.astrology-comparison tr[data-recommended=true]{background:var(--accent-soft)}
+.astrology-chart-marker.marker-2{stroke:var(--warning)}
+.astrology-completion-summary strong{color:var(--accent)}
+.alarm-row time,.alarm-row .alarm-fixed,.alarm-filter-toggle[aria-checked=true],#alarm-filter[data-filtered=true]{color:var(--accent)}
+.alarm-row .alarm-fixed,#alarm-filter[data-filtered=true]{background:var(--accent-soft)}
+.alarm-row small[data-spawn]{color:var(--warning)}
+#guestbook-dialog,#suggestion-dialog,#alarm-review,#alarm-conflicts,#alarm-preferences-dialog,#alarm-filter-dialog,.member-history-tooltip,.ql-snow .ql-picker-options{background:var(--surface);color:var(--ink);border-color:var(--line)}
+#members .member-nickname-search input::placeholder{color:var(--muted)}
+.notice-filter-controls select,.notice-category-field select,.admin-period-heading select{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.notice-pagination button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.notice-pagination button[aria-current=page]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
+.alarm-filter-toggle[aria-checked=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.is-ringing{background:var(--gold-soft)}
+#alarm-filter-dialog .form-actions,.ql-toolbar.ql-snow,.ql-container.ql-snow{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.ql-snow .ql-stroke{stroke:var(--ink)}
+.ql-snow .ql-fill{fill:var(--ink)}
+.ql-snow .ql-picker{color:var(--ink)}
+:root[data-theme=graphite] :is(.official-news-tag,.notice-tag-guide,.allocation-letter,.tool-icon){background:var(--surface-subtle);color:var(--ink)}
+:root[data-theme=graphite] :is(.menu-new,#tools .calculator-tabs button:not(.active) .menu-new){color:#efaaa4}
+:root[data-theme=graphite] :is(.fate-grade-rare,.fate-grade-normal){color:var(--muted)}

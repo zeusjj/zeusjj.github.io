@@ -22,9 +22,9 @@ window.addEventListener('scroll',hideTooltip,{passive:true,capture:true});window
 function draw(){
  if(!summary || !frame.clientWidth)return;
  const size=frame.clientWidth,ratio=devicePixelRatio || 1;canvas.width=Math.round(size*ratio);canvas.height=Math.round(size*ratio);
- const context=canvas.getContext('2d');context.scale(ratio,ratio);const center=size/2,radius=center-5;let angle=-Math.PI/2;
+ const context=canvas.getContext('2d');context.scale(ratio,ratio);const center=size/2,radius=center-5,theme=getComputedStyle(document.documentElement);let angle=-Math.PI/2;
  if(!summary.total){context.strokeStyle='#d7e1dd';context.lineWidth=2;context.beginPath();context.arc(center,center,radius,0,Math.PI*2);context.stroke();return;}
- for(const item of summary.classes){if(!item.count)continue;const arc=item.count/summary.total*Math.PI*2;context.beginPath();context.moveTo(center,center);context.arc(center,center,radius,angle,angle+arc);context.closePath();context.fillStyle=palette[item.name];context.fill();context.strokeStyle='#f5f6f8';context.lineWidth=2;context.stroke();
+ for(const item of summary.classes){if(!item.count)continue;const arc=item.count/summary.total*Math.PI*2;context.beginPath();context.moveTo(center,center);context.arc(center,center,radius,angle,angle+arc);context.closePath();context.fillStyle=palette[item.name];context.fill();context.strokeStyle=theme.getPropertyValue('--page').trim()||'#f5f6f8';context.lineWidth=2;context.stroke();
   if(item.count/summary.total>=.065){const middle=angle+arc/2;context.fillStyle='#fff';context.font='600 12px Arial';context.textAlign='center';context.textBaseline='middle';context.fillText(Math.round(item.count/summary.total*100)+'%',center+Math.cos(middle)*radius*.7,center+Math.sin(middle)*radius*.7);}
   angle+=arc;
  }
@@ -46,5 +46,6 @@ function render(data){
 }
 canvas.addEventListener('pointermove',event=>{if(!summary?.total)return;const rect=canvas.getBoundingClientRect(),x=event.clientX-rect.left-rect.width/2,y=event.clientY-rect.top-rect.height/2;if(Math.hypot(x,y)>rect.width/2-5){canvas.removeAttribute('title');return;}let angle=(Math.atan2(y,x)+Math.PI/2+Math.PI*2)%(Math.PI*2),end=0;for(const item of summary.classes){end+=item.count/summary.total*Math.PI*2;if(angle<end){canvas.title=`${item.name}: ${item.count}명 (${(item.count/summary.total*100).toFixed(1)}%)`;break;}}});
 new ResizeObserver(draw).observe(frame);
+window.addEventListener('guild-theme-change',draw);
 window.addEventListener('guild-members-data',event=>render(event.detail));
 if(typeof memberData!=='undefined' && memberData)render(memberData);
