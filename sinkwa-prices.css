@@ -10,6 +10,7 @@
 #sinkwa-price-table strong{display:block;font-size:14px;color:var(--ink)}
 #sinkwa-price-table small{display:block;margin-top:5px;font-size:12px;color:var(--muted);font-weight:400}
 #sinkwa-price-table tbody th strong{color:var(--accent)}
+#sinkwa-price-table .sinkwa-unavailable{color:var(--muted)}
 #sinkwa-price-table tbody tr:hover{background:#edf3f0}
 @media(max-width:1050px){
   #sinkwa-price-table,#sinkwa-price-table tbody{display:block}

@@ -19,6 +19,11 @@ if(typeof document!=='undefined'){
     heading.append(name,type);row.append(heading);
     amounts.forEach((amount,index)=>{
       const cell=document.createElement('td'),price=document.createElement('strong'),quantity=document.createElement('small');
+      if(grade.startsWith('희귀')&&amount*unitPrice<50){
+        cell.dataset.label=labels[index];cell.className='sinkwa-unavailable';cell.textContent='-';
+        cell.title='구매 상한가가 희귀 장비의 최소 거래가격 50다이아보다 낮습니다.';
+        row.append(cell);return;
+      }
       cell.dataset.label=labels[index];price.textContent=number.format(amount*unitPrice);quantity.textContent=number.format(amount)+'개 획득';
       cell.append(price,quantity);row.append(cell);
     });
