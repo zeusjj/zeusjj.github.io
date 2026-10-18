@@ -18,7 +18,8 @@ const receives=boss=>!mutedBosses.has(boss);
 try{const saved=JSON.parse(localStorage.getItem('guild-alarm-sound-v1'));if(saved && Object.hasOwn(soundPatterns,saved.tone))soundSettings.tone=saved.tone;if(Number.isFinite(saved?.volume))soundSettings.volume=Math.round(Math.min(100,Math.max(0,saved.volume)));}catch{}
 const ringing=new Map(),oscillators=new Set();
 const handled=new Set();let versions=new Map();
-try{enabled=localStorage.getItem(enabledKey)==='true';$('alarm-author').value=localStorage.getItem('guild-alarm-author') || '';}catch{}
+try{enabled=localStorage.getItem(enabledKey)==='true';}catch{}
+GuildNickname.fill($('alarm-author'));
 const now=()=>Date.now()+offset;
 function icons(){window.lucide?.createIcons();}
 function ringUI(){
@@ -120,7 +121,7 @@ async function refresh(){
   }catch(error){$('alarm-status').textContent='공유 알람 연결을 확인하지 못했습니다. 자동으로 다시 연결합니다.';if(!loaded)render();}finally{polling=false;}
 }
 $('alarm-refresh').addEventListener('click',refresh);
-window.addEventListener('guild-alarms-open',refresh);
+window.addEventListener('guild-alarms-open',()=>{GuildNickname.fill($('alarm-author'));refresh();});
 let resolveConflict;
 function timeLeft(at,reference){const minutes=Math.max(0,Math.ceil((at-reference)/MINUTE));return `${Math.floor(minutes/60)}시간 ${minutes%60}분 남음`;}
 function confirmOverwrite(conflicts,alarms){
@@ -149,7 +150,7 @@ async function register(alarms,status){
       if(changed.length){status.textContent='기존 알람 덮어쓰기 확인이 필요합니다.';if(!await confirmOverwrite(changed,alarms)){status.textContent='등록을 취소했습니다.';return false;}}
       overwrite=Object.fromEntries(conflicts.map(record=>[record.boss,record.updated_at]));continue;
     }
-    if(!response.ok)throw new Error(data.error || '등록 실패');status.textContent='알람이 등록되었습니다.';try{localStorage.setItem('guild-alarm-author',$('alarm-author').value);}catch{}await refresh();return true;
+    if(!response.ok)throw new Error(data.error || '등록 실패');status.textContent='알람이 등록되었습니다.';await refresh();return true;
   }throw new Error('다른 길드원이 알람을 변경했습니다. 다시 등록해주세요.');
   }catch(error){status.textContent=error.name==='TimeoutError'?'응답이 지연되었습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;return false;}
   finally{submitting=false;document.querySelectorAll('#alarm-manual button,#alarm-review-register').forEach(b=>b.disabled=false);}

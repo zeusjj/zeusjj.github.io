@@ -304,7 +304,7 @@ function filterTips(){
 tipSearch.addEventListener('input',filterTips);
 tipSearch.addEventListener('search',filterTips);
 function applyPendingTips(){if(pendingTips && tipForm.hidden && !document.querySelector('.tip-manage-form')){const tips=pendingTips;pendingTips=null;renderTips(tips);}}
-function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show)tipForm.elements.title.focus();else applyPendingTips();}
+function showTipForm(show){tipForm.hidden=!show;document.getElementById('new-tip').setAttribute('aria-expanded',String(show));if(show){GuildNickname.fill(tipForm.elements.author);tipForm.elements.title.focus();}else applyPendingTips();}
 document.getElementById('new-tip').addEventListener('click',()=>showTipForm(tipForm.hidden));
 document.getElementById('cancel-tip').addEventListener('click',()=>showTipForm(false));
 function sharedTipId(){try{return location.hash.startsWith('#tips/')?decodeURIComponent(location.hash.slice(6)):'';}catch{return '';}}

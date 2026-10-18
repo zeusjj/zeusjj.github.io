@@ -1,6 +1,6 @@
 (() => {
  const dialog=document.getElementById('suggestion-dialog'),form=document.getElementById('suggestion-form'),status=document.getElementById('suggestion-status'),submit=form.querySelector('[type=submit]'),toast=document.getElementById('suggestion-toast');let pending=null,timer;
- document.getElementById('suggest-tool').addEventListener('click',()=>{status.textContent='';dialog.showModal();form.elements.content.focus();});document.getElementById('suggestion-close').addEventListener('click',()=>dialog.close());
+ document.getElementById('suggest-tool').addEventListener('click',()=>{status.textContent='';GuildNickname.fill(form.elements.nickname);dialog.showModal();form.elements.content.focus();});document.getElementById('suggestion-close').addEventListener('click',()=>dialog.close());
  form.addEventListener('submit',async event=>{
   event.preventDefault();if(submit.disabled)return;const content=form.elements.content.value.trim(),nickname=form.elements.nickname.value.trim();if(!content){status.textContent='건의 내용을 입력해주세요.';return;}
   if(!pending||pending.content!==content||pending.nickname!==nickname)pending={id:crypto.randomUUID(),content,nickname};submit.disabled=true;status.textContent='전달 중입니다.';
