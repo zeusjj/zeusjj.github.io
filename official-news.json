@@ -1,7 +1,21 @@
 {
-  "collectedAt": "2026-10-19T08:50:57.533Z",
+  "collectedAt": "2026-10-19T09:48:16.076Z",
   "days": 14,
   "items": [
+    {
+      "id": "1131db21-43e0-4d09-8d0b-acdfbc78bc5e",
+      "title": "10월 19일(월) 운영정책 위반 계정 조치 안내 (53차)",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-19T09:20:00.000Z",
+      "url": "https://zeus.com2us.com/p/1131db21-43e0-4d09-8d0b-acdfbc78bc5e"
+    },
+    {
+      "id": "7a2f11b3-713b-430f-a3a7-fac974c77cec",
+      "title": "10월 21일(수) 업데이트 점검 안내",
+      "tag": "공지사항",
+      "publishedAt": "2026-10-19T09:00:00.000Z",
+      "url": "https://zeus.com2us.com/p/7a2f11b3-713b-430f-a3a7-fac974c77cec"
+    },
     {
       "id": "01454f71-0d1f-4f43-838b-16f3500fe0c7",
       "title": "공성전 현황 오픈 안내",
@@ -260,13 +274,6 @@
       "tag": "공지사항",
       "publishedAt": "2026-10-06T09:55:00.000Z",
       "url": "https://zeus.com2us.com/p/218473d4-8996-42d0-ab90-0e071a33013b"
-    },
-    {
-      "id": "10c19902-ab55-413c-b2e7-a6db8dc889f2",
-      "title": "10월 7일(수) 업데이트 점검 안내 (완료)",
-      "tag": "공지사항",
-      "publishedAt": "2026-10-05T09:30:00.000Z",
-      "url": "https://zeus.com2us.com/p/10c19902-ab55-413c-b2e7-a6db8dc889f2"
     }
   ]
 }
