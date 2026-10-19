@@ -25,6 +25,8 @@
   <script type="module" src="fate-prices.js?v=20261017-122"></script>
   <link rel="stylesheet" href="sinkwa-prices.css?v=20261018-146">
   <script type="module" src="sinkwa-prices.js?v=20261018-146"></script>
+  <link rel="stylesheet" href="crafting-costs.css?v=20261019-175">
+  <script type="module" src="crafting-costs.js?v=20261019-175"></script>
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261018-149">
   <script type="module" src="astrology-calculator.js?v=20261018-150"></script>
@@ -240,6 +242,12 @@
             <p>무기·방어구 분해로 얻는 신과 재료를 기준으로 계산한 구매 상한가입니다. 표보다 싼 매물을 구매하면 기준 시세보다 저렴하게 재료를 얻을 수 있습니다.</p>
             <p>신과의 파편·결정은 1개당 1다이아, 정수는 1개당 5다이아 기준입니다. 0~5강은 분해 수량이 같습니다. 희귀 장비의 최소 거래가격 50다이아보다 낮은 상한가는 -로 표시하며, 영웅·장신구·엘리시움 전용 장비는 제외합니다.</p>
           </div>
+          <section class="crafting-calculator" data-craft-kind="sinkwa" aria-labelledby="sinkwa-crafting-heading">
+            <div class="crafting-heading"><h2 id="sinkwa-crafting-heading">제작·분해 비용 비교</h2><p>기준 시세: 파편·결정 각각 1개당 1다이아</p></div>
+            <div class="crafting-controls"></div><div class="crafting-recommendation" aria-live="polite"></div>
+            <table class="crafting-table"><caption class="visually-hidden">철·가죽 시세별 0강 장비 제작·분해 비용</caption><thead><tr><th scope="col">제작 장비 / 획득 재료</th><th scope="col">제작 재료비</th><th scope="col">획득 1개당 비용</th><th scope="col">재료 1개 손익분기</th><th scope="col">기준 시세와 비교</th></tr></thead><tbody></tbody></table>
+            <p class="crafting-note">제작비 = 재료 1개 시세 × 일반 10개 / 고급 30개. 획득 단가 = 제작비 ÷ 분해 수량. 손익분기 가격보다 재료가 싸면 유리하며, 같은 가격은 비용이 같습니다. 0강 재료비만 반영하고 제작 수수료·강화 비용은 제외합니다. 판매 수익이 아닌 획득 비용 비교입니다.</p>
+          </section>
           <table id="sinkwa-price-table"><caption>등급·강화별 구매 상한가 (다이아)</caption><thead><tr><th scope="col">등급 / 획득 재료</th><th scope="col">0~5강</th><th scope="col">6강</th><th scope="col">7강</th><th scope="col">8강</th><th scope="col">9강</th><th scope="col">10강</th><th scope="col">11강</th><th scope="col">12강</th></tr></thead><tbody></tbody></table>
         </div>
         <div id="fate-panel" class="calculator-panel" role="tabpanel" aria-labelledby="fate-heading" hidden>
@@ -248,6 +256,12 @@
             <p>아래 표는 거래소에서 장신구를 구매할 때 적정 가격을 판단하기 위한 기준표입니다.</p>
             <p>고급 0강 장신구 10다이아를 기준으로 계산했으며, 표의 가격보다 저렴한 매물이 있다면 구매하시면 됩니다.</p>
           </div>
+          <section class="crafting-calculator" data-craft-kind="fate" aria-labelledby="fate-crafting-heading">
+            <div class="crafting-heading"><h2 id="fate-crafting-heading">장신구 제작·분해 비용 비교</h2><p>기준 시세: 운명의 흐름 1개당 0.5다이아</p></div>
+            <div class="crafting-controls"></div><div class="crafting-recommendation" aria-live="polite"></div>
+            <table class="crafting-table"><caption class="visually-hidden">보석 시세별 0강 장신구 제작·분해 비용</caption><thead><tr><th scope="col">제작 장비 / 획득 재료</th><th scope="col">제작 재료비</th><th scope="col">획득 1개당 비용</th><th scope="col">재료 1개 손익분기</th><th scope="col">기준 시세와 비교</th></tr></thead><tbody></tbody></table>
+            <p class="crafting-note">제작비 = 보석 1개 시세 × 일반 10개 / 고급 30개. 일반 장신구는 흐름 10개, 고급은 20개 획득합니다. 손익분기 가격보다 보석이 싸면 기준 시세보다 저렴합니다. 0강 재료비만 반영하고 제작 수수료·강화 비용은 제외합니다. 판매 수익이 아닌 획득 비용 비교입니다.</p>
+          </section>
           <div class="fate-table-scroll" tabindex="0" role="region" aria-label="운명의 흐름 장신구 등급별 구매 상한가">
             <table id="fate-price-table"><caption class="visually-hidden">장신구 구매 상한가 (다이아). 각 가격 아래 운명의 흐름 개수.</caption><thead><tr><th scope="col">등급</th><th scope="col">0~1강</th><th scope="col">2강</th><th scope="col">3강</th><th scope="col">4강</th><th scope="col">5강</th><th scope="col">6강</th><th scope="col">7강</th><th scope="col">8강</th><th scope="col">9강</th><th scope="col">10강</th><th scope="col">11강</th><th scope="col">12강</th></tr></thead><tbody></tbody></table>
           </div>
