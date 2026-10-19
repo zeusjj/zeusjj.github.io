@@ -16,6 +16,7 @@ if(typeof document!=='undefined'){
   for(const {grade,material,unitPrice,amounts} of sinkwaPrices){
     const row=document.createElement('tr'),heading=document.createElement('th');heading.scope='row';
     const name=document.createElement('strong'),type=document.createElement('small');name.textContent=grade;type.textContent=material;
+    name.className='equipment-grade-'+(grade==='일반'?'normal':grade==='고급'?'advanced':'rare');
     heading.append(name,type);row.append(heading);
     amounts.forEach((amount,index)=>{
       const cell=document.createElement('td'),price=document.createElement('strong'),quantity=document.createElement('small');

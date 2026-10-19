@@ -1,4 +1,4 @@
-import {craftingMaterials,craftingRecipes} from './crafting-cost-model.js?v=20261019-175';
+import {craftingMaterials,craftingRecipes} from './crafting-cost-model.js?v=20261019-185';
 
 const node=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;return el;};
 for(const section of document.querySelectorAll('[data-craft-kind]')){

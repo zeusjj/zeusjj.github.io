@@ -1,4 +1,4 @@
-import {sinkwaPrices} from './sinkwa-prices.js?v=20261018-146';
+import {sinkwaPrices} from './sinkwa-prices.js?v=20261019-185';
 import {fatePrices} from './fate-prices.js?v=20261017-122';
 
 export const craftingMaterials={iron:{name:'철',equipment:'무기'},leather:{name:'가죽',equipment:'방어구'},gem:{name:'보석',equipment:'장신구'}};

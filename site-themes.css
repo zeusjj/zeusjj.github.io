@@ -3,6 +3,7 @@
   --on-accent:#fff;--hover:#e8efeb;--week-hover-a:#e8ecef;--week-hover-b:#dce7e1;
   --success-soft:#e7f2eb;--danger-soft:#faeae6;--chart-secondary:#577d9a;
   --chart-series:#237b70,#b64f58,#547b9b,#906bb0,#aa7c28,#448f9f;
+  --grade-normal:#44484e;--grade-advanced:#246b3c;--grade-rare:#245da8;
 }
 :root[data-theme=mono]{
   --ink:#292b2e;--muted:#606369;--line:#d3d5da;--accent:#41464f;--on-accent:#fff;
@@ -31,6 +32,7 @@
   --gold-soft:#393225;--gold-line:#8b774f;--warning:#e7c27d;
   --success:#91d8ac;--success-soft:#213c31;--danger:#efaaa4;--danger-soft:#422b2b;
   --chart-series:#82c8b6,#ed9da7,#91b6dc,#c0a4e1,#e7c27d,#7ec1d2;
+  --grade-normal:#c4c8cd;--grade-advanced:#93d5a3;--grade-rare:#9bbff1;
 }
 .workspace-bar .theme-picker{display:flex;margin-left:auto;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
 .theme-picker svg{width:16px;height:16px;color:var(--accent)}
@@ -157,4 +159,6 @@ tbody tr:hover td{background:var(--hover)}
 .ql-snow .ql-picker{color:var(--ink)}
 :root[data-theme=graphite] :is(.official-news-tag,.notice-tag-guide,.allocation-letter,.tool-icon){background:var(--surface-subtle);color:var(--ink)}
 :root[data-theme=graphite] :is(.menu-new,#tools .calculator-tabs button:not(.active) .menu-new){color:#efaaa4}
-:root[data-theme=graphite] :is(.fate-grade-rare,.fate-grade-normal){color:var(--muted)}
+#sinkwa-price-table .equipment-grade-normal,#fate-price-table th.fate-grade-normal{color:var(--grade-normal)}
+#sinkwa-price-table .equipment-grade-advanced,#fate-price-table th.fate-grade-advanced{color:var(--grade-advanced)}
+#sinkwa-price-table .equipment-grade-rare,#fate-price-table th.fate-grade-rare{color:var(--grade-rare)}
