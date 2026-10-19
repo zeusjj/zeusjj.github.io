@@ -10,7 +10,8 @@ for(const section of document.querySelectorAll('[data-craft-kind]')){
     const heading=node('th',craftingMaterials[recipe.material].name+' 1개');heading.scope='row';row.append(heading);
     for(const [label,value] of [
       ['재료 시세 기준',price],
-      ['제작·분해할 장비',recipe.equipment+' (재료 '+recipe.required+'개)'],
+      ['제작·분해할 장비',recipe.equipment+(recipe.id==='gem-일반'?' · 추천':'')+' ('+craftingMaterials[recipe.material].name+' '+recipe.required+'개 사용)'],
+      ...(section.dataset.craftKind==='fate'?[['제작 1회 재료비 상한',recipe.quantity*recipe.referenceUnit+'다이아']]:[]),
       ['획득 재료',recipe.output+' '+recipe.quantity+'개'],
     ]){const cell=node('td',value);cell.dataset.label=label;row.append(cell);}
     body.append(row);
