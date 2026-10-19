@@ -2,25 +2,16 @@
 .crafting-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin-bottom:16px}
 .crafting-heading h2{font-size:18px;margin:0}
 .crafting-heading p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}
-.crafting-inputs{display:flex;flex-wrap:wrap;gap:16px 24px;margin-bottom:18px}
-.crafting-inputs label{display:grid;gap:6px;font-size:13px;font-weight:600;min-width:0;flex:0 1 220px}
-.crafting-price-field{display:flex;align-items:center;gap:8px}
-.crafting-price-field input{width:150px;max-width:100%;min-height:44px;background:var(--surface);color:var(--ink);border-color:var(--line);font-variant-numeric:tabular-nums}
-.crafting-price-field>span{font-size:12px;color:var(--muted);white-space:nowrap;font-weight:400}
-.crafting-price-field input[aria-invalid=true]{border-color:var(--danger)}
 .crafting-recommendation{margin-bottom:18px;font-size:13px;line-height:1.8}
 .crafting-recommendation p{margin:4px 0;overflow-wrap:anywhere}
 .crafting-recommendation strong{color:var(--accent);margin-right:6px}
 .crafting-table{width:100%;table-layout:fixed;font-size:13px;border-collapse:collapse}
 .crafting-table th,.crafting-table td{min-width:0;height:auto;padding:12px 10px;border-bottom:1px solid var(--line);white-space:normal;overflow-wrap:anywhere;text-align:right;line-height:1.65;color:var(--ink)}
 .crafting-table thead th{font-size:12px;font-weight:500;background:var(--surface-subtle);color:var(--muted)}
-.crafting-table th:first-child{width:32%;text-align:left}
+.crafting-table th:first-child{width:14%;text-align:left}
 .crafting-table tbody th{font-weight:600;background:transparent}
 .crafting-table strong{display:block;font-weight:600}
 .crafting-table small{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:4px}
-.crafting-table tr[data-best=true]{background:var(--accent-soft)}
-.crafting-table tr[data-status=cheaper] td:last-child strong{color:var(--accent)}
-.crafting-table tr[data-status=expensive] td:last-child strong{color:var(--danger)}
 .crafting-note{font-size:12px;line-height:1.8;color:var(--muted);margin:14px 0 0}
 @media(max-width:1050px){
   .crafting-table,.crafting-table tbody{display:block}
@@ -30,4 +21,4 @@
   .crafting-table td{display:block;text-align:left;padding:0;border:0}
   .crafting-table td::before{content:attr(data-label);display:block;font-size:11px;color:var(--muted);margin-bottom:3px}
 }
-@media(max-width:700px){.crafting-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.crafting-inputs label{font-size:12px}.crafting-price-field{flex-wrap:wrap;gap:4px}.crafting-price-field input{width:100%;font-size:16px}.crafting-heading h2{font-size:17px}}
+@media(max-width:700px){.crafting-heading h2{font-size:17px}}
