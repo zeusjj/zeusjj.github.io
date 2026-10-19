@@ -67,6 +67,14 @@ input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--acce
 .sidebar-foot,.chapter-heading,.distribution-heading,.policy-system,.price-rates>div,.collection-price-input,.allocation-facts>div,.official-news,#official-news-list,.entry-body,.board-column-head,.board-entry,.member-group-bar,.member-group-bar>span+span,.collection-settings,.skill-settings{border-color:var(--line)}
 .board-entry[open] summary,.count-label,.server-label,.visitor-today-mark,.notice-tag,.notice-pagination button[aria-current=page],.collection-segments input:checked+span,.member-history-modes input:checked+span,.probability-navigation a[aria-current=page],#tools .calculator-tabs button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
 .visitor-today-mark{box-shadow:none}
+.item-chips li{background:var(--surface-subtle);color:var(--ink);border-color:var(--line)}
+.armor-step:nth-child(n) .allocation-letter{background:var(--accent-soft);color:var(--accent)}
+.policy-relations h2,.policy-prices>h2{color:var(--ink)}
+.chapter-navigation button:hover,.chapter-navigation button:focus-visible{color:var(--accent)}
+.chapter-navigation button:first-child:not(.active){color:var(--muted)}
+.chapter-navigation button:first-child:not(.active):hover,.chapter-navigation button:first-child:not(.active):focus-visible{color:var(--accent)}
+.policy-system .policy-note,.schedule-rail .policy-target p{color:var(--accent)}
+.schedule-rail .policy-target small,.policy-updates h2,.policy-updates .policy-body p{color:var(--muted)}
 .sidebar #guestbook-open .visitor-today-mark svg,.sidebar #guestbook-open .attendance-label svg{color:var(--accent)}
 .site-updates-scroll{background:var(--surface);border-color:var(--accent-line);scrollbar-color:var(--accent-line) transparent}
 .site-updates-scroll::-webkit-scrollbar-thumb{background:var(--accent-line)}
