@@ -50,6 +50,8 @@
 .workspace-bar,.schedule-rail,.board-entry,.tip-form,.tool,.armor-step,.member-grid,.member-scroll-frame,.collection-table-scroll,.member-achievement,.alarm-row,.alarm-toast,.member-distribution-tooltip,#member-history-scroll,dialog{background:var(--surface);color:var(--ink);border-color:var(--line)}
 .sidebar nav button.active,.sidebar .alarm-register-link,.sidebar #guestbook-open,.sidebar #suggest-tool,.sidebar .official-home-link,.secondary-button,.icon-button,.search-field,#members .member-toolbar .member-nickname-search,.probability-search,#navigation-toggle{background:var(--surface);color:var(--ink);border-color:var(--line)}
 .sidebar nav button.active{color:var(--accent);border-left-color:var(--accent)}
+.sidebar nav button:hover,.sidebar nav button:focus-visible{color:var(--accent);background:var(--hover)}
+#tools .calculator-tabs button:not(.active):hover{background:var(--hover);color:var(--accent)}
 .sidebar nav button.active svg,.sidebar #guestbook-open #visitor-count,.sidebar nav button:hover svg{color:var(--accent)}
 .primary-button{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .sidebar nav button:hover,.sidebar #guestbook-open:hover,.sidebar .alarm-register-link:hover,.sidebar #suggest-tool:hover,.sidebar .official-home-link:hover,.secondary-button:hover,.icon-button:hover,.board-entry summary:hover,.official-news-row:hover,.member-growth-bin:hover{background:var(--hover)}
@@ -103,6 +105,7 @@ tbody tr:hover td{background:var(--hover)}
 #collection-results :is(th,td),#skill-results :is(th,td),#skill-rates :is(th,td),#fate-price-table :is(th,td){border-color:var(--line)}
 #collection-results th:first-child,#skill-results th:first-child,#fate-price-table th:first-child{background:var(--surface);color:var(--ink)}
 #collection-results thead th,#skill-results thead th,#skill-rates thead th,#fate-price-table thead th,#sinkwa-price-table thead th{background:var(--surface-subtle);color:var(--muted)}
+#fate-price-table thead th:first-child{background:var(--surface-subtle);color:var(--muted)}
 #collection-results .collection-mean,#skill-results .collection-mean,#collection-results td.collection-median,#skill-results .skill-budget-chance{background:var(--accent-soft);color:var(--accent)}
 #collection-results thead .collection-mean,#skill-results thead .collection-mean,#collection-results thead th:nth-child(4){background:var(--accent);color:var(--on-accent)}
 #collection-results tbody tr:hover>*,#skill-results tbody tr:hover>*,#fate-price-table tbody tr:hover>*,#sinkwa-price-table tbody tr:hover{background:var(--hover)}

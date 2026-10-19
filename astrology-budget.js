@@ -10,6 +10,12 @@ section.append(completionSummary);
 section.querySelector('h3').textContent='별의 조각 보유 개수별 우선순위 선택 도우미';
 const select=section.querySelector('select'),slider=section.querySelector('input'),status=section.querySelector('[role=status]'),body=section.querySelector('tbody'),number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 slider.max='30000';section.querySelector('.astrology-budget-scale span:last-child').textContent='30,000개';
+const storageKey='guild-astrology-budget-v1';
+try{
+  const raw=localStorage.getItem(storageKey),value=raw===null?NaN:Number(raw);
+  if(raw!==null&&raw.trim()!==''&&Number.isInteger(value)&&value>=Number(slider.min)&&value<=Number(slider.max)&&value%Number(slider.step)===0)slider.value=String(value);
+}catch{}
+const saveBudget=()=>{try{localStorage.setItem(storageKey,slider.value);}catch{}};
 const stats=[...new Set(stars.flatMap(s=>[...s.effects,...s.completion].filter(Boolean).map(e=>e[0])))];
 for(const stat of ['', '공격력',...stats.filter(s=>s!=='공격력')]){const option=document.createElement('option');option.value=stat;option.textContent=stat||'없음';select.append(option);}
 section.querySelector('.astrology-budget-note').textContent='현재 단계와 보유량을 기준으로 먼저 점성술을 진행할 별자리입니다. 결과에 따라 추천 대상은 달라질 수 있습니다. 우선 스탯이 없으면 달성·완성 스탯 수치의 단순 합계를, 선택하면 해당 스탯만 비교합니다. 실제 전투력 환산은 아닙니다.';
@@ -53,6 +59,6 @@ function update(){
     }catch{status.textContent='추천 계산은 웹 주소에서 사용할 수 있습니다.';}
   },180);
 }
-slider.addEventListener('input',()=>{section.querySelector('output').textContent=number.format(Number(slider.value))+'개';});
-slider.addEventListener('change',update);select.addEventListener('change',update);host.addEventListener('input',update);
+slider.addEventListener('input',()=>{section.querySelector('output').textContent=number.format(Number(slider.value))+'개';saveBudget();});
+slider.addEventListener('change',()=>{saveBudget();update();});select.addEventListener('change',update);host.addEventListener('input',update);
 update();

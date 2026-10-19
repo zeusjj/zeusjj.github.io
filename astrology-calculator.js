@@ -62,4 +62,4 @@ for(const star of astrologyConstellations){
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261018-150');
+import('./astrology-budget.js?v=20261019-177');
