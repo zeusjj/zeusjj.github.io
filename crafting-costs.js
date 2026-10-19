@@ -3,7 +3,7 @@ import {craftingMaterials,craftingRecipes} from './crafting-cost-model.js?v=2026
 const node=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;return el;};
 for(const section of document.querySelectorAll('[data-craft-kind]')){
   const body=section.querySelector('tbody');
-  for(const recipe of craftingRecipes.filter(row=>(row.material==='gem')===(section.dataset.craftKind==='fate'))){
+  for(const recipe of craftingRecipes.filter(row=>section.dataset.craftKind==='fate'?row.id==='gem-일반':row.material!=='gem')){
     const limit=recipe.quantity*recipe.referenceUnit/recipe.required;
     const price=limit===1/3?'1/3다이아 이하 (약 0.333)':limit+'다이아 이하';
     const row=node('tr');row.dataset.recipe=recipe.id;
