@@ -13,15 +13,15 @@
   <script type="module" src="probabilities.js?v=20261020-187"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="browser-nickname.js?v=20261020-186" defer></script>
-  <script type="module" src="member-auth.js?v=20261021-199"></script>
+  <script type="module" src="member-auth.js?v=20261021-201"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261021-196">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261021-196" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261021-201" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-172"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-172"></script>
   <script type="module" src="member-distributions.js?v=20261018-171"></script>
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
   <script src="member-mobile.js?v=20261018-170" defer></script>
-  <script src="admin-statistics.js?v=20261009-76" defer></script>
+  <script src="admin-statistics.js?v=20261021-201" defer></script>
   <script type="module" src="collection-calculator.js?v=20261019-174"></script>
   <script type="module" src="skill-calculator.js?v=20261020-187"></script>
   <link rel="stylesheet" href="fate-prices.css?v=20261017-124">
@@ -103,7 +103,7 @@
         <div id="rule-content"></div>
       </section>
       <section id="notices" hidden>
-        <div class="page-heading"><div><h1>공지사항</h1><p>길드 일정과 운영 소식</p></div><div class="notice-actions"><button id="notice-logout" class="secondary-button" type="button" hidden>로그아웃</button><button id="new-notice" class="primary-button" type="button" aria-expanded="false"><i data-lucide="square-pen"></i>글쓰기</button></div></div>
+        <div class="page-heading"><div><h1>공지사항</h1><p>길드 일정과 운영 소식</p></div><div class="notice-actions"><button id="notice-logout" class="secondary-button" type="button" hidden>로그아웃</button><button id="new-notice" class="primary-button" type="button" aria-expanded="false" hidden><i data-lucide="square-pen"></i>글쓰기</button></div></div>
         <form id="notice-login" class="tip-form notice-login" hidden><h2>관리자 로그인</h2><label>비밀번호<input name="password" type="password" autocomplete="current-password" maxlength="200" required></label><div class="form-actions"><span id="notice-login-status" role="status"></span><button id="cancel-notice-login" class="secondary-button" type="button">취소</button><button class="primary-button" type="submit">로그인</button></div></form>
         <form id="notice-form" class="tip-form" hidden><h2 id="notice-form-heading">새 공지</h2><div class="form-fields"><label class="full-field notice-category-field">태그<select name="category" required><option>공지</option><option>운영</option><option>한마디</option><option>안내</option></select></label><label class="full-field">제목<input name="title" maxlength="100" required></label><label class="full-field">내용<textarea name="content" rows="7" maxlength="5000"></textarea></label></div><div class="notice-attachments"><button id="add-notice-image" class="secondary-button" type="button"><i data-lucide="image-plus"></i>사진 추가</button><input id="notice-image-input" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden><div id="notice-image-previews" class="notice-image-previews"></div></div><div class="form-actions"><span id="notice-form-status" role="status"></span><button id="cancel-notice" class="secondary-button" type="button">취소</button><button class="primary-button" type="submit">등록</button></div></form>
         <div class="board-toolbar"><div class="notice-filter-controls"><label for="notice-filter">태그<select id="notice-filter"><option value="all">전체</option><option>공지</option><option>운영</option><option>한마디</option><option>안내</option></select></label><span id="notice-count"></span></div><button id="refresh-notices" class="icon-button" type="button" aria-label="공지 새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="notices-status" role="status"></p>
@@ -115,7 +115,7 @@
       </section>
       <section id="admin" hidden>
         <div class="page-heading"><div><h1>관리자</h1><p id="admin-statistics-subtitle" hidden>방문자 통계</p></div><div class="notice-actions"><a class="secondary-button" href="#notices"><i data-lucide="arrow-left"></i>공지사항</a><button id="admin-logout" class="secondary-button" type="button" hidden><i data-lucide="log-out"></i>로그아웃</button></div></div>
-        <form id="admin-login" class="tip-form notice-login"><h2>관리자 로그인</h2><label>비밀번호<input name="password" type="password" autocomplete="current-password" maxlength="200" required></label><div class="form-actions"><span id="admin-login-status" role="status"></span><button class="primary-button" type="submit">로그인</button></div></form>
+        <form id="admin-login" class="tip-form notice-login"><h2>관리자 로그인</h2><label>아이디<input name="username" value="케이론" autocomplete="username" readonly></label><label>비밀번호<input name="password" type="password" autocomplete="current-password" maxlength="128" required></label><div class="form-actions"><span id="admin-login-status" role="status"></span><button class="primary-button" type="submit">로그인</button></div></form>
         <div id="admin-statistics" hidden>
           <div class="admin-statistics-toolbar"><span id="admin-statistics-updated"></span><button id="admin-refresh" class="icon-button" type="button" title="통계 새로고침" aria-label="통계 새로고침"><i data-lucide="refresh-cw"></i></button></div>
           <p id="admin-statistics-status" role="status" aria-live="polite"></p>

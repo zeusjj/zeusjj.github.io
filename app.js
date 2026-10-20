@@ -186,7 +186,13 @@ async function encodeNoticeImage(file){
 }
 noticeForm.querySelector('.notice-attachments').remove();
 const noticeRich=GuildRich.editor(noticeForm,{status:document.getElementById('notice-form-status'),url:image=>noticeImageUrl(editingNotice,image.id),encode:encodeNoticeImage});
-function noticeAdmin(){return !!noticeToken && Date.now()<noticeExpiry;}
+function noticeAdmin(){return !!window.GuildAuth?.user?.isAdmin && !!noticeToken && Date.now()<noticeExpiry;}
+function syncMemberAdministrator(){
+  const auth=window.GuildAuth,administrator=auth?.user?.isAdmin;
+  noticeToken=administrator?(auth.headers().Authorization||'').replace(/^Bearer /,''):'';noticeExpiry=administrator?auth.expiresAt:0;
+  if(!administrator)closeNoticeForms();renderNotices(noticeRecords);
+}
+window.addEventListener('guild-auth-change',syncMemberAdministrator);
 function showNoticeEditor(record=null){
   editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';noticeForm.elements.category.value=record?.category || '공지';
   noticeRich.reset(record?.content || '',record?.images || []);
@@ -234,6 +240,7 @@ function renderNotices(records){
   noticePage=Math.max(1,Math.min(noticePage,Math.max(1,Math.ceil(visible.length/noticePageSize))));
   document.getElementById('notice-count').textContent=filter==='all'?`전체 ${records.length}건`:`${filter} ${visible.length}건 / 전체 ${records.length}건`;document.getElementById('notices-status').textContent=visible.length?'':records.length?'해당 태그의 글이 없습니다.':'등록된 공지가 없습니다.';
   document.getElementById('notice-logout').hidden=!noticeAdmin();
+  document.getElementById('new-notice').hidden=!noticeAdmin();
   for(const record of visible.slice((noticePage-1)*noticePageSize,noticePage*noticePageSize)){
     const entry=element('details',undefined,'board-entry'),summary=element('summary');entry.dataset.noticeId=record.id;
     const date=new Date(record.created_at),time=element('time',date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}));time.dateTime=date.toISOString();
@@ -272,9 +279,10 @@ async function loadNotices(){
 }
 async function noticeWrite(path,method,values){
   const response=await fetch(noticesApi+path,{method,headers:{'Content-Type':'application/json','Authorization':'Bearer '+noticeToken},...(values?{body:JSON.stringify(values)}:{}),signal:AbortSignal.timeout(60000)});
-  const data=await response.json();if(response.status===401){noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);}if(!response.ok)throw new Error(data.error || '요청을 처리하지 못했습니다.');return data;
+  const data=await response.json();if(response.status===401){window.GuildAuth?.invalidate();noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);}if(!response.ok)throw new Error(data.error || '요청을 처리하지 못했습니다.');return data;
 }
 document.getElementById('new-notice').addEventListener('click',()=>{
+  if(!noticeAdmin())return;
   if(!noticeForm.hidden || !noticeLogin.hidden){closeNoticeForms();return;}
   if(noticeAdmin())showNoticeEditor();else {noticeLogin.hidden=false;document.getElementById('notice-login-status').textContent='';document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeLogin.elements.password.focus();}
 });
@@ -284,11 +292,11 @@ document.getElementById('refresh-notices').addEventListener('click',loadNotices)
 document.getElementById('notice-filter').addEventListener('change',()=>{noticePage=1;clearSharedNotice();renderNotices(noticeRecords);});
 setInterval(()=>{refreshMenuNew();document.querySelectorAll('#notices-list .notice-new, #tips-list .notice-new').forEach(badge=>{if(!recentBoardUpdate(badge.closest('summary').querySelector('time').dateTime))badge.remove();});},60000);
 document.getElementById('notice-logout').addEventListener('click',async()=>{
-  try{await noticeWrite('/session','DELETE');}catch{}noticeToken='';noticeExpiry=0;closeNoticeForms();renderNotices(noticeRecords);
+  try{await window.GuildAuth.logout();}catch{}syncMemberAdministrator();
 });
 noticeLogin.addEventListener('submit',async event=>{
   event.preventDefault();const submit=noticeLogin.querySelector('[type="submit"]'),status=document.getElementById('notice-login-status');submit.disabled=true;status.textContent='확인 중입니다.';
-  try{const response=await fetch(noticesApi+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:noticeLogin.elements.password.value}),signal:AbortSignal.timeout(15000)});const data=await response.json();if(!response.ok)throw new Error(data.error || '로그인하지 못했습니다.');noticeToken=data.token;noticeExpiry=data.expires_at;noticeLogin.reset();renderNotices(noticeRecords);showNoticeEditor();}
+  try{await window.GuildAuth.login('케이론',noticeLogin.elements.password.value);noticeLogin.reset();syncMemberAdministrator();if(!noticeAdmin())throw new Error('케이론 계정의 비밀번호를 먼저 변경해주세요.');showNoticeEditor();}
   catch(error){status.textContent=error.name==='TimeoutError'?'응답이 지연되고 있습니다. 다시 시도해주세요.':error.message;}finally{submit.disabled=false;}
 });
 noticeForm.addEventListener('submit',async event=>{
@@ -421,7 +429,7 @@ function tipManageForm(tip,mode,item,body){
     event.preventDefault();submit.disabled=true;cancel.disabled=true;status.textContent='처리 중입니다.';
     try{
       const values=Object.fromEntries(new FormData(form));if(attachments)Object.assign(values,await attachments.values());
-      const response=await fetch(tipsApi+'/'+encodeURIComponent(tip.id),{method:mode==='edit'?'PUT':'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify(values),signal:AbortSignal.timeout(60000)});
+      const response=await fetch(tipsApi+'/'+encodeURIComponent(tip.id),{method:mode==='edit'?'PUT':'DELETE',headers:{'Content-Type':'application/json',...window.GuildAuth?.headers()},body:JSON.stringify(values),signal:AbortSignal.timeout(60000)});
       const result=await response.json();if(!response.ok)throw new Error(result.error || '처리하지 못했습니다.');
       const id=tip.id;if(mode==='delete' && sharedTipId()===id)history.replaceState(null,'','#tips');
       form.remove();await loadTips({force:true});if(mode==='edit'){const entry=[...document.querySelectorAll('#tips-list details')].find(node=>node.dataset.tipId===id);if(entry)entry.open=true;}
@@ -649,7 +657,7 @@ function renderDistribution(groups) {
     else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액','입찰방식'].forEach(label=>{const th=element('th',label);th.scope='col';headings.append(th);});head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'미정':record.amount.toLocaleString('ko-KR'),record.bidding || '-'].forEach((value,index)=>row.append(element('td',value,record.amount===null&&index===2?'distribution-pending':undefined)));body.append(row);}table.append(body);section.append(table);}target.append(section);
   }
 }
-fetch('data.json',{cache:'no-store'}).then(async response=>{if(!response.ok)throw new Error('load');await participationModel;return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort && hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(data,document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
+fetch('data.json',{cache:'no-store'}).then(async response=>{if(!response.ok)throw new Error('load');await participationModel;return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);syncMemberAdministrator();document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort && hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(data,document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
 loadNotices();
 try{const cache=JSON.parse(localStorage.getItem('guild-tips-cache-v1'));if(cache && Date.now()-cache.savedAt<86400000 && validTips(cache.tips)){renderTips(cache.tips);tipsLoaded=true;}}catch{}
 loadTips();

@@ -9,7 +9,7 @@
     const authorized=noticeAdmin();login.hidden=authorized;statistics.hidden=!authorized;logout.hidden=!authorized;
     document.getElementById('admin-statistics-subtitle').hidden=!authorized;
     clearTimeout(expiryTimer);
-    if(authorized)expiryTimer=setTimeout(()=>{noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);access();},Math.max(1,noticeExpiry-Date.now()));
+    if(authorized)expiryTimer=setTimeout(()=>{if(Date.now()>=noticeExpiry)window.GuildAuth?.invalidate();else access();},Math.min(2147483647,Math.max(1,noticeExpiry-Date.now())));
     else{
       requestId++;controller?.abort();lastToken='';content.hidden=true;status.textContent='';refresh.disabled=false;
       for(const id of ['admin-metrics','admin-daily','admin-weekly'])document.getElementById(id).replaceChildren();
@@ -62,7 +62,7 @@
       const query=new URLSearchParams({days:document.getElementById('admin-days').value,weeks:document.getElementById('admin-weeks').value});
       const response=await fetch(noticesApi.replace(/\/notices$/,'/visitors/stats')+'?'+query,{headers:{Authorization:'Bearer '+token},cache:'no-store',signal:controller.signal});
       if(id!==requestId || token!==noticeToken)return;
-      if(response.status===401){noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);document.getElementById('admin-login-status').textContent='로그인이 만료되었습니다. 다시 로그인해주세요.';return;}
+      if(response.status===401){window.GuildAuth?.invalidate();noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);document.getElementById('admin-login-status').textContent='로그인이 만료되었습니다. 다시 로그인해주세요.';return;}
       const data=await response.json();if(!response.ok)throw new Error(data.error || '통계를 불러오지 못했습니다.');
       if(id!==requestId || !noticeAdmin())return;
       render(data);status.textContent='';
@@ -72,15 +72,14 @@
   login.addEventListener('submit',async event=>{
     event.preventDefault();const button=login.querySelector('[type=submit]'),message=document.getElementById('admin-login-status');button.disabled=true;message.textContent='확인 중입니다.';
     try{
-      const response=await fetch(noticesApi+'/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:login.elements.password.value}),signal:AbortSignal.timeout(15000)});
-      const data=await response.json();if(!response.ok)throw new Error(data.error || '로그인하지 못했습니다.');
-      noticeToken=data.token;noticeExpiry=data.expires_at;login.reset();message.textContent='';renderNotices(noticeRecords);
+      await window.GuildAuth.login('케이론',login.elements.password.value);
+      login.reset();message.textContent='';syncMemberAdministrator();if(!noticeAdmin())message.textContent='케이론 계정의 비밀번호를 먼저 변경해주세요.';
     }catch(error){message.textContent=error.name==='TimeoutError'?'응답이 지연되고 있습니다. 다시 시도해주세요.':error.message;}
     finally{button.disabled=false;}
   });
   logout.addEventListener('click',async()=>{
-    logout.disabled=true;try{await noticeWrite('/session','DELETE');}catch{}
-    noticeToken='';noticeExpiry=0;closeNoticeForms();renderNotices(noticeRecords);logout.disabled=false;
+    logout.disabled=true;try{await window.GuildAuth.logout();}catch{}
+    syncMemberAdministrator();logout.disabled=false;
   });
   refresh.addEventListener('click',load);
   for(const id of ['admin-days','admin-weeks'])document.getElementById(id).addEventListener('change',load);
