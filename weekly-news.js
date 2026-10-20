@@ -49,7 +49,8 @@ export function mountWeeklyNews(host,{start,end}){
       const {list,counter,more,message}=group,selected=records.filter(record=>group.kinds.includes(record.kind));list.replaceChildren();counter.textContent=selected.length+'건';
       for(const record of selected.slice(0,group.visible)){
       const item=node('li'),details=node('details',undefined,'weekly-news-entry'),summary=node('summary'),tag=node('span',sources.find(([kind])=>kind===record.kind)[1],'weekly-news-tag'),title=node('span',record.title,'weekly-news-title'),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));
-      time.dateTime=new Date(record.time).toISOString();summary.append(tag,title,time);details.append(summary);item.append(details);list.append(item);
+      const chevron=node('i',undefined,'weekly-news-chevron');chevron.dataset.lucide='chevron-down';
+      time.dateTime=new Date(record.time).toISOString();summary.append(tag,title,time,chevron);details.append(summary);item.append(details);list.append(item);
       let rendered=false;
       details.addEventListener('toggle',()=>{
         if(!details.open||rendered)return;rendered=true;
@@ -69,6 +70,7 @@ export function mountWeeklyNews(host,{start,end}){
       message.hidden=!message.textContent;more.hidden=selected.length<=group.visible;
     }
     status.textContent='';
+    window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
     const dateFormat=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
     freshness.textContent=feeds.filter(feed=>Number.isFinite(Date.parse(feed.collectedAt))).map(feed=>feed.label+' '+dateFormat.format(new Date(feed.collectedAt))+' 수집').join(' · ');
   }
