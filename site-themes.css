@@ -6,18 +6,21 @@
   --grade-normal:#44484e;--grade-advanced:#246b3c;--grade-rare:#245da8;
 }
 :root[data-theme=mono]{
+  --notice-guide-bg:#e3eef9;--notice-guide-ink:#315f91;
   --ink:#292b2e;--muted:#606369;--line:#d3d5da;--accent:#41464f;--on-accent:#fff;
   --page:#f3f4f6;--surface:#fff;--surface-subtle:#e6e8ec;--accent-soft:#e0e3e8;--accent-line:#b9bec7;--hover:#e8eaee;
   --week-a:#f1f2f4;--week-b:#e4e6eb;--week-head-a:#e5e7eb;--week-head-b:#d4d8e0;
   --week-hover-a:#e8eaee;--week-hover-b:#dce0e6;--chart-secondary:#777f8e;
 }
 :root[data-theme=blue]{
+  --notice-guide-bg:#fff0d2;--notice-guide-ink:#805716;
   --ink:#263446;--muted:#57687b;--line:#cdd8e5;--accent:#295e9f;--on-accent:#fff;
   --page:#f1f5fa;--surface:#fff;--surface-subtle:#e2ebf6;--accent-soft:#dce8f8;--accent-line:#aebfd6;--hover:#e4edf8;
   --week-a:#f0f4f9;--week-b:#e0e9f5;--week-head-a:#e4ebf5;--week-head-b:#cddcf0;
   --week-hover-a:#e4ecf7;--week-hover-b:#d4e1f1;--chart-secondary:#729aaa;
 }
 :root[data-theme=rose]{
+  --notice-guide-bg:#e3eef9;--notice-guide-ink:#315f91;
   --ink:#3c2d34;--muted:#73606a;--line:#e0cfd6;--accent:#963e5b;--on-accent:#fff;
   --page:#faf4f6;--surface:#fff;--surface-subtle:#f0e3e8;--accent-soft:#f2dfe7;--accent-line:#d0adb9;--hover:#f4e6ec;
   --week-a:#f8f1f4;--week-b:#eee0e6;--week-head-a:#f0e4e9;--week-head-b:#e3cbd5;
@@ -68,6 +71,7 @@ input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--acce
 .chapter-heading svg,.sidebar nav button svg{color:var(--muted)}
 .sidebar-foot,.chapter-heading,.distribution-heading,.policy-system,.price-rates>div,.collection-price-input,.allocation-facts>div,.official-news,#official-news-list,.entry-body,.board-column-head,.board-entry,.member-group-bar,.member-group-bar>span+span,.collection-settings,.skill-settings{border-color:var(--line)}
 .board-entry[open] summary,.count-label,.server-label,.visitor-today-mark,.notice-tag,.notice-pagination button[aria-current=page],.collection-segments input:checked+span,.member-history-modes input:checked+span,.probability-navigation a[aria-current=page],#tools .calculator-tabs button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
+:root:not([data-theme=graphite]) .notice-tag-guide{background:var(--notice-guide-bg);color:var(--notice-guide-ink)}
 .visitor-today-mark{box-shadow:none}
 .item-chips li{background:var(--surface-subtle);color:var(--ink);border-color:var(--line)}
 .armor-step:nth-child(n) .allocation-letter{background:var(--accent-soft);color:var(--accent)}

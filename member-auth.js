@@ -17,7 +17,7 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
     if(persist)try{if(user)localStorage.setItem(key,JSON.stringify({token,expiresAt}));else localStorage.removeItem(key);}catch{}
     window.GuildNickname?.set(user?.nickname||'');
     if(user)timer=setTimeout(()=>expiresAt>Date.now()?restore():apply(null),Math.min(2147483647,Math.max(0,expiresAt-Date.now())));
-    renderHeader();renderForms();window.dispatchEvent(new Event('guild-auth-change'));icons();
+    renderHeader();renderForms();window.dispatchEvent(new Event('guild-auth-change'));icons();if(user)trackVisit();
   }
   function button(label,icon,action){const element=node('button');element.type='button';element.className='icon-button';element.title=label;element.setAttribute('aria-label',label);const mark=node('i');mark.dataset.lucide=icon;element.append(mark);element.addEventListener('click',action);return element;}
   function renderHeader(){
@@ -59,6 +59,14 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
     try{const data=await request('/session');if(generation===version)apply({...data,token:value.token},false);}
     catch(error){if(generation===version){apply(null,error.status===401);if(!error.status)announce('로그인 상태를 확인하지 못했습니다. 새로고침 후 다시 확인해주세요.');}}
   }
+  let visitBusy=false;
+  async function trackVisit(){
+    if(!user||visitBusy||document.hidden)return;visitBusy=true;const current=token;
+    try{await request('/visit',{method:'POST'});}catch(error){if(error.status===401&&current===token)apply(null);}finally{visitBusy=false;}
+  }
+  setInterval(trackVisit,60000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)trackVisit();});
+  window.addEventListener('pageshow',trackVisit);
   window.addEventListener('storage',event=>{if(event.key===key)restore();});
   window.GuildNickname?.set('');renderHeader();renderForms();restore();
 })();
