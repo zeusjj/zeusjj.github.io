@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="official-news.css?v=20261019-181">
   <script type="module" src="official-news.js?v=20261019-181"></script>
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
-  <script type="module" src="probabilities.js?v=20261012-89"></script>
+  <script type="module" src="probabilities.js?v=20261020-187"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
-  <script src="browser-nickname.js?v=20261018-156" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261018-167" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="browser-nickname.js?v=20261020-186" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261020-187" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-172"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-172"></script>
   <script type="module" src="member-distributions.js?v=20261018-171"></script>
@@ -21,7 +21,7 @@
   <script src="member-mobile.js?v=20261018-170" defer></script>
   <script src="admin-statistics.js?v=20261009-76" defer></script>
   <script type="module" src="collection-calculator.js?v=20261019-174"></script>
-  <script type="module" src="skill-calculator.js?v=20261018-132"></script>
+  <script type="module" src="skill-calculator.js?v=20261020-187"></script>
   <link rel="stylesheet" href="fate-prices.css?v=20261017-124">
   <script type="module" src="fate-prices.js?v=20261017-122"></script>
   <link rel="stylesheet" href="sinkwa-prices.css?v=20261018-146">
@@ -43,6 +43,8 @@
   <link rel="stylesheet" href="member-mobile.css?v=20261018-173">
   <script src="site-design.js?v=20261018-166" defer></script>
   <script src="main-menu-share.js?v=20261018-164" defer></script>
+  <link rel="stylesheet" href="guild-overviews.css?v=20261020-186">
+  <script type="module" src="guild-overviews.js?v=20261020-186"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -60,10 +62,10 @@
       <button data-tab="distribution"><i data-lucide="package-open"></i><span>분배 기록 <small id="distribution-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="tips"><i data-lucide="messages-square"></i><span>팁 공유 <small id="tip-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="tools"><i data-lucide="sliders-horizontal"></i><span>편의 기능 <small id="tools-menu-new" class="menu-new" data-new-parent="tools" hidden>New</small></span></button>
-      <button data-tab="probabilities"><i data-lucide="list-ordered"></i><span>확률표</span></button>
       <button data-tab="alarms" hidden inert><i data-lucide="alarm-clock"></i><span>공유 알람</span></button>
     </nav>
     <div class="sidebar-foot">
+      <div class="member-shortcuts"><button data-tab="profile" type="button"><i data-lucide="user-round"></i><span>내 정보</span></button><button data-tab="weekly" type="button"><i data-lucide="calendar-range"></i><span>한 주 요약</span></button></div>
       <div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><span class="attendance-label"><i data-lucide="footprints"></i><span>출석체크</span></span><span class="attendance-visitors"><span class="visitor-today-mark" aria-hidden="true"><i data-lucide="calendar-days"></i><span>Today</span></span><strong id="visitor-count" aria-label="오늘 방문자 수" aria-live="polite">-</strong></span></button></div>
       <div class="alarm-reception"><button id="alarm-open" class="alarm-register-link" data-tab="alarms" type="button"><i data-lucide="alarm-clock"></i><span>알람 등록</span></button><small id="alarm-toggle-label" class="visually-hidden" aria-hidden="true">Off</small><button id="alarm-toggle" type="button" role="switch" aria-checked="false" aria-label="알람 수신" title="알람 수신 켜기">Off</button></div>
     </div>
@@ -72,9 +74,18 @@
     </div>
   </aside>
   <div class="workspace">
-    <header class="workspace-bar"><div><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
+    <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="header-nickname" class="nickname-picker"></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
+      <section id="profile" class="overview-page" hidden aria-labelledby="profile-heading">
+        <div class="page-heading"><div><h1 id="profile-heading">내 정보</h1><p id="profile-caption">닉네임 선택</p></div></div>
+        <div id="profile-login"><h2>닉네임 선택</h2><div id="profile-nickname" class="nickname-picker"></div><p id="profile-selection-status" role="status"></p></div>
+        <div id="profile-content" hidden></div>
+      </section>
+      <section id="weekly" class="overview-page" hidden aria-labelledby="weekly-heading">
+        <div class="page-heading"><div><h1 id="weekly-heading">한 주 요약</h1><p id="weekly-caption"></p></div><label class="overview-week-control" for="overview-week">기간<select id="overview-week"></select></label></div>
+        <div id="weekly-content"></div>
+      </section>
       <section id="rules" hidden>
         <section id="site-updates" class="site-updates" aria-labelledby="site-updates-heading" hidden>
           <h2 id="site-updates-heading"><i data-lucide="history"></i>홈페이지 업데이트</h2>
@@ -151,13 +162,6 @@
           <p>등록된 알람은 길드원 모두에게 공유됩니다. 이 브라우저에서 등록한 알람에는 삭제 버튼이 표시됩니다. 심연의 틈은 매일 00:00 · 12:00 · 18:00에 반복되며, 수신이 On일 때 출현 3분 전에 1분간 알립니다. 사이트를 닫거나 PC가 절전 상태이면 소리가 울리지 않습니다.</p>
         </section>
       </section>
-      <section id="probabilities" hidden>
-        <div class="page-heading"><h1>확률표</h1><a id="probability-original" class="secondary-button" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>공식 원문</a></div>
-        <div class="probability-layout">
-          <nav class="probability-navigation" aria-label="확률표 항목"><label class="probability-search"><i data-lucide="search"></i><input id="probability-search" type="search" placeholder="확률표 검색" aria-label="확률표 검색"></label><div id="probability-menu"></div></nav>
-          <div class="probability-view"><h2 id="probability-title"></h2><p id="probability-status" role="status">확률표 목록을 불러오는 중입니다.</p><iframe id="probability-frame" title="제우스 공식 확률표" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe></div>
-        </div>
-      </section>
       <section id="tools" hidden>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능">
           <button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button>
@@ -165,8 +169,16 @@
           <button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-17T00:00:00+09:00" data-new-until="2026-10-24T00:00:00+09:00" hidden>New</small></button>
           <button id="sinkwa-heading" type="button" role="tab" data-calculator="sinkwa" aria-selected="false" aria-controls="sinkwa-panel" tabindex="-1"><i data-lucide="gem"></i><span>신과 재료 가격표</span><small id="sinkwa-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button>
           <button id="astrology-heading" type="button" role="tab" data-calculator="astrology" aria-selected="false" aria-controls="astrology-panel" tabindex="-1"><i data-lucide="sparkles"></i><span>점성술 계산기</span><small id="astrology-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button>
+          <button id="probabilities-heading" type="button" role="tab" data-calculator="probabilities" aria-selected="false" aria-controls="probabilities" tabindex="-1"><i data-lucide="list-ordered"></i><span>확률표</span></button>
         </div></div>
         <div class="page-heading"><div class="calculator-title"><h1 id="calculator-heading">컬렉션 기대값 계산기</h1><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
+        <div id="probabilities" class="calculator-panel" role="tabpanel" aria-labelledby="probabilities-heading" hidden>
+          <div class="probability-toolbar"><a id="probability-original" class="secondary-button" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>공식 원문</a></div>
+          <div class="probability-layout">
+            <nav class="probability-navigation" aria-label="확률표 항목"><label class="probability-search"><i data-lucide="search"></i><input id="probability-search" type="search" placeholder="확률표 검색" aria-label="확률표 검색"></label><div id="probability-menu"></div></nav>
+            <div class="probability-view"><h2 id="probability-title"></h2><p id="probability-status" role="status">확률표 목록을 불러오는 중입니다.</p><iframe id="probability-frame" title="제우스 공식 확률표" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe></div>
+          </div>
+        </div>
         <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">

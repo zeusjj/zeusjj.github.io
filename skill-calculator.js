@@ -60,7 +60,7 @@ const shareStatus = document.getElementById('calculator-share-status');
 let shareTimer;
 function linkedCalculator() {
   const parts = location.hash.slice(1).split('/');
-  return parts.length === 2 && parts[0] === 'tools' ? toolTabs.find(tab => tab.dataset.calculator === parts[1]) : null;
+  return parts.length >= 2 && parts[0] === 'tools' ? toolTabs.find(tab => tab.dataset.calculator === parts[1]) : null;
 }
 function selectCalculator(button, persist = true) {
   for (const tab of toolTabs) {
@@ -73,7 +73,8 @@ function selectCalculator(button, persist = true) {
   document.getElementById('calculator-heading').textContent = button.querySelector('span').textContent;
   clearTimeout(shareTimer);shareStatus.textContent='';shareButton.title='링크 복사';shareButton.setAttribute('aria-label',button.querySelector('span').textContent+' 링크 복사');
   if (persist) {try {localStorage.setItem(toolTabStorageKey, button.dataset.calculator);} catch {}}
-  if (persist && location.hash.split('/')[0] === '#tools') history.replaceState(null, '', '#tools/' + button.dataset.calculator);
+  if (persist && location.hash.split('/')[0] === '#tools' && location.hash.split('/')[1]!==button.dataset.calculator) history.replaceState(null, '', '#tools/' + button.dataset.calculator);
+  window.dispatchEvent(new Event('guild-calculator-change'));
 }
 let savedTab;
 try {savedTab = toolTabs.find(tab => tab.dataset.calculator === localStorage.getItem(toolTabStorageKey));} catch {}
@@ -82,7 +83,8 @@ if(initialTab)selectCalculator(initialTab);
 window.addEventListener('hashchange',()=>{const linked=linkedCalculator();if(linked)selectCalculator(linked);});
 shareButton.addEventListener('click',async()=>{
   const selected=toolTabs.find(tab=>tab.getAttribute('aria-selected')==='true');
-  const url=new URL('/share/tools/'+selected.dataset.calculator,noticesApi);url.searchParams.set('v','1');
+  const url=selected.dataset.calculator==='probabilities'?new URL('https://zeusjj.github.io/share/probabilities/'):new URL('/share/tools/'+selected.dataset.calculator,noticesApi);url.searchParams.set('v','1');
+  if(selected.dataset.calculator==='probabilities'&&location.hash.split('/')[2])url.searchParams.set('table',location.hash.split('/')[2]);
   try{
     try{await navigator.clipboard.writeText(url.href);}catch{
       const input=document.createElement('textarea');input.value=url.href;input.readOnly=true;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();

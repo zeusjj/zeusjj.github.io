@@ -1,0 +1,39 @@
+name: Refresh community news
+on:
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/community-news.yml'
+      - '.github/scripts/collect-community-news.py'
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: community-news
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect recent recommended posts
+        run: python3 .github/scripts/collect-community-news.py community-news.json
+      - name: Save refreshed list
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add community-news.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh community news'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Publish updated list
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh api --method POST "repos/$GH_REPO/pages/builds"
