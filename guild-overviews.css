@@ -38,6 +38,9 @@
 .overview-table tbody th{background:transparent;font-weight:600}
 .overview-table td:nth-child(3){font-weight:600;color:var(--accent)}
 .overview-table tbody tr:hover>*{background:var(--hover)}
+.overview-rank small{display:block;margin-top:4px;font-size:11px;font-weight:500}
+.overview-participation-score{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin:8px 0 14px}
+.overview-participation-score>strong{font-size:28px;line-height:1.4;color:var(--accent);font-variant-numeric:tabular-nums}
 .overview-note{color:var(--muted);font-size:12px;line-height:1.8;margin:12px 0 0}
 .overview-link{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font-size:13px;color:var(--accent);text-decoration:underline;text-underline-offset:4px}
 .overview-badge{display:inline-block;padding:2px 8px;border-radius:3px;background:var(--surface-subtle);color:var(--ink);font-size:12px}

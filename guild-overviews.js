@@ -1,4 +1,4 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,koreaDay} from './guild-overview-model.js?v=20261020-186';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261020-188';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-186';
 import {mountWeeklyNews} from './weekly-news.js?v=20261020-186';
 
@@ -45,7 +45,8 @@ function renderProfile(){
   const identity=el('div');identity.append(el('h2',name),el('p',row[report.classIndex]+(Number.isInteger(level)?' · Lv.'+level:'')));
   heading.append(emblem,identity);profile.append(heading);
   const goal=report.target,remaining=latest&&goal.growth?Math.max(0,goal.growth-latest.value):null,remainingLevel=Number.isInteger(level)&&goal.level?Math.max(0,goal.level-level):null;
-  metrics(profile,[['현재 성장도',format(latest?.value),latest?short(latest.date)+' 기록':'기록 없음'],['직전 기록 대비',latest&&previous?signed(latest.value-previous.value):'—',previous?short(previous.date)+' → '+short(latest.date):'비교 기록 없음'],['목표까지',remaining===null?'—':remaining===0?'성장도 달성':format(remaining)+' 남음',goal.growth?'성장도 '+format(goal.growth)+(goal.deadline?' · ~'+goal.deadline:''):'목표 미설정'],['목표 레벨',remainingLevel===null?'—':remainingLevel===0?'달성':'Lv.'+goal.level,remainingLevel===null?'레벨 기록 없음':remainingLevel?'현재보다 '+remainingLevel+'레벨':'Lv.'+goal.level+' 이상']]);
+  const growthRank=report.rankings.growth.find(record=>record.name===name),top=growthTopPercent(growthRank);
+  metrics(profile,[['현재 성장도',format(latest?.value),latest?short(latest.date)+' 기록'+(top!==null?' · 상위 '+decimal.format(top)+'%':''):'기록 없음'],['직전 기록 대비',latest&&previous?signed(latest.value-previous.value):'—',previous?short(previous.date)+' → '+short(latest.date):'비교 기록 없음'],['목표까지',remaining===null?'—':remaining===0?'성장도 달성':format(remaining)+' 남음',goal.growth?'성장도 '+format(goal.growth)+(goal.deadline?' · ~'+goal.deadline:''):'목표 미설정'],['목표 레벨',remainingLevel===null?'—':remainingLevel===0?'달성':'Lv.'+goal.level,remainingLevel===null?'레벨 기록 없음':remainingLevel?'현재보다 '+remainingLevel+'레벨':'Lv.'+goal.level+' 이상']]);
   const rankings=section(profile,'길드 내 순위');
   const personal=key=>report.rankings[key].find(record=>record.name===name);
   const period=report.baseline&&report.latest?short(report.baseline.date)+' → '+short(report.latest.date):'비교 기록 없음';
@@ -55,12 +56,26 @@ function renderProfile(){
     ['최근 7일 성장률','rate',value=>(value>0?'+':'')+decimal.format(value)+'%',period],
     ['최근 7일 성장량','increase',signed,period],
     ['제전 포인트 기여','festival',value=>format(value),report.festival?report.festival.header+' · '+short(report.festival.date)+(report.festival.end?' ~ '+short(report.festival.end):''):'기록 없음'],
-    ['누적 콘텐츠 참여율','participation',value=>decimal.format(value)+'%','참여·미참여 기록 기준'],
+    ['공식 콘텐츠 참여율','weighted',value=>decimal.format(value)+'%',report.weighted.periods.length?'최근 4주 · 주당 25%':'기록 없음'],
+    ['단순 누적 참여비율','participation',value=>decimal.format(value)+'%','참여·미참여 기록 건수 기준'],
   ];
-  table(rankings,['지표','내 기록','길드 순위','집계 기준'],rankRows.map(([title,key,formatValue,period])=>{const record=personal(key);return [title,record?formatValue(record.value):'—',rankingCell(record),period];}));
+  table(rankings,['지표','내 기록','길드 순위','집계 기준'],rankRows.map(([title,key,formatValue,period])=>{const record=personal(key);let rank=rankingCell(record);if(key==='growth'&&top!==null){rank=el('div',undefined,'overview-rank');rank.append(el('strong',rankingCell(record)),el('small','상위 '+decimal.format(top)+'%'));}return [title,record?formatValue(record.value):'—',rank,period];}));
   note(rankings,'동점은 공동 순위 · 값이 없는 인원은 해당 순위에서 제외 · 최근 7일은 최신 성장 기록일의 7일 전 또는 그 이전 최신 기록과 비교');
   const growthRanking=personal('growth');
   if(growthRanking){const sameClass=report.rankings.growth.filter(record=>source.members.find(member=>member[report.nameIndex]===record.name)?.[report.classIndex]===row[report.classIndex]);note(rankings,row[report.classIndex]+' 성장도 순위 '+(sameClass.filter(record=>record.value>growthRanking.value).length+1)+'위 / '+sameClass.length+'명');}
+  note(rankings,'성장도 상위 비율 = 공동 순위 ÷ 성장도 집계 인원 × 100');
+  const participationScore=section(profile,'최근 4주 공식 참여율'),weighted=report.weighted.rows.find(record=>record.name===name);
+  if(weighted){
+    const headline=el('div',undefined,'overview-participation-score');
+    headline.append(el('strong',weighted.score===null?'산정 확인 필요':decimal.format(weighted.score)+'%'));
+    if(weighted.score!==null){const qualifies=weighted.score>=75-1e-9;headline.append(badge(qualifies?'75% 참여율 조건 충족':'75% 참여율 조건 미달',qualifies?'yes':'no'));}
+    participationScore.append(headline);
+    note(participationScore,short(report.weighted.lastDate)+' 최근 콘텐츠 기록 기준 · 입찰의 다른 조건은 별도 확인');
+    table(participationScore,['집계 주간','콘텐츠 수','내 참여','반영 점수'],weighted.breakdown.map(period=>[short(period.start)+' ~ '+short(period.end),period.total?period.total+'개':'기록 없음',period.total?period.attended+' / '+period.total+'회'+(period.missing?' · 미기록 '+period.missing+'개':''):'—',period.points===null?'산정 확인 필요':decimal.format(period.points)+'% / 25%']));
+    note(participationScore,'최근 4주 각 25% · 같은 날 콘텐츠 N개면 1개당 25/N% · 반올림 전 원수치로 합산');
+    if(weighted.incomplete)note(participationScore,'미기록(-) 또는 기록이 없는 주는 점수를 가산하지 않았습니다. 가입 전 기록 등은 별도 확인이 필요합니다.');
+    if(weighted.needsReview)note(participationScore,'같은 주에 여러 날짜의 콘텐츠가 있어 주간 25% 배분 기준 확인이 필요합니다.');
+  }else note(participationScore,'참여 기록이 없습니다.');
   const trend=section(profile,'성장 추이');
   if(history.length){
     const canvas=el('canvas');canvas.id='profile-growth-chart';canvas.setAttribute('role','img');canvas.setAttribute('aria-label',name+' 성장도 '+short(history[0].date)+' '+format(history[0].value)+'에서 '+short(latest.date)+' '+format(latest.value));trend.append(canvas);
