@@ -46,10 +46,14 @@ export function mountWeeklyNews(host,{start,end}){
   const freshness=node('p',undefined,'overview-note');host.append(freshness);
   function render(){
     const opened=new Set([...host.querySelectorAll('.weekly-news-entry[open]')].map(entry=>entry.dataset.newsId));
+    const existing=new Map([...host.querySelectorAll('.weekly-news-entry')].map(entry=>[entry.dataset.newsId,entry.parentElement]));
     for(const group of groups){
       const {list,counter,more,message}=group,selected=records.filter(record=>group.kinds.includes(record.kind));list.replaceChildren();counter.textContent=selected.length+'건';
       for(const record of selected.slice(0,group.visible)){
+      const previous=existing.get(record.id),signature=JSON.stringify(record.post);
+      if(previous?.dataset.newsSignature===signature){list.append(previous);continue;}
       const item=node('li'),details=node('details',undefined,'weekly-news-entry'),summary=node('summary'),tag=node('span',sources.find(([kind])=>kind===record.kind)[1],'weekly-news-tag'),title=node('span',record.title,'weekly-news-title'),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));
+      item.dataset.newsSignature=signature;
       details.dataset.newsId=record.id;
       const chevron=node('i',undefined,'weekly-news-chevron');chevron.dataset.lucide='chevron-down';
       time.dateTime=new Date(record.time).toISOString();summary.append(tag,title,time,chevron);details.append(summary);item.append(details);list.append(item);
