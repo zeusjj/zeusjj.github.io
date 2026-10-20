@@ -13,7 +13,7 @@
   <script type="module" src="probabilities.js?v=20261020-187"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="browser-nickname.js?v=20261020-186" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261020-187" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261020-189" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-172"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-172"></script>
   <script type="module" src="member-distributions.js?v=20261018-171"></script>
@@ -40,11 +40,11 @@
   <script type="module" src="alarms.js?v=20261018-156"></script>
   <link rel="stylesheet" href="site-design.css?v=20261018-163">
   <link rel="stylesheet" href="site-themes.css?v=20261019-185">
-  <link rel="stylesheet" href="member-mobile.css?v=20261018-173">
+  <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
   <script src="main-menu-share.js?v=20261018-164" defer></script>
-  <link rel="stylesheet" href="guild-overviews.css?v=20261020-188">
-  <script type="module" src="guild-overviews.js?v=20261020-188"></script>
+  <link rel="stylesheet" href="guild-overviews.css?v=20261020-191">
+  <script type="module" src="guild-overviews.js?v=20261020-191"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -129,7 +129,7 @@
       <section id="members" hidden>
         <div class="page-heading member-page-heading"><div class="member-page-title"><h1>길드원 참여 현황</h1><span id="member-count" class="count-label"></span></div></div>
         <div class="toolbar member-toolbar"><div class="member-visibility-controls"><label class="member-growth-control"><span>성장도 보기</span><input id="member-growth-toggle" type="checkbox" role="switch"><span class="member-switch" aria-hidden="true"></span></label><label class="member-growth-control"><span>기여도 보기</span><input id="member-contribution-toggle" type="checkbox" role="switch" checked><span class="member-switch" aria-hidden="true"></span></label></div><label class="search-field member-nickname-search"><i data-lucide="search"></i><input id="search" type="search" placeholder="닉네임 검색" aria-label="닉네임 검색"></label><span class="legend"><b class="yes">ㅇ 참여</b><b class="no">x 미참여</b><b class="pending">- 가입 전 / 미기록</b></span></div>
-        <div class="member-grid"><div class="member-group-bar"><span>길드원</span><span>단톡</span><span>길드 컨텐츠</span></div><div class="table-scroll"><table id="member-table"></table></div></div><p id="empty-search" hidden>검색 결과가 없습니다.</p>
+        <div class="member-grid"><div class="member-group-bar"><span>길드원</span><span>단톡</span><span title="최근 4주 길드컨텐츠참여율">참여율</span><span>길드 컨텐츠</span></div><div class="table-scroll"><table id="member-table"></table></div></div><p id="empty-search" hidden>검색 결과가 없습니다.</p>
         <div class="member-distributions"><section class="member-distribution"><div class="member-distribution-heading"><h2>클래스 분포</h2><span id="member-class-total"></span></div><div class="member-class-distribution"><div class="member-pie-frame"><canvas id="member-class-chart" role="img" aria-label="클래스 분포"></canvas></div><ul id="member-class-legend"></ul></div></section><section class="member-distribution"><div class="member-distribution-heading"><h2>성장도 분포</h2><span id="member-growth-total"></span></div><div id="member-growth-chart"></div></section><section class="member-distribution"><div class="member-distribution-heading"><h2>레벨 분포</h2><span id="member-level-total"></span></div><div id="member-level-chart"></div></section></div>
         <section class="member-growth-history"><div class="member-distribution-heading"><h2>성장 그래프</h2><span id="member-history-count"></span></div><div class="member-history-filters"><label>클래스<select id="member-history-class"><option value="">전체</option></select></label><label>성장도 구간<select id="member-history-band"><option value="">전체</option></select></label><label class="member-history-individual"><input id="member-history-individual" type="checkbox">개인 성장도 보기</label><div class="member-history-search"><label for="member-growth-person">내 성장도 검색</label><div class="member-history-combo"><input id="member-growth-person" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="member-history-names" placeholder="닉네임 검색" autocomplete="off"><button id="member-history-open" type="button" aria-label="길드원 목록 펼치기" title="길드원 목록 펼치기"><i data-lucide="chevron-down"></i></button><div id="member-history-names" role="listbox" aria-label="추천 닉네임" hidden></div></div></div></div><div id="member-history-scroll" tabindex="0" role="region" aria-label="날짜별 성장 그래프"><canvas id="member-history-canvas" role="img" aria-label="성장 기록"></canvas></div><p id="member-history-point" aria-live="polite"></p><table class="visually-hidden" id="member-history-values"><caption>날짜별 성장도</caption><thead><tr><th>날짜</th><th>성장도</th><th>기록 인원</th></tr></thead><tbody></tbody></table></section>
       </section>

@@ -8,6 +8,8 @@ let noticesLoading=false;
 let memberData=null,memberCentered=false;
 let memberSort=null;
 let memberDateTimer;
+let calculateParticipation;
+const participationModel=import('./guild-overview-model.js?v=20261020-190').then(model=>{calculateParticipation=model.weightedParticipation;});
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -530,11 +532,11 @@ function centerMemberToday(){
   }).sort((a,b)=>a.distance-b.distance || Number(b.exact)-Number(a.exact) || a.index-b.index);
   if(!candidates.length)return;
   const target=document.querySelectorAll('#member-table th')[candidates[0].index],box=scroll.getBoundingClientRect();
-  const fixed=[...document.querySelectorAll('#member-table col')].slice(0,memberData.headers.indexOf('단톡')+1).reduce((sum,col)=>sum+col.getBoundingClientRect().width,0);
+  const fixed=[...document.querySelectorAll('#member-table col')].filter(col=>!col.classList.contains('content-column')).reduce((sum,col)=>sum+col.getBoundingClientRect().width,0);
   const rect=target.getBoundingClientRect();scroll.scrollLeft+=rect.left+rect.width/2-(box.left+fixed+(scroll.clientWidth-fixed)/2);memberCentered=true;
 }
 function isContributionColumn(data,index){
-  return index>data.headers.indexOf('단톡') && data.headers[index]!=='성장도 기록' && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
+  return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율'].includes(data.headers[index]) && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
 }
 function hiddenMemberColumn(data,index){
   return (!document.getElementById('member-growth-toggle').checked && data.headers[index]==='성장도 기록') || (!document.getElementById('member-contribution-toggle').checked && isContributionColumn(data,index));
@@ -567,6 +569,10 @@ function renderMembers(data, query='') {
   const source=data;
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
   data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:data.members.map(row=>order.map(index=>row[index]))};
+  const participationIndex=data.headers.indexOf('단톡')+1;
+  const scores=new Map(calculateParticipation(source).rows.map(record=>[record.name,record.score]));
+  data.headers.splice(participationIndex,0,'참여율');data.dates.splice(participationIndex,0,null);
+  data.members.forEach(row=>row.splice(participationIndex,0,scores.get(row[data.headers.indexOf('닉네임')])??null));
   memberData=data;
   const nameIndex=data.headers.indexOf('닉네임');
   const rows=data.members.filter(row=>GuildNicknameSearch.matches(row[nameIndex],query));
@@ -584,12 +590,12 @@ function renderMembers(data, query='') {
     });
   }
   const table=document.getElementById('member-table');table.replaceChildren();
-  const hiddenColumn=index=>hiddenMemberColumn(data,index);
-  const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=chatIndex+1;
+  const hiddenColumn=index=>index!==participationIndex&&hiddenMemberColumn(data,index);
+  const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=participationIndex+1;
   const weekGroups=memberWeekGroups(data,identityCount,hiddenColumn);
   const markWeek=(cell,index)=>{const group=weekGroups[index];if(!group)return;cell.dataset.week=group.week;cell.dataset.weekTone=group.tone;if(group.start)cell.dataset.weekStart='true';};
-  const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':undefined;
-  const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
+  const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':index===participationIndex?'member-participation':undefined;
+  const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':index===participationIndex?'participation-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
   table.style.setProperty('--content-count',data.headers.filter((_,index)=>index>=identityCount && !hiddenColumn(index)).length);
   const head=element('thead'),titles=element('tr');
   const koreaDate=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -605,6 +611,7 @@ function renderMembers(data, query='') {
     const active=memberSort?.index===index,next=active && memberSort.direction==='descending'?'ascending':'descending';
     cell.setAttribute('aria-sort',active?memberSort.direction:'none');
     const button=element('button',undefined,'member-sort');button.type='button';button.dataset.column=title;button.setAttribute('aria-label',`${title}, ${next==='descending'?'내림차순':'오름차순'} 정렬`);button.title=button.getAttribute('aria-label');button.append(element('span',title,'column-title'));
+    if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';button.title=cell.title;}
     const indicator=element('i');indicator.dataset.lucide=active?(memberSort.direction==='descending'?'chevron-down':'chevron-up'):'chevrons-up-down';button.append(indicator);
     button.addEventListener('click',()=>{memberSort={index,direction:next};renderMembers(source,query);table.querySelectorAll('.member-sort')[index]?.focus({preventScroll:true});});
     const dates=data.dates?.[index];if(dates?.start || dates?.end){const label=element('small',undefined,'content-date');if(dates.start)label.append(element('span',shortDate(dates.start)));if(dates.end)label.append(element('span','~ '+shortDate(dates.end)));button.append(label);}
@@ -615,7 +622,7 @@ function renderMembers(data, query='') {
   });head.append(titles);table.append(head);
   const body=element('tbody');
   for(const [line,row] of rows.entries()) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===0)td.textContent=line+1;else if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const level=data.headers[index]==='성장도 기록'?data.levels?.[data.dates?.[index]?.start]?.[row[nameIndex]]:null;const text=typeof value==='number'?value.toLocaleString('ko-KR')+(Number.isInteger(level)?` (${level})`:''):value??'-';const status=element('span',text,'status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else if(index===nameIndex){const name=String(value??''),characters=Array.from(name);td.append(element('span',name,'member-name-label'));td.dataset.shortName=characters.slice(0,3).join('')+(characters.length>3?'…':'');td.title=name;td.setAttribute('aria-label',name);}else td.textContent=value;tr.append(td);});body.append(tr);}
-  body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>cell.hidden=hiddenColumn(index)));
+  body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>{cell.hidden=hiddenColumn(index);if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';cell.textContent=typeof rows[row.sectionRowIndex][index]==='number'?new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(rows[row.sectionRowIndex][index]):'—';}}));
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach(markWeek));
   table.append(body);document.getElementById('member-count').textContent=`${data.members.length} / 60 명`;
   refreshMenuNew();
@@ -632,7 +639,7 @@ function renderDistribution(groups) {
     else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액','입찰방식'].forEach(label=>{const th=element('th',label);th.scope='col';headings.append(th);});head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'미정':record.amount.toLocaleString('ko-KR'),record.bidding || '-'].forEach((value,index)=>row.append(element('td',value,record.amount===null&&index===2?'distribution-pending':undefined)));body.append(row);}table.append(body);section.append(table);}target.append(section);
   }
 }
-fetch('data.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('load');return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort && hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(data,document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
+fetch('data.json',{cache:'no-store'}).then(async response=>{if(!response.ok)throw new Error('load');await participationModel;return response.json();}).then(data=>{renderRules(data.rules);renderMembers(data);renderDistribution(data.distribution);document.getElementById('search').addEventListener('input',event=>renderMembers(data,event.target.value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort && hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(data,document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
 loadNotices();
 try{const cache=JSON.parse(localStorage.getItem('guild-tips-cache-v1'));if(cache && Date.now()-cache.savedAt<86400000 && validTips(cache.tips)){renderTips(cache.tips);tipsLoaded=true;}}catch{}
 loadTips();

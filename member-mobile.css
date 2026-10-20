@@ -1,7 +1,22 @@
+.member-grid{--participation-width:var(--chat-width)}
+#member-table{width:calc(var(--identity-width) + var(--chat-width) + var(--participation-width) + var(--content-count) * var(--content-width))}
+#member-table .participation-column{width:var(--participation-width)}
+#member-table .member-participation{position:sticky;left:calc(var(--identity-width) + var(--chat-width));background:var(--surface);color:var(--ink);z-index:2;box-shadow:2px 0 var(--line);padding-left:1px;padding-right:1px;font-variant-numeric:tabular-nums}
+#member-table th.member-participation{background:var(--surface-subtle);z-index:4;padding:0}
+#member-table th.member-participation .member-sort{padding-left:1px;padding-right:1px;gap:0;flex-wrap:wrap}
+#member-table .member-participation .column-title{font-size:10px;white-space:nowrap}
+#member-table tbody tr:hover .member-participation{background:var(--hover)}
+#members .member-group-bar{grid-template-columns:var(--identity-width) var(--chat-width) var(--participation-width) minmax(0,1fr)}
+@media(max-width:700px){
+  #members .member-grid{--chat-width:0px;--participation-width:40px}
+  #member-table :is(.chat-column,.member-chat){display:none}
+  #members .member-group-bar>span:nth-child(2){display:none}
+  #members .member-group-bar{grid-template-columns:var(--identity-width) var(--participation-width) minmax(0,1fr)}
+}
 @media(max-width:700px) and (orientation:portrait){
   #members .member-grid{--number-width:0px;--class-width:0px;--chat-width:0px;--name-width:60px;--identity-width:60px;--content-width:78px}
   #member-table :is(.number-column,.class-column,.chat-column,.member-number,.member-class,.member-chat){display:none}
-  #members .member-group-bar{grid-template-columns:var(--name-width) minmax(0,1fr);font-size:10px}
+  #members .member-group-bar{grid-template-columns:var(--name-width) var(--participation-width) minmax(0,1fr);font-size:10px}
   #members .member-group-bar>span:nth-child(2){display:none}
   #member-table .member-name{left:0;box-shadow:1px 0 var(--line)}
   #member-table td.member-name{padding:0 4px;font-size:11px;line-height:1.4}

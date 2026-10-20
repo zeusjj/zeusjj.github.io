@@ -1,6 +1,6 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261020-188';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261020-190';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-186';
-import {mountWeeklyNews} from './weekly-news.js?v=20261020-186';
+import {mountWeeklyNews} from './weekly-news.js?v=20261020-191';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -55,7 +55,7 @@ function renderProfile(){
     ['주간 공헌도','contribution',value=>format(value),report.contribution?short(report.contribution.date)+(/중간/.test(report.contribution.header)?' · 중간 기록':''):'기록 없음'],
     ['최근 7일 성장률','rate',value=>(value>0?'+':'')+decimal.format(value)+'%',period],
     ['최근 7일 성장량','increase',signed,period],
-    ['제전 포인트 기여','festival',value=>format(value),report.festival?report.festival.header+' · '+short(report.festival.date)+(report.festival.end?' ~ '+short(report.festival.end):''):'기록 없음'],
+    ['제전 포인트 기여','festival',value=>format(value),report.festivalColumns.length?report.festivalColumns.map(column=>column.header.replace(' 제전 기여','')).join(' + ')+' 제전 합산':'기록 없음'],
     ['공식 콘텐츠 참여율','weighted',value=>decimal.format(value)+'%',report.weighted.periods.length?'최근 4주 · 주당 25%':'기록 없음'],
     ['단순 누적 참여비율','participation',value=>decimal.format(value)+'%','참여·미참여 기록 건수 기준'],
   ];
@@ -106,6 +106,7 @@ function drawChart(){
 function topList(host,title,records,formatter){
   const area=section(host,title);
   table(area,['순위','닉네임','기록'],records.slice(0,5).map(record=>[(record.joint?'공동 ':'')+record.rank+'위',record.name,formatter(record.value)]));
+  if(records.length>5){const details=el('details',undefined,'overview-absences');details.append(el('summary','전체 순위 보기 · '+records.length+'명'));table(details,['순위','닉네임','기록'],records.map(record=>[(record.joint?'공동 ':'')+record.rank+'위',record.name,formatter(record.value)]));area.append(details);}
   return area;
 }
 function renderWeekly(){
@@ -120,14 +121,15 @@ function renderWeekly(){
   table(activities,['콘텐츠','날짜','참여 인원','참여율'],summary.activities.map(event=>[event.header,short(event.date),event.attended+' / '+event.eligible.length+'명',decimal.format(event.attended/event.eligible.length*100)+'%']));
   for(const event of summary.activities){const absent=event.eligible.filter(row=>row.status==='no');if(!absent.length)continue;const details=el('details',undefined,'overview-absences');details.append(el('summary',event.header+' 미참여 '+absent.length+'명'),el('p',absent.map(row=>row.name).join(' · ')));activities.append(details);}
   const columns=el('div',undefined,'overview-columns');weekly.append(columns);
-  topList(columns,'이번 주 성장량 상위',growth,signed);
+  const weeklyGrowth=topList(columns,'이번 주 성장량 상위',growth,signed);
+  if(summary.previous&&summary.last)note(weeklyGrowth,short(summary.previous.date)+' → '+short(summary.last.date)+' · 주 시작 전 마지막 기록 대비');
   const contribution=topList(columns,'공헌도 상위',summary.contributionRanks,format);
   if(summary.contribution)note(contribution,short(summary.contribution.date)+(/중간/.test(summary.contribution.header)?' · 중간 기록':''));
   const scheduled=section(weekly,'일정 · 분배');
   for(const event of summary.upcoming){const item=el('p',undefined,'overview-schedule');item.append(badge(short(event.date),'date'),el('strong',event.header));scheduled.append(item);}
   for(const group of summary.distributions){const item=el('p',undefined,'overview-schedule');item.append(el('strong',group.title),el('span',group.records.length?group.records.length+'건 기록':group.schedule||'분배 예정'));scheduled.append(item);}
   if(!summary.upcoming.length&&!summary.distributions.length)note(scheduled,'등록된 일정·분배가 없습니다.');scheduled.append(link('분배 기록','#distribution'));
-  mountWeeklyNews(section(weekly,'이번 주 올라온 글'),{start:summary.start,end:summary.end});
+  mountWeeklyNews(section(weekly,'이번 주 올라온 글 (디시, 공홈, 팁게)'),{start:summary.start,end:summary.end});
 }
 function accept(data){
   if(source===data)return;source=data;report=overview(source,today);

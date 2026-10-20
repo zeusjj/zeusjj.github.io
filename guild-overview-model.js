@@ -52,13 +52,15 @@ export function overview(data,through=koreaDay()){
   const baseline=latest?columns(data,h=>h==='성장도 기록',shiftDay(latest.date,-7)).at(-1):null;
   const contribution=columns(data,h=>/공헌/.test(h),through).at(-1);
   const festival=columns(data,h=>/제전 기여$/.test(h),through).sort((a,b)=>Number(a.header.match(/^\d+/)?.[0])-Number(b.header.match(/^\d+/)?.[0])).at(-1);
+  const festivalColumns=[...new Map(columns(data,h=>/^\d+차 제전 기여$/.test(h),through).map(column=>[column.header,column])).values()];
+  const festivalRanks=ranked(data.members.flatMap(row=>{const values=festivalColumns.map(column=>row[column.index]).filter(numeric);return values.length?[{name:row[nameIndex],value:values.reduce((sum,value)=>sum+value,0)}]:[];}));
   const metric=column=>column?ranked(data.members.filter(row=>numeric(row[column.index])).map(row=>({name:row[nameIndex],value:row[column.index]}))):[];
   const matched=latest&&baseline?data.members.filter(row=>numeric(row[latest.index])&&numeric(row[baseline.index])&&row[baseline.index]>0):[];
   const changes=matched.map(row=>({name:row[nameIndex],value:row[latest.index]-row[baseline.index],previous:row[baseline.index],current:row[latest.index]}));
   const activities=events(data,through);
   const weighted=weightedParticipation(data,through);
   const participation=ranked(data.members.flatMap(row=>{const eligible=activities.flatMap(event=>{const value=status(row[event.index]);return value?[value]:[];});const attended=eligible.filter(s=>s==='yes').length;return eligible.length?[{name:row[nameIndex],value:attended/eligible.length*100,attended,eligible:eligible.length}]:[];}));
-  return {nameIndex,classIndex,latest,baseline,contribution,festival,activities,weighted,target:target(data),rankings:{growth:metric(latest),contribution:metric(contribution),festival:metric(festival),increase:ranked(changes),rate:ranked(changes.map(row=>({...row,value:row.value/row.previous*100}))),participation,weighted:ranked(weighted.rows.map(row=>({name:row.name,value:row.score})))}};
+  return {nameIndex,classIndex,latest,baseline,contribution,festival,festivalColumns,activities,weighted,target:target(data),rankings:{growth:metric(latest),contribution:metric(contribution),festival:festivalRanks,increase:ranked(changes),rate:ranked(changes.map(row=>({...row,value:row.value/row.previous*100}))),participation,weighted:ranked(weighted.rows.map(row=>({name:row.name,value:row.score})))}};
 }
 export function weeklyOverview(data,start,through=koreaDay()){
   const end=shiftDay(start,6),until=end<through?end:through,base=shiftDay(start,-1);
