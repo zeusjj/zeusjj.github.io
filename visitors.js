@@ -34,17 +34,27 @@
     }catch{count.title='방문자 수를 불러오지 못했습니다. 잠시 후 다시 확인합니다.';}
     finally{busy=false;}
   }
-  document.addEventListener('click',async event=>{
-    const menu=event.target.closest('button[data-tab]')?.dataset.tab;
-    if(!['rules','notices','members','distribution','tips','tools','alarms'].includes(menu))return;
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('button[data-tab],button[data-calculator]');
+    const menu=button?.dataset.calculator?'tools/'+button.dataset.calculator:button?.dataset.tab;
+    recordMenu(menu);
+  });
+  async function recordMenu(menu){
+    if(!['rules','notices','members','distribution','tips','tools','alarms','profile','weekly','community','tools/collection','tools/skill','tools/fate','tools/sinkwa','tools/astrology','tools/probabilities'].includes(menu))return;
+    const nickname=window.GuildNickname?.get()||'익명';
     const id=crypto.randomUUID();
     try{
       visitorId ||= await identity();
-      const options={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,menu,visitorId}),keepalive:true};
+      const options={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,menu,visitorId,nickname}),keepalive:true};
       try{await fetch(endpoint.replace(/\/visitors$/,'/menu-clicks'),{...options,signal:AbortSignal.timeout(10000)});}
       catch{await fetch(endpoint.replace(/\/visitors$/,'/menu-clicks'),{...options,signal:AbortSignal.timeout(10000)});}
     }catch{}
-  });
+  }
+  function recordRoute(){const menu=location.hash.slice(1).split('/')[0]||'rules';recordMenu(menu);if(menu==='tools'){const tool=document.querySelector('#tools [data-calculator][aria-selected=true]')?.dataset.calculator;if(tool)recordMenu('tools/'+tool);}}
+  window.addEventListener('hashchange',recordRoute);
+  window.addEventListener('guild-calculator-change',()=>{if(location.hash.startsWith('#tools'))recordRoute();});
+  window.addEventListener('guild-nickname-change',recordRoute);
+  recordRoute();
   setInterval(()=>{if(!document.hidden)refresh();},60000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
   window.addEventListener('pageshow',refresh);

@@ -22,11 +22,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Collect recent recommended posts
         run: python3 .github/scripts/collect-community-news.py community-news.json
+      - name: Collect recent posts including normal posts
+        run: python3 .github/scripts/collect-community-news.py community-all-news.json --all
       - name: Save refreshed list
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add community-news.json
+          git add community-news.json community-all-news.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh community news'
             git pull --rebase origin main

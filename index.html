@@ -13,7 +13,7 @@
   <script type="module" src="probabilities.js?v=20261020-187"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="browser-nickname.js?v=20261020-186" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261020-189" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261021-195" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-172"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-172"></script>
   <script type="module" src="member-distributions.js?v=20261018-171"></script>
@@ -33,8 +33,8 @@
   <script type="module" src="astrology-calculator.js?v=20261019-177"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
-  <script src="visitors.js?v=20261007-65" defer></script>
-  <script src="admin-menu-statistics.js?v=20261007-64" defer></script>
+  <script src="visitors.js?v=20261020-195" defer></script>
+  <script src="admin-menu-statistics.js?v=20261020-195" defer></script>
   <script src="guestbook.js?v=20261018-169" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261018-156"></script>
@@ -43,8 +43,10 @@
   <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
   <script src="main-menu-share.js?v=20261018-164" defer></script>
-  <link rel="stylesheet" href="guild-overviews.css?v=20261020-191">
-  <script type="module" src="guild-overviews.js?v=20261020-192"></script>
+  <link rel="stylesheet" href="guild-overviews.css?v=20261021-195">
+  <script type="module" src="guild-overviews.js?v=20261021-195"></script>
+  <script type="module" src="community-page.js?v=20261021-195"></script>
+  <link rel="stylesheet" href="dashboard-refinement.css?v=20261021-195">
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -69,21 +71,21 @@
       <div class="visitor-counter"><button id="guestbook-open" type="button" aria-label="출석체크 방명록 열기" title="출석체크" aria-haspopup="dialog"><span class="attendance-label"><i data-lucide="footprints"></i><span>출석체크</span></span><span class="attendance-visitors"><span class="visitor-today-mark" aria-hidden="true"><i data-lucide="calendar-days"></i><span>Today</span></span><strong id="visitor-count" aria-label="오늘 방문자 수" aria-live="polite">-</strong></span></button></div>
       <div class="alarm-reception"><button id="alarm-open" class="alarm-register-link" data-tab="alarms" type="button"><i data-lucide="alarm-clock"></i><span>알람 등록</span></button><small id="alarm-toggle-label" class="visually-hidden" aria-hidden="true">Off</small><button id="alarm-toggle" type="button" role="switch" aria-checked="false" aria-label="알람 수신" title="알람 수신 켜기">Off</button></div>
     </div>
-    <button id="suggest-tool" class="secondary-button" type="button"><i data-lucide="message-square-plus"></i>편의 기능 건의하기</button>
-    <a class="official-home-link" href="https://zeus.com2us.com/" target="_blank" rel="noopener noreferrer"><span>제우스 공식 홈페이지로 이동</span><i data-lucide="external-link" aria-hidden="true"></i></a>
+    <div class="sidebar-external-links"><a class="official-home-link" href="https://zeus.com2us.com/" target="_blank" rel="noopener noreferrer"><span>제우스 공홈</span><i data-lucide="external-link" aria-hidden="true"></i></a><button class="community-home-link" data-tab="community" type="button"><i data-lucide="messages-square" aria-hidden="true"></i><span>디시글 모아보기</span></button></div>
     </div>
   </aside>
   <div class="workspace">
     <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="header-nickname" class="nickname-picker"></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
+      <section id="community" class="overview-page" hidden aria-labelledby="community-heading"><div class="page-heading"><div><h1 id="community-heading">디시글 모아보기</h1><p>제우스 오만의 신 갤러리 · 일반글과 개념글 · 최근 120개</p></div></div><div id="community-content"></div></section>
       <section id="profile" class="overview-page" hidden aria-labelledby="profile-heading">
         <div class="page-heading"><div><h1 id="profile-heading">내 정보</h1><p id="profile-caption">닉네임 선택</p></div></div>
         <div id="profile-login"><h2>닉네임 선택</h2><div id="profile-nickname" class="nickname-picker"></div><p id="profile-selection-status" role="status"></p></div>
         <div id="profile-content" hidden></div>
       </section>
       <section id="weekly" class="overview-page" hidden aria-labelledby="weekly-heading">
-        <div class="page-heading"><div><h1 id="weekly-heading">한 주 요약</h1><p id="weekly-caption"></p></div><label class="overview-week-control" for="overview-week">기간<select id="overview-week"></select></label></div>
+        <div class="page-heading"><div><h1 id="weekly-heading">한 주 요약</h1><p id="weekly-caption"></p></div><div class="overview-week-navigation"><button id="overview-week-previous" class="icon-button" type="button" title="이전 주" aria-label="이전 주"><i data-lucide="chevron-left"></i></button><label class="overview-week-control" for="overview-week"><span class="visually-hidden">기간</span><select id="overview-week"></select></label><button id="overview-week-next" class="icon-button" type="button" title="다음 주" aria-label="다음 주"><i data-lucide="chevron-right"></i></button></div></div>
         <div id="weekly-content"></div>
       </section>
       <section id="rules" hidden>
@@ -121,7 +123,7 @@
             </div>
             <p class="admin-period-note">한국시간 05:00에 날짜가 바뀝니다. 한 주는 월요일 05:00부터 다음 월요일 05:00까지입니다. 브라우저·기기가 다르거나 저장 정보를 지우면 별도 방문자로 집계될 수 있습니다.</p>
           </div>
-          <section class="admin-menu-statistics"><div class="admin-period-heading"><h2>메뉴 클릭 순위</h2><label>기간<select id="admin-menu-days"><option value="0">전체</option><option value="1">오늘</option><option value="7">최근 7일</option><option value="30" selected>최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option></select></label></div><p id="admin-menu-status" role="status"></p><div class="admin-statistics-table"><table class="menu-statistics-table"><thead><tr><th scope="col">메뉴</th><th scope="col">클릭 수</th><th scope="col">고유 브라우저</th><th scope="col">비율</th></tr></thead><tbody id="admin-menu-rows"></tbody></table></div><p id="admin-menu-note" class="admin-period-note"></p></section>
+          <section class="admin-menu-statistics"><div class="admin-period-heading"><h2>메뉴 조회 순위</h2><label>기간<select id="admin-menu-days"><option value="0">전체</option><option value="1">오늘</option><option value="7">최근 7일</option><option value="30" selected>최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option></select></label></div><p id="admin-menu-status" role="status"></p><div class="admin-statistics-table"><table class="menu-statistics-table"><thead><tr><th scope="col">메뉴</th><th scope="col">조회수</th><th scope="col">고유 브라우저</th><th scope="col">비율</th></tr></thead><tbody id="admin-menu-rows"></tbody></table></div><p id="admin-menu-note" class="admin-period-note"></p><details class="admin-menu-people"><summary>선택 닉네임별 클릭 현황</summary><div class="admin-statistics-table"><table><thead><tr><th scope="col">닉네임</th><th scope="col">메뉴</th><th scope="col">조회수</th><th scope="col">최근 클릭</th></tr></thead><tbody id="admin-menu-actors"></tbody></table></div></details></section>
           <section class="admin-guestbook"><div class="admin-period-heading"><h2>날짜별 방명록</h2><div class="admin-guestbook-controls"><label>날짜<input id="guestbook-day" type="date"></label><button id="guestbook-refresh" class="icon-button" type="button" title="방명록 새로고침" aria-label="방명록 새로고침"><i data-lucide="refresh-cw"></i></button></div></div><p id="admin-guestbook-status" role="status"></p><div class="admin-statistics-table"><table class="guestbook-table"><thead><tr><th scope="col">작성 시각</th><th scope="col">닉네임</th><th scope="col">메모</th></tr></thead><tbody id="admin-guestbook-rows"></tbody></table></div><button id="guestbook-more" type="button" class="secondary-button" hidden>더 보기</button><p class="admin-period-note">방명록 날짜도 한국시간 05:00 기준입니다. 닉네임은 작성자가 입력한 이름이며 본인 인증 기록은 아닙니다.</p></section>
           <section class="admin-suggestions"><div class="admin-period-heading"><h2>편의 기능 건의</h2><button id="suggestions-refresh" class="icon-button" type="button" title="건의 새로고침" aria-label="건의 새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="admin-suggestions-status" role="status"></p><div id="admin-suggestions-list"></div><button id="suggestions-more" type="button" class="secondary-button" hidden>더 보기</button></section>
         </div>
@@ -163,6 +165,7 @@
         </section>
       </section>
       <section id="tools" hidden>
+        <div class="page-heading tools-page-heading"><h1>편의 기능</h1><button id="suggest-tool" class="secondary-button" type="button" title="편의 기능 건의하기" aria-label="편의 기능 건의하기"><i data-lucide="message-square-plus"></i><span>건의하기</span></button></div>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능">
           <button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button>
           <button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button>
@@ -171,7 +174,7 @@
           <button id="astrology-heading" type="button" role="tab" data-calculator="astrology" aria-selected="false" aria-controls="astrology-panel" tabindex="-1"><i data-lucide="sparkles"></i><span>점성술 계산기</span><small id="astrology-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button>
           <button id="probabilities-heading" type="button" role="tab" data-calculator="probabilities" aria-selected="false" aria-controls="probabilities" tabindex="-1"><i data-lucide="list-ordered"></i><span>확률표</span></button>
         </div></div>
-        <div class="page-heading"><div class="calculator-title"><h1 id="calculator-heading">컬렉션 기대값 계산기</h1><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
+        <div class="page-heading"><div class="calculator-title"><h2 id="calculator-heading">컬렉션 기대값 계산기</h2><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
         <div id="probabilities" class="calculator-panel" role="tabpanel" aria-labelledby="probabilities-heading" hidden>
           <div class="probability-toolbar"><a id="probability-original" class="secondary-button" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>공식 원문</a></div>
           <div class="probability-layout">

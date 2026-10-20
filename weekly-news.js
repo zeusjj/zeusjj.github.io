@@ -2,7 +2,7 @@ import {officialBody} from './official-news-body.js?v=20261019-181';
 const api='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/';
 const gallery='https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride&exception_mode=recommend';
 const sources=[['notices','길드 공지',api+'notices'],['tips','팁 공유',api+'tips'],['official','공식 소식','official-news.json'],['community','개념글','community-news.json']];
-let cached=null,pending=null,cachedAt=0;
+const feedCache=new Map();
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 export function newsItems(kind,data){
   const items=kind==='notices'?data.notices:kind==='tips'?data.tips:data.items;
@@ -23,24 +23,27 @@ export function newsItems(kind,data){
     return [{id:kind+':'+post.id,kind,title:post.title,time,href,post,date:new Date(time+9*3600000).toISOString().slice(0,10)}];
   });
 }
-async function load(){
-  if(cached&&Date.now()-cachedAt<300000)return cached;
-  if(pending)return pending;
-  pending=Promise.all(sources.map(async([kind,label,url])=>{
+async function load(communityOnly=false,force=false){
+  const key=communityOnly?'all':'weekly',state=feedCache.get(key)||{};
+  if(!force&&state.cached&&Date.now()-state.cachedAt<300000)return state.cached;
+  if(state.pending)return state.pending;
+  const selectedSources=communityOnly?[['community','전체 게시글','community-all-news.json']]:sources;
+  state.pending=Promise.all(selectedSources.map(async([kind,label,url])=>{
     try{const response=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error();const data=await response.json();return {kind,label,items:newsItems(kind,data),collectedAt:data.collectedAt,coverageStart:data.coverageStart};}
     catch{return {kind,label,items:[],error:true};}
-  })).then(result=>{cached=result;cachedAt=Date.now();return result;}).finally(()=>pending=null);
-  return pending;
+  })).then(result=>{state.cached=result;state.cachedAt=Date.now();return result;}).finally(()=>state.pending=null);
+  feedCache.set(key,state);return state.pending;
 }
-export function mountWeeklyNews(host,{start,end}){
+export function mountWeeklyNews(host,{start,end,communityOnly=false}){
   const tools=node('div',undefined,'weekly-news-tools'),status=node('p','소식을 불러오는 중입니다.','overview-note'),refresh=node('button',undefined,'icon-button'),icon=node('i');
-  refresh.type='button';refresh.title='주간 글 새로고침';refresh.setAttribute('aria-label',refresh.title);icon.dataset.lucide='refresh-cw';refresh.append(icon);tools.append(status,refresh);host.append(tools);
+  refresh.type='button';refresh.title=communityOnly?'디시글 새로고침':'주간 글 새로고침';refresh.setAttribute('aria-label',refresh.title);icon.dataset.lucide='refresh-cw';refresh.append(icon);tools.append(status,refresh);host.append(tools);
   let records=[],feeds=[];status.role='status';
-  const groups=[['guild','우리홈피글',['notices','tips']],['community','디시글',['community']],['official','공홈글',['official']]].map(([key,title,kinds])=>{
+  const definitions=communityOnly?[['community','최근 게시글',['community']]]:[['guild','우리홈피글',['notices','tips']],['community','디시글',['community']],['official','공홈글',['official']]];
+  const groups=definitions.map(([key,title,kinds])=>{
     const section=node('section',undefined,'weekly-news-group'),heading=node('div',undefined,'weekly-news-group-heading'),counter=node('span'),list=node('ul',undefined,'weekly-news-list'),more=node('button','더 보기','secondary-button'),message=node('p',undefined,'overview-note');
     section.dataset.newsGroup=key;heading.append(node('h3',title),counter);section.append(heading,message,list,more);host.append(section);counter.setAttribute('aria-live','polite');more.type='button';more.hidden=true;more.setAttribute('aria-label',title+' 더 보기');
     const group={key,kinds,counter,list,more,message,visible:7};more.addEventListener('click',()=>{group.visible+=7;render();});
-    if(key==='community'){const original=node('a','갤러리 개념글 원문','overview-link');original.href=gallery;original.target='_blank';original.rel='noopener noreferrer';section.append(original);}
+    if(key==='community'){const original=node('a',communityOnly?'전체 게시판 원문':'갤러리 개념글 원문','overview-link');original.href=communityOnly?gallery.replace('&exception_mode=recommend',''):gallery;original.target='_blank';original.rel='noopener noreferrer';section.append(original);}
     return group;
   });
   const freshness=node('p',undefined,'overview-note');host.append(freshness);
@@ -52,7 +55,7 @@ export function mountWeeklyNews(host,{start,end}){
       for(const record of selected.slice(0,group.visible)){
       const previous=existing.get(record.id),signature=JSON.stringify(record.post);
       if(previous?.dataset.newsSignature===signature){list.append(previous);continue;}
-      const item=node('li'),details=node('details',undefined,'weekly-news-entry'),summary=node('summary'),tag=node('span',sources.find(([kind])=>kind===record.kind)[1],'weekly-news-tag'),title=node('span',record.title,'weekly-news-title'),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));
+      const item=node('li'),details=node('details',undefined,'weekly-news-entry'),summary=node('summary'),tag=node('span',communityOnly?(record.post.recommended?'개념글':'일반글'):sources.find(([kind])=>kind===record.kind)[1],'weekly-news-tag'),title=node('span',record.title,'weekly-news-title'),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));
       item.dataset.newsSignature=signature;
       details.dataset.newsId=record.id;
       const chevron=node('i',undefined,'weekly-news-chevron');chevron.dataset.lucide='chevron-down';
@@ -60,6 +63,7 @@ export function mountWeeklyNews(host,{start,end}){
       let rendered=false;
       details.addEventListener('toggle',()=>{
         if(!details.open||rendered)return;rendered=true;
+        if(record.kind==='notices'||record.kind==='tips')window.guildRecordPostView?.(record.kind,record.post.id).catch(()=>{});
         const body=node('div',undefined,'entry-body official-news-content weekly-news-body'),post=record.post;
         if(record.kind==='community'){
           if(typeof post.contentText==='string'&&post.contentText.trim())body.append(node('p',post.contentText,'weekly-news-text'));
@@ -85,7 +89,7 @@ export function mountWeeklyNews(host,{start,end}){
     const dateFormat=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
     freshness.textContent=feeds.filter(feed=>Number.isFinite(Date.parse(feed.collectedAt))).map(feed=>feed.label+' '+dateFormat.format(new Date(feed.collectedAt))+' 수집').join(' · ');
   }
-  if(location.hash.split('/')[0]!=='#weekly'){status.textContent='';return;}
-  function fetchNews(){refresh.disabled=true;status.textContent='소식을 불러오는 중입니다.';load().then(result=>{if(!host.isConnected)return;feeds=result;const seen=new Set();records=feeds.flatMap(feed=>feed.items).filter(record=>record.date>=start&&record.date<=end&&!seen.has(record.id)&&seen.add(record.id)).sort((a,b)=>b.time-a.time||a.id.localeCompare(b.id));render();}).finally(()=>refresh.disabled=false);}
-  refresh.addEventListener('click',()=>{cachedAt=0;fetchNews();});fetchNews();
+  if(location.hash.split('/')[0]!== (communityOnly?'#community':'#weekly')){status.textContent='';return;}
+  function fetchNews(force=false){refresh.disabled=true;status.textContent='소식을 불러오는 중입니다.';load(communityOnly,force).then(result=>{if(!host.isConnected)return;feeds=result;const seen=new Set();records=feeds.flatMap(feed=>feed.items).filter(record=>record.date>=start&&record.date<=end&&!seen.has(record.id)&&seen.add(record.id)).sort((a,b)=>b.time-a.time||a.id.localeCompare(b.id));render();}).finally(()=>refresh.disabled=false);}
+  refresh.addEventListener('click',()=>fetchNews(true));fetchNews();
 }

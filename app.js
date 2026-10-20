@@ -1,6 +1,6 @@
 function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.hash))history.replaceState(null,'','#tools/probabilities'+location.hash.slice('#probabilities'.length));}
 normalizeProbabilityRoute();
-const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly'];
+const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community'];
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -194,25 +194,29 @@ function showNoticeEditor(record=null){
   document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
 }
 function closeNoticeForms(){if(noticeSaving)return;noticeRich.reset();noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
-const boardViews=new Map(),viewRequests=new Map();
+const boardViews=new Map(),viewRequests=new Map(),boardViewClaims=new Set();
+window.guildRecordPostView=async(board,id)=>{
+  const visitorId=await window.guildVisitorIdentity(),nickname=window.GuildNickname?.get()||'익명';
+  const response=await fetch((board==='tips'?tipsApi:noticesApi)+'/'+encodeURIComponent(id)+'/view',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitorId,nickname}),signal:AbortSignal.timeout(10000)});
+  if(!response.ok)throw new Error('View unavailable');const data=await response.json();if(!Number.isSafeInteger(data.views)||data.views<0)throw new Error('Invalid view count');return data;
+};
 function bindBoardViews(entry,summary,record,board){
   const key='guild-post-view-v1:'+board+':'+record.id;
   const sharedKey='guild-post-view-v2:'+board+':'+record.id;
-  const recentView=()=>{try{const saved=JSON.parse(localStorage.getItem(sharedKey));if(Number.isSafeInteger(saved?.views)&&saved.views>0&&Number.isFinite(saved.viewedAt)&&Date.now()-saved.viewedAt<86400000)return saved.views;}catch{}return 0;};
   let stored;try{stored=Number(sessionStorage.getItem(key));}catch{}
   if(stored>0)boardViews.set(key,stored);
   const badge=element('span',undefined,'entry-views'),icon=element('i'),number=element('span');icon.dataset.lucide='eye';badge.append(icon,number);summary.append(badge);
   const display=()=>{const views=Math.max(Number(record.views)||0,boardViews.get(key)||0);number.textContent=views.toLocaleString('ko-KR');badge.setAttribute('aria-label',`조회수 ${views}`);badge.title='조회수';};display();
   const track=async()=>{
     if(!entry.open || entry.closest('section')?.hidden)return;
-    if(boardViews.has(key)){display();return;}
+    const claim=key+':'+(window.GuildNickname?.get()||'익명');
+    if(boardViewClaims.has(claim)){display();return;}
     if(!viewRequests.has(key)){
       const register=async()=>{
-        const recent=recentView();if(recent){boardViews.set(key,recent);return;}
-        const response=await fetch((board==='tips'?tipsApi:noticesApi)+'/'+encodeURIComponent(record.id)+'/view',{method:'POST',signal:AbortSignal.timeout(10000)});
-        if(!response.ok)throw new Error('View unavailable');const data=await response.json();
+        const data=await window.guildRecordPostView(board,record.id);
         if(!Number.isSafeInteger(data.views) || data.views<1)throw new Error('Invalid view count');
         boardViews.set(key,data.views);try{sessionStorage.setItem(key,String(data.views));}catch{}
+        boardViewClaims.add(claim);
         try{localStorage.setItem(sharedKey,JSON.stringify({views:data.views,viewedAt:Date.now()}));}catch{}
       };
       // Serialize registrations across tabs before checking the shared cooldown.
@@ -570,7 +574,8 @@ function renderMembers(data, query='') {
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
   data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:data.members.map(row=>order.map(index=>row[index]))};
   const participationIndex=data.headers.indexOf('단톡')+1;
-  const scores=new Map(calculateParticipation(source).rows.map(record=>[record.name,record.score]));
+  const participationRecords=calculateParticipation(source).rows;
+  const scores=new Map(participationRecords.map(record=>[record.name,record.score]));
   data.headers.splice(participationIndex,0,'참여율');data.dates.splice(participationIndex,0,null);
   data.members.forEach(row=>row.splice(participationIndex,0,scores.get(row[data.headers.indexOf('닉네임')])??null));
   memberData=data;
@@ -625,12 +630,17 @@ function renderMembers(data, query='') {
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>{cell.hidden=hiddenColumn(index);if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';cell.textContent=typeof rows[row.sectionRowIndex][index]==='number'?new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(rows[row.sectionRowIndex][index]):'—';}}));
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach(markWeek));
   table.append(body);document.getElementById('member-count').textContent=`${data.members.length} / 60 명`;
+  [...body.rows].forEach((tr,index)=>{
+    const name=rows[index][nameIndex],record=participationRecords.find(record=>record.name===name);tr.dataset.memberName=name;tr.classList.toggle('member-is-me',name===window.GuildNickname?.get());
+    tr.querySelector('.member-participation').dataset.state=record?.score===null||record?.incomplete?'incomplete':record?.score>=75-1e-9?'qualified':'below';
+  });
   refreshMenuNew();
   document.getElementById('empty-search').hidden=rows.length>0;
   window.dispatchEvent(new CustomEvent('guild-members-data',{detail:source}));
   refreshIcons();
   requestAnimationFrame(centerMemberToday);
 }
+window.addEventListener('guild-nickname-change',()=>document.querySelectorAll('#member-table tbody tr').forEach(row=>row.classList.toggle('member-is-me',row.dataset.memberName===window.GuildNickname?.get())));
 function renderDistribution(groups) {
   const target=document.getElementById('distribution-content');
   for(const group of groups){const section=element('section',undefined,'distribution-group');const heading=element('div',undefined,'distribution-heading');heading.append(element('h2',group.title),element('span',group.schedule&&!group.records.length?'분배 예정':`${group.records.length}건`,'record-count'));section.append(heading);

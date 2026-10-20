@@ -80,6 +80,18 @@
 .weekly-news-list time{text-align:right;font-size:11px;color:var(--muted)}
 .weekly-news-list+.secondary-button{margin-top:14px}
 .probability-toolbar{display:flex;justify-content:flex-end;margin-bottom:16px}
+.tools-page-heading{align-items:center;flex-wrap:nowrap}
+.tools-page-heading #suggest-tool{flex-shrink:0;min-height:44px;margin-left:auto}
+.tools-page-heading #suggest-tool svg{width:16px;height:16px}
+.calculator-title #calculator-heading{margin:0;font-size:22px;min-width:0;overflow-wrap:anywhere}
+#tools>.calculator-switcher{margin-top:0}
+.sidebar-external-links{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:16px;flex-shrink:0}
+.sidebar-external-links .official-home-link,.sidebar-external-links .community-home-link{display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:44px;margin:0;padding:8px 3px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit;font-size:10px;text-decoration:none;cursor:pointer;white-space:nowrap;box-shadow:none}
+.sidebar-external-links svg{width:13px;height:13px;flex-shrink:0}
+.sidebar-external-links .official-home-link:hover,.sidebar-external-links .community-home-link:hover{background:var(--hover)}
+.sidebar-external-links .community-home-link.active{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.sidebar-external-links :is(a,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:700px){.sidebar-external-links{margin:0 0 14px}.sidebar-external-links .official-home-link,.sidebar-external-links .community-home-link{font-size:12px}}
 @media(max-width:1050px){
   .overview-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.overview-columns{grid-template-columns:1fr;gap:0}
   .workspace-bar,.workspace:has(#members:not([hidden])) .workspace-bar{display:grid;grid-template-columns:minmax(0,1fr) 156px;grid-template-areas:'crumb crumb' 'nickname theme';height:auto;min-height:56px;padding:8px 12px;gap:8px 10px}

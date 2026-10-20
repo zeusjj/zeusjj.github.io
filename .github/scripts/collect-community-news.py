@@ -14,8 +14,9 @@ AGENT='GuildNewsReader/1.0 (+https://zeusjj.github.io/)'
 KST=timezone(timedelta(hours=9))
 
 class Posts(HTMLParser):
-    def __init__(self):
+    def __init__(self,recommended_only=True):
         super().__init__(convert_charrefs=True)
+        self.recommended_only=recommended_only
         self.items=[]
         self.row=None
         self.capture=False
@@ -24,7 +25,10 @@ class Posts(HTMLParser):
         attrs=dict(attributes)
         if tag=='tr':
             number=attrs.get('data-no','')
-            self.row={'id':number,'title':'','publishedAt':None,'url':None} if number.isdigit() and 'icon_recom' in attrs.get('data-type','') else None
+            kind=attrs.get('data-type','')
+            accepted='icon_recom' in kind if self.recommended_only else kind.startswith('icon_') and not any(value in kind for value in ['notice','ad','survey'])
+            self.row={'id':number,'title':'','publishedAt':None,'url':None} if number.isdigit() and accepted else None
+            if self.row is not None and not self.recommended_only:self.row['recommended']='icon_recom' in kind
             self.capture=False
         if self.row is None:return
         if tag=='td' and 'gall_date' in attrs.get('class','').split():
@@ -93,24 +97,26 @@ def request(url):
     with urlopen(Request(url,headers={'User-Agent':AGENT}),timeout=20) as response:
         return response.read().decode('utf-8')
 
-def collect(now=None,previous=None):
+def collect(now=None,previous=None,recommended_only=True,limit=None):
     now=now or datetime.now(timezone.utc)
     cutoff=now-timedelta(days=14)
     robots=RobotFileParser()
     robots.parse(request(ORIGIN+'/robots.txt').splitlines())
     items={}
     for page in range(1,11):
-        url=ORIGIN+'/mgallery/board/lists/?'+urlencode({'id':GALLERY,'exception_mode':'recommend','page':page})
+        query={'id':GALLERY,'page':page}
+        if recommended_only:query['exception_mode']='recommend'
+        url=ORIGIN+'/mgallery/board/lists/?'+urlencode(query)
         if not robots.can_fetch(AGENT,url):raise RuntimeError('Gallery disallows collection')
-        parser=Posts();parser.feed(request(url))
+        parser=Posts(recommended_only);parser.feed(request(url))
         if not parser.items:raise RuntimeError('No recommended rows found; keeping previous data')
         for post in parser.items:
             published=datetime.fromisoformat(post['publishedAt'])
             if cutoff<=published<=now:items[post['id']]=post
-        if min(datetime.fromisoformat(p['publishedAt']) for p in parser.items)<cutoff:break
+        if (limit and len(items)>=limit) or min(datetime.fromisoformat(p['publishedAt']) for p in parser.items)<cutoff:break
         time.sleep(1)
     if not items:raise RuntimeError('No recent recommended posts; keeping previous data')
-    records=sorted(items.values(),key=lambda p:p['publishedAt'],reverse=True)
+    records=sorted(items.values(),key=lambda p:(p['publishedAt'],int(p['id'])),reverse=True)[:limit]
     cached={post['id']:post for post in (previous or {}).get('items',[])}
     for post in records:
         old=cached.get(post['id'],{})
@@ -129,13 +135,19 @@ def collect(now=None,previous=None):
         except Exception as error:
             post.update(contentText='',contentStatus='unavailable')
             print(f"Could not collect text for {post['id']}: {type(error).__name__}",file=sys.stderr)
-    return {'collectedAt':now.isoformat(),'days':14,'coverageStart':min(p['publishedAt'][:10] for p in records),'source':ORIGIN+'/mgallery/board/lists/?id='+GALLERY+'&exception_mode=recommend','items':records}
+    return {'collectedAt':now.isoformat(),'days':14,'coverageStart':min(p['publishedAt'][:10] for p in records),'source':ORIGIN+'/mgallery/board/lists/?id='+GALLERY+('&exception_mode=recommend' if recommended_only else ''),'items':records}
 
 if __name__=='__main__':
     target=Path(sys.argv[1] if len(sys.argv)>1 else 'community-news.json')
     try:previous=json.loads(target.read_text(encoding='utf-8'))
     except (OSError,ValueError):previous=None
-    data=collect(previous=previous)
+    all_posts='--all' in sys.argv
+    if all_posts:
+        try:
+            recommended=json.loads(target.with_name('community-news.json').read_text(encoding='utf-8'))
+            previous={'items':recommended['items']+(previous or {}).get('items',[])}
+        except (OSError,ValueError,KeyError):pass
+    data=collect(previous=previous,recommended_only=not all_posts,limit=120 if all_posts else None)
     temporary=target.with_suffix('.tmp')
     temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     temporary.replace(target)
