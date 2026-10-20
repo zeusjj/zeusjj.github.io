@@ -21,7 +21,7 @@ for(const stat of ['', '공격력',...stats.filter(s=>s!=='공격력')]){const o
 section.querySelector('.astrology-budget-note').textContent='현재 단계와 보유량을 기준으로 먼저 점성술을 진행할 별자리입니다. 결과에 따라 추천 대상은 달라질 수 있습니다. 우선 스탯이 없으면 달성·완성 스탯 수치의 단순 합계를, 선택하면 해당 스탯만 비교합니다. 실제 전투력 환산은 아닙니다.';
 let worker=null,sequence=0,timer;
 const percent=value=>value>0&&value<.0005?'0.1% 미만':value<1&&value>.9995?'99.9% 초과':(value*100).toFixed(1)+'%';
-const gain=value=>value>0&&value<.005?'0.01 미만':number.format(value);
+const gain=value=>number.format(value);
 function update(){
   clearTimeout(timer);worker?.terminate();worker=null;sequence++;
   const id=sequence,budget=Number(slider.value),counts=stars.map(s=>Number(document.getElementById('astrology-'+s.id).value)),stat=select.value,statLabel=stat||'스탯 총량';
@@ -38,12 +38,12 @@ function update(){
         worker?.terminate();worker=null;
         if(data.error){status.textContent='추천 계산을 완료하지 못했습니다.';return;}
         const {choice,best,comparisons}=data.result;
-        status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+statLabel+' 추가 기대값이 없습니다.'):'먼저 올릴 별자리: '+stars[choice].name+' · 예산 전체 '+statLabel+' 기대 증가 +'+gain(best);
+        status.textContent=choice<0?(counts.every((k,i)=>k===stars[i].central)?'모든 별자리 활성화 완료':'이 예산으로 얻을 수 있는 '+statLabel+' 추가 기대값이 없습니다.'):'먼저 올릴 별자리: '+stars[choice].name+(best>=.1?' · 예산 전체 '+statLabel+' 기대 증가 +'+gain(best):'');
         const rows=document.createDocumentFragment();
         stars.forEach((s,i)=>{
           const k=counts[i],comparison=comparisons[i],row=document.createElement('tr');row.dataset.recommended=String(i===choice);
           const nextChance=k===s.central?'완료':document.querySelector('[aria-label="'+s.name+'"] .astrology-roll-cost').textContent.split('중앙 추가 등장 ')[1];
-          const expected=Object.entries(comparison.effects).filter(([,v])=>v>0).map(([name,value])=>name+' +'+gain(value));
+          const expected=Object.entries(comparison.effects).filter(([,v])=>v>=.1).map(([name,value])=>name+' +'+gain(value));
           const cells=[s.name+' '+k+'/'+s.central,nextChance,k===s.central?'완료':percent(comparison.next),k===s.central?'완료':percent(comparison.completion),k===s.central?'—':s.effects[k][0]+' +'+s.effects[k][1],s.completion.map(e=>e[0]+' +'+e[1]),expected.length?expected:['—']];
           const headers=section.querySelectorAll('thead th');
           cells.forEach((text,j)=>{
