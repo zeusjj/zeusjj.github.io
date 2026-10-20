@@ -13,7 +13,9 @@
   <script type="module" src="probabilities.js?v=20261020-187"></script>
   <link rel="stylesheet" href="alarms.css?v=20261005-52">
   <script src="browser-nickname.js?v=20261020-186" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261021-195" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="member-auth.js?v=20261021-196" defer></script>
+  <link rel="stylesheet" href="member-auth.css?v=20261021-196">
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261021-196" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261018-172"></script>
   <script type="module" src="member-growth-achievements.js?v=20261018-172"></script>
   <script type="module" src="member-distributions.js?v=20261018-171"></script>
@@ -33,7 +35,7 @@
   <script type="module" src="astrology-calculator.js?v=20261019-177"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
-  <script src="visitors.js?v=20261020-195" defer></script>
+  <script src="visitors.js?v=20261021-196" defer></script>
   <script src="admin-menu-statistics.js?v=20261020-195" defer></script>
   <script src="guestbook.js?v=20261018-169" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
@@ -43,9 +45,9 @@
   <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
   <script src="main-menu-share.js?v=20261018-164" defer></script>
-  <link rel="stylesheet" href="guild-overviews.css?v=20261021-195">
-  <script type="module" src="guild-overviews.js?v=20261021-195"></script>
-  <script type="module" src="community-page.js?v=20261021-195"></script>
+  <link rel="stylesheet" href="guild-overviews.css?v=20261021-196">
+  <script type="module" src="guild-overviews.js?v=20261021-196"></script>
+  <script type="module" src="community-page.js?v=20261021-196"></script>
   <link rel="stylesheet" href="dashboard-refinement.css?v=20261021-195">
 </head>
 <body>
@@ -78,10 +80,11 @@
     <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="header-nickname" class="nickname-picker"></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
+      <section id="login" hidden aria-labelledby="member-login-heading"><div class="page-heading"><h1 id="member-login-heading">로그인</h1></div><div id="member-login-page" class="member-login-mount"></div></section>
       <section id="community" class="overview-page" hidden aria-labelledby="community-heading"><div class="page-heading"><div><h1 id="community-heading">디시글 모아보기</h1><p>제우스 오만의 신 갤러리 · 일반글과 개념글 · 최근 120개</p></div></div><div id="community-content"></div></section>
       <section id="profile" class="overview-page" hidden aria-labelledby="profile-heading">
-        <div class="page-heading"><div><h1 id="profile-heading">내 정보</h1><p id="profile-caption">닉네임 선택</p></div></div>
-        <div id="profile-login"><h2>닉네임 선택</h2><div id="profile-nickname" class="nickname-picker"></div><p id="profile-selection-status" role="status"></p></div>
+        <div class="page-heading"><div><h1 id="profile-heading">내 정보</h1><p id="profile-caption">로그인 후 내 정보를 확인하세요.</p></div><div id="profile-viewer-controls" hidden><div id="profile-viewer" class="nickname-picker"></div><button id="profile-viewer-reset" class="icon-button" type="button" title="내 정보로 돌아가기" aria-label="내 정보로 돌아가기"><i data-lucide="x"></i></button></div></div>
+        <div id="profile-login"><div id="member-login-profile" class="member-login-mount"></div></div>
         <div id="profile-content" hidden></div>
       </section>
       <section id="weekly" class="overview-page" hidden aria-labelledby="weekly-heading">
@@ -305,5 +308,7 @@
     <div id="alarm-toasts" aria-live="polite" aria-atomic="false"></div>
     <footer>절대중립<span>아테나2 길드</span></footer>
   </div>
+  <dialog id="member-password-dialog" aria-labelledby="member-password-heading"><div class="member-password-heading"><h2 id="member-password-heading">비밀번호 변경</h2><button id="member-password-close" class="icon-button" type="button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></div><form id="member-password-form"><label>비밀번호<input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label><label>비밀번호 확인<input name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label><p>8~128자 · 닉네임과 다른 비밀번호</p><p id="member-password-status" role="status"></p><button type="submit">변경</button></form></dialog>
+  <span id="member-auth-status" class="visually-hidden" role="status" aria-live="polite"></span>
 </body>
 </html>

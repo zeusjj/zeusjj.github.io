@@ -23,6 +23,12 @@ export function events(data,through=koreaDay()){
 export function growthSeries(data,row,through=koreaDay()){
   return columns(data,h=>h==='성장도 기록',through).filter(c=>numeric(row[c.index])).map(c=>({date:c.date,value:row[c.index]}));
 }
+export function guildGrowthSeries(data,through=koreaDay()){
+  return columns(data,h=>h==='성장도 기록',through).map(column=>{
+    const values=data.members.map(row=>row[column.index]).filter(numeric);
+    return {date:column.date,value:values.reduce((sum,value)=>sum+value,0)/values.length,count:values.length};
+  });
+}
 export function weightedParticipation(data,through=koreaDay()){
   const activities=events(data,through),nameIndex=data.headers.indexOf('닉네임');
   if(!activities.length)return {lastDate:null,periods:[],rows:[]};

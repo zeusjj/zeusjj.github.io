@@ -38,7 +38,7 @@ export function mountWeeklyNews(host,{start,end,communityOnly=false}){
   const tools=node('div',undefined,'weekly-news-tools'),status=node('p','소식을 불러오는 중입니다.','overview-note'),refresh=node('button',undefined,'icon-button'),icon=node('i');
   refresh.type='button';refresh.title=communityOnly?'디시글 새로고침':'주간 글 새로고침';refresh.setAttribute('aria-label',refresh.title);icon.dataset.lucide='refresh-cw';refresh.append(icon);tools.append(status,refresh);host.append(tools);
   let records=[],feeds=[];status.role='status';
-  const definitions=communityOnly?[['community','최근 게시글',['community']]]:[['guild','우리홈피글',['notices','tips']],['community','디시글',['community']],['official','공홈글',['official']]];
+  const definitions=communityOnly?[['community','최근 게시글',['community']]]:[['guild','우리홈피글',['notices','tips']],['community','디시 이번주 개념글',['community']],['official','공홈글',['official']]];
   const groups=definitions.map(([key,title,kinds])=>{
     const section=node('section',undefined,'weekly-news-group'),heading=node('div',undefined,'weekly-news-group-heading'),counter=node('span'),list=node('ul',undefined,'weekly-news-list'),more=node('button','더 보기','secondary-button'),message=node('p',undefined,'overview-note');
     section.dataset.newsGroup=key;heading.append(node('h3',title),counter);section.append(heading,message,list,more);host.append(section);counter.setAttribute('aria-live','polite');more.type='button';more.hidden=true;more.setAttribute('aria-label',title+' 더 보기');
@@ -68,6 +68,15 @@ export function mountWeeklyNews(host,{start,end,communityOnly=false}){
         if(record.kind==='community'){
           if(typeof post.contentText==='string'&&post.contentText.trim())body.append(node('p',post.contentText,'weekly-news-text'));
           else body.append(node('p',post.contentStatus==='no-text'?'텍스트 본문이 없는 글입니다. 디시글 이미지는 표시하지 않습니다.':'본문을 불러오지 못했습니다. 원문에서 확인해주세요.','overview-note'));
+          if(communityOnly){
+            const comments=node('section',undefined,'community-comments');comments.append(node('h4','댓글'));
+            if(post.commentsStatus==='ok'&&Array.isArray(post.comments)){
+              const list=node('ul');for(const comment of post.comments){if(typeof comment?.text!=='string'||!comment.text.trim())continue;const item=node('li',(comment.reply?'ㄴ ':'')+comment.text);if(comment.reply)item.className='community-comment-reply';list.append(item);}comments.append(list);
+              if(!list.children.length)comments.append(node('p','표시할 텍스트 댓글이 없습니다.','overview-note'));
+              if(post.commentsTruncated)comments.append(node('p','댓글 일부만 표시합니다. 나머지는 원문에서 확인해주세요.','overview-note'));
+            }else comments.append(node('p','댓글을 불러오지 못했습니다. 원문에서 확인해주세요.','overview-note'));
+            body.append(comments);
+          }
         }
         else if(record.kind==='official'&&typeof post.content==='string')body.append(officialBody(post.content));
         else if(record.kind==='notices'||record.kind==='tips'){

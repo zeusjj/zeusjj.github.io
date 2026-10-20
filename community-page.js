@@ -1,4 +1,4 @@
-import {mountWeeklyNews} from './weekly-news.js?v=20261021-195';
+import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
 const host=document.getElementById('community-content');
 let mounted=false;
 function show(){

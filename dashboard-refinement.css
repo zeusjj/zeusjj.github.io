@@ -63,6 +63,12 @@
 .weekly-news-body .weekly-news-text{max-width:760px}
 .weekly-news-group-heading h3{font-size:16px}
 .admin-menu-people>summary{min-height:44px;padding:12px 0;font-size:13px;cursor:pointer}
+.community-comments{border-top:1px solid var(--line);margin-top:20px;padding-top:16px;max-width:760px}
+.community-comments h4{font-size:14px;margin:0 0 10px}
+.community-comments ul{list-style:none;padding:0;margin:0}
+.community-comments li{font-size:13px;line-height:1.8;padding:5px 0 5px 14px;position:relative;white-space:pre-wrap;overflow-wrap:anywhere}
+.community-comments li::before{content:'-';position:absolute;left:0;color:var(--muted)}
+.community-comments .community-comment-reply{padding-left:26px}
 #members .member-toolbar{display:grid;grid-template-columns:minmax(160px,260px) auto 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px}
 #members .member-toolbar .member-nickname-search{grid-column:1;grid-row:1;max-width:none;height:38px;justify-self:stretch}
 #members .member-toolbar .member-visibility-controls{grid-column:2;grid-row:1;display:flex;align-items:center;gap:16px}

@@ -1,6 +1,6 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261020-190';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261021-196';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
-import {mountWeeklyNews} from './weekly-news.js?v=20261021-195';
+import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -9,13 +9,12 @@ const signed=value=>Number.isFinite(value)?(value>0?'+':'')+format(value):'—';
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const link=(text,hash)=>{const node=el('a',text,'overview-link');node.href=hash;return node;};
 const icons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
-let source,report,chartSeries=[],today=koreaDay();
+let source,report,chartSeries=[],guildSeries=[],neighborSeries=[],viewingName='',today=koreaDay();
 const profile=document.getElementById('profile-content'),weekly=document.getElementById('weekly-content'),week=document.getElementById('overview-week');
 const names=()=>source?source.members.map(row=>row[report.nameIndex]):[];
-const choose=name=>{GuildNickname.set(name);};
-const headerPicker=nicknamePicker(document.getElementById('header-nickname'),{names,get:()=>GuildNickname.get(),choose,label:'내 닉네임',anonymous:true});
-const profilePicker=nicknamePicker(document.getElementById('profile-nickname'),{names,get:()=>GuildNickname.get(),choose:name=>{choose(name);requestAnimationFrame(()=>{document.getElementById('profile-heading').tabIndex=-1;document.getElementById('profile-heading').focus({preventScroll:true});});},label:'내 정보 닉네임'});
-headerPicker.sync();profilePicker.sync();
+const viewerPicker=nicknamePicker(document.getElementById('profile-viewer'),{names,get:()=>viewingName,choose:name=>{viewingName=name;viewerPicker.sync();renderProfile();},label:'다른 사람 정보 보기'});
+viewerPicker.input.placeholder='다른 사람 정보 보기';viewerPicker.sync();
+document.getElementById('profile-viewer-reset').addEventListener('click',()=>{viewingName='';viewerPicker.sync();renderProfile();viewerPicker.input.focus({preventScroll:true});});
 
 function section(host,title){const section=el('section',undefined,'overview-section');section.append(el('h2',title));host.append(section);return section;}
 function note(host,text){host.append(el('p',text,'overview-note'));}
@@ -37,10 +36,11 @@ function badge(text,kind){const node=el('span',text,'overview-badge');node.datas
 function rankingCell(row){return row?(row.joint?'공동 ':'')+row.rank+'위 / '+row.total+'명':'집계 제외';}
 function renderProfile(){
   if(!source)return;
-  const name=GuildNickname.get(),row=source.members.find(row=>row[report.nameIndex]===name);
-  document.getElementById('profile-login').hidden=!!row;profile.hidden=!row;profile.replaceChildren();chartSeries=[];
-  document.getElementById('profile-selection-status').textContent=name&&!row?'선택한 닉네임의 현재 길드 기록이 없습니다.':'';
-  document.getElementById('profile-caption').textContent=row?name+' · '+row[report.classIndex]:'닉네임 선택';
+  const user=window.GuildAuth?.user,name=user?(viewingName||user.nickname):'',row=source.members.find(row=>row[report.nameIndex]===name);
+  document.getElementById('profile-login').hidden=!!user;profile.hidden=!user;profile.replaceChildren();chartSeries=[];guildSeries=[];neighborSeries=[];
+  document.getElementById('profile-viewer-controls').hidden=!user;
+  document.getElementById('profile-viewer-reset').style.visibility=viewingName?'visible':'hidden';
+  document.getElementById('profile-caption').textContent=row?name+' · '+row[report.classIndex]:user?'현재 길드 기록이 없습니다.':'로그인 후 내 정보를 확인하세요.';
   if(!row)return;
   const history=growthSeries(source,row,today),latest=history.at(-1),previous=history.at(-2),level=latest?source.levels?.[latest.date]?.[name]:null;
   const heading=el('div',undefined,'profile-identity');
@@ -92,8 +92,18 @@ function renderProfile(){
   const trend=section(panels,'성장 추이');trend.classList.add('profile-trend');
   if(latest&&previous)note(trend,'직전 기록 대비 '+signed(latest.value-previous.value)+' · '+short(previous.date)+' → '+short(latest.date));
   if(history.length){
-    const canvas=el('canvas');canvas.id='profile-growth-chart';canvas.setAttribute('role','img');canvas.setAttribute('aria-label',name+' 성장도 '+short(history[0].date)+' '+format(history[0].value)+'에서 '+short(latest.date)+' '+format(latest.value));trend.append(canvas);
-    const details=el('details',undefined,'overview-history');details.append(el('summary','날짜별 기록'));trend.append(details);table(details,['날짜','성장도','레벨'],[...history].reverse().map(point=>[short(point.date),format(point.value),Number.isInteger(source.levels?.[point.date]?.[name])?'Lv.'+source.levels[point.date][name]:'—']));chartSeries=history;
+    guildSeries=guildGrowthSeries(source,today).filter(point=>point.date>=history[0].date&&point.date<=latest.date);
+    const position=report.rankings.growth.findIndex(record=>record.name===name);
+    if(position>=0)for(const [offset,kind]of [[-1,'above'],[1,'below']]){
+      const neighbor=report.rankings.growth[position+offset];if(!neighbor)continue;
+      const member=source.members.find(record=>record[report.nameIndex]===neighbor.name);
+      neighborSeries.push({name:neighbor.name,kind,points:growthSeries(source,member,today).filter(point=>point.date>=history[0].date&&point.date<=latest.date)});
+    }
+    const ownLabel=name===user.nickname?'내 성장도':name+' 성장도';
+    const legend=el('div',undefined,'growth-chart-legend');legend.append(el('span',ownLabel,'growth-chart-personal'),el('span','길드평균','growth-chart-guild'));for(const neighbor of neighborSeries){const label=el('span',neighbor.name,'growth-chart-'+neighbor.kind);label.title='최신 성장도 순위 바로 '+(neighbor.kind==='above'?'위':'아래');legend.append(label);}trend.append(legend);
+    const canvas=el('canvas');canvas.id='profile-growth-chart';canvas.setAttribute('role','img');canvas.setAttribute('aria-label',ownLabel+' '+short(history[0].date)+' '+format(history[0].value)+'에서 '+short(latest.date)+' '+format(latest.value)+' · 길드평균 및 인접 순위 '+neighborSeries.map(record=>record.name).join(', ')+' 비교');trend.append(canvas);
+    const details=el('details',undefined,'overview-history');details.append(el('summary','날짜별 기록'));trend.append(details);table(details,['날짜',ownLabel,'길드평균',...neighborSeries.map(record=>record.name),'레벨'],[...history].reverse().map(point=>[short(point.date),format(point.value),format(guildSeries.find(record=>record.date===point.date)?.value),...neighborSeries.map(record=>format(record.points.find(item=>item.date===point.date)?.value)),Number.isInteger(source.levels?.[point.date]?.[name])?'Lv.'+source.levels[point.date][name]:'—']));chartSeries=history;
+    note(trend,'길드평균은 현재 길드원의 날짜별 기록 기준 · 비교 길드원은 최신 성장도 순위의 바로 위·아래 한 명입니다.');
   }else note(trend,'성장도 기록이 없습니다.');
   const participation=section(profile,'콘텐츠 참여 기록');
   const ownEvents=report.activities.flatMap(event=>{const own=event.eligible.find(member=>member.name===name);return own?[[event.header,short(event.date),badge(own.status==='yes'?'참여':'미참여',own.status)]]:[];});
@@ -109,18 +119,22 @@ function drawChart(){
   const context=canvas.getContext('2d');context.scale(dpr,dpr);
   const style=getComputedStyle(document.documentElement),color=key=>style.getPropertyValue(key).trim();
   context.fillStyle=color('--page');context.fillRect(0,0,width,height);
-  const min=Math.floor((Math.min(...chartSeries.map(p=>p.value))-300)/100)*100,max=Math.max(min+100,Math.ceil((Math.max(...chartSeries.map(p=>p.value))+300)/100)*100);
+  const values=[...chartSeries,...guildSeries,...neighborSeries.flatMap(record=>record.points)].map(point=>point.value);
+  const min=Math.floor((Math.min(...values)-300)/100)*100,max=Math.max(min+100,Math.ceil((Math.max(...values)+300)/100)*100);
   const first=Date.parse(chartSeries[0].date),span=Math.max(86400000,Date.parse(chartSeries.at(-1).date)-first),x=p=>58+(Date.parse(p.date)-first)/span*(width-76),y=value=>height-34-(value-min)/(max-min)*(height-55);
   context.font='11px sans-serif';context.textAlign='right';
   for(let i=0;i<3;i++){const value=min+(max-min)*i/2;context.strokeStyle=color('--line');context.beginPath();context.moveTo(54,y(value));context.lineTo(width-14,y(value));context.stroke();context.fillStyle=color('--muted');context.fillText(format(value),48,y(value)+4);}
-  context.strokeStyle=color('--accent');context.lineWidth=2.5;context.beginPath();chartSeries.forEach((p,i)=>i?context.lineTo(x(p),y(p.value)):context.moveTo(x(p),y(p.value)));context.stroke();
+  context.strokeStyle=color('--growth-guild');context.lineWidth=2;context.beginPath();guildSeries.forEach((p,i)=>i?context.lineTo(x(p),y(p.value)):context.moveTo(x(p),y(p.value)));context.stroke();
+  if(guildSeries.length===1){context.beginPath();context.arc(x(guildSeries[0]),y(guildSeries[0].value),2,0,Math.PI*2);context.fillStyle=color('--growth-guild');context.fill();}
+  for(const neighbor of neighborSeries){context.strokeStyle=color('--growth-'+neighbor.kind);context.lineWidth=1;context.setLineDash(neighbor.kind==='below'?[7,3]:[]);context.beginPath();neighbor.points.forEach((point,index)=>index?context.lineTo(x(point),y(point.value)):context.moveTo(x(point),y(point.value)));context.stroke();context.setLineDash([]);if(neighbor.points.length===1){context.fillStyle=context.strokeStyle;context.beginPath();context.arc(x(neighbor.points[0]),y(neighbor.points[0].value),2,0,Math.PI*2);context.fill();}}
+  context.save();context.shadowColor=color('--accent');context.shadowBlur=8;context.strokeStyle=color('--accent');context.lineWidth=3.5;context.beginPath();chartSeries.forEach((p,i)=>i?context.lineTo(x(p),y(p.value)):context.moveTo(x(p),y(p.value)));context.stroke();context.restore();
   context.fillStyle=color('--accent');for(const point of chartSeries){context.beginPath();context.arc(x(point),y(point.value),3,0,Math.PI*2);context.fill();}
   context.fillStyle=color('--muted');context.textAlign='left';context.fillText(short(chartSeries[0].date),54,height-9);context.textAlign='right';context.fillText(short(chartSeries.at(-1).date),width-14,height-9);
 }
 function topList(host,title,records,formatter){
   const area=section(host,title);area.classList.add('overview-top-list');
   table(area,['순위','닉네임','기록'],records.slice(0,5).map(record=>[(record.joint?'공동 ':'')+record.rank+'위',record.name,formatter(record.value)]));
-  const own=records.find(record=>record.name===GuildNickname.get());
+  const own=records.find(record=>record.name===window.GuildAuth?.user?.nickname);
   if(own&&!records.slice(0,5).includes(own)){const mine=el('p',undefined,'overview-my-rank');mine.append(el('span','내 순위'),el('strong',(own.joint?'공동 ':'')+own.rank+'위'),el('span',own.name),el('strong',formatter(own.value)));area.append(mine);}
   if(records.length>5){const details=el('details',undefined,'overview-absences');details.append(el('summary','전체 순위 보기 · '+records.length+'명'));table(details,['순위','닉네임','기록'],records.map(record=>[(record.joint?'공동 ':'')+record.rank+'위',record.name,formatter(record.value)]));area.append(details);}
   return area;
@@ -153,7 +167,7 @@ function renderWeekly(){
 }
 function accept(data){
   if(source===data)return;source=data;report=overview(source,today);
-  headerPicker.refresh();profilePicker.refresh();
+  viewerPicker.refresh();
   const previous=week.value;week.replaceChildren(...weeks(source,today).map(start=>new Option(short(start)+' ~ '+short(shiftDay(start,6)),start)));
   if([...week.options].some(option=>option.value===previous))week.value=previous;
   renderProfile();renderWeekly();syncWeekButtons();icons();
@@ -162,8 +176,8 @@ function syncWeekButtons(){document.getElementById('overview-week-previous').dis
 for(const [id,offset]of [['overview-week-previous',1],['overview-week-next',-1]])document.getElementById(id).addEventListener('click',()=>{const index=week.selectedIndex+offset;if(index<0||index>=week.options.length)return;week.selectedIndex=index;week.dispatchEvent(new Event('change'));});
 week.addEventListener('change',()=>{renderWeekly();syncWeekButtons();icons();});
 window.addEventListener('guild-members-data',event=>accept(event.detail));
-window.addEventListener('guild-nickname-change',()=>{headerPicker.sync();profilePicker.sync();renderProfile();if(location.hash==='#weekly')renderWeekly();icons();});
-window.addEventListener('hashchange',()=>{headerPicker.hide();profilePicker.hide();if(location.hash==='#weekly')renderWeekly();if(location.hash==='#profile'){requestAnimationFrame(drawChart);if(!GuildNickname.get())setTimeout(()=>profilePicker.input.focus(),0);}});
+window.addEventListener('guild-auth-change',()=>{viewingName='';viewerPicker.sync();renderProfile();if(location.hash==='#weekly')renderWeekly();icons();});
+window.addEventListener('hashchange',()=>{viewerPicker.hide();if(location.hash==='#weekly')renderWeekly();if(location.hash==='#profile')requestAnimationFrame(drawChart);});
 window.addEventListener('guild-theme-change',()=>requestAnimationFrame(drawChart));
 new ResizeObserver(()=>requestAnimationFrame(drawChart)).observe(profile);
 document.addEventListener('visibilitychange',()=>{const day=koreaDay();if(!document.hidden&&day!==today){today=day;if(source){const data=source;source=null;accept(data);}}});

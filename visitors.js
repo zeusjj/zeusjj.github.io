@@ -41,11 +41,11 @@
   });
   async function recordMenu(menu){
     if(!['rules','notices','members','distribution','tips','tools','alarms','profile','weekly','community','tools/collection','tools/skill','tools/fate','tools/sinkwa','tools/astrology','tools/probabilities'].includes(menu))return;
-    const nickname=window.GuildNickname?.get()||'익명';
+    const nickname=window.GuildAuth?.user?.nickname||'익명';
     const id=crypto.randomUUID();
     try{
       visitorId ||= await identity();
-      const options={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,menu,visitorId,nickname}),keepalive:true};
+      const options={method:'POST',headers:{'Content-Type':'application/json',...window.GuildAuth?.headers()},body:JSON.stringify({id,menu,visitorId,nickname}),keepalive:true};
       try{await fetch(endpoint.replace(/\/visitors$/,'/menu-clicks'),{...options,signal:AbortSignal.timeout(10000)});}
       catch{await fetch(endpoint.replace(/\/visitors$/,'/menu-clicks'),{...options,signal:AbortSignal.timeout(10000)});}
     }catch{}

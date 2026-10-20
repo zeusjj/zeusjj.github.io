@@ -1,6 +1,6 @@
 function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.hash))history.replaceState(null,'','#tools/probabilities'+location.hash.slice('#probabilities'.length));}
 normalizeProbabilityRoute();
-const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community'];
+const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -26,7 +26,7 @@ function switchTab(tab) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
   }
-  const label=tab==='admin'?'관리자':document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
+  const label=tab==='login'?'로그인':tab==='admin'?'관리자':document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
   document.getElementById('current-view').textContent=label;
   document.title=`${label} | 절대중립`;
   window.scrollTo({top:0,behavior:'instant'});
@@ -197,7 +197,7 @@ function closeNoticeForms(){if(noticeSaving)return;noticeRich.reset();noticeForm
 const boardViews=new Map(),viewRequests=new Map(),boardViewClaims=new Set();
 window.guildRecordPostView=async(board,id)=>{
   const visitorId=await window.guildVisitorIdentity(),nickname=window.GuildNickname?.get()||'익명';
-  const response=await fetch((board==='tips'?tipsApi:noticesApi)+'/'+encodeURIComponent(id)+'/view',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitorId,nickname}),signal:AbortSignal.timeout(10000)});
+  const response=await fetch((board==='tips'?tipsApi:noticesApi)+'/'+encodeURIComponent(id)+'/view',{method:'POST',headers:{'Content-Type':'application/json',...window.GuildAuth?.headers()},body:JSON.stringify({visitorId,nickname}),signal:AbortSignal.timeout(10000)});
   if(!response.ok)throw new Error('View unavailable');const data=await response.json();if(!Number.isSafeInteger(data.views)||data.views<0)throw new Error('Invalid view count');return data;
 };
 function bindBoardViews(entry,summary,record,board){
