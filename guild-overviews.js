@@ -1,6 +1,6 @@
 import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261020-190';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-186';
-import {mountWeeklyNews} from './weekly-news.js?v=20261020-191';
+import {mountWeeklyNews} from './weekly-news.js?v=20261020-192';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';

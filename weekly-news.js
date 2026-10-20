@@ -45,17 +45,23 @@ export function mountWeeklyNews(host,{start,end}){
   });
   const freshness=node('p',undefined,'overview-note');host.append(freshness);
   function render(){
+    const opened=new Set([...host.querySelectorAll('.weekly-news-entry[open]')].map(entry=>entry.dataset.newsId));
     for(const group of groups){
       const {list,counter,more,message}=group,selected=records.filter(record=>group.kinds.includes(record.kind));list.replaceChildren();counter.textContent=selected.length+'건';
       for(const record of selected.slice(0,group.visible)){
       const item=node('li'),details=node('details',undefined,'weekly-news-entry'),summary=node('summary'),tag=node('span',sources.find(([kind])=>kind===record.kind)[1],'weekly-news-tag'),title=node('span',record.title,'weekly-news-title'),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));
+      details.dataset.newsId=record.id;
       const chevron=node('i',undefined,'weekly-news-chevron');chevron.dataset.lucide='chevron-down';
       time.dateTime=new Date(record.time).toISOString();summary.append(tag,title,time,chevron);details.append(summary);item.append(details);list.append(item);
       let rendered=false;
       details.addEventListener('toggle',()=>{
         if(!details.open||rendered)return;rendered=true;
         const body=node('div',undefined,'entry-body official-news-content weekly-news-body'),post=record.post;
-        if(record.kind==='official'&&typeof post.content==='string')body.append(officialBody(post.content));
+        if(record.kind==='community'){
+          if(typeof post.contentText==='string'&&post.contentText.trim())body.append(node('p',post.contentText,'weekly-news-text'));
+          else body.append(node('p',post.contentStatus==='no-text'?'텍스트 본문이 없는 글입니다. 디시글 이미지는 표시하지 않습니다.':'본문을 불러오지 못했습니다. 원문에서 확인해주세요.','overview-note'));
+        }
+        else if(record.kind==='official'&&typeof post.content==='string')body.append(officialBody(post.content));
         else if(record.kind==='notices'||record.kind==='tips'){
           const imageUrl=image=>api+record.kind+'/'+encodeURIComponent(post.id)+'/images/'+encodeURIComponent(image.id);
           const rich=window.GuildRich?.render(body,post.content||'',post.images||[],imageUrl);
@@ -64,6 +70,7 @@ export function mountWeeklyNews(host,{start,end}){
         if(!body.textContent.trim()&&!body.querySelector('img'))body.append(node('p',record.kind==='community'?'디시 개념글 본문은 원문에서 확인할 수 있습니다.':'본문을 표시할 수 없습니다. 원문에서 확인해주세요.','overview-note'));
         const anchor=node('a','원문 보기','overview-link');anchor.href=record.href;if(record.href.startsWith('https:')){anchor.target='_blank';anchor.rel='noopener noreferrer';}body.append(anchor);details.append(body);
       });
+      if(opened.has(record.id))details.open=true;
       }
       const unavailable=feeds.filter(feed=>group.kinds.includes(feed.kind)&&feed.error).map(feed=>feed.label),community=feeds.find(feed=>feed.kind==='community');
       message.textContent=(selected.length?'':'해당 기간에 수집된 글이 없습니다.')+(unavailable.length?' '+unavailable.join(' · ')+'을 불러오지 못했습니다.':'')+(group.key==='community'&&community?.coverageStart&&start<community.coverageStart?' 개념글 수집 범위: '+community.coverageStart+'부터.':'');
