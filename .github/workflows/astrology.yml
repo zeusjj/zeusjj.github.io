@@ -1,0 +1,47 @@
+name: Refresh astrology data
+on:
+  schedule:
+    - cron: '47 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/astrology.yml'
+      - '.github/scripts/collect-astrology.mjs'
+      - '.github/scripts/astrology-source-model.mjs'
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: astrology-data
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned collector runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Collect and validate official tables
+        run: node .github/scripts/collect-astrology.mjs .
+      - name: Save verified snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add astrology-data.js astrology-source.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh verified astrology data'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Publish refreshed data
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh api --method POST "repos/$GH_REPO/pages/builds"

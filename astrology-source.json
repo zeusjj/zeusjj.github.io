@@ -1,0 +1,117 @@
+{
+  "updatedAt": "2026-10-21T11:56:25.956Z",
+  "source": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5",
+  "dataHash": "ecfadaefd6ec068fe632f851a46ac36124f7514d6088b204111f45c0f249f6c9",
+  "discovered": [
+    {
+      "name": "양자리",
+      "central": 6,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth07?lang=ko"
+    },
+    {
+      "name": "게자리",
+      "central": 7,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth08?lang=ko"
+    },
+    {
+      "name": "천칭자리",
+      "central": 8,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth09?lang=ko"
+    },
+    {
+      "name": "황소자리",
+      "central": 11,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth10?lang=ko"
+    },
+    {
+      "name": "사자자리",
+      "central": 13,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth11?lang=ko"
+    },
+    {
+      "name": "쌍둥이자리",
+      "central": 15,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth12?lang=ko"
+    }
+  ],
+  "pending": [
+    {
+      "name": "양자리",
+      "central": 6,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth07?lang=ko",
+      "missing": [
+        "외곽 별 개수",
+        "외곽 별 가중치",
+        "기본 비용",
+        "잠금 비용",
+        "단계별 효과",
+        "완성 효과"
+      ]
+    },
+    {
+      "name": "게자리",
+      "central": 7,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth08?lang=ko",
+      "missing": [
+        "외곽 별 개수",
+        "외곽 별 가중치",
+        "기본 비용",
+        "잠금 비용",
+        "단계별 효과",
+        "완성 효과"
+      ]
+    },
+    {
+      "name": "천칭자리",
+      "central": 8,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth09?lang=ko",
+      "missing": [
+        "외곽 별 개수",
+        "외곽 별 가중치",
+        "기본 비용",
+        "잠금 비용",
+        "단계별 효과",
+        "완성 효과"
+      ]
+    },
+    {
+      "name": "황소자리",
+      "central": 11,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth10?lang=ko",
+      "missing": [
+        "외곽 별 개수",
+        "외곽 별 가중치",
+        "기본 비용",
+        "잠금 비용",
+        "단계별 효과",
+        "완성 효과"
+      ]
+    },
+    {
+      "name": "사자자리",
+      "central": 13,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth11?lang=ko",
+      "missing": [
+        "외곽 별 개수",
+        "외곽 별 가중치",
+        "기본 비용",
+        "잠금 비용",
+        "단계별 효과",
+        "완성 효과"
+      ]
+    },
+    {
+      "name": "쌍둥이자리",
+      "central": 15,
+      "url": "https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth12?lang=ko",
+      "missing": [
+        "외곽 별 개수",
+        "외곽 별 가중치",
+        "기본 비용",
+        "잠금 비용",
+        "단계별 효과",
+        "완성 효과"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import {astrologyModel} from './astrology-model.js?v=20261018-126';
+import {astrologyModel} from './astrology-model.js?v=20261021-auto';
 
 export function thresholdProbability(model,current,target,budget){
   if(current>=target)return 1;

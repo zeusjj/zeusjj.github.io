@@ -1,7 +1,19 @@
-import {astrologyConstellations} from './astrology-data.js?v=20261018-127';
-import {astrologyModel} from './astrology-model.js?v=20261018-127';
+import {astrologyConstellations} from './astrology-data.js?v=20261021-auto';
+import {astrologyModel} from './astrology-model.js?v=20261021-auto';
 import {distributionChart} from './astrology-distribution.js?v=20261018-136';
 const host=document.getElementById('astrology-rows'),number=new Intl.NumberFormat('ko-KR');
+fetch('./astrology-source.json',{cache:'no-cache'}).then(response=>{
+ if(!response.ok)throw Error('Source status unavailable');return response.json();
+}).then(snapshot=>{
+ const pending=snapshot.pending?.filter(item=>!astrologyConstellations.some(star=>star.name===item.name))??[];
+ if(!pending.length)return;
+ const status=document.createElement('p'),link=document.createElement('a');
+ status.id='astrology-source-status';status.className='astrology-assumptions';
+ status.append('계산 정보 확인 대기: '+pending.map(item=>item.name).join(' · ')+' ');
+ link.href=snapshot.source;link.target='_blank';link.rel='noopener noreferrer';link.textContent='공식 확률표';
+ if(new URL(link.href).origin!=='https://lim.com2us.com')return;
+ status.append(link);host.before(status);
+}).catch(()=>{});
 const storageKey='guild-astrology-central-v1';let saved={};
 try{const value=JSON.parse(localStorage.getItem(storageKey));if(value&&typeof value==='object'&&!Array.isArray(value))saved=value;}catch{}
 const make=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
@@ -62,4 +74,4 @@ for(const star of astrologyConstellations){
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261021-197');
+import('./astrology-budget.js?v=20261021-auto');

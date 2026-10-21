@@ -1,4 +1,4 @@
-import {astrologyConstellations as stars} from './astrology-data.js?v=20261018-126';
+import {astrologyConstellations as stars} from './astrology-data.js?v=20261021-auto';
 const host=document.getElementById('astrology-rows'),section=document.createElement('section');
 section.className='astrology-budget';
 section.innerHTML='<h3>보유 별로 다음 선택</h3><div class="astrology-budget-controls"><div class="astrology-state"><div class="astrology-state-heading"><label for="astrology-budget">보유 별의 조각</label><output for="astrology-budget" id="astrology-budget-value">1,000개</output></div><input id="astrology-budget" type="range" min="0" max="10000" step="100" value="1000"><div class="astrology-budget-scale"><span>0개</span><span>10,000개</span></div></div><label class="astrology-priority">우선 스탯<select id="astrology-priority"></select></label></div><p id="astrology-recommendation" role="status" aria-live="polite"></p><p class="astrology-budget-note">추천은 다음 1회 대상입니다. 이후 성공 결과에 따라 대상을 바꾸는 전략의 기대 증가량을 비교합니다. 개수별 달성·완성 효과만 포함하며 다른 스탯은 점수에 합산하지 않습니다.</p><div class="astrology-comparison-wrap"><table class="astrology-comparison"><caption>현재 단계 · 예산별 비교</caption><thead><tr><th scope="col">별자리</th><th scope="col">다음 1회 추가 일치</th><th scope="col">예산 내 N+1 달성</th><th scope="col">예산 내 전체 완성</th><th scope="col">다음 달성 효과</th><th scope="col">완성 효과</th><th scope="col">예산 내 기대 스탯</th></tr></thead><tbody></tbody></table></div><p class="astrology-budget-note">표의 예산 내 확률·기대 스탯은 각 별자리 한 곳에 예산을 모두 사용할 때의 값입니다. 추천의 기대값은 여러 별자리를 오가는 전략으로 별도 계산합니다. 예산이 충분하지 않으면 멈추며, 확률은 보장이 아닙니다.</p>';
@@ -31,7 +31,7 @@ function update(){
   status.textContent='예산별 선택 계산 중…';
   timer=setTimeout(()=>{
     try{
-      worker=new Worker(new URL('./astrology-budget-worker.js?v=20261018-130',import.meta.url),{type:'module'});
+      worker=new Worker(new URL('./astrology-budget-worker.js?v=20261021-auto',import.meta.url),{type:'module'});
       worker.onerror=()=>{if(id===sequence)status.textContent='추천 계산을 불러오지 못했습니다. 잠시 후 다시 조절해 주세요.';worker?.terminate();worker=null;};
       worker.onmessage=({data})=>{
         if(data.id!==sequence)return;
@@ -55,7 +55,7 @@ function update(){
         });
         body.replaceChildren(rows);
       };
-      worker.postMessage({id,budget,counts,stat});
+      worker.postMessage({id,budget,counts,stat,stars});
     }catch{status.textContent='추천 계산은 웹 주소에서 사용할 수 있습니다.';}
   },180);
 }
