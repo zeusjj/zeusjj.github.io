@@ -1,9 +1,44 @@
 {
-  "collectedAt": "2026-10-21T19:13:51.322084+00:00",
+  "collectedAt": "2026-10-21T20:04:09.901212+00:00",
   "days": 14,
   "coverageStart": "2026-10-21",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "93349",
+      "title": "이 겜은 도대체 골드는 언제 모이냐",
+      "publishedAt": "2026-10-22T04:41:33+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=93349",
+      "recommended": false,
+      "contentText": "54인데 아직도 스킬 500만 짜리도 못사고 있네..\n\n주문서랑 미다스, 교단 이런거 아예 끊어야 하나... ?\n\n경치 포기하고 렙 낮은 사냥터에서 사냥을 해야하나\n\n다들 어케 골드 모으고 있음?\n\n꿀팁좀 주세요 형들",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
+      "comments": [
+        {
+          "id": "258539",
+          "text": "자사할때 물약많이쓰면 안모임 - dc App",
+          "reply": false
+        },
+        {
+          "id": "258540",
+          "text": "아.. 그렇구나 좀 사냥터 낮춰서 해야겠네 감사용",
+          "reply": true
+        },
+        {
+          "id": "258541",
+          "text": "그냥 금괴를사.. 얼마안해",
+          "reply": false
+        },
+        {
+          "id": "258543",
+          "text": "통발이면 사냥터를낮추고 키우는거면 금괴를사",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-21T20:04:09.901212+00:00"
+    },
     {
       "id": "93348",
       "title": "형들 오리컬렉 경치랑 공속 이거 필수인가요??",
@@ -2422,7 +2457,7 @@
       "recommended": false,
       "contentText": "7G6H74DS\n\n4K9M28RT\n\n6P3X51AB\n\n8F2J63WK\n\n5N7Q19CZ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258247",
@@ -2447,7 +2482,7 @@
       "recommended": false,
       "contentText": "도시락 쿠폰임?\n\n찐쿠폰인가\n\n쓴사람들 좀 양심상 댓은 남겨줘라",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2461,7 +2496,7 @@
       "recommended": false,
       "contentText": "이거 뜨면 어떤게 1순위에여?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2475,7 +2510,7 @@
       "recommended": false,
       "contentText": "소소하지만 매번 400다야씩은 챙겨줌\n\n갓겜",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2489,7 +2524,7 @@
       "recommended": false,
       "contentText": "헤라1 + 데메,헤파 반왕떨거지들 >>헤라3 침공\n\n키로외 떨거지 (패드리퍼들) > 헤라2\n\n헤라3(똥닦이들) 데메1과 연합 >>데메서버중1개 침공\n\n쌀벌레들아 데메가 답인거같다",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258357",
@@ -2514,7 +2549,7 @@
       "recommended": false,
       "contentText": "ㅇ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2528,7 +2563,7 @@
       "recommended": false,
       "contentText": "알려주라",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258240",
@@ -2548,7 +2583,7 @@
       "recommended": false,
       "contentText": "남는 계정공유 스킬 강화 주문서로 어닝작 해서 뜨면 계속 키우고 안뜨면 지우는 방법 어떠냐",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2562,7 +2597,7 @@
       "recommended": false,
       "contentText": "나면 삭제누르고 바로 삭제되는거에요?\n\n부캐 45못찍은 예비 리세러..\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258275",
@@ -2587,7 +2622,7 @@
       "recommended": false,
       "contentText": "- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258231",
@@ -2612,7 +2647,7 @@
       "recommended": false,
       "contentText": "차이크냐? 4티좀싸지면 바꿀라는데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258230",
@@ -2642,7 +2677,7 @@
       "recommended": false,
       "contentText": "이번 금고 싹 무기라 그런갑네\n\n다음은 방어구 장갑삘이니까 미리 쟁여둔다\n\n한수를 내다보겠다",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258242",
@@ -2662,7 +2697,7 @@
       "recommended": false,
       "contentText": "그 구간만 견디면 됨\n\n특히 신과 올린다고\n\n파템 0강부터 8강까지 부시다 보면 골드 많이 빨리니까\n\n7강 싼거 사서 신과 재료로 써",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2676,7 +2711,7 @@
       "recommended": false,
       "contentText": "니네 캐릭 이번 이전에 안팔리면 한달 또 과금해서 캐릭 유지해야함\n\n투력 그대로 한달뒤로가면 캐릭가격 떡락이다 ㅋㅋ\n\n물리기~",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258449",
@@ -2696,7 +2731,7 @@
       "recommended": false,
       "contentText": "거래소 금괴로 골드 변경하는거 효율 별로임?\n\n골드 없어서 스킬을 못삼",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258217",
@@ -2726,7 +2761,7 @@
       "recommended": false,
       "contentText": "얼마나 하나 보통?? 주말에 공성전 보니깐 개재밌어보이던데\n\n3전이면 라인 가입 가능하지 않나? 나도 캐릭 하나 업어가면 가입 가능?\n\n어차피 하반기에 딱히 경쟁작도 없어서 캐릭 사도 똥값 안될거같은데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258219",
@@ -2761,7 +2796,7 @@
       "recommended": false,
       "contentText": "아닌척 쌀캐고 있을듯 ㅇㅇ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2775,7 +2810,7 @@
       "recommended": false,
       "contentText": "섭이전 아니였으면 ㄹㅇ접을뻔\n\n역시 제우스 갓겜이 맞다\n\n피드백도 빠르고 겜 해본애들이 맞는거 같음\n\n섭 이전 타이밍 개좋네 ㅋㅋㅋㅋ\n\nㅈ같은 제우스3서버 ㅂㅂㅂ\n\n너네끼리 잘먹고 잘살면서 평생 중립막피 ㄱㄱ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2789,7 +2824,7 @@
       "recommended": false,
       "contentText": "짜바리 남은거 넣은건데\n\n이걸 붙어주노 ㅋㅋㅋ\n\n뭐지 운수 좋은 날인가?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2803,7 +2838,7 @@
       "recommended": false,
       "contentText": "데메섭 유저로서 굉장히 열받네 씨발...\n\n구섭 무과금이나 데메 3영단이나 별차이 없을거아냐\n\n누구말마따나 최소한 던전시간 교단 갯수 오리갯수 손해본 기간만큼 챙겨주고 섭이전하던지 뭐하는 짓이야 진짜 . 나는 진지하게 열박고 접고 싶은데 이새끼들은 무덤덤하게 진행하는거 열받네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258212",
@@ -2868,7 +2903,7 @@
       "recommended": false,
       "contentText": "오늘 저렙존 한시간 돌리면 200골드는 모으겠찌..?\n\n물약회복 간드아ㅏㅏ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258215",
@@ -2888,7 +2923,7 @@
       "recommended": false,
       "contentText": "ㅇ\n\n7H9G56JK",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2902,7 +2937,7 @@
       "recommended": false,
       "contentText": "보통은 첫날 놀러 갔다가 막날에 눈치 최종인데\n\n서버 인원 다 차면 못 가니까 머리 좀 아프겠다\n\n팝콘이나 먹고 있어야지",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2916,7 +2951,7 @@
       "recommended": false,
       "contentText": "ㅈㄴ해야지\n\n첫날 이동이 많겟지???\n\n이전인원 제한있으니까 ㅇㅇㅇ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -2930,7 +2965,7 @@
       "recommended": false,
       "contentText": "디오1에서 게임중인 유저인데 걍 통제가 너무 ㅈ같아서 섭 이전 생각중\n\n하데스엔 통제가 어디까지 있는지 궁금합니다\n\n참고로 여긴 아직 45이상 보스 통제 인터 4 통제 및 인터보스 전체 통제긴함",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258205",
@@ -2990,7 +3025,7 @@
       "recommended": false,
       "contentText": "ㅋㅋㅋ 더스타라이트2라고 제우스 오지게 깟자너?\n\n자매 품 ㅋㅋㅋ 제노니아모바일 ㅋㅋㅋㅋㅋ\n\n지금 제우스보고 뭔생각듬?? ㅋㅋㅋ\n\n제우스 다를거라고하면 욕부터박던? ㅋㅋㅋ 에들 어디감 ?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258202",
@@ -3025,7 +3060,7 @@
       "recommended": false,
       "contentText": "계정 연동한거 구글에서 딴거로 바꾸고 싶은데 가능함? 아니면 이중연동으로 현재 구글연동되있는거 하이브로 접속 가능하게 바꾼다던가 ?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
@@ -3039,56 +3074,11 @@
       "recommended": false,
       "contentText": ".",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
+      "contentFetchedAt": "2026-10-21T20:04:09.901212+00:00",
       "comments": [
         {
           "id": "258201",
           "text": "ㄱㅅㄱㅅ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-21T19:13:51.322084+00:00"
-    },
-    {
-      "id": "93224",
-      "title": "데메 헤라 헤파 캐릭 최대 200 생각한다",
-      "publishedAt": "2026-10-21T21:37:58+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=93224",
-      "recommended": false,
-      "contentText": "빨리 올리고 댓글 달아라",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-21T13:19:55.194098+00:00",
-      "comments": [
-        {
-          "id": "258226",
-          "text": "6.2",
-          "reply": false
-        },
-        {
-          "id": "258238",
-          "text": "8.5",
-          "reply": false
-        },
-        {
-          "id": "258471",
-          "text": "ㅇㄷ 올림?",
-          "reply": true
-        },
-        {
-          "id": "258286",
-          "text": "3.3 짜리 200에 급처한다",
-          "reply": false
-        },
-        {
-          "id": "258392",
-          "text": "2.8 청순한 맛이다 키우는맛난다",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "[밀리터리 리뷰] 한국 해군, 경항모 대신 '3만톤급 드론 항모' 2040년까지 확보\n\n1/20",
           "reply": false
         }
       ],
