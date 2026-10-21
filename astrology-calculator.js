@@ -13,6 +13,18 @@ fetch('./astrology-source.json',{cache:'no-cache'}).then(response=>{
  link.href=snapshot.source;link.target='_blank';link.rel='noopener noreferrer';link.textContent='공식 확률표';
  if(new URL(link.href).origin!=='https://lim.com2us.com')return;
  status.append(link);host.before(status);
+ for(const item of pending){
+  if(!Array.isArray(item.effects)||item.effects.length!==item.central||!Array.isArray(item.completion))continue;
+  const details=document.createElement('details'),summary=document.createElement('summary'),table=document.createElement('table'),body=document.createElement('tbody');
+  details.className='astrology-method';summary.textContent=item.name+' · '+item.central+'단계 효과';
+  const append=(label,effect)=>{
+   const row=document.createElement('tr'),heading=document.createElement('th'),cell=document.createElement('td');
+   heading.scope='row';heading.textContent=label;cell.textContent=effect[0]+' +'+effect[1];row.append(heading,cell);body.append(row);
+  };
+  item.effects.forEach((effect,index)=>append((index+1)+'개 일치',effect));
+  item.completion.forEach(effect=>append('완성 효과',effect));
+  table.className='astrology-stat-table';table.append(body);details.append(summary,table);host.before(details);
+ }
 }).catch(()=>{});
 const storageKey='guild-astrology-central-v1';let saved={};
 try{const value=JSON.parse(localStorage.getItem(storageKey));if(value&&typeof value==='object'&&!Array.isArray(value))saved=value;}catch{}

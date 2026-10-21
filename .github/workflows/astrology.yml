@@ -9,6 +9,7 @@ on:
       - '.github/workflows/astrology.yml'
       - '.github/scripts/collect-astrology.mjs'
       - '.github/scripts/astrology-source-model.mjs'
+      - 'astrology-reviewed.json'
 permissions:
   contents: write
   pages: write
@@ -34,7 +35,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add astrology-data.js astrology-source.json
+          git add astrology-data.js astrology-source.json probability-menu.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh verified astrology data'
             git pull --rebase origin main

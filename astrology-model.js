@@ -14,9 +14,9 @@ export function astrologyTransition(central,outer,outerWeight,locked){
   return probabilities;
 }
 
-export function astrologyModel({central,outer,outerWeight,baseCost,lockCost:recordedLockCost=10},lockCost=recordedLockCost){
+export function astrologyModel({central,outer,outerWeight,outerWeights,baseCost,lockCost:recordedLockCost=10},lockCost=recordedLockCost){
   if(!Number.isInteger(baseCost)||baseCost<=0||baseCost%10||!Number.isInteger(lockCost)||lockCost<0||lockCost%10)throw new RangeError('Invalid astrology cost');
-  const transitions=Array.from({length:central},(_,locked)=>astrologyTransition(central,outer,outerWeight,locked)),costs=Array.from({length:central},(_,k)=>baseCost+lockCost*k),means=Array(central+1).fill(0),quantiles=Array.from({length:central+1},()=>[0,0,0]);
+  const transitions=Array.from({length:central},(_,locked)=>astrologyTransition(central,outer,outerWeights?.[locked]??outerWeight,locked)),costs=Array.from({length:central},(_,k)=>baseCost+lockCost*k),means=Array(central+1).fill(0),quantiles=Array.from({length:central+1},()=>[0,0,0]);
   for(let k=central-1;k>=0;k--){
     const p=transitions[k];let future=0;
     for(let hits=1;hits<p.length;hits++)future+=p[hits]*means[k+hits];

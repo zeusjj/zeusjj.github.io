@@ -6,6 +6,38 @@ const fields=new Map([
  ['중앙 별 개수','central'],['중앙 별 갯수','central'],['외곽 별 개수','outer'],['외곽 별 갯수','outer'],
  ['외곽 별 가중치','outerWeight'],['기본 비용','baseCost'],['잠금 비용','lockCost'],
 ]);
+const localized=value=>{try{return JSON.parse(value).ko;}catch{return String(value);}};
+export function parseOfficialPayload(name,payload){
+ if(payload.code!==0||!Array.isArray(payload.result?.items))throw Error('Invalid official response');
+ const items=payload.result.items;
+ for(const item of items)if(item.item?.rows?.length!==item.totalCount)throw Error('Official table pagination incomplete');
+ const category=items.find(i=>i.item.id==='AstrologyZodiac_1');
+ if(!category)throw Error('Missing classification table');
+ const tables=[[['점성술 분류','별자리 갯수'],...category.item.rows.map(r=>[localized(r.Category),r.Quantity])]];
+ const known=classification(tables),central=known.get(name);
+ const detail=items.find(i=>localized(i.title.ko??i.title)===name+' 옵션');
+ const rates=items.find(i=>localized(i.title.ko??i.title)===name+' 옵션 확률');
+ if(!detail||!rates||!central)throw Error('Missing official options/rates');
+ const centers=detail.item.rows.filter(r=>localized(r.Category)==='별자리 옵션');
+ const outside=detail.item.rows.filter(r=>localized(r.Category)==='별자리 외 옵션');
+ if(centers.length!==central||centers.length+outside.length!==detail.totalCount||rates.item.rows.length!==central)throw Error('Official counts do not reconcile');
+ const outer=outside.length,weights=[];
+ const percent=s=>{if(typeof s!=='string'||!/^\d+(?:\.\d+)?%$/.test(s))throw Error('Invalid official percentage');return Number(s.slice(0,-1));};
+ for(let k=0;k<central;k++){
+  const r=rates.item.rows[k],label=localized(r.AstrologyOption);
+  if(label!==(k===0?'잠금 없음':k+'개 잠금 시'))throw Error('Unexpected lock ordering');
+  const a=percent(r.ZodiacSingleRate),b=percent(r.ExternalSingleRate),total=percent(r.ZodiacTotalRate),external=percent(r.ExternalTotalRate);
+  let weight;
+  // Recover the simplest rational consistent with all four rounded official percentages.
+  for(let d=1;d<=1000;d++){
+   const w=Math.round(b/a*d)/d,denominator=central-k+w*outer;
+   if(w>0&&[100/denominator-a,100*w/denominator-b,100*(central-k)/denominator-total,100*w*outer/denominator-external].every(delta=>Math.abs(delta)<=0.000051)){weight=w;break;}
+  }
+  if(weight===undefined)throw Error('Official probabilities do not fit supported weighted draws');
+  weights.push(weight);
+ }
+ return {known,spec:{name,central,outer,outerWeight:weights[0],outerWeights:weights}};
+}
 
 export function classification(tables){
  const result=new Map();
@@ -47,7 +79,8 @@ export function validateSpecification(spec,central){
  const errors=[];
  if(spec.central!==central)errors.push('중앙 별 개수');
  if(!Number.isInteger(spec.outer)||spec.outer<central||spec.outer>200)errors.push('외곽 별 개수');
- if(!Number.isFinite(spec.outerWeight)||spec.outerWeight<=0||spec.outerWeight>10)errors.push('외곽 별 가중치');
+ if(!Number.isFinite(spec.outerWeight)||spec.outerWeight<=0||spec.outerWeight>100)errors.push('외곽 별 가중치');
+ if(spec.outerWeights!==undefined&&(!Array.isArray(spec.outerWeights)||spec.outerWeights.length!==central||spec.outerWeights.some(w=>!Number.isFinite(w)||w<=0||w>100)))errors.push('잠금별 확률');
  if(!Number.isInteger(spec.baseCost)||spec.baseCost<=0||spec.baseCost>1000||spec.baseCost%10)errors.push('기본 비용');
  if(!Number.isInteger(spec.lockCost)||spec.lockCost<0||spec.lockCost>100||spec.lockCost%10)errors.push('잠금 비용');
  const validEffect=e=>Array.isArray(e)&&e.length===2&&typeof e[0]==='string'&&e[0].length>0&&e[0].length<=50&&Number.isFinite(e[1])&&e[1]>0&&e[1]<=10000;
@@ -56,7 +89,7 @@ export function validateSpecification(spec,central){
  if(!errors.length){
   const means=Array(central+1).fill(0);
   for(let k=central-1;k>=0;k--){
-   const probabilities=astrologyTransition(central,spec.outer,spec.outerWeight,k);
+   const probabilities=astrologyTransition(central,spec.outer,spec.outerWeights?.[k]??spec.outerWeight,k);
    let future=0;for(let j=1;j<probabilities.length;j++)future+=probabilities[j]*means[k+j];
    means[k]=(spec.baseCost+spec.lockCost*k+future)/(1-probabilities[0]);
   }
