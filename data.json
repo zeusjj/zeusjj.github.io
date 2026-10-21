@@ -2361,25 +2361,25 @@
     "2026-10-20": "2026-10-20T12:06:03Z"
   },
   "membersUpdatedAt": "2026-10-20T12:06:03Z",
-  "distributionUpdatedAt": "2026-10-20T16:29:38Z",
+  "distributionUpdatedAt": "2026-10-21T12:24:53Z",
   "distribution": [
     {
       "title": "길드레이드 6차",
       "records": [
         {
-          "name": "미정",
+          "name": "성녀",
           "item": "T5 찬란한 반지",
-          "amount": null,
+          "amount": 1395,
           "bidding": "B 지정가경매"
         },
         {
-          "name": "미정",
+          "name": "꾸뱅",
           "item": "T5 찬란한 사슬검",
-          "amount": null,
+          "amount": 1395,
           "bidding": "어쌔신 자유입찰"
         }
       ],
-      "schedule": "분배 10/21 21:00 진행 예정"
+      "schedule": "분배 10/21 완료 · 34명"
     },
     {
       "title": "길드레이드 5차",
