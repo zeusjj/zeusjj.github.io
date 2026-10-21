@@ -1,3 +1,4 @@
+import {astrologyTransition} from '../../astrology-model.js';
 export const sourceRoot='https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5';
 const clean=value=>String(value??'').replace(/\s+/g,' ').trim();
 const numeric=value=>/^\d+(?:\.\d+)?(?:개)?$/.test(clean(value).replaceAll(',',''))?Number(clean(value).replaceAll(',','').replace(/개$/,'')):NaN;
@@ -52,6 +53,15 @@ export function validateSpecification(spec,central){
  const validEffect=e=>Array.isArray(e)&&e.length===2&&typeof e[0]==='string'&&e[0].length>0&&e[0].length<=50&&Number.isFinite(e[1])&&e[1]>0&&e[1]<=10000;
  if(!Array.isArray(spec.effects)||spec.effects.length!==central||Array.from({length:central},(_,i)=>spec.effects[i]).some(e=>!validEffect(e)))errors.push('단계별 효과');
  if(!Array.isArray(spec.completion)||!spec.completion.length||!spec.completion.every(validEffect))errors.push('완성 효과');
+ if(!errors.length){
+  const means=Array(central+1).fill(0);
+  for(let k=central-1;k>=0;k--){
+   const probabilities=astrologyTransition(central,spec.outer,spec.outerWeight,k);
+   let future=0;for(let j=1;j<probabilities.length;j++)future+=probabilities[j]*means[k+j];
+   means[k]=(spec.baseCost+spec.lockCost*k+future)/(1-probabilities[0]);
+  }
+  if(!Number.isFinite(means[0])||means[0]>600000)errors.push('확률·예산 계산 범위');
+ }
  return errors;
 }
 
