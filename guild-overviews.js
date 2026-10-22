@@ -11,7 +11,7 @@ const link=(text,hash)=>{const node=el('a',text,'overview-link');node.href=hash;
 const icons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 let source,report,chartSeries=[],guildSeries=[],neighborSeries=[],viewingName='',today=koreaDay();
 const profile=document.getElementById('profile-content'),weekly=document.getElementById('weekly-content'),week=document.getElementById('overview-week');
-const names=()=>source?source.members.map(row=>row[report.nameIndex]):[];
+const names=()=>source?window.GuildMemberArchive.all(source).map(row=>row[report.nameIndex]):[];
 const viewerPicker=nicknamePicker(document.getElementById('profile-viewer'),{names,get:()=>viewingName,choose:name=>{viewingName=name;viewerPicker.sync();renderProfile();},label:'다른 사람 정보 보기'});
 viewerPicker.input.placeholder='다른 사람 정보 보기';viewerPicker.sync();
 document.getElementById('profile-viewer-reset').addEventListener('click',()=>{viewingName='';viewerPicker.sync();renderProfile();viewerPicker.input.focus({preventScroll:true});});
@@ -36,11 +36,11 @@ function badge(text,kind){const node=el('span',text,'overview-badge');node.datas
 function rankingCell(row){return row?(row.joint?'공동 ':'')+row.rank+'위 / '+row.total+'명':'집계 제외';}
 function renderProfile(){
   if(!source)return;
-  const user=window.GuildAuth?.user,name=user?(viewingName||user.nickname):'',row=source.members.find(row=>row[report.nameIndex]===name);
+  const user=window.GuildAuth?.user,name=user?(viewingName||user.nickname):'',row=window.GuildMemberArchive.all(source).find(row=>row[report.nameIndex]===name);
   document.getElementById('profile-login').hidden=!!user;profile.hidden=!user;profile.replaceChildren();chartSeries=[];guildSeries=[];neighborSeries=[];
   document.getElementById('profile-viewer-controls').hidden=!user;
   document.getElementById('profile-viewer-reset').style.visibility=viewingName?'visible':'hidden';
-  document.getElementById('profile-caption').textContent=row?name+' · '+row[report.classIndex]:user?'현재 길드 기록이 없습니다.':'로그인 후 내 정보를 확인하세요.';
+  document.getElementById('profile-caption').textContent=row?name+' · '+row[report.classIndex]+(window.GuildMemberArchive.has(source,name)?' · 탈퇴':''):user?'현재 길드 기록이 없습니다.':'로그인 후 내 정보를 확인하세요.';
   if(!row)return;
   const history=growthSeries(source,row,today),latest=history.at(-1),previous=history.at(-2),level=latest?source.levels?.[latest.date]?.[name]:null;
   const heading=el('div',undefined,'profile-identity');
