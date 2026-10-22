@@ -141,7 +141,11 @@ function renderRules(text) {
   const distribution=chapter('guild-distribution','분배 기준','scale');
   distribution.append(group('distribution-intro',['principles','system']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));target.append(distribution);
   const allocation=chapter('guild-allocation','아이템 분배','swords');
-  allocation.append(group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));target.append(allocation);
+  const archive=element('details',undefined,'allocation-archive');archive.id='allocation-october';
+  const archiveTitle=element('summary'),archiveIcon=element('i');archiveIcon.dataset.lucide='chevron-right';
+  archiveTitle.append(archiveIcon,element('span','10월 분배규칙 보기'));
+  archive.append(archiveTitle,group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));
+  allocation.append(element('p','11월 분배룰 개편 예정','allocation-revision'),archive);target.append(allocation);
   for(const section of sections.values())target.append(section);
   updateChapterNavigation();
   refreshIcons();

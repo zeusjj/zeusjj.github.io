@@ -7,6 +7,14 @@
   --sidebar-width:224px;--space-page:36px;
   background:var(--page);color:var(--ink);
 }
+.allocation-revision{margin:0 0 12px;color:var(--warning);font-size:14px;font-weight:650;line-height:1.7}
+.allocation-archive{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.allocation-archive>summary{display:flex;align-items:center;gap:10px;min-height:48px;padding:12px 0;list-style:none;cursor:pointer;color:var(--ink);font-size:16px;font-weight:650;line-height:1.5}
+.allocation-archive>summary::-webkit-details-marker{display:none}
+.allocation-archive>summary svg{width:18px;height:18px;flex:none;color:var(--accent)}
+.allocation-archive[open]>summary svg{transform:rotate(90deg)}
+.allocation-archive>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.allocation-archive[open]>.allocation-layout{padding-top:20px}
 body{background:var(--page)}
 .sidebar{width:var(--sidebar-width);padding:24px 16px 16px;background:var(--surface-subtle);border-color:var(--line)}
 .sidebar-brand{flex-shrink:0}
