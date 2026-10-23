@@ -11,13 +11,18 @@
     const grid=el('div',null,'proposal-options');
     data.rules.forEach(rule=>{
       const card=el('article',null,'proposal-option'+(rule.event?' proposal-event':''));
-      const top=el('div',null,'proposal-option-top');top.append(icon(rule.icon),el('span',rule.label));card.append(top,el('h3',rule.title),el('p',rule.method,'proposal-method'));
+      const top=el('div',null,'proposal-option-top');top.append(icon(rule.icon),el('span',rule.label));card.append(top,el('h3',rule.title));
+      const method=el('p',null,'proposal-method');method.append(el('span','경매 방식'),el('strong',rule.method));card.append(method);
+      if(rule.event)card.append(el('p',data.eventExplanation,'proposal-event-explanation'));
       const price=el('p',null,'proposal-price');price.append(el('strong',rule.price),el('span',rule.priceLabel));card.append(price);
       const list=el('dl'),pair=(label,value)=>{const row=el('div');row.append(el('dt',label),el('dd',value));list.append(row);};
-      pair('입찰 대상',rule.audience);pair('제외 대상',rule.exclusions);if(rule.distribution)pair('분배 대상',rule.distribution);if(rule.event)pair('입찰 시간','시작 후 5분');card.append(list);grid.append(card);
+      pair('입찰 대상',rule.audience);pair('제외 대상',rule.exclusions);if(rule.distribution)pair('분배 대상',rule.distribution);if(rule.event)pair('입찰 시간','시작 후 5분');card.append(list);
+      if(rule.event){
+        const details=el('div',null,'proposal-event-details');details.append(el('p',data.eventNote));
+        const steps=el('ol',null,'proposal-flow');data.steps.forEach((text,index)=>{const step=el('li');step.append(el('span',String(index+1),'proposal-step-number'),el('strong',text));steps.append(step);});details.append(steps);card.append(details);
+      }
+      grid.append(card);
     });host.append(grid);
-    const event=el('div',null,'proposal-flow-section');const eventTitle=el('h2');eventTitle.append(icon('shuffle'),document.createTextNode('특별 추첨은 이렇게 진행합니다'));event.append(eventTitle,el('p',data.eventNote));
-    const steps=el('ol',null,'proposal-flow');data.steps.forEach((text,index)=>{const step=el('li');step.append(el('span',String(index+1),'proposal-step-number'),el('strong',text));if(index<2)step.append(icon('arrow-right'));steps.append(step);});event.append(steps,el('p','더 높은 금액으로 경쟁하지 않고, 같은 금액에 입찰한 사람 중 추첨합니다.','proposal-flow-note'));host.append(event);
     window.lucide?.createIcons();
   }
   async function sync(){
