@@ -16,7 +16,9 @@
       if(rule.event)card.append(el('p',data.eventExplanation,'proposal-event-explanation'));
       const price=el('p',null,'proposal-price');price.append(el('strong',rule.price),el('span',rule.priceLabel));card.append(price);
       const list=el('dl'),pair=(label,value)=>{const row=el('div');row.append(el('dt',label),el('dd',value));list.append(row);};
-      pair('입찰 대상',rule.audience);pair('제외 대상',rule.exclusions);if(rule.distribution)pair('분배 대상',rule.distribution);if(rule.event)pair('입찰 시간','시작 후 5분');card.append(list);
+      pair('입찰 대상',rule.audience);
+      if(rule.event){const note=el('p',null,'proposal-participation-link'),link=el('a','[내정보]');link.href='#profile';note.append(document.createTextNode('참여 현황 확인 방법 : 홈페이지 좌측 하단 '),link);list.lastElementChild.querySelector('dd').append(note);}
+      pair('제외 대상',rule.exclusions);if(rule.distribution)pair('분배 대상',rule.distribution);if(rule.event)pair('입찰 시간','시작 후 5분');card.append(list);
       if(rule.event){
         const details=el('div',null,'proposal-event-details');details.append(el('p',data.eventNote));
         const steps=el('ol',null,'proposal-flow');data.steps.forEach((text,index)=>{const step=el('li');step.append(el('span',String(index+1),'proposal-step-number'),el('strong',text));steps.append(step);});details.append(steps);card.append(details);
