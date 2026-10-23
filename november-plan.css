@@ -41,5 +41,12 @@
 .proposal-reflection h3{font-size:15px;margin:24px 0 8px}
 .proposal-reflection p{max-width:78ch;margin:0;color:var(--ink);font-size:14px;line-height:1.9;white-space:pre-line}
 .proposal-reflection .proposal-conclusion{margin-top:14px;padding-left:14px;border-left:3px solid var(--accent);font-weight:650}
+.proposal-discussion{padding:28px 0;border-top:1px solid var(--line)}
+.proposal-discussion h2{margin:0 0 18px;font-size:18px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.proposal-discussion p,.proposal-discussion ul{max-width:78ch;font-size:14px;line-height:1.9;color:var(--ink)}
+.proposal-discussion p{margin:0 0 14px}
+.proposal-discussion ul{margin:14px 0 22px;padding-left:22px}
+.proposal-discussion li{margin:5px 0}
+.proposal-discussion p:last-child{margin-bottom:0}
 @media(max-width:1100px){.proposal-options{gap:10px}.proposal-option{padding:18px 14px}.proposal-option h3{font-size:16px}}
 @media(max-width:760px){.proposal-options{grid-template-columns:1fr;gap:16px}.proposal-option{padding:20px}.proposal-intro h2{font-size:20px}.proposal-price{margin-bottom:18px}.proposal-option dl{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.proposal-option dl>div:last-child{grid-column:1/-1}}
