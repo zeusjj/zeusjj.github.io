@@ -28,7 +28,8 @@
     (data.discussions??[]).forEach((discussion,index)=>{
       const section=el('section',null,'proposal-discussion'),heading=el('h2',discussion.title);heading.id='november-discussion-'+(index+1);section.setAttribute('aria-labelledby',heading.id);section.append(heading);
       if(discussion.lead)section.append(el('p',discussion.lead));
-      if(discussion.items){const list=el('ul');discussion.items.forEach(item=>list.append(el('li',item)));section.append(list);}
+      if(discussion.groups)discussion.groups.forEach(group=>{section.append(el('h3',group.title));const list=el('ul');group.items.forEach(item=>list.append(el('li',item)));section.append(list);});
+      else if(discussion.items){const list=el('ul');discussion.items.forEach(item=>list.append(el('li',item)));section.append(list);}
       discussion.paragraphs.forEach(text=>section.append(el('p',text)));host.append(section);
     });
     window.lucide?.createIcons();

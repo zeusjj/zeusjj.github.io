@@ -43,6 +43,7 @@
 .proposal-reflection .proposal-conclusion{margin-top:14px;padding-left:14px;border-left:3px solid var(--accent);font-weight:650}
 .proposal-discussion{padding:28px 0;border-top:1px solid var(--line)}
 .proposal-discussion h2{margin:0 0 18px;font-size:18px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.proposal-discussion h3{margin:20px 0 8px;font-size:14px;line-height:1.7}
 .proposal-discussion p,.proposal-discussion ul{max-width:78ch;font-size:14px;line-height:1.9;color:var(--ink)}
 .proposal-discussion p{margin:0 0 14px}
 .proposal-discussion ul{margin:14px 0 22px;padding-left:22px}
