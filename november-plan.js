@@ -36,5 +36,5 @@
       if(!response.ok)throw Error('load');const data=await response.json();if(current!==sequence||!allowed())return;render(data);loaded=true;
     }catch{if(current!==sequence||!allowed())return;const retry=el('button','다시 불러오기','secondary-button');retry.type='button';retry.addEventListener('click',sync);host.replaceChildren(el('p','분배안을 불러오지 못했습니다.'),retry);}
   }
-  window.addEventListener('guild-auth-change',sync);window.addEventListener('hashchange',sync);sync();
+  window.addEventListener('guild-auth-change',sync);window.addEventListener('hashchange',()=>{loaded=false;sync();});sync();
 })();
