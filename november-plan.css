@@ -1,5 +1,9 @@
 #november-plan{max-width:1320px;letter-spacing:0}
 #november-plan-menu{position:relative;isolation:isolate}
+#november-plan-menu span{min-width:0;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;line-height:1.6}
+#november-plan-menu svg{flex:none}
+#november-plan .page-heading{min-width:0}
+#november-plan .page-heading h1{word-break:keep-all;overflow-wrap:anywhere}
 #november-plan-menu::after{content:"";position:absolute;inset:1px;pointer-events:none;border:1px solid var(--accent);border-radius:5px;opacity:.5;animation:proposal-menu-glitch 6s steps(1,end) infinite}
 @keyframes proposal-menu-glitch{
   0%,76%,85%,100%{opacity:.45;clip-path:inset(0);transform:translate(0);box-shadow:none}
