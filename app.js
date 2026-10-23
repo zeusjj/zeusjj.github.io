@@ -1,7 +1,7 @@
 function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.hash))history.replaceState(null,'','#tools/probabilities'+location.hash.slice('#probabilities'.length));}
 normalizeProbabilityRoute();
 const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
-const novemberPlanPublic=false;
+const novemberPlanPublic=true;
 function canViewNovemberPlan(){const auth=window.GuildAuth;return novemberPlanPublic||(auth?.user?.username==='케이론'&&auth.user.isAdmin&&auth.expiresAt>Date.now());}
 function syncNovemberPlanAccess(){
   const allowed=canViewNovemberPlan();document.getElementById('november-plan-menu').hidden=!allowed;

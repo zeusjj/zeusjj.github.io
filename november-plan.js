@@ -2,11 +2,12 @@
   const host=document.getElementById('november-plan');let sequence=0,loaded=false;
   const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text)node.textContent=text;if(cls)node.className=cls;return node;};
   const icon=name=>{const node=el('i');node.dataset.lucide=name;return node;};
-  const allowed=()=>window.GuildAuth?.user?.username==='케이론'&&window.GuildAuth.user.isAdmin&&window.GuildAuth.expiresAt>Date.now();
+  const allowed=()=>window.canViewNovemberPlan?.()??false;
   function render(data){
     host.replaceChildren();
-    const heading=el('div',null,'page-heading'),title=el('div');title.append(el('h1','11월 길드레이드 아이템 분배 룰 제안'));title.firstChild.id='november-plan-heading';title.append(el('p','비공개 초안 · 검토 중'));heading.append(title);host.append(heading);
+    const heading=el('div',null,'page-heading'),title=el('div');title.append(el('h1','11월 길드레이드 아이템 분배 룰 제안'));title.firstChild.id='november-plan-heading';title.append(el('p','검토 중인 제안'));heading.append(title);host.append(heading);
     const reflection=el('div',null,'proposal-reflection');data.reflection.forEach((part,index)=>{reflection.append(el(index===0?'h2':'h3',part.title),el('p',part.text));if(part.conclusion)reflection.append(el('p',part.conclusion,'proposal-conclusion'));});host.append(reflection);
+    if(data.transition)host.append(el('p',data.transition,'proposal-transition'));
     const intro=el('div',null,'proposal-intro');intro.append(el('h2',data.intro));host.append(intro);
     const grid=el('div',null,'proposal-options');
     data.rules.forEach(rule=>{
@@ -39,7 +40,7 @@
     if(loaded||location.hash.split('/')[0]!=='#november-plan')return;
     host.replaceChildren(el('p','분배안을 불러오는 중입니다.','overview-note'));
     try{
-      const response=await fetch('https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/member/november-plan',{headers:window.GuildAuth.headers(),cache:'no-store',signal:AbortSignal.timeout(15000)});
+      const response=await fetch('https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/member/november-plan',{headers:window.GuildAuth?.headers()??{},cache:'no-store',signal:AbortSignal.timeout(15000)});
       if(!response.ok)throw Error('load');const data=await response.json();if(current!==sequence||!allowed())return;render(data);loaded=true;
     }catch{if(current!==sequence||!allowed())return;const retry=el('button','다시 불러오기','secondary-button');retry.type='button';retry.addEventListener('click',sync);host.replaceChildren(el('p','분배안을 불러오지 못했습니다.'),retry);}
   }

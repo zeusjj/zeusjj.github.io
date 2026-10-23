@@ -9,6 +9,7 @@
 @keyframes proposal-menu-orbit{to{--proposal-border-angle:360deg}}
 @media(prefers-reduced-motion:reduce){#november-plan-menu::after{animation:none}}
 .proposal-intro{padding:12px 0 0}
+.proposal-transition{margin:0 0 24px;font-size:14px;line-height:1.9;color:var(--ink)}
 .proposal-intro h2{margin:0 0 8px;font-size:22px;line-height:1.5}
 .proposal-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:16px;margin:24px 0 32px}
 .proposal-option{min-width:0;padding:22px 20px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:6px}

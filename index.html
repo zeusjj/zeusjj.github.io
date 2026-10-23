@@ -16,7 +16,7 @@
   <script src="member-archives.js?v=20261022-archive" defer></script>
   <script type="module" src="member-auth.js?v=20261024-login-guide"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261021-196">
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261024-october-rules" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261024-public-plan" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261024-unified-update"></script>
   <script type="module" src="member-growth-achievements.js?v=20261024-unified-update"></script>
   <script type="module" src="member-distributions.js?v=20261018-171"></script>
@@ -44,8 +44,8 @@
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261018-156"></script>
   <link rel="stylesheet" href="site-design.css?v=20261024-october-rules">
-  <link rel="stylesheet" href="november-plan.css?v=20261024-proofread">
-  <script src="november-plan.js?v=20261024-proofread" defer></script>
+  <link rel="stylesheet" href="november-plan.css?v=20261024-public-plan">
+  <script src="november-plan.js?v=20261024-public-plan" defer></script>
   <link rel="stylesheet" href="site-themes.css?v=20261021-200">
   <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
@@ -66,7 +66,7 @@
     <div id="site-navigation">
     <nav aria-label="메인 메뉴">
       <button data-tab="rules" class="active"><i data-lucide="book-open"></i><span>운영 방식</span></button>
-      <button id="november-plan-menu" data-tab="november-plan" hidden><i data-lucide="file-pen-line"></i><span>11월 길드레이드 아이템 분배 룰 제안</span></button>
+      <button id="november-plan-menu" data-tab="november-plan"><i data-lucide="file-pen-line"></i><span>11월 길드레이드 아이템 분배 룰 제안</span></button>
       <button data-tab="notices"><i data-lucide="megaphone"></i><span>공지사항 <small id="notice-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="members"><i data-lucide="users-round"></i><span>길드원 참여 현황 <small id="member-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="distribution"><i data-lucide="package-open"></i><span>분배 기록 <small id="distribution-menu-new" class="menu-new" hidden>New</small></span></button>
@@ -87,8 +87,7 @@
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
       <section id="login" hidden aria-labelledby="member-login-heading"><div class="page-heading"><h1 id="member-login-heading">로그인</h1></div><div id="member-login-page" class="member-login-mount"></div></section>
-      <!-- Private proposal content must use an authenticated API when authored, not public HTML. -->
-      <section id="november-plan" hidden aria-labelledby="november-plan-heading"><div class="page-heading"><div><h1 id="november-plan-heading">11월 길드레이드 아이템 분배 룰 제안</h1><p>비공개 초안</p></div></div><p class="overview-note">작성 예정</p></section>
+      <section id="november-plan" hidden aria-labelledby="november-plan-heading"><div class="page-heading"><div><h1 id="november-plan-heading">11월 길드레이드 아이템 분배 룰 제안</h1><p>검토 중인 제안</p></div></div><p class="overview-note">분배안을 불러오는 중입니다.</p></section>
       <section id="community" class="overview-page" hidden aria-labelledby="community-heading"><div class="page-heading"><div><h1 id="community-heading">디시글 모아보기</h1><p>제우스 오만의 신 갤러리 · 일반글과 개념글 · 최근 120개</p></div></div><div id="community-content"></div></section>
       <section id="profile" class="overview-page" hidden aria-labelledby="profile-heading">
         <div class="page-heading"><div><h1 id="profile-heading">내 정보</h1><p id="profile-caption">로그인 후 내 정보를 확인하세요.</p></div><div id="profile-viewer-controls" hidden><div id="profile-viewer" class="nickname-picker"></div><button id="profile-viewer-reset" class="icon-button" type="button" title="내 정보로 돌아가기" aria-label="내 정보로 돌아가기"><i data-lucide="x"></i></button></div></div>
