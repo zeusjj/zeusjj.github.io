@@ -4,7 +4,9 @@ const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 't
 const novemberPlanPublic=false;
 function canViewNovemberPlan(){const auth=window.GuildAuth;return novemberPlanPublic||(auth?.user?.username==='케이론'&&auth.user.isAdmin&&auth.expiresAt>Date.now());}
 function syncNovemberPlanAccess(){
-  document.getElementById('november-plan-menu').hidden=!canViewNovemberPlan();
+  const allowed=canViewNovemberPlan();document.getElementById('november-plan-menu').hidden=!allowed;
+  const revision=document.querySelector('#guild-allocation > .allocation-revision');
+  if(revision){revision.replaceChildren();if(allowed){const link=document.createElement('a');link.href='#november-plan';link.textContent='11월 분배룰 제안 보러가기';revision.append(link);}else revision.textContent='11월 분배룰 개편 예정';}
   if(location.hash.split('/')[0]==='#november-plan')switchTab(canViewNovemberPlan()?'november-plan':'rules');
 }
 window.addEventListener('guild-auth-change',syncNovemberPlanAccess);
@@ -45,7 +47,7 @@ const participationModel=import('./guild-overview-model.js?v=20261020-190').then
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
-  for(const id of ['guild-operations','guild-distribution','guild-allocation'])if(document.getElementById(id)?.getBoundingClientRect().top<170)current=id;
+  for(const id of ['guild-operations','guild-allocation','guild-distribution']){const section=document.getElementById(id);if(!section||section.closest('details')?.open===false)continue;const rect=section.getBoundingClientRect();if(rect.top<170&&(id!=='guild-distribution'||rect.bottom>170))current=id;}
   document.querySelectorAll('[data-scroll]').forEach(button=>{const active=button.dataset.scroll===current;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'location':'false');});
 }
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
@@ -75,7 +77,7 @@ function switchTab(tab) {
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
 document.querySelector('.skip-link').addEventListener('click',event=>{event.preventDefault();document.getElementById('main-content').focus();});
-document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>document.getElementById(button.dataset.scroll)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'})));
+document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.scroll),archive=target?.closest('details');if(archive)archive.open=true;target?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
 window.addEventListener('hashchange', () => {normalizeProbabilityRoute();switchTab(location.hash.slice(1));});
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
@@ -109,6 +111,7 @@ function renderRules(text) {
     const match=section.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);
     if(!match) continue;
     const kind=match[1]==='성장 목표'?'target':layouts[match[1]] || 'updates';
+    if(kind==='system')continue;
     const wrapper=element('section',undefined,'policy-section policy-'+kind);
     wrapper.append(element('h2',match[1].replace(/^\d+\.\s*/,'')));
     const body=element('div',undefined,'policy-body');
@@ -172,12 +175,12 @@ function renderRules(text) {
   overview.append(group('operation-copy',['direction','growth','relations']),group('schedule-rail',['target','schedule','timing']));target.append(overview);
   const chapter=(id,title,icon)=>{const node=element('section',undefined,'policy-chapter');node.id=id;const heading=element('div',undefined,'chapter-heading');const symbol=element('i');symbol.dataset.lucide=icon;heading.append(symbol,element('h2',title));node.append(heading);return node;};
   const distribution=chapter('guild-distribution','분배 기준','scale');
-  distribution.append(group('distribution-intro',['principles','system']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));target.append(distribution);
+  distribution.append(group('distribution-intro',['principles']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));
   const allocation=chapter('guild-allocation','아이템 분배','swords');
   const archive=element('details',undefined,'allocation-archive');archive.id='allocation-october';
   const archiveTitle=element('summary'),archiveIcon=element('i');archiveIcon.dataset.lucide='chevron-right';
   archiveTitle.append(archiveIcon,element('span','10월 분배규칙 보기'));
-  archive.append(archiveTitle,group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));
+  archive.append(archiveTitle,distribution,group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));
   allocation.append(element('p','11월 분배룰 개편 예정','allocation-revision'),archive);target.append(allocation);
   for(const section of sections.values())target.append(section);
   updateChapterNavigation();
