@@ -4,15 +4,18 @@ export function memberDistribution(data){
  const classes=memberClasses.map(name=>({name,count:0}));const counts=new Map(classes.map(item=>[item.name,item]));
  const growthColumns=data.headers.map((name,index)=>({name,index,date:data.dates?.[index]?.start || ''})).filter(item=>item.name==='성장도 기록').sort((a,b)=>b.date.localeCompare(a.date) || b.index-a.index);
  const latest=growthColumns.find(({index})=>data.members.some(row=>typeof row[index]==='number'&&Number.isFinite(row[index])&&row[index]>=0));
- const values=[],growthMembers=[],levelBins=Array.from({length:12},(_,index)=>({label:index===0?'55 이하':index===11?'66 이상':String(55+index),count:0,names:[]}));let missing=0,levelRecorded=0;
+ const values=[],growthMembers=[],levelMembers=[];let missing=0,levelRecorded=0;
  for(const row of data.members){
   const name=counts.has(row[classIndex])?row[classIndex]:'미기록';if(!counts.has(name)){const item={name,count:0};classes.push(item);counts.set(name,item);}counts.get(name).count++;
   const column=growthColumns.find(({index})=>typeof row[index]==='number' && Number.isFinite(row[index]) && row[index]>=0);
   const nickname=row[data.headers.indexOf('닉네임')];
   if(column){values.push(row[column.index]);growthMembers.push({name:nickname,value:row[column.index]});}else missing++;
   const level=latest&&typeof row[latest.index]==='number'&&Number.isFinite(row[latest.index])&&row[latest.index]>=0?data.levels?.[latest.date]?.[row[data.headers.indexOf('닉네임')]]:null;
-  if(Number.isInteger(level)){const bin=levelBins[Math.max(0,Math.min(11,level-55))];bin.count++;bin.names.push(nickname);levelRecorded++;}
+  if(Number.isInteger(level)){levelMembers.push({name:nickname,level});levelRecorded++;}
  }
+ const levelStart=Math.max(12,...levelMembers.map(member=>member.level))-11;
+ const levelBins=Array.from({length:12},(_,index)=>({label:index===0?levelStart+' 이하':index===11?(levelStart+11)+' 이상':String(levelStart+index),count:0,names:[]}));
+ for(const member of levelMembers){const bin=levelBins[Math.max(0,Math.min(11,member.level-levelStart))];bin.count++;bin.names.push(member.name);}
  const bins=[];
  if(values.length){const first=Math.floor(Math.min(...values)/5000)*5000,last=Math.floor(Math.max(...values)/5000)*5000;for(let start=first;start<=last;start+=5000)bins.push({start,end:start+4999,count:0,names:[]});for(const member of growthMembers){const bin=bins[(Math.floor(member.value/5000)*5000-first)/5000];bin.count++;bin.names.push(member.name);}}
  for(const bin of [...bins,...levelBins])bin.names.sort((a,b)=>a.localeCompare(b,'ko'));
