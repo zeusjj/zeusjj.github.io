@@ -39,7 +39,7 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
       if(user){host.append(node('p',user.nickname+'으로 로그인되었습니다.'));const link=node('a','내 정보');link.href='#profile';host.append(link);return;}
       const form=node('form');form.className='member-login-form';
       const username=field(form,host.id+'-username','username','아이디','username'),password=field(form,host.id+'-password','password','비밀번호','current-password');
-      form.append(node('p','초기 아이디와 비밀번호는 모두 길드 닉네임입니다. 예: 케이론 / 케이론. 비밀번호의 한글은 영문 키 입력으로 자동 변환됩니다(케이론 → zpdlfhs). 로그인 후 비밀번호를 변경해주세요.'));
+      const help=node('p'),initial=node('strong'),underline=node('u','초기아이디와 비밀번호는 캐릭터 닉네임입니다.');initial.append(underline);help.append(initial,document.createTextNode(' 로그인 후 비밀번호를 변경해주세요.'));form.append(help);
       const status=node('p');status.setAttribute('role','status');const submit=node('button','로그인');submit.type='submit';form.append(status,submit);host.append(form);
       form.addEventListener('submit',async event=>{event.preventDefault();normalizeInput(password);submit.disabled=true;status.textContent='로그인 중입니다.';try{const data=await signIn(username.value,password.value);password.value='';announce(data.user.nickname+'으로 로그인되었습니다.');if(location.hash==='#login')location.hash='profile';}catch(error){password.value='';status.textContent=error.status?error.message:'연결하지 못했습니다. 잠시 후 다시 시도해주세요.';password.focus();}finally{submit.disabled=false;}});
     });
