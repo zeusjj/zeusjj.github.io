@@ -1,6 +1,13 @@
 function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.hash))history.replaceState(null,'','#tools/probabilities'+location.hash.slice('#probabilities'.length));}
 normalizeProbabilityRoute();
-const tabs = ['rules', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
+const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
+const novemberPlanPublic=false;
+function canViewNovemberPlan(){const auth=window.GuildAuth;return novemberPlanPublic||(auth?.user?.username==='케이론'&&auth.user.isAdmin&&auth.expiresAt>Date.now());}
+function syncNovemberPlanAccess(){
+  document.getElementById('november-plan-menu').hidden=!canViewNovemberPlan();
+  if(location.hash.split('/')[0]==='#november-plan')switchTab(canViewNovemberPlan()?'november-plan':'rules');
+}
+window.addEventListener('guild-auth-change',syncNovemberPlanAccess);
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -45,6 +52,7 @@ window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(tab) {
   tab=tab.split('/')[0];
   if (!tabs.includes(tab)) tab = 'rules';
+  if(tab==='november-plan'&&!canViewNovemberPlan())tab='rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
     const active = button.dataset.tab === tab || (tab==='admin' && button.dataset.tab==='notices');
@@ -220,6 +228,7 @@ function syncMemberAdministrator(){
   const auth=window.GuildAuth,administrator=auth?.user?.isAdmin;
   noticeToken=administrator?(auth.headers().Authorization||'').replace(/^Bearer /,''):'';noticeExpiry=administrator?auth.expiresAt:0;
   if(!administrator)closeNoticeForms();renderNotices(noticeRecords);
+  syncNovemberPlanAccess();
 }
 window.addEventListener('guild-auth-change',syncMemberAdministrator);
 function showNoticeEditor(record=null){
