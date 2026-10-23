@@ -8,9 +8,8 @@
 #november-plan-menu::after{content:"";position:absolute;inset:0;pointer-events:none;padding:2px;border-radius:5px;background:conic-gradient(from var(--proposal-border-angle),transparent 0deg 220deg,var(--accent-line) 275deg,var(--accent) 325deg,transparent 360deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:proposal-menu-orbit 4s linear infinite}
 @keyframes proposal-menu-orbit{to{--proposal-border-angle:360deg}}
 @media(prefers-reduced-motion:reduce){#november-plan-menu::after{animation:none}}
-.proposal-intro{padding:12px 0 24px;border-bottom:1px solid var(--line)}
+.proposal-intro{padding:12px 0 0}
 .proposal-intro h2{margin:0 0 8px;font-size:22px;line-height:1.5}
-.proposal-intro p{margin:0;color:var(--muted);font-size:14px;line-height:1.7}
 .proposal-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:16px;margin:24px 0 32px}
 .proposal-option{min-width:0;padding:22px 20px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:6px}
 .proposal-event{border-color:var(--gold-line);border-top-color:var(--warning)}
@@ -38,5 +37,6 @@
 .proposal-reflection h2{font-size:22px;margin:0 0 16px;line-height:1.5}
 .proposal-reflection h3{font-size:15px;margin:24px 0 8px}
 .proposal-reflection p{max-width:78ch;margin:0;color:var(--ink);font-size:14px;line-height:1.9;white-space:pre-line}
+.proposal-reflection .proposal-conclusion{margin-top:14px;padding-left:14px;border-left:3px solid var(--accent);font-weight:650}
 @media(max-width:1100px){.proposal-options{gap:10px}.proposal-option{padding:18px 14px}.proposal-option h3{font-size:16px}}
 @media(max-width:760px){.proposal-options{grid-template-columns:1fr;gap:16px}.proposal-option{padding:20px}.proposal-intro h2{font-size:20px}.proposal-price{margin-bottom:18px}.proposal-option dl{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.proposal-option dl>div:last-child{grid-column:1/-1}}

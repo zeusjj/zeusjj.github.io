@@ -6,8 +6,8 @@
   function render(data){
     host.replaceChildren();
     const heading=el('div',null,'page-heading'),title=el('div');title.append(el('h1','11월 길드레이드 아이템 분배 룰 제안'));title.firstChild.id='november-plan-heading';title.append(el('p','비공개 초안 · 검토 중'));heading.append(title);host.append(heading);
-    const reflection=el('div',null,'proposal-reflection');data.reflection.forEach((part,index)=>{reflection.append(el(index===0?'h2':'h3',part.title),el('p',part.text));});host.append(reflection);
-    const intro=el('div',null,'proposal-intro');intro.append(el('h2',data.intro),el('p',data.summary));host.append(intro);
+    const reflection=el('div',null,'proposal-reflection');data.reflection.forEach((part,index)=>{reflection.append(el(index===0?'h2':'h3',part.title),el('p',part.text));if(part.conclusion)reflection.append(el('p',part.conclusion,'proposal-conclusion'));});host.append(reflection);
+    const intro=el('div',null,'proposal-intro');intro.append(el('h2',data.intro));host.append(intro);
     const grid=el('div',null,'proposal-options');
     data.rules.forEach(rule=>{
       const card=el('article',null,'proposal-option'+(rule.event?' proposal-event':''));
