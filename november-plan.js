@@ -11,7 +11,7 @@
     const grid=el('div',null,'proposal-options');
     data.rules.forEach(rule=>{
       const card=el('article',null,'proposal-option'+(rule.event?' proposal-event':''));
-      const top=el('div',null,'proposal-option-top');top.append(icon(rule.icon),el('span',rule.label));card.append(top,el('h3',rule.title));
+      const top=el('div',null,'proposal-option-top');top.append(icon(rule.icon),el('span',rule.event?'이벤트 경매':rule.label));card.append(top);if(rule.event)card.append(el('p',rule.label,'proposal-event-condition'));card.append(el('h3',rule.title));
       const method=el('p',null,'proposal-method');method.append(el('span','경매 방식'),el('strong',rule.method));card.append(method);
       if(rule.event)card.append(el('p',data.eventExplanation,'proposal-event-explanation'));
       const price=el('p',null,'proposal-price');price.append(el('strong',rule.price),el('span',rule.priceLabel));card.append(price);
