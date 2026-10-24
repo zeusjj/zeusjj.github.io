@@ -28,7 +28,9 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
     const identity=node('div');identity.className='member-session-identity';identity.title=user.nickname+'으로 로그인되었습니다.';identity.append(node('strong',user.nickname),node('small',user.isAdmin?'관리자':'로그인됨'));
     const settings=button('비밀번호 변경','settings',()=>{const dialog=document.getElementById('member-password-dialog');dialog.querySelector('form').reset();document.getElementById('member-password-status').textContent='';dialog.showModal();dialog.querySelector('input').focus();});
     const logout=button('로그아웃','log-out',async()=>{logout.disabled=true;try{await signOut();announce('로그아웃했습니다.');}catch{logout.disabled=false;announce('로그아웃하지 못했습니다. 다시 시도해주세요.');}});
-    host.append(identity,settings,logout);
+    host.append(identity);
+    if(user.isAdmin)host.append(button('관리자 페이지','shield-check',()=>{location.hash='admin';}));
+    host.append(settings,logout);
   }
   function normalizeInput(input){const value=passwordKeys(input.value);if(value!==input.value){const start=input.selectionStart,end=input.selectionEnd;const left=passwordKeys(input.value.slice(0,start)).length,right=passwordKeys(input.value.slice(0,end)).length;input.value=value;input.setSelectionRange(left,right);}}
   function bindPassword(input){input.lang='en';input.autocapitalize='none';input.spellcheck=false;input.addEventListener('input',event=>{if(!event.isComposing)normalizeInput(input);});input.addEventListener('compositionend',()=>normalizeInput(input));input.addEventListener('blur',()=>normalizeInput(input));}

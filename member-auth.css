@@ -27,3 +27,4 @@
 .growth-chart-legend .growth-chart-above::before{border-top:1px solid var(--growth-above)}
 .growth-chart-legend .growth-chart-below::before{border-top:1px dashed var(--growth-below)}
 @media(max-width:640px){#login{padding:20px 16px}.workspace-bar #header-nickname.member-session-controls{max-width:none;justify-content:flex-start}.member-session-identity{margin-right:2px}.workspace-bar .theme-picker{width:140px;min-width:0}.workspace-bar{grid-template-columns:minmax(0,1fr) 140px!important}#profile-viewer-controls{width:100%}#profile-viewer{width:min(300px,calc(100% - 50px))}}
+@media(max-width:360px){.workspace-bar:has(#header-nickname [aria-label="관리자 페이지"]){grid-template-columns:minmax(0,1fr) 100px!important}.workspace-bar:has(#header-nickname [aria-label="관리자 페이지"]) .theme-picker{width:100px}}

@@ -2727,7 +2727,7 @@
     "2026-10-23": "2026-10-23T23:59:00+09:00"
   },
   "membersUpdatedAt": "2026-10-23T18:02:22Z",
-  "distributionUpdatedAt": "2026-10-21T12:24:53Z",
+  "distributionUpdatedAt": "2026-10-24T02:15:58Z",
   "distribution": [
     {
       "title": "길드레이드 6차",
@@ -2736,7 +2736,7 @@
           "name": "성녀",
           "item": "T5 찬란한 반지",
           "amount": 1395,
-          "bidding": "B 지정가경매"
+          "bidding": "방어구,장신구 - 분배타입B"
         },
         {
           "name": "꾸뱅",
