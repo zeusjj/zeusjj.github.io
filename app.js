@@ -110,13 +110,17 @@ function renderRules(text) {
   for(const section of text.split(/\r?\n(?=\[)/)) {
     const match=section.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);
     if(!match) continue;
-    const kind=match[1]==='성장 목표'?'target':layouts[match[1]] || 'updates';
+    const kind=match[1]==='성장 목표'?'target':match[1]==='단톡방'?'chat':layouts[match[1]] || 'updates';
     if(kind==='system')continue;
     const wrapper=element('section',undefined,'policy-section policy-'+kind);
     wrapper.append(element('h2',match[1].replace(/^\d+\.\s*/,'')));
     const body=element('div',undefined,'policy-body');
     const content=match[2].trim();
-    if(kind==='target') {
+    if(kind==='chat') {
+      const linkMatch=content.match(/^(.*?)\s*(https:\/\/open\.kakao\.com\/o\/[A-Za-z0-9]+)\s*$/);
+      if(linkMatch){const line=element('p'),link=element('a',linkMatch[2]);link.href=linkMatch[2];link.target='_blank';link.rel='noopener noreferrer';line.append(document.createTextNode(linkMatch[1]+' '),link);body.append(line);}
+      else bodyContent(content,body);
+    } else if(kind==='target') {
       const match=content.match(/^(.*?)\s*(\([^)]*\))$/);
       if(match){const line=element('p');line.append(document.createTextNode(match[1]+' '),element('small',match[2]));body.append(line);}
       else bodyContent(content,body);
@@ -172,7 +176,7 @@ function renderRules(text) {
   }
   const group=(className,kinds)=>{const node=element('div',undefined,className);for(const kind of kinds){const section=sections.get(kind);if(section){node.append(section);sections.delete(kind);}}return node;};
   const overview=element('div',undefined,'operations-layout');overview.id='guild-operations';
-  overview.append(group('operation-copy',['direction','growth','relations']),group('schedule-rail',['target','schedule','timing']));target.append(overview);
+  overview.append(group('operation-copy',['direction','growth','relations','chat']),group('schedule-rail',['target','schedule','timing']));target.append(overview);
   const chapter=(id,title,icon)=>{const node=element('section',undefined,'policy-chapter');node.id=id;const heading=element('div',undefined,'chapter-heading');const symbol=element('i');symbol.dataset.lucide=icon;heading.append(symbol,element('h2',title));node.append(heading);return node;};
   const distribution=chapter('guild-distribution','분배 기준','scale');
   distribution.append(group('distribution-intro',['principles']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));
