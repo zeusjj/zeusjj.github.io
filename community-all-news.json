@@ -1,9 +1,57 @@
 {
-  "collectedAt": "2026-10-25T19:06:10.332416+00:00",
+  "collectedAt": "2026-10-25T20:00:05.838311+00:00",
   "days": 14,
   "coverageStart": "2026-10-26",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "96779",
+      "title": "50리세 에픽다밀고 서브깨냐?",
+      "publishedAt": "2026-10-26T04:59:10+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96779",
+      "recommended": false,
+      "contentText": "순서상관없나",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:00:05.838311+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:00:05.838311+00:00"
+    },
+    {
+      "id": "96778",
+      "title": "쌍조 뜨뜨 쌀숭이들 필독글",
+      "publishedAt": "2026-10-26T04:39:22+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96778",
+      "recommended": false,
+      "contentText": "부캐로 나처럼 자하브 수집품만캐고\n\n아모르포스 보스출첵이나 해라\n\n눈팅가능할땐 본캐로 사냥하고",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:00:05.838311+00:00",
+      "comments": [
+        {
+          "id": "268624",
+          "text": "이제 인터보스 출첵안한다 게이야",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:00:05.838311+00:00"
+    },
+    {
+      "id": "96777",
+      "title": "버그제보)버근가,,.,",
+      "publishedAt": "2026-10-26T04:26:03+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96777",
+      "recommended": false,
+      "contentText": "써버에 캐릭터 많이 삭제 된거같음\n\n고객센터에 제가 문의해놈 걱정 ㄴㄴ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:00:05.838311+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:00:05.838311+00:00"
+    },
     {
       "id": "96776",
       "title": "제우스1 필보 상황 (feat.끔살발생)",
@@ -130,7 +178,7 @@
     },
     {
       "id": "96769",
-      "title": "속보) 헤라1 자하브 보스 새벽기습공격",
+      "title": "속보) 헤라1 자하브 보스 기습공격",
       "publishedAt": "2026-10-26T03:32:28+09:00",
       "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96769",
       "recommended": false,
@@ -920,31 +968,6 @@
           "id": "268547",
           "text": "쌍조가 이미 알고는 있었다고 말은 하던데",
           "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96737",
-      "title": "제일 불쌍한 놈 = 포세에서 아폴1,아프3 간 놈ㅠ",
-      "publishedAt": "2026-10-26T02:31:31+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96737",
-      "recommended": false,
-      "contentText": "ㅈ같아서 이전했는데\n\n또 만났누? ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:58:05.308915+00:00",
-      "comments": [
-        {
-          "id": "268540",
-          "text": "누가 간건데?",
-          "reply": false
-        },
-        {
-          "id": "268541",
-          "text": "군림 선고 아폴1\n뢰 아프3",
-          "reply": true
         }
       ],
       "commentsStatus": "ok",
@@ -3068,46 +3091,6 @@
         {
           "id": "268356",
           "text": "이미 접히는중 ㅇㅇ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96654",
-      "title": "이 겜도 하고 삼국지 게임도 같이 하는데",
-      "publishedAt": "2026-10-26T01:30:40+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96654",
-      "recommended": false,
-      "contentText": "요새는 추세가 쎈놈들끼리 뭉치고\n\n다굴치고 이런 것만 해서 노잼되는거 같음\n\n비슷한 구도로는 안 싸우고 쫄보들처럼 몰려다니면서 게임을 해서 다 노잼되네",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [
-        {
-          "id": "268325",
-          "text": "ㅇㅈ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96652",
-      "title": "제우스1 귀순문의",
-      "publishedAt": "2026-10-26T01:30:07+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96652",
-      "recommended": false,
-      "contentText": "시간좀 주세요 짱나게하면 닉변하고 투력내리고 본토사냥할꺼니까",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [
-        {
-          "id": "268406",
-          "text": "님 대갈은 장식임? 무한의 탑층은 뭐 그냥임?",
           "reply": false
         }
       ],
