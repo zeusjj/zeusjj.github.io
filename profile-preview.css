@@ -1,0 +1,32 @@
+#profile-preview{max-width:900px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink)}
+.profile-preview-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+#profile-preview-heading{font-size:14px;margin:0}
+.profile-preview-heading>span{font-size:11px;color:var(--muted)}
+#profile-preview .profile-identity{gap:10px;padding-bottom:12px}
+#profile-preview .profile-identity h3{font-size:17px;margin:0 0 3px}
+#profile-preview .profile-identity p{font-size:11px}
+#profile-preview .overview-metrics{padding:14px 0;gap:12px;margin-bottom:12px}
+#profile-preview .overview-metrics dt{font-size:11px;margin-bottom:5px}
+#profile-preview .overview-metrics dd{font-size:18px}
+#profile-preview .overview-metrics small{font-size:10px;margin-top:5px}
+.profile-preview-goals{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+#profile-preview .overview-badge{font-size:10px;background:var(--success-soft);color:var(--success)}
+.profile-preview-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+#profile-preview .overview-section{padding:18px 0}
+#profile-preview h3{font-size:13px;margin:0 0 12px}
+#profile-preview .growth-chart-legend{font-size:10px;gap:10px;margin-bottom:8px}
+#profile-preview-chart{display:block;width:100%;height:150px}
+#profile-preview .overview-table{font-size:11px}
+#profile-preview .overview-table th,#profile-preview .overview-table td{padding:7px 6px}
+#profile-preview .overview-table thead th{font-size:10px}
+#profile-preview .overview-participation-score{margin:0 0 12px;gap:8px}
+#profile-preview .overview-participation-score>strong{font-size:20px}
+#profile-preview .participation-meter{margin-bottom:18px}
+#profile-preview .overview-history>summary{font-size:11px}
+.profile-preview-ranks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0}
+.profile-preview-ranks>div{min-width:0}
+.profile-preview-ranks dt{font-size:11px;color:var(--muted);margin-bottom:8px}
+.profile-preview-ranks dd{margin:0;display:flex;flex-direction:column;gap:6px}
+.profile-preview-ranks strong{font-size:15px}
+.profile-preview-ranks small{font-size:10px;color:var(--muted)}
+@media(max-width:600px){#profile-preview .overview-metrics{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.profile-preview-columns{grid-template-columns:1fr;gap:0}.profile-preview-ranks{gap:12px}.profile-preview-ranks dt{min-height:32px;line-height:1.5}}

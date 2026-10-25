@@ -16,6 +16,8 @@
   <script src="member-archives.js?v=20261022-archive" defer></script>
   <script type="module" src="member-auth.js?v=20261025-distribution-login"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261025-password-reminder">
+  <link rel="stylesheet" href="profile-preview.css?v=20261025-preview">
+  <script src="profile-preview.js?v=20261025-preview" defer></script>
   <script src="raid-distribution.js?v=20261025-restrictions" defer></script>
   <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261025-distribution-login" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261025-departed-label"></script>
@@ -39,7 +41,7 @@
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
   <script src="visitors.js?v=20261024-auto-menus" defer></script>
-  <script src="admin-menu-statistics.js?v=20261024-auto-menus" defer></script>
+  <script src="admin-menu-statistics.js?v=20261025-daily-menu" defer></script>
   <script src="admin-member-statistics.js?v=20261021-199" defer></script>
   <link rel="stylesheet" href="admin-member-statistics.css?v=20261021-199">
   <script src="guestbook.js?v=20261018-169" defer></script>
@@ -93,7 +95,7 @@
       <section id="community" class="overview-page" hidden aria-labelledby="community-heading"><div class="page-heading"><div><h1 id="community-heading">디시글 모아보기</h1><p>제우스 오만의 신 갤러리 · 일반글과 개념글 · 최근 120개</p></div></div><div id="community-content"></div></section>
       <section id="profile" class="overview-page" hidden aria-labelledby="profile-heading">
         <div class="page-heading"><div><h1 id="profile-heading">내 정보</h1><p id="profile-caption">로그인 후 내 정보를 확인하세요.</p></div><div id="profile-viewer-controls" hidden><div id="profile-viewer" class="nickname-picker"></div><button id="profile-viewer-reset" class="icon-button" type="button" title="내 정보로 돌아가기" aria-label="내 정보로 돌아가기"><i data-lucide="x"></i></button></div></div>
-        <div id="profile-login"><div id="member-login-profile" class="member-login-mount"></div></div>
+        <div id="profile-login"><div id="member-login-profile" class="member-login-mount"></div><section id="profile-preview" aria-labelledby="profile-preview-heading"></section></div>
         <div id="profile-content" hidden></div>
       </section>
       <section id="weekly" class="overview-page" hidden aria-labelledby="weekly-heading">
