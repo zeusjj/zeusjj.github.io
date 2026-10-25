@@ -67,6 +67,8 @@ window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(tab) {
   tab=tab.split('/')[0];
   if (!tabs.includes(tab)) tab = 'rules';
+  if(location.hash==='#login/distribution'&&distributionSignedIn()){history.replaceState(null,'','#distribution');tab='distribution';}
+  if(tab==='distribution'&&!distributionSignedIn()){history.replaceState(null,'','#login/distribution');tab='login';}
   if(tab==='november-plan'&&!canViewNovemberPlan())tab='rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
@@ -92,6 +94,11 @@ document.querySelectorAll('[data-tab]').forEach(button => button.addEventListene
 document.querySelector('.skip-link').addEventListener('click',event=>{event.preventDefault();document.getElementById('main-content').focus();});
 document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.scroll),archive=target?.closest('details');if(target?.closest('[hidden]'))return;if(archive)archive.open=true;target?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
 window.addEventListener('hashchange', () => {normalizeProbabilityRoute();switchTab(location.hash.slice(1));});
+function distributionSignedIn(){return !!window.GuildAuth?.user&&window.GuildAuth.expiresAt>Date.now();}
+window.addEventListener('guild-auth-change',()=>{
+  renderDistribution(publicMemberSource?.distribution??[]);
+  if(location.hash.split('/')[0]==='#distribution'||location.hash==='#login/distribution')switchTab(location.hash.slice(1));
+});
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
   const target=document.getElementById('rule-content');
@@ -726,6 +733,8 @@ function renderMembers(data, query='') {
 window.addEventListener('guild-nickname-change',()=>document.querySelectorAll('#member-table tbody tr').forEach(row=>row.classList.toggle('member-is-me',row.dataset.memberName===window.GuildNickname?.get())));
 function renderDistribution(groups) {
   const target=document.getElementById('distribution-content');
+  target.replaceChildren();
+  if(!distributionSignedIn())return;
   for(const group of groups){const section=element('section',undefined,'distribution-group');const heading=element('div',undefined,'distribution-heading');heading.append(element('h2',group.title),element('span',group.schedule&&!group.records.length?'분배 예정':`${group.records.length}건`,'record-count'));section.append(heading);
     if(group.schedule)section.append(element('p',group.schedule,'distribution-schedule'));
     if(!group.records.length){if(!group.schedule)section.append(element('p','등록된 분배 기록이 없습니다.','empty'));}
