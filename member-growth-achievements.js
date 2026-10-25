@@ -1,4 +1,4 @@
-import {growthHistory} from './member-growth-history.js?v=20261024-unified-update';
+import {growthHistory} from './member-growth-history.js?v=20261025-departed-label';
 
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
  const cutoff=new Date(Date.parse(today+'T00:00:00Z')-86400000).toISOString().slice(0,10),milestoneCutoff=new Date(Date.parse(today+'T00:00:00Z')-6*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
