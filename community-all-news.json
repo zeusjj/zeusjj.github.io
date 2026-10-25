@@ -1,9 +1,90 @@
 {
-  "collectedAt": "2026-10-25T20:00:05.838311+00:00",
+  "collectedAt": "2026-10-25T20:59:47.773139+00:00",
   "days": 14,
   "coverageStart": "2026-10-26",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "96784",
+      "title": "아레스2 초월vs무명 거손3시간쟁",
+      "publishedAt": "2026-10-26T05:55:45+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96784",
+      "recommended": false,
+      "contentText": "밀고 밀리는 기나긴 3시간의 싸움끝에 거손 트리포크먹고 초월 승\n\n상급 부활복구물약 140원돌파 ㅋㅋㅋㅋ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:59:47.773139+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
+    },
+    {
+      "id": "96783",
+      "title": "좆테나 프모 없는 프모섭임?",
+      "publishedAt": "2026-10-26T05:51:11+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96783",
+      "recommended": false,
+      "contentText": "ㅋㅋㅋㅋ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:59:47.773139+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
+    },
+    {
+      "id": "96782",
+      "title": "프모들 견적나온다",
+      "publishedAt": "2026-10-26T05:36:10+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96782",
+      "recommended": false,
+      "contentText": "11월달에 방송하는거랑 서버 내 활약 보고 12월에 투력낮은애들이랑 도움안되보이는 애들 위주로\n\n프모 종료시키고 서버이전 열것임",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:59:47.773139+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
+    },
+    {
+      "id": "96781",
+      "title": "근데 내전 있는 서버들은 점령전은 어케해?",
+      "publishedAt": "2026-10-26T05:32:22+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96781",
+      "recommended": false,
+      "contentText": "어케함? 난 이게 궁금하던데...",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:59:47.773139+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
+    },
+    {
+      "id": "96780",
+      "title": "이런 경우는 어케해야되냐? 서버에 스파이가 왔는데",
+      "publishedAt": "2026-10-26T05:02:05+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96780",
+      "recommended": false,
+      "contentText": "헤라 1섭에서 2 - 3섭으로 서버이전해서\n\n너넨 AI 더 이상 없다고 하고\n\n1인 길드 만든 다음 시간마다 중립이고 뭐고 다 죽임 ㅋㅋ\n\n리니지게임 서버이전 많이 봤는데\n\n이런 경우처음이라 아마 헤라 2 3섭 중립들은 많이 접을듯\n\n게임사에서 대처방안을 만들어 줄 것 같지도 않고",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-25T20:59:47.773139+00:00",
+      "comments": [
+        {
+          "id": "268629",
+          "text": "진짜 악질이네 이건 게임사에서 제재를좀 해야할거같은데 - dc App",
+          "reply": false
+        },
+        {
+          "id": "268635",
+          "text": "머그냥디지는거지 낮엔 맞으면서 사냥하다 잘때만 피난처 가든가 - dc App",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
+    },
     {
       "id": "96779",
       "title": "50리세 에픽다밀고 서브깨냐?",
@@ -61,10 +142,21 @@
       "contentText": "어떡행..\n\n- dc official App",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-25T19:06:10.332416+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "268626",
+          "text": "학살자가 된 상태에서 죽으면 어떻게 돼?",
+          "reply": false
+        },
+        {
+          "id": "268631",
+          "text": "복구비 200다야 골드복구 무료복구 x",
+          "reply": true
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96774",
@@ -80,11 +172,21 @@
           "id": "268620",
           "text": "무탑층수로 고랩부캐 걸러낸다는건 귀신같이 안적었네 ㅋㅋ",
           "reply": false
+        },
+        {
+          "id": "268621",
+          "text": "그건말안해도 다들알고있덩거아니였냐.. 담엔 그런것도 적어줄게",
+          "reply": true
+        },
+        {
+          "id": "268623",
+          "text": "기생충 같은놈들 ~",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96773",
@@ -104,7 +206,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96772",
@@ -124,7 +226,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96771",
@@ -154,7 +256,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96770",
@@ -174,7 +276,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96769",
@@ -188,7 +290,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96768",
@@ -204,11 +306,21 @@
           "id": "268602",
           "text": "한달뒤라던데",
           "reply": false
+        },
+        {
+          "id": "268622",
+          "text": "한달이야 그렇게안김",
+          "reply": false
+        },
+        {
+          "id": "268637",
+          "text": "어디냐 - dc App",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96767",
@@ -238,7 +350,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96766",
@@ -258,7 +370,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96765",
@@ -278,7 +390,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96764",
@@ -303,7 +415,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96763",
@@ -317,7 +429,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96762",
@@ -328,10 +440,21 @@
       "contentText": "거래소 하락장 이동 없음. 탈출불가. 탈출은 지능순\n\n얼른 계정팔자 의미없다 ㅋㅋㅋ",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-25T19:06:10.332416+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "268625",
+          "text": "다이아사서 신과올리기엔 오히려좋아. 쌀값싸지 오리싸지 캬",
+          "reply": false
+        },
+        {
+          "id": "268633",
+          "text": "제우스에 비하면 99단완벽",
+          "reply": true
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96761",
@@ -345,7 +468,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96760",
@@ -359,7 +482,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96759",
@@ -384,7 +507,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96758",
@@ -409,7 +532,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96757",
@@ -429,7 +552,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96756",
@@ -449,7 +572,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96755",
@@ -479,7 +602,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96754",
@@ -495,11 +618,16 @@
           "id": "268608",
           "text": "길드원이 다지인임? 200만다야 다쳐먹을동안 아무도말안함?",
           "reply": false
+        },
+        {
+          "id": "268630",
+          "text": "200만을 안가져갔으니까 아무말을 안하지 딱봐도 거짓말이자나 ㅋㅋㅋ",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96753",
@@ -529,7 +657,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96752",
@@ -549,7 +677,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96751",
@@ -588,13 +716,13 @@
         },
         {
           "id": "0",
-          "text": "김범수, 2세 사진 공개 \"이런 딸 있으면 밖에도 안 나갈 것 같다\"\n\n1/20",
+          "text": "홍진영, 빗속 공연 후 안전벨트 논란 빛의 속도로 빛샘 차단 \"움직이는 차 안 아님\"\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96750",
@@ -619,7 +747,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96749",
@@ -633,7 +761,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96748",
@@ -668,7 +796,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96747",
@@ -693,7 +821,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96746",
@@ -732,7 +860,7 @@
         },
         {
           "id": "0",
-          "text": "'런닝맨' 양세찬, 남대문시장 쇼핑 중 '실명 거론' 열애설 폭발 \"베개 커버 왜 2개 사?\"\n\n1/20",
+          "text": "\"소리 안 지르려 했는데… 정지선, 400인분 딤섬 오버쿡에 분노\n\n1/20",
           "reply": false
         },
         {
@@ -743,7 +871,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96745",
@@ -757,7 +885,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96744",
@@ -782,14 +910,14 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96743",
       "title": "아르1 블랙홀길마 90만다야슈킹한 서월년아",
       "publishedAt": "2026-10-26T02:37:04+09:00",
       "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96743",
-      "recommended": false,
+      "recommended": true,
       "contentText": "어 형이야. 너 제우스1갔대매? 너 지금 90만다야 아직도 니 계정에 가지고있냐?? 그래도 씨발 같이따라갔는데 5명한테 5천다이아정도는 박아줘라 비응신아 ㅋㅋㅋ\n\nㅅㅂ 내 경험상 아직도 안줬을거같은뎈ㅋㅋㅋㅋㅋㅋㅋ 이전비랑 닉변경권정도만 지원해줬을라나?ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ블랙홀 길레때 나온 길드템 영웅스킬북 자유경매해서 다이아 본인으로 1인분배 쳐하고 풀매수한테 받은 다야는 다 슈킹햇니???씹새꺄 엑셀시트 쳐만드는척하고 그거 분배안하고 뭐했니?? 이 쓰래기 그지깽깽이같은년아 ㅋㅋㅋㅋ 그때까지 기다린 길원들은 호구라서 니 믿고기다린줄 알아??? 길드운영은 개 씹 졷도못하면서 뭔길마야 이 비응신앜ㅋㅋㅋㅋㅋ 그러면서 씨발 무슨 인터보스참여자를 체크해 씨벌럼아 ㅋㅋㅋㅋㅋㅋ 니는 걍 거기무덤차려라 씨벌럼아\n\n블랙홀 닉 <레오아빠>\n\n블랙홀 닉 <칠흑검>\n\n블랙홀 닉 <서월> 디코에서 애새끼마냥길마새끼가땡깡존나부림\n\n블랙홀 닉 <노아> 꽐라되서나이트존나가는새끼임. 현피에서 이겼다고 자랑질 존나깜 ㅋㅋ\n\n블랙홀 닉 <더라희> 이새낀 서월이 현실친구",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-25T17:58:05.308915+00:00",
@@ -812,7 +940,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96742",
@@ -851,13 +979,13 @@
         },
         {
           "id": "0",
-          "text": "[주류] 메탄올 기준치 초과 검출된 증류주 '인천상륙작전 프리미엄' 판매 중단·회수\n\n1/20",
+          "text": "'런닝맨' 양세찬, 남대문시장 쇼핑 중 '실명 거론' 열애설 폭발 \"베개 커버 왜 2개 사?\"\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96741",
@@ -877,7 +1005,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96740",
@@ -897,7 +1025,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96739",
@@ -936,13 +1064,13 @@
         },
         {
           "id": "0",
-          "text": "[롤드컵] 젠지, 한화생명 꺾고 스위스 2승 그룹 합류\n\n1/20",
+          "text": "쌀쌀해지면 무조건 생각나는데… 알고 보니 100년 전에도 배달시켜 먹던 한국 음식\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96738",
@@ -968,11 +1096,16 @@
           "id": "268547",
           "text": "쌍조가 이미 알고는 있었다고 말은 하던데",
           "reply": false
+        },
+        {
+          "id": "268627",
+          "text": "wwe잖아",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96736",
@@ -1002,7 +1135,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96735",
@@ -1027,7 +1160,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96734",
@@ -1047,7 +1180,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96733",
@@ -1072,7 +1205,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96732",
@@ -1086,7 +1219,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96731",
@@ -1106,7 +1239,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96730",
@@ -1131,7 +1264,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96729",
@@ -1156,7 +1289,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96728",
@@ -1181,7 +1314,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96727",
@@ -1206,7 +1339,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96726",
@@ -1220,7 +1353,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96725",
@@ -1234,7 +1367,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96724",
@@ -1278,7 +1411,7 @@
         },
         {
           "id": "0",
-          "text": "[여행 리뷰] '한국의 갈라파고스' 굴업도 2박 3일 탐방기 ⑤ 마지막 이야기, 아름다운 굴업도를 즐길 수 있는 날도 길어야 5년!\n\n1/20",
+          "text": "“한동훈 손절” 선언한 정치인, 이 사람이었다\n\n1/20",
           "reply": false
         },
         {
@@ -1305,11 +1438,16 @@
           "id": "268563",
           "text": "통발이 오히려 안터지고 본계가 존내 터짐 7강은 뭐 그냥 주구장창 터진다 보면 되고 6강도 확률대비 너무 터지고",
           "reply": false
+        },
+        {
+          "id": "268632",
+          "text": "걍 신과도 그렇고 다 터짐 80% 6번 실패하는개 맞냐",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96723",
@@ -1323,7 +1461,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96722",
@@ -1343,7 +1481,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96721",
@@ -1382,13 +1520,13 @@
         },
         {
           "id": "0",
-          "text": "'런닝맨' 양세찬, 남대문시장 쇼핑 중 '실명 거론' 열애설 폭발 \"베개 커버 왜 2개 사?\"\n\n1/20",
+          "text": "박위, 구독자 7만 명 떠난 뒤에야 옛 영상 역풍 맞았다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96720",
@@ -1427,13 +1565,13 @@
         },
         {
           "id": "0",
-          "text": "추억의 온라인게임 판포유, 20여 년 만에 부활\n\n1/20",
+          "text": "\"한국에선 싸구려 취급했는데..\" 해외에서 품절 대란이라는 '천연 혈관 보약'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96719",
@@ -1453,7 +1591,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96718",
@@ -1492,13 +1630,18 @@
         },
         {
           "id": "0",
-          "text": "박위, 구독자 7만 명 떠난 뒤에야 옛 영상 역풍 맞았다\n\n1/20",
+          "text": "\"혈관건강 빠르게 망가집니다\" 전문가들도 혈관에 안좋다 뽑은 '3가지 음식'\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "268634",
+          "text": "헤르3은 12시간짜리 45 2개 65 70 2개\n자하브 8시간짜리 3개\n\nㅋㅋ일케 만듬 진짜 개꿀",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96717",
@@ -1547,13 +1690,13 @@
         },
         {
           "id": "0",
-          "text": "결혼한지 11년째 되었는데…아내와 각방 생활중인 한국 스타 부부 남편\n\n1/20",
+          "text": "홍진영, 빗속 공연 후 안전벨트 논란 빛의 속도로 빛샘 차단 \"움직이는 차 안 아님\"\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96716",
@@ -1567,7 +1710,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96715",
@@ -1587,7 +1730,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96714",
@@ -1601,7 +1744,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96713",
@@ -1621,7 +1764,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96712",
@@ -1665,7 +1808,7 @@
         },
         {
           "id": "0",
-          "text": "박위, 구독자 7만 명 떠난 뒤에야 옛 영상 역풍 맞았다\n\n1/20",
+          "text": "\"냉동시켜도 식중독 위험 큽니다\" 한국인 대부분 생으로 먹고있던 '이 음식'\n\n1/20",
           "reply": false
         },
         {
@@ -1706,7 +1849,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96711",
@@ -1726,7 +1869,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96710",
@@ -1746,7 +1889,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96709",
@@ -1776,7 +1919,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96708",
@@ -1790,7 +1933,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96707",
@@ -1820,7 +1963,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96706",
@@ -1840,7 +1983,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96705",
@@ -1865,7 +2008,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96704",
@@ -1879,7 +2022,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96703",
@@ -1918,13 +2061,13 @@
         },
         {
           "id": "0",
-          "text": "\"혈관건강 빠르게 망가집니다\" 전문가들도 혈관에 안좋다 뽑은 '3가지 음식'\n\n1/20",
+          "text": "윤미라, 58년 만에 공개한 독신 일상...드레스룸만 3개\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96702",
@@ -1963,13 +2106,13 @@
         },
         {
           "id": "0",
-          "text": "결혼한지 11년째 되었는데…아내와 각방 생활중인 한국 스타 부부 남편\n\n1/20",
+          "text": "톱스타의 아이 임신하고 홀로 키우다 연예계 데뷔한 여친…결국 아이 공개\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96701",
@@ -1999,7 +2142,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96699",
@@ -2013,7 +2156,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96697",
@@ -2033,7 +2176,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96696",
@@ -2068,7 +2211,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96695",
@@ -2088,7 +2231,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96694",
@@ -2113,7 +2256,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96693",
@@ -2152,7 +2295,7 @@
         },
         {
           "id": "0",
-          "text": "추억의 온라인게임 판포유, 20여 년 만에 부활\n\n1/20",
+          "text": "[여행 리뷰] '한국의 갈라파고스' 굴업도 2박 3일 탐방기 ⑤ 마지막 이야기, 아름다운 굴업도를 즐길 수 있는 날도 길어야 5년!\n\n1/20",
           "reply": false
         },
         {
@@ -2178,7 +2321,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96692",
@@ -2208,7 +2351,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96691",
@@ -2222,7 +2365,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96690",
@@ -2261,13 +2404,13 @@
         },
         {
           "id": "0",
-          "text": "[단독] AI 가짜 판례 속출하는데...법원은 통계 없고 정부는 가이\n\n1/20",
+          "text": "\"주방 청소할 때 절대 하지 마세요…\" 깨끗하게 하려다 오히려 독 되는 행동 BEST4\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96689",
@@ -2281,7 +2424,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96688",
@@ -2295,7 +2438,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96687",
@@ -2320,7 +2463,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96686",
@@ -2334,7 +2477,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96685",
@@ -2354,7 +2497,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96684",
@@ -2379,7 +2522,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96683",
@@ -2399,7 +2542,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96682",
@@ -2424,7 +2567,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96681",
@@ -2449,7 +2592,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96680",
@@ -2479,7 +2622,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96678",
@@ -2499,7 +2642,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96677",
@@ -2519,7 +2662,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96676",
@@ -2544,7 +2687,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96675",
@@ -2558,7 +2701,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96674",
@@ -2593,7 +2736,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96673",
@@ -2613,7 +2756,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96672",
@@ -2648,7 +2791,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96671",
@@ -2662,7 +2805,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96670",
@@ -2682,7 +2825,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96669",
@@ -2707,7 +2850,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96668",
@@ -2751,13 +2894,13 @@
         },
         {
           "id": "0",
-          "text": "결혼한지 11년째 되었는데…아내와 각방 생활중인 한국 스타 부부 남편\n\n1/20",
+          "text": "홍진영, 빗속 공연 후 안전벨트 논란 빛의 속도로 빛샘 차단 \"움직이는 차 안 아님\"\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96667",
@@ -2771,7 +2914,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96666",
@@ -2806,7 +2949,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96665",
@@ -2841,7 +2984,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96664",
@@ -2876,7 +3019,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96663",
@@ -2890,7 +3033,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96662",
@@ -2939,13 +3082,13 @@
         },
         {
           "id": "0",
-          "text": "[단독] 또 벌금 90만원…마포구청장, 두 번째 선거법 처벌\n\n1/20",
+          "text": "대체 불가한 아우라, 블랙핑크 리사의 'PRESS PLAY' 릴리즈 파티 패션\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96661",
@@ -2959,7 +3102,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     },
     {
       "id": "96660",
@@ -2973,130 +3116,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96659",
-      "title": "서월 능지딸리는거 진짜 안쓰럽긴함",
-      "publishedAt": "2026-10-26T01:33:55+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96659",
-      "recommended": false,
-      "contentText": "89만 다이아 공성세금 먹튀하고, 얘는 현질할 현실능력안되서 의상전설 하나 천장찍는데도 죽는 곡소리함.\n\n그것마저 천장찍고 2~3티 먹고 확정찍은 불쌍한놈임.\n\n그 많은 다이아 먹튀하고도, 능지딸려서 남은 길드원 분배해준다며 디코에 모아놓고 헛소리하다가 결국 못참고 천장탈것 전설뽑는데 다이아 다 쏟아먹고\n\nhttps://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96477&page=2\n\n아르1 <블랙홀> 서월. 노아 먹튀범 제우스1 이전완료 - 제우스 오만의 신 마이너 갤러리\n\n아르1 &lt;블랙홀&gt;90만다야 먹튀범들 제우스1 입성.자, 지명수배때립니다.길마 &lt;서월&gt;부길마 &lt;노아&gt;길원&lt;칠흑검&gt;길원&\n\ngall.dcinside.com\n\n남은 다이아 이녀석들이랑 나눠먹고 헤르 2 섭왔다가 연합한테 지명수배 걸려서 제우스1로 튐.\n\n890만이면 케릭을 업어와도 더 좋은 케릭업어오고, 그 다이아 먹튀하고 닉넴하나바꾸면 쌀먹할 수 있을줄 알았나, 헤르2섭왔다가 그 아이디 그대로 제우스1섭으로 튐.\n\n내실을 했어도 투력을 더올렸고, 다이아 쌀먹해서 계정을 업었으면 본인 신분세탁도 할 수 있었을건데, 그러고도 투력 7만따리임. 아직 전설 탈것 1개 더 뽑아야됨.",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [
-        {
-          "id": "268344",
-          "text": "저새끼들 길드에넣는순간 길드폭파임 ㅋㅋㅋ 디코만 해봐도 노답새끼인거 딱나옴.",
-          "reply": false
-        },
-        {
-          "id": "268398",
-          "text": "저거 근데 중재불가 아이디라 팔면 환불 대상에 해당함. 누군가 저걸 퍼트려야 지금 아이디도 못팜\n\n맨날 인터챗에 가정교육이 어떻네 뭐네 하더만 저봐 결국은 범죄 엔딩임\n\n나이도 한 40 돼보엿음",
-          "reply": false
-        },
-        {
-          "id": "268413",
-          "text": "91년생임",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96658",
-      "title": "아테나 연합 이거 누구 대가리에서 나온건지가 진짜",
-      "publishedAt": "2026-10-26T01:32:54+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96658",
-      "recommended": false,
-      "contentText": "저 아이디어 내놓고\n\n와 진짜 기발하다\n\n라고 생각했겠지\n\n진짜 ㅈ같은 발상을 쳐해서 서버에서 망친 구도를 아예 게임 전체까지 물들여놓네\n\n아레스 쟁 재밌게 보나 했더만\n\n시발",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [
-        {
-          "id": "268321",
-          "text": "여기 또 인터출책으로 분배받음?",
-          "reply": false
-        },
-        {
-          "id": "268322",
-          "text": "어차피 인터에서만 적용되는거야\n필드쟁이 메인인데 징징거리고있노",
-          "reply": false
-        },
-        {
-          "id": "268342",
-          "text": "근데 아레는 섭이전때 왜 이동안함?\n쳐들어오는거 알았다면서 ㅋㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "268388",
-          "text": "라고 망무새징징무새가 나댑니다. ㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96657",
-      "title": "프모 추가 아테나 섭초 때도 나온 말이다",
-      "publishedAt": "2026-10-26T01:31:29+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96657",
-      "recommended": false,
-      "contentText": "그냥 아레스형들 자연스럽게 맞으면 돼..",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96656",
-      "title": "제우스1 지금 길탈하고 닉변하고 오디세이가입하면 되는거아니냐 ?",
-      "publishedAt": "2026-10-26T01:31:25+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96656",
-      "recommended": false,
-      "contentText": "얘네도 지금 넘어와서 잘 모를거 아냐 ㅋㅋㅋㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
-    },
-    {
-      "id": "96655",
-      "title": "아테나 vs 아레스",
-      "publishedAt": "2026-10-26T01:30:44+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=96655",
-      "recommended": false,
-      "contentText": "다음 서버이전 열리기전에 프모서버는 다 아테나선에서 터질거같다\n\n이겜도 12월쯤이면 프모서버는 다 날아가겠내",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-25T17:02:50.814945+00:00",
-      "comments": [
-        {
-          "id": "268317",
-          "text": "다음 서버이전 전에 아테나던 아레스던 유저 절반은 날아갈듯",
-          "reply": false
-        },
-        {
-          "id": "268324",
-          "text": "프모섭에서 과금한넘들중에 찐 50억이상 부자 아니면 다 호구 빙신들이지 ㅋㅋ 프모섭 다 사기판인데 거기서 내돈내산으로 과금하는 빙신들 ㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "268356",
-          "text": "이미 접히는중 ㅇㅇ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-25T19:06:10.332416+00:00"
+      "commentsFetchedAt": "2026-10-25T20:59:47.773139+00:00"
     }
   ]
 }
