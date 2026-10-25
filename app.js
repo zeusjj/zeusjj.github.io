@@ -2,17 +2,9 @@ function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.
 normalizeProbabilityRoute();
 const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
 const novemberPlanPublic=true;
-const novemberRevisionDeadline=Date.parse('2026-10-26T00:00:00+09:00');
 const octoberArchiveDeadline=Date.parse('2026-10-29T00:00:00+09:00');
-let novemberRevisionTimer;
 let octoberArchiveTimer;
 function canViewNovemberPlan(){const auth=window.GuildAuth;return novemberPlanPublic||(auth?.user?.username==='케이론'&&auth.user.isAdmin&&auth.expiresAt>Date.now());}
-function syncNovemberRevisionLink(){
-  clearTimeout(novemberRevisionTimer);
-  const revision=document.querySelector('#guild-allocation > .allocation-revision');if(!revision)return;
-  const remaining=novemberRevisionDeadline-Date.now();revision.replaceChildren();revision.hidden=remaining<=0||!canViewNovemberPlan();
-  if(!revision.hidden){const link=document.createElement('a');link.href='#november-plan';link.textContent='11월 분배룰 제안 보러가기';revision.append(link);novemberRevisionTimer=setTimeout(syncNovemberRevisionLink,Math.min(2147483647,remaining+1));}
-}
 function syncOctoberArchive(){
   clearTimeout(octoberArchiveTimer);
   const archive=document.getElementById('allocation-october');if(!archive)return;
@@ -23,13 +15,10 @@ function syncOctoberArchive(){
   updateChapterNavigation();
 }
 function syncNovemberPlanAccess(){
-  const allowed=canViewNovemberPlan();document.getElementById('november-plan-menu').hidden=!allowed;
-  syncNovemberRevisionLink();
+  document.getElementById('november-plan-menu').hidden=true;
   if(location.hash.split('/')[0]==='#november-plan')switchTab(canViewNovemberPlan()?'november-plan':'rules');
 }
 window.addEventListener('guild-auth-change',syncNovemberPlanAccess);
-window.addEventListener('pageshow',syncNovemberRevisionLink);
-document.addEventListener('visibilitychange',syncNovemberRevisionLink);
 window.addEventListener('pageshow',syncOctoberArchive);
 document.addEventListener('visibilitychange',syncOctoberArchive);
 let tipsLoaded=false;
@@ -210,10 +199,9 @@ function renderRules(text) {
   const archiveTitle=element('summary'),archiveIcon=element('i');archiveIcon.dataset.lucide='chevron-right';
   archiveTitle.append(archiveIcon,element('span','10월 분배규칙 보기'));
   archive.append(archiveTitle,distribution,group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));
-  const revision=element('p',undefined,'allocation-revision');revision.hidden=true;
   const cards=element('div');cards.id='raid-distribution-cards';
-  allocation.append(revision,cards,archive);target.append(allocation);
-  syncNovemberRevisionLink();syncOctoberArchive();window.GuildDistributionCards.mount(cards);
+  allocation.append(cards,archive);target.append(allocation);
+  syncOctoberArchive();window.GuildDistributionCards.mount(cards);
   for(const section of sections.values())target.append(section);
   updateChapterNavigation();
   refreshIcons();

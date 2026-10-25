@@ -17,7 +17,7 @@
   <script type="module" src="member-auth.js?v=20261025-password-reminder"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261025-password-reminder">
   <script src="raid-distribution.js?v=20261025-restrictions" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261025-notice-visibility" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261025-hide-proposal" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261025-departed-label"></script>
   <script type="module" src="member-growth-achievements.js?v=20261025-departed-label"></script>
   <script type="module" src="member-distributions.js?v=20261024-dynamic-levels"></script>
@@ -68,7 +68,7 @@
     <div id="site-navigation">
     <nav aria-label="메인 메뉴">
       <button data-tab="rules" class="active"><i data-lucide="book-open"></i><span>운영 방식</span></button>
-      <button id="november-plan-menu" data-tab="november-plan"><i data-lucide="file-pen-line"></i><span>11월 길드레이드 아이템 분배 룰 제안</span></button>
+      <button id="november-plan-menu" data-tab="november-plan" hidden><i data-lucide="file-pen-line"></i><span>11월 길드레이드 아이템 분배 룰 제안</span></button>
       <button data-tab="notices"><i data-lucide="megaphone"></i><span>공지사항 <small id="notice-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="members"><i data-lucide="users-round"></i><span>길드원 참여 현황 <small id="member-menu-new" class="menu-new" hidden>New</small></span></button>
       <button data-tab="distribution"><i data-lucide="package-open"></i><span>분배 기록 <small id="distribution-menu-new" class="menu-new" hidden>New</small></span></button>
