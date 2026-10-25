@@ -1,7 +1,6 @@
 (() => {
   const host=document.getElementById('november-plan');let sequence=0,loaded=false;
   const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text)node.textContent=text;if(cls)node.className=cls;return node;};
-  const icon=name=>{const node=el('i');node.dataset.lucide=name;return node;};
   const allowed=()=>window.canViewNovemberPlan?.()??false;
   function render(data){
     host.replaceChildren();
@@ -9,23 +8,7 @@
     const reflection=el('div',null,'proposal-reflection');data.reflection.forEach((part,index)=>{reflection.append(el(index===0?'h2':'h3',part.title),el('p',part.text));if(part.conclusion)reflection.append(el('p',part.conclusion,'proposal-conclusion'));});host.append(reflection);
     if(data.transition)host.append(el('p',data.transition,'proposal-transition'));
     const intro=el('div',null,'proposal-intro');intro.append(el('h2',data.intro));host.append(intro);
-    const grid=el('div',null,'proposal-options');
-    data.rules.forEach(rule=>{
-      const card=el('article',null,'proposal-option'+(rule.event?' proposal-event':''));
-      const top=el('div',null,'proposal-option-top');top.append(icon(rule.icon),el('span',rule.event?'이벤트 경매':rule.label));card.append(top);if(rule.event)card.append(el('p',rule.label,'proposal-event-condition'));card.append(el('h3',rule.title));
-      const method=el('p',null,'proposal-method');method.append(el('span','경매 방식'),el('strong',rule.method));card.append(method);
-      if(rule.event)card.append(el('p',data.eventExplanation,'proposal-event-explanation'));
-      const price=el('p',null,'proposal-price');price.append(el('strong',rule.price),el('span',rule.priceLabel));card.append(price);
-      const list=el('dl'),pair=(label,value)=>{const row=el('div');row.append(el('dt',label),el('dd',value));list.append(row);};
-      pair('입찰 대상',rule.audience);
-      if(rule.event){const note=el('p',null,'proposal-participation-link'),link=el('a','[내정보]');link.href='#profile';note.append(document.createTextNode('참여 현황 확인 방법 : 홈페이지 좌측 하단 '),link);list.lastElementChild.querySelector('dd').append(note);}
-      pair('제외 대상',rule.exclusions);if(rule.distribution)pair('분배 대상',rule.distribution);card.append(list);
-      if(rule.event){
-        const details=el('div',null,'proposal-event-details');details.append(el('p',data.eventNote));
-        const steps=el('ol',null,'proposal-flow');data.steps.forEach((text,index)=>{const step=el('li');step.append(el('span',String(index+1),'proposal-step-number'),el('strong',text));steps.append(step);});details.append(steps);card.append(details);
-      }
-      grid.append(card);
-    });host.append(grid);
+    host.append(window.GuildDistributionCards.create(data));
     (data.discussions??[]).forEach((discussion,index)=>{
       const section=el('section',null,'proposal-discussion'),heading=el('h2',discussion.title);heading.id='november-discussion-'+(index+1);section.setAttribute('aria-labelledby',heading.id);section.append(heading);
       if(discussion.lead)section.append(el('p',discussion.lead));

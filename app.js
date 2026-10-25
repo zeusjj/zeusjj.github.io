@@ -2,14 +2,23 @@ function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.
 normalizeProbabilityRoute();
 const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
 const novemberPlanPublic=true;
+const novemberRevisionDeadline=Date.parse('2026-10-26T00:00:00+09:00');
+let novemberRevisionTimer;
 function canViewNovemberPlan(){const auth=window.GuildAuth;return novemberPlanPublic||(auth?.user?.username==='케이론'&&auth.user.isAdmin&&auth.expiresAt>Date.now());}
+function syncNovemberRevisionLink(){
+  clearTimeout(novemberRevisionTimer);
+  const revision=document.querySelector('#guild-allocation > .allocation-revision');if(!revision)return;
+  const remaining=novemberRevisionDeadline-Date.now();revision.replaceChildren();revision.hidden=remaining<=0||!canViewNovemberPlan();
+  if(!revision.hidden){const link=document.createElement('a');link.href='#november-plan';link.textContent='11월 분배룰 제안 보러가기';revision.append(link);novemberRevisionTimer=setTimeout(syncNovemberRevisionLink,Math.min(2147483647,remaining+1));}
+}
 function syncNovemberPlanAccess(){
   const allowed=canViewNovemberPlan();document.getElementById('november-plan-menu').hidden=!allowed;
-  const revision=document.querySelector('#guild-allocation > .allocation-revision');
-  if(revision){revision.replaceChildren();if(allowed){const link=document.createElement('a');link.href='#november-plan';link.textContent='11월 분배룰 제안 보러가기';revision.append(link);}else revision.textContent='11월 분배룰 개편 예정';}
+  syncNovemberRevisionLink();
   if(location.hash.split('/')[0]==='#november-plan')switchTab(canViewNovemberPlan()?'november-plan':'rules');
 }
 window.addEventListener('guild-auth-change',syncNovemberPlanAccess);
+window.addEventListener('pageshow',syncNovemberRevisionLink);
+document.addEventListener('visibilitychange',syncNovemberRevisionLink);
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -180,12 +189,15 @@ function renderRules(text) {
   const chapter=(id,title,icon)=>{const node=element('section',undefined,'policy-chapter');node.id=id;const heading=element('div',undefined,'chapter-heading');const symbol=element('i');symbol.dataset.lucide=icon;heading.append(symbol,element('h2',title));node.append(heading);return node;};
   const distribution=chapter('guild-distribution','분배 기준','scale');
   distribution.append(group('distribution-intro',['principles']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));
-  const allocation=chapter('guild-allocation','아이템 분배','swords');
+  const allocation=chapter('guild-allocation','길드레이드 아이템 분배','swords');
   const archive=element('details',undefined,'allocation-archive');archive.id='allocation-october';
   const archiveTitle=element('summary'),archiveIcon=element('i');archiveIcon.dataset.lucide='chevron-right';
   archiveTitle.append(archiveIcon,element('span','10월 분배규칙 보기'));
   archive.append(archiveTitle,distribution,group('allocation-layout',['class-items','armor']),group('allocation-notes',['rotation','bidding','updates']));
-  allocation.append(element('p','11월 분배룰 개편 예정','allocation-revision'),archive);target.append(allocation);
+  const revision=element('p',undefined,'allocation-revision');revision.hidden=true;
+  const cards=element('div');cards.id='raid-distribution-cards';
+  allocation.append(revision,cards,archive);target.append(allocation);
+  syncNovemberRevisionLink();window.GuildDistributionCards.mount(cards);
   for(const section of sections.values())target.append(section);
   updateChapterNavigation();
   refreshIcons();

@@ -1,0 +1,10 @@
+{
+  "rules": [
+    {"icon":"swords","title":"클래스 전용 아이템","label":"클래스 전용","method":"자유 경매","price":"1,000","priceLabel":"다이아부터","audience":"해당 클래스 & 레이드 참여자","exclusions":"입찰 제한 인원 제외","distribution":"참여자","event":false},
+    {"icon":"shield","title":"방어구, 장신구","label":"기본 경매","method":"자유 경매","price":"1,000","priceLabel":"다이아부터","audience":"참여자","exclusions":"입찰 제한 인원 제외","distribution":"참여자","event":false},
+    {"icon":"shuffle","title":"두 개 중 가치가 낮은 아이템","label":"방어구, 장신구가 두 개 나온 주에만 (두 개 중 가치가 낮은 것)","method":"지정가 경매","price":"1,000","priceLabel":"다이아 고정","audience":"레이드 참여자 중 최근 4주간 길드 콘텐츠 70% 이상 참여자","exclusions":"입찰 제한 인원 · 첫 번째 방어구·장신구 낙찰자 제외","distribution":"참여자","event":true}
+  ],
+  "eventNote":"한 주에 방어구, 장신구 두 개가 나올 확률은 희박한데 이 경우에만 이벤트성으로 진행 (참여율 독려 차원)",
+  "eventExplanation":"5분 이내 입찰한 사람 중 랜덤하게 한 명에게 분배됩니다.",
+  "steps":["5분 이내 입찰","입찰자 중 무작위 추첨","1,000다이아에 낙찰"]
+}
