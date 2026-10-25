@@ -3,13 +3,24 @@ normalizeProbabilityRoute();
 const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
 const novemberPlanPublic=true;
 const novemberRevisionDeadline=Date.parse('2026-10-26T00:00:00+09:00');
+const octoberArchiveDeadline=Date.parse('2026-10-29T00:00:00+09:00');
 let novemberRevisionTimer;
+let octoberArchiveTimer;
 function canViewNovemberPlan(){const auth=window.GuildAuth;return novemberPlanPublic||(auth?.user?.username==='케이론'&&auth.user.isAdmin&&auth.expiresAt>Date.now());}
 function syncNovemberRevisionLink(){
   clearTimeout(novemberRevisionTimer);
   const revision=document.querySelector('#guild-allocation > .allocation-revision');if(!revision)return;
   const remaining=novemberRevisionDeadline-Date.now();revision.replaceChildren();revision.hidden=remaining<=0||!canViewNovemberPlan();
   if(!revision.hidden){const link=document.createElement('a');link.href='#november-plan';link.textContent='11월 분배룰 제안 보러가기';revision.append(link);novemberRevisionTimer=setTimeout(syncNovemberRevisionLink,Math.min(2147483647,remaining+1));}
+}
+function syncOctoberArchive(){
+  clearTimeout(octoberArchiveTimer);
+  const archive=document.getElementById('allocation-october');if(!archive)return;
+  const remaining=octoberArchiveDeadline-Date.now();archive.hidden=remaining<=0;
+  if(archive.hidden)archive.open=false;
+  document.querySelector('[data-scroll="guild-distribution"]').hidden=archive.hidden;
+  if(remaining>0)octoberArchiveTimer=setTimeout(syncOctoberArchive,Math.min(2147483647,remaining+1));
+  updateChapterNavigation();
 }
 function syncNovemberPlanAccess(){
   const allowed=canViewNovemberPlan();document.getElementById('november-plan-menu').hidden=!allowed;
@@ -19,6 +30,8 @@ function syncNovemberPlanAccess(){
 window.addEventListener('guild-auth-change',syncNovemberPlanAccess);
 window.addEventListener('pageshow',syncNovemberRevisionLink);
 document.addEventListener('visibilitychange',syncNovemberRevisionLink);
+window.addEventListener('pageshow',syncOctoberArchive);
+document.addEventListener('visibilitychange',syncOctoberArchive);
 let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
@@ -56,7 +69,7 @@ const participationModel=import('./guild-overview-model.js?v=20261020-190').then
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
-  for(const id of ['guild-operations','guild-allocation','guild-distribution']){const section=document.getElementById(id);if(!section||section.closest('details')?.open===false)continue;const rect=section.getBoundingClientRect();if(rect.top<170&&(id!=='guild-distribution'||rect.bottom>170))current=id;}
+  for(const id of ['guild-operations','guild-allocation','guild-distribution']){const section=document.getElementById(id);if(!section||section.closest('[hidden]')||section.closest('details')?.open===false)continue;const rect=section.getBoundingClientRect();if(rect.top<170&&(id!=='guild-distribution'||rect.bottom>170))current=id;}
   document.querySelectorAll('[data-scroll]').forEach(button=>{const active=button.dataset.scroll===current;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'location':'false');});
 }
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
@@ -86,7 +99,7 @@ function switchTab(tab) {
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
 document.querySelector('.skip-link').addEventListener('click',event=>{event.preventDefault();document.getElementById('main-content').focus();});
-document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.scroll),archive=target?.closest('details');if(archive)archive.open=true;target?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
+document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.scroll),archive=target?.closest('details');if(target?.closest('[hidden]'))return;if(archive)archive.open=true;target?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
 window.addEventListener('hashchange', () => {normalizeProbabilityRoute();switchTab(location.hash.slice(1));});
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
@@ -197,7 +210,7 @@ function renderRules(text) {
   const revision=element('p',undefined,'allocation-revision');revision.hidden=true;
   const cards=element('div');cards.id='raid-distribution-cards';
   allocation.append(revision,cards,archive);target.append(allocation);
-  syncNovemberRevisionLink();window.GuildDistributionCards.mount(cards);
+  syncNovemberRevisionLink();syncOctoberArchive();window.GuildDistributionCards.mount(cards);
   for(const section of sections.values())target.append(section);
   updateChapterNavigation();
   refreshIcons();

@@ -19,6 +19,11 @@
       }
       grid.append(card);
     });
+    if(data.bidRestrictions?.length){
+      grid.classList.add('raid-allocation-options');
+      const section=el('section',null,'raid-bid-restrictions'),heading=el('h3','입찰 제한 조건'),list=el('ul');
+      section.append(heading,list);data.bidRestrictions.forEach(text=>list.append(el('li',text)));grid.append(section);
+    }
     return grid;
   }
   let pending;
