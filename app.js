@@ -10,7 +10,6 @@ function syncOctoberArchive(){
   const archive=document.getElementById('allocation-october');if(!archive)return;
   const remaining=octoberArchiveDeadline-Date.now();archive.hidden=remaining<=0;
   if(archive.hidden)archive.open=false;
-  document.querySelector('[data-scroll="guild-distribution"]').hidden=archive.hidden;
   if(remaining>0)octoberArchiveTimer=setTimeout(syncOctoberArchive,Math.min(2147483647,remaining+1));
   updateChapterNavigation();
 }
@@ -61,7 +60,7 @@ const participationModel=import('./guild-overview-model.js?v=20261020-190').then
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
-  for(const id of ['guild-operations','guild-allocation','guild-distribution']){const section=document.getElementById(id);if(!section||section.closest('[hidden]')||section.closest('details')?.open===false)continue;const rect=section.getBoundingClientRect();if(rect.top<170&&(id!=='guild-distribution'||rect.bottom>170))current=id;}
+  for(const id of ['guild-operations','guild-allocation']){const section=document.getElementById(id);if(!section||section.closest('[hidden]'))continue;const rect=section.getBoundingClientRect();if(rect.top<170)current=id;}
   document.querySelectorAll('[data-scroll]').forEach(button=>{const active=button.dataset.scroll===current;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'location':'false');});
 }
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
