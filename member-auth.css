@@ -3,6 +3,10 @@
 .member-session-identity strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .member-session-identity small{color:var(--muted);font-size:11px}
 .member-session-controls .icon-button{flex:0 0 40px;width:40px;height:44px}
+.member-session-controls .password-change-required{position:relative;border-color:var(--accent);animation:password-change-glow 2s ease-in-out infinite}
+.password-change-dot{position:absolute;right:-3px;top:-3px;width:9px;height:9px;background:#d52e3e;border:2px solid var(--surface);border-radius:50%;pointer-events:none}
+@keyframes password-change-glow{0%,100%{box-shadow:0 0 0 1px var(--accent-line),0 0 3px var(--accent-line)}50%{box-shadow:0 0 0 2px var(--accent),0 0 10px var(--accent-line)}}
+@media(prefers-reduced-motion:reduce){.member-session-controls .password-change-required{animation:none;box-shadow:0 0 0 2px var(--accent)}}
 .member-login-button{display:flex;gap:8px;align-items:center;min-height:44px}
 #login{max-width:1100px;margin:auto;padding:28px}
 .member-login-mount{max-width:400px}

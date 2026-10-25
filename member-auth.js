@@ -27,6 +27,7 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
     if(!user){const login=button('로그인','log-in',()=>{location.hash='login';});login.className='secondary-button member-login-button';login.append(node('span','로그인'));host.append(login);return;}
     const identity=node('div');identity.className='member-session-identity';identity.title=user.nickname+'으로 로그인되었습니다.';identity.append(node('strong',user.nickname),node('small',user.isAdmin?'관리자':'로그인됨'));
     const settings=button('비밀번호 변경','settings',()=>{const dialog=document.getElementById('member-password-dialog');dialog.querySelector('form').reset();document.getElementById('member-password-status').textContent='';dialog.showModal();dialog.querySelector('input').focus();});
+    if(user.passwordChanged===false){settings.classList.add('password-change-required');settings.setAttribute('aria-description','초기 비밀번호를 변경해주세요.');const dot=node('span');dot.className='password-change-dot';dot.setAttribute('aria-hidden','true');settings.append(dot);}
     const logout=button('로그아웃','log-out',async()=>{logout.disabled=true;try{await signOut();announce('로그아웃했습니다.');}catch{logout.disabled=false;announce('로그아웃하지 못했습니다. 다시 시도해주세요.');}});
     host.append(identity);
     if(user.isAdmin)host.append(button('관리자 페이지','shield-check',()=>{location.hash='admin';}));
@@ -43,7 +44,7 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
       const username=field(form,host.id+'-username','username','아이디','username'),password=field(form,host.id+'-password','password','비밀번호','current-password');
       const help=node('p'),initial=node('strong'),underline=node('u','초기아이디와 비밀번호는 캐릭터 닉네임입니다.');initial.append(underline);help.append(initial,document.createTextNode(' 로그인 후 비밀번호를 변경해주세요.'));form.append(help);
       const status=node('p');status.setAttribute('role','status');const submit=node('button','로그인');submit.type='submit';form.append(status,submit);host.append(form);
-      form.addEventListener('submit',async event=>{event.preventDefault();normalizeInput(password);submit.disabled=true;status.textContent='로그인 중입니다.';try{const data=await signIn(username.value,password.value);password.value='';announce(data.user.nickname+'으로 로그인되었습니다.');if(location.hash==='#login')location.hash='profile';}catch(error){password.value='';status.textContent=error.status?error.message:'연결하지 못했습니다. 잠시 후 다시 시도해주세요.';password.focus();}finally{submit.disabled=false;}});
+      form.addEventListener('submit',async event=>{event.preventDefault();normalizeInput(password);submit.disabled=true;status.textContent='로그인 중입니다.';const returnNotice=location.hash.match(/^#login\/(notices\/[a-f0-9-]{36})$/i);try{const data=await signIn(username.value,password.value);password.value='';announce(data.user.nickname+'으로 로그인되었습니다.');if(returnNotice)location.hash=returnNotice[1];else if(location.hash==='#login')location.hash='profile';}catch(error){password.value='';status.textContent=error.status?error.message:'연결하지 못했습니다. 잠시 후 다시 시도해주세요.';password.focus();}finally{submit.disabled=false;}});
     });
   }
   const dialog=document.getElementById('member-password-dialog'),form=document.getElementById('member-password-form');

@@ -36,6 +36,9 @@ let tipsLoaded=false;
 let tipsRequest=null,pendingTips=null;
 let noticesLoaded=false;
 let noticesLoading=false;
+let noticeLoadSequence=0,noticeLoadController;
+const noticeImageBlobs=new Map();
+function releaseNoticeImages(){for(const image of noticeImageBlobs.values())URL.revokeObjectURL(image.url);noticeImageBlobs.clear();}
 let memberData=null,memberCentered=false;
 let publicMemberSource=null,memberArchive=null,joinedMemberArchive=null,memberArchiveSequence=0;
 function currentMemberSource(){
@@ -217,6 +220,7 @@ function renderRules(text) {
 }
 const noticesApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/notices';
 const noticeLogin=document.getElementById('notice-login'),noticeForm=document.getElementById('notice-form');
+const noticeVisibility=document.createElement('label'),noticeVisibilityToggle=document.createElement('input');noticeVisibility.className='full-field notice-visibility-toggle';noticeVisibilityToggle.type='checkbox';noticeVisibilityToggle.name='members_only';noticeVisibilityToggle.setAttribute('role','switch');noticeVisibility.append(noticeVisibilityToggle,document.createTextNode('로그인한 사람만 공개'));noticeForm.querySelector('.form-fields').prepend(noticeVisibility);
 let noticeToken='',noticeExpiry=0,noticeRecords=[],editingNotice=null,noticePage=1,menuTips=[];
 const noticePageSize=7;
 function recentBoardUpdate(value){const age=Date.now()-new Date(value).getTime();return age>=0 && age<86400000;}
@@ -240,7 +244,9 @@ function renderNoticePagination(count){
   arrow('chevron-right','다음 공지 페이지',noticePage+1,noticePage===pages);
 }
 let noticeSaving=false;
-const noticeImageUrl=(postId,imageId)=>noticesApi+'/'+encodeURIComponent(postId)+'/images/'+encodeURIComponent(imageId);
+const noticeImageEndpoint=(postId,imageId)=>noticesApi+'/'+encodeURIComponent(postId)+'/images/'+encodeURIComponent(imageId);
+const noticeImageUrl=(postId,imageId)=>noticeRecords.find(record=>record.id===postId)?.members_only?(noticeImageBlobs.get(postId+':'+imageId)?.data||'about:blank'):noticeImageEndpoint(postId,imageId);
+const noticeImageLinkUrl=(postId,imageId)=>noticeImageBlobs.get(postId+':'+imageId)?.url||noticeImageUrl(postId,imageId);
 async function encodeNoticeImage(file){
   if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('PNG, JPG, WebP 사진을 첨부해주세요.');
   if(file.size>20971520)throw new Error('원본 사진은 20MB 이하여야 합니다.');
@@ -259,17 +265,19 @@ function noticeAdmin(){return !!window.GuildAuth?.user?.isAdmin && !!noticeToken
 function syncMemberAdministrator(){
   const auth=window.GuildAuth,administrator=auth?.user?.isAdmin;
   noticeToken=administrator?(auth.headers().Authorization||'').replace(/^Bearer /,''):'';noticeExpiry=administrator?auth.expiresAt:0;
-  if(!administrator)closeNoticeForms();renderNotices(noticeRecords);
+  if(!administrator)closeNoticeForms(true);
+  releaseNoticeImages();renderNotices(noticeRecords.filter(record=>!record.members_only));noticesLoaded=false;loadNotices();
   syncNovemberPlanAccess();
 }
 window.addEventListener('guild-auth-change',syncMemberAdministrator);
 function showNoticeEditor(record=null){
   editingNotice=record?.id || null;noticeForm.reset();noticeForm.elements.title.value=record?.title || '';noticeForm.elements.content.value=record?.content || '';noticeForm.elements.category.value=record?.category || '공지';
+  noticeForm.elements.members_only.checked=!!record?.members_only;
   noticeRich.reset(record?.content || '',record?.images || []);
   document.getElementById('notice-form-heading').textContent=record?'공지 수정':'새 공지';noticeForm.querySelector('[type="submit"]').textContent=record?'저장':'등록';
   document.getElementById('notice-form-status').textContent='';noticeLogin.hidden=true;noticeForm.hidden=false;document.getElementById('new-notice').setAttribute('aria-expanded','true');noticeForm.elements.title.focus();
 }
-function closeNoticeForms(){if(noticeSaving)return;noticeRich.reset();noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
+function closeNoticeForms(force=false){if(noticeSaving&&force!==true)return;noticeForm.reset();editingNotice=null;noticeRich.reset();noticeForm.hidden=true;noticeLogin.hidden=true;noticeLogin.reset();document.getElementById('new-notice').setAttribute('aria-expanded','false');}
 const boardViews=new Map(),viewRequests=new Map(),boardViewClaims=new Set();
 window.guildRecordPostView=async(board,id)=>{
   const visitorId=await window.guildVisitorIdentity(),nickname=window.GuildNickname?.get()||'익명';
@@ -304,7 +312,7 @@ function bindBoardViews(entry,summary,record,board){
   entry.addEventListener('toggle',track);entry.addEventListener('guild-view',track);
 }
 function renderNotices(records){
-  noticeRecords=records;const target=document.getElementById('notices-list');target.replaceChildren();
+  records=records.filter(record=>!record.members_only||window.GuildAuth?.user);noticeRecords=records;const target=document.getElementById('notices-list');target.replaceChildren();
   const filter=document.getElementById('notice-filter').value;
   const visible=records.filter(record=>filter==='all' || (record.category || '공지')===filter);
   noticePage=Math.max(1,Math.min(noticePage,Math.max(1,Math.ceil(visible.length/noticePageSize))));
@@ -316,12 +324,13 @@ function renderNotices(records){
     const date=new Date(record.created_at),time=element('time',date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}));time.dateTime=date.toISOString();
     const category=record.category || '공지',categoryClass={'공지':'announcement','운영':'operations','한마디':'chat','안내':'guide'}[category] || 'announcement';
     const title=element('span',undefined,'entry-title');title.append(element('span',record.title,'notice-title-text'));
+    if(record.members_only){const memberBadge=element('span','로그인 전용','notice-member-badge');title.append(memberBadge);}
     const age=Date.now()-date.getTime();if(age>=0 && age<86400000){const badge=element('span','New','notice-new');badge.title='작성 후 24시간 이내';title.append(badge);}
     const icon=element('i',undefined,'disclosure-icon');icon.dataset.lucide='chevron-down';summary.append(element('span',category,'notice-tag notice-tag-'+categoryClass),title,time);bindBoardViews(entry,summary,record,'notices');summary.append(icon);
     const share=element('button',undefined,'icon-button notice-share');share.type='button';share.title='링크 복사';share.setAttribute('aria-label','공지 링크 복사');const shareIcon=element('i');shareIcon.dataset.lucide='link';share.append(shareIcon);share.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();copyTipLink(record.id,share,'notices');});summary.append(share);
     const body=element('div',undefined,'entry-body'),rich=GuildRich.render(body,record.content,record.images || [],image=>noticeImageUrl(record.id,image.id));if(!rich)body.append(element('p',record.content,'notice-content'));
     for(const [index,image] of (rich?[]:record.images || []).entries()){
-      const link=element('a',undefined,'notice-photo');link.href=noticeImageUrl(record.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=link.href;photo.alt=`공지 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);
+      const link=element('a',undefined,'notice-photo');link.href=noticeImageLinkUrl(record.id,image.id);link.target='_blank';link.rel='noopener noreferrer';const photo=element('img');photo.src=noticeImageUrl(record.id,image.id);photo.alt=`공지 첨부 사진 ${index+1}`;photo.loading='lazy';photo.decoding='async';link.append(photo);body.append(link);
     }
     if(noticeAdmin()){
       const actions=element('div',undefined,'notice-actions');
@@ -338,14 +347,20 @@ function openSharedNotice(){let id;try{id=location.hash.startsWith('#notices/')?
   if(document.getElementById('notice-filter').value!=='all'){document.getElementById('notice-filter').value='all';renderNotices(noticeRecords);return;}
   const index=noticeRecords.findIndex(record=>record.id===id),page=Math.floor(index/noticePageSize)+1;
   if(index>=0 && noticePage!==page){noticePage=page;renderNotices(noticeRecords);return;}
-  const entry=[...document.querySelectorAll('#notices-list details')].find(entry=>entry.dataset.noticeId===id);if(!entry){document.getElementById('notices-status').textContent='공유된 공지를 찾을 수 없습니다.';return;}
+  const entry=[...document.querySelectorAll('#notices-list details')].find(entry=>entry.dataset.noticeId===id);if(!entry){const status=document.getElementById('notices-status');status.textContent='공유된 공지를 찾을 수 없습니다.';if(!window.GuildAuth?.user&&/^[a-f0-9-]{36}$/i.test(id)){const login=element('a','로그인 후 확인');login.href='#login/notices/'+encodeURIComponent(id);status.append(document.createTextNode(' '),login);}return;}
   entry.open=true;requestAnimationFrame(()=>{if(location.hash==='#notices/'+encodeURIComponent(id)){entry.scrollIntoView({block:'start'});entry.querySelector('summary').focus({preventScroll:true});}});
 }
 async function loadNotices(){
-  if(noticesLoading)return;noticesLoading=true;
+  const sequence=++noticeLoadSequence;noticeLoadController?.abort();const controller=new AbortController();noticeLoadController=controller;noticesLoading=true;
   const status=document.getElementById('notices-status'),refresh=document.getElementById('refresh-notices');status.textContent='공지를 불러오는 중입니다.';refresh.disabled=true;
-  try{const response=await fetch(noticesApi,{signal:AbortSignal.timeout(15000)});if(!response.ok)throw new Error();const data=await response.json();if(!Array.isArray(data.notices))throw new Error();renderNotices(data.notices);noticesLoaded=true;}
-  catch{status.textContent='공지를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';}finally{refresh.disabled=false;noticesLoading=false;}
+  const blobs=new Map(),headers=window.GuildAuth?.headers()??{},signal=AbortSignal.any([controller.signal,AbortSignal.timeout(15000)]);
+  try{
+    const response=await fetch(noticesApi,{headers,cache:'no-store',signal});if(!response.ok)throw new Error();const data=await response.json();if(!Array.isArray(data.notices))throw new Error();
+    for(const record of data.notices.filter(record=>record.members_only))for(const image of record.images??[]){const response=await fetch(noticeImageEndpoint(record.id,image.id),{headers,cache:'no-store',signal});if(!response.ok)throw new Error();const blob=await response.blob(),data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error('Image unavailable'));reader.readAsDataURL(blob);});blobs.set(record.id+':'+image.id,{url:URL.createObjectURL(blob),data});}
+    if(sequence!==noticeLoadSequence)return;
+    releaseNoticeImages();for(const [key,url]of blobs)noticeImageBlobs.set(key,url);blobs.clear();renderNotices(data.notices);noticesLoaded=true;
+  }catch{if(sequence===noticeLoadSequence&& !controller.signal.aborted)status.textContent='공지를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';}
+  finally{for(const image of blobs.values())URL.revokeObjectURL(image.url);if(sequence===noticeLoadSequence){refresh.disabled=false;noticesLoading=false;}}
 }
 async function noticeWrite(path,method,values){
   const response=await fetch(noticesApi+path,{method,headers:{'Content-Type':'application/json','Authorization':'Bearer '+noticeToken},...(values?{body:JSON.stringify(values)}:{}),signal:AbortSignal.timeout(60000)});
@@ -371,7 +386,7 @@ noticeLogin.addEventListener('submit',async event=>{
 });
 noticeForm.addEventListener('submit',async event=>{
   event.preventDefault();if(noticeSaving)return;noticeSaving=true;const submit=noticeForm.querySelector('[type="submit"]'),status=document.getElementById('notice-form-status');submit.disabled=true;document.getElementById('cancel-notice').disabled=true;
-  try{const rich=await noticeRich.values();status.textContent='저장 중입니다.';const values={...Object.fromEntries(new FormData(noticeForm)),...rich};if(editingNotice)values.updated_at=noticeRecords.find(record=>record.id===editingNotice)?.updated_at;await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',values);noticeForm.reset();noticeSaving=false;closeNoticeForms();await loadNotices();}
+  try{const rich=await noticeRich.values();status.textContent='저장 중입니다.';const values={...Object.fromEntries(new FormData(noticeForm)),...rich,members_only:noticeForm.elements.members_only.checked};if(editingNotice)values.updated_at=noticeRecords.find(record=>record.id===editingNotice)?.updated_at;await noticeWrite(editingNotice?'/'+editingNotice:'',editingNotice?'PUT':'POST',values);noticeForm.reset();noticeSaving=false;closeNoticeForms();await loadNotices();}
   catch(error){status.textContent=error.name==='TimeoutError'?'응답을 확인하지 못했습니다. 새로고침하여 등록 여부를 확인해주세요.':error.message;}finally{noticeSaving=false;submit.disabled=false;document.getElementById('cancel-notice').disabled=false;noticeRich.unlock();}
 });
 const tipsApi='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/tips';
