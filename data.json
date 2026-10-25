@@ -3017,8 +3017,169 @@
     "2026-10-25": "2026-10-25T12:15:17Z"
   },
   "membersUpdatedAt": "2026-10-25T12:15:17Z",
-  "distributionUpdatedAt": "2026-10-24T03:02:10Z",
+  "distributionUpdatedAt": "2026-10-25T12:28:22Z",
   "distribution": [
+    {
+      "title": "길드레이드 7차",
+      "records": [],
+      "schedule": "10/25 · 낙찰 기록 미등록"
+    },
+    {
+      "title": "필드",
+      "records": [
+        {
+          "name": "꾸디",
+          "item": "T6 위대한 하의",
+          "amount": 10253,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "어제내린눈",
+          "item": "T4 영광의 신발",
+          "amount": 1467,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "성율",
+          "item": "T5 숭고한 한손검",
+          "amount": 1672,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "팡이오",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1416,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1411,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "삼주인",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1354,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "꾸디",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1040,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "삼주인",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1113,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "꾸디",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1011,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "삼주인",
+          "item": "T3 축복의 사슬검",
+          "amount": 22,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "성율",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 990,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "삼주인",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 990,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "어제내린눈",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 968,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "꾸뱅",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 1006,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "T4 영광의 대형방패",
+          "amount": 93,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "아랴",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 781,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "엣치",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 830,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "꾸디",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 720,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "제에우우스으",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 754,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "성율",
+          "item": "T3 축복의 투구",
+          "amount": 50,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 685,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "꾸뱅",
+          "item": "T4 영광의 허리띠",
+          "amount": 1306,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "드리트민존슨",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 593,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "제에우우스으",
+          "item": "T4 영광의 소형방패",
+          "amount": 93,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "드리트민존슨",
+          "item": "T4 영광의 천칭",
+          "amount": 883,
+          "bidding": "자유 경매"
+        }
+      ],
+      "schedule": "경매 기록 10/21~10/25"
+    },
     {
       "title": "길드레이드 6차",
       "records": [
