@@ -106,8 +106,8 @@ export function mergeSpecifications(previous,discovered){
   const id=index>=0?accepted[index].id:'star-'+Array.from(item.name,c=>c.codePointAt(0).toString(16)).join('-');
   const candidate={id,...item.spec};
   const next=accepted.filter((_,i)=>i!==index).concat(candidate);
-  // The exact multi-star budget solver has a finite memory/time budget.
-  if(next.reduce((n,s)=>n*(s.central+1),1)>60000){pending.push({name:item.name,central:item.central,url:item.url,missing:['계산 규모 검증']});continue;}
+  // Large joint states use the bounded single-star comparison in the budget solver.
+  if(next.reduce((n,s)=>n*(s.central+1),1)>4000000){pending.push({name:item.name,central:item.central,url:item.url,missing:['계산 규모 검증']});continue;}
   if(index>=0)accepted[index]=candidate;else accepted.push(candidate);
  }
  return {accepted,pending};

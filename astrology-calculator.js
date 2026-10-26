@@ -1,5 +1,5 @@
-import {astrologyConstellations} from './astrology-data.js?v=20261021-auto';
-import {astrologyModel} from './astrology-model.js?v=20261021-auto';
+import {astrologyConstellations} from './astrology-data.js?v=20261027-six-stars';
+import {astrologyModel} from './astrology-model.js?v=20261027-six-stars';
 import {distributionChart} from './astrology-distribution.js?v=20261018-136';
 const host=document.getElementById('astrology-rows'),number=new Intl.NumberFormat('ko-KR');
 fetch('./astrology-source.json',{cache:'no-cache'}).then(response=>{
@@ -86,4 +86,4 @@ for(const star of astrologyConstellations){
   }
   slider.addEventListener('input',()=>{update();saved[star.id]=Number(slider.value);try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}});update();
 }
-import('./astrology-budget.js?v=20261021-auto');
+import('./astrology-budget.js?v=20261027-six-stars');

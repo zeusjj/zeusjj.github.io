@@ -16,6 +16,18 @@ export function recommendAstrology(stars,counts,budget,stat){
   if(!Number.isInteger(budget)||budget<0||budget>30000||budget%10||counts.length!==stars.length||counts.some((k,i)=>!Number.isInteger(k)||k<0||k>stars[i].central))throw new RangeError('Invalid astrology budget state');
   const models=stars.map(s=>astrologyModel(s)),dimensions=stars.map((s,i)=>s.central-counts[i]+1),strides=[];
   let size=1;for(const dimension of dimensions){strides.push(size);size*=dimension;}
+  const comparisons=stars.map((s,i)=>{
+    const k=counts[i],probabilities=s.effects.map((_,j)=>j<k?1:thresholdProbability(models[i],k,j+1,budget));
+    const effects={};
+    for(let j=k;j<s.central;j++){const effect=s.effects[j];if(effect)effects[effect[0]]=(effects[effect[0]]||0)+probabilities[j]*effect[1];}
+    if(k<s.central)for(const effect of s.completion)effects[effect[0]]=(effects[effect[0]]||0)+probabilities[s.central-1]*effect[1];
+    return {next:k<s.central?probabilities[k]:1,completion:probabilities[s.central-1],effects};
+  });
+  if(size>60000){
+    const actions=comparisons.map((comparison,i)=>counts[i]===stars[i].central||models[i].costs[counts[i]]>budget?null:Object.entries(comparison.effects).reduce((sum,[name,value])=>sum+(!stat||name===stat?value:0),0));
+    const best=Math.max(0,...actions.filter(value=>value!==null)),choice=best>1e-12?actions.findIndex(value=>value!==null&&Math.abs(value-best)<1e-10):-1;
+    return {choice,best,actions,comparisons,strategy:'single'};
+  }
   const gains=stars.map((s,i)=>Array.from({length:s.central+1},(_,k)=>{
     let value=0;
     for(let j=counts[i];j<k;j++)if(s.effects[j]&&(!stat||s.effects[j][0]===stat))value+=s.effects[j][1];
@@ -45,12 +57,5 @@ export function recommendAstrology(stars,counts,budget,stat){
   }
   const actions=stars.map((s,i)=>{const action=states[0].find(a=>a.i===i);return action?actionValue(0,action,limit):null;});
   const best=values[(limit%window)*size],choice=best>1e-12?actions.findIndex(v=>v!==null&&Math.abs(v-best)<1e-10):-1;
-  const comparisons=stars.map((s,i)=>{
-    const k=counts[i],probabilities=s.effects.map((_,j)=>j<k?1:thresholdProbability(models[i],k,j+1,budget));
-    const effects={};
-    for(let j=k;j<s.central;j++){const effect=s.effects[j];if(effect)effects[effect[0]]=(effects[effect[0]]||0)+probabilities[j]*effect[1];}
-    if(k<s.central)for(const effect of s.completion)effects[effect[0]]=(effects[effect[0]]||0)+probabilities[s.central-1]*effect[1];
-    return {next:k<s.central?probabilities[k]:1,completion:probabilities[s.central-1],effects};
-  });
-  return {choice,best,actions,comparisons};
+  return {choice,best,actions,comparisons,strategy:'switching'};
 }
