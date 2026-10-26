@@ -72,16 +72,26 @@ export function weeklyOverview(data,start,through=koreaDay()){
   const end=shiftDay(start,6),until=end<through?end:through,base=shiftDay(start,-1);
   const report=overview(data,until),nameIndex=report.nameIndex;
   const last=columns(data,h=>h==='성장도 기록',until).at(-1),previous=columns(data,h=>h==='성장도 기록',base).at(-1);
-  const growth=last&&last.date>=start&&previous?ranked(data.members.filter(row=>numeric(row[last.index])&&numeric(row[previous.index])).map(row=>({name:row[nameIndex],value:row[last.index]-row[previous.index]}))):[];
+  const growth=last&&last.date>=start&&previous?ranked(data.members.filter(row=>numeric(row[last.index])&&numeric(row[previous.index])).map(row=>({name:row[nameIndex],value:row[last.index]-row[previous.index],previous:row[previous.index]}))):[];
+  const growthRates=ranked(growth.filter(row=>row.previous>0).map(row=>({name:row.name,value:row.value/row.previous*100})));
   const contribution=columns(data,h=>/공헌/.test(h),until).filter(c=>c.date>=start).at(-1);
   const contributionRanks=contribution?ranked(data.members.filter(row=>numeric(row[contribution.index])).map(row=>({name:row[nameIndex],value:row[contribution.index]}))):[];
   const activities=report.activities.filter(event=>event.date>=start&&event.date<=until);
   const eligible=activities.reduce((n,event)=>n+event.eligible.length,0),attended=activities.reduce((n,event)=>n+event.attended,0);
   const goal=report.target,goalRows=last?data.members.filter(row=>numeric(row[last.index])&&Number.isInteger(data.levels?.[last.date]?.[row[nameIndex]])):[];
   const achieved=goalRows.filter(row=>(!goal.growth||row[last.index]>=goal.growth)&&(!goal.level||data.levels[last.date][row[nameIndex]]>=goal.level)).length;
+  const participationRows=data.members.flatMap(row=>{
+    const values=activities.map(event=>status(row[event.index])).filter(Boolean);
+    if(!values.length)return [];
+    const name=row[nameIndex],value=values.filter(value=>value==='yes').length/values.length*100;
+    const level=last?data.levels?.[last.date]?.[name]:null;
+    const goalKnown=!!(goal.growth||goal.level)&&(!goal.growth||numeric(row[last?.index]))&&(!goal.level||Number.isInteger(level));
+    const goalAchieved=goalKnown?(!goal.growth||row[last.index]>=goal.growth)&&(!goal.level||level>=goal.level):null;
+    return [{name,value,goalAchieved}];
+  }).sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name,'ko'));
   const allEvents=data.headers.flatMap((header,index)=>{const date=data.dates?.[index]?.start;return /레이드|제전$|점령전/.test(header)&&!/기여/.test(header)&&date>=start&&date<=end&&date>through?[{header,date}]:[];});
   const distributions=(data.distribution||[]).filter(group=>{const number=group.title.match(/(\d+)차/)?.[1],index=data.headers.indexOf(number+'차 레이드'),date=data.dates?.[index]?.start;return date>=start&&date<=end;});
-  return {start,end,until,last,previous,growth,contribution,contributionRanks,activities,eligible,attended,goal,goalRows:goalRows.length,achieved,upcoming:allEvents,distributions,report};
+  return {start,end,until,last,previous,growth,growthRates,contribution,contributionRanks,activities,eligible,attended,goal,goalRows:goalRows.length,achieved,participationRows,upcoming:allEvents,distributions,report};
 }
 export function weeks(data,through=koreaDay()){
   const dates=data.headers.flatMap((h,i)=>{const date=data.dates?.[i]?.start;return date&&date<=through&&data.members.some(row=>numeric(row[i])||status(row[i]))?[weekStart(date)]:[];});

@@ -1,4 +1,4 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261021-196';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261026-weekly';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
 
@@ -156,9 +156,16 @@ function renderWeekly(){
   for(const event of summary.activities){const absent=event.eligible.filter(row=>row.status==='no');if(!absent.length)continue;const details=el('details',undefined,'overview-absences');details.append(el('summary',event.header+' 미참여 '+absent.length+'명'),el('p',absent.map(row=>row.name).join(' · ')));activities.append(details);}
   const columns=el('div',undefined,'overview-columns');weekly.append(columns);
   const weeklyGrowth=topList(columns,'이번 주 성장량 상위',growth,signed);
+  const weeklyRate=topList(columns,'이번 주 성장률 상위',summary.growthRates,value=>(value>0?'+':'')+decimal.format(value)+'%');
   if(summary.previous&&summary.last){const caption=el('p',short(summary.previous.date)+' → '+short(summary.last.date)+' · 주 시작 전 마지막 기록 대비','overview-note overview-period');weeklyGrowth.querySelector('h2').after(caption);}
+  if(summary.previous&&summary.last){const caption=el('p',short(summary.previous.date)+' → '+short(summary.last.date)+' · 주 시작 전 마지막 기록 대비','overview-note overview-period');weeklyRate.querySelector('h2').after(caption);}
   const contribution=topList(columns,'공헌도 상위',summary.contributionRanks,format);
   if(summary.contribution){const caption=el('p',short(summary.contribution.date)+(/중간/.test(summary.contribution.header)?' · 중간 기록':''),'overview-note overview-period');contribution.querySelector('h2').after(caption);}
+  const participation=section(columns,'참여율 하위순');
+  note(participation,short(summary.start)+' ~ '+short(summary.until)+' · 목표 Lv.'+(summary.goal.level||'—')+' · 성장도 '+format(summary.goal.growth));
+  const participationHeaders=['닉네임','참여율','목표 달성'],participationRecords=summary.participationRows.map(record=>[record.name,decimal.format(record.value)+'%',record.goalAchieved===null?'—':record.goalAchieved?'O':'X']);
+  table(participation,participationHeaders,participationRecords.slice(0,5));
+  if(participationRecords.length>5){const details=el('details',undefined,'overview-absences');details.append(el('summary','전체 참여율 보기 · '+participationRecords.length+'명'));table(details,participationHeaders,participationRecords);participation.append(details);}
   const scheduled=section(weekly,'일정 · 분배');
   for(const event of summary.upcoming){const item=el('p',undefined,'overview-schedule');item.append(badge(short(event.date),'date'),el('strong',event.header));scheduled.append(item);}
   for(const group of summary.distributions){const item=el('p',undefined,'overview-schedule');item.append(el('strong',group.title),el('span',group.records.length?group.records.length+'건 기록':group.schedule||'분배 예정'));scheduled.append(item);}
