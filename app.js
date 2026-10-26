@@ -96,6 +96,7 @@ document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListen
 window.addEventListener('hashchange', () => {normalizeProbabilityRoute();switchTab(location.hash.slice(1));});
 function distributionSignedIn(){return !!window.GuildAuth?.user&&window.GuildAuth.expiresAt>Date.now();}
 window.addEventListener('guild-auth-change',()=>{
+  document.querySelector('[data-tab="distribution"]').hidden=!distributionSignedIn();
   renderDistribution(publicMemberSource?.distribution??[]);
   if(location.hash.split('/')[0]==='#distribution'||location.hash==='#login/distribution')switchTab(location.hash.slice(1));
 });
