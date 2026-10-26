@@ -95,8 +95,10 @@ document.querySelector('.skip-link').addEventListener('click',event=>{event.prev
 document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.scroll),archive=target?.closest('details');if(target?.closest('[hidden]'))return;if(archive)archive.open=true;target?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
 window.addEventListener('hashchange', () => {normalizeProbabilityRoute();switchTab(location.hash.slice(1));});
 function distributionSignedIn(){return !!window.GuildAuth?.user&&window.GuildAuth.expiresAt>Date.now();}
+function syncDistributionMenu(){document.querySelector('[data-tab="distribution"]').hidden=!distributionSignedIn();}
+syncDistributionMenu();
 window.addEventListener('guild-auth-change',()=>{
-  document.querySelector('[data-tab="distribution"]').hidden=!distributionSignedIn();
+  syncDistributionMenu();
   renderDistribution(publicMemberSource?.distribution??[]);
   if(location.hash.split('/')[0]==='#distribution'||location.hash==='#login/distribution')switchTab(location.hash.slice(1));
 });
