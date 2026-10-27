@@ -1,9 +1,82 @@
 {
-  "collectedAt": "2026-10-27T17:20:50.767195+00:00",
+  "collectedAt": "2026-10-27T18:15:34.715562+00:00",
   "days": 14,
   "coverageStart": "2026-10-27",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "98040",
+      "title": "패딩입었다",
+      "publishedAt": "2026-10-28T03:08:05+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98040",
+      "recommended": false,
+      "contentText": "춥다",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
+    },
+    {
+      "id": "98039",
+      "title": "님들 궁금한게 도깨비갤 모바일로 글 어떻게써요?",
+      "publishedAt": "2026-10-28T02:50:04+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98039",
+      "recommended": false,
+      "contentText": "코드설정되있는거 입력해도 \"코드가 설정된 갤러리입니다. 코드를 입력해 주세요\" 이 문구 나와서 글쓰기가 안돼요\n\n지금 도깨비 여론좆창나서 나도좀 놀고싶은데",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
+      "comments": [
+        {
+          "id": "273084",
+          "text": "그냥 잠이나 쳐자라",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
+    },
+    {
+      "id": "98038",
+      "title": "쌍조 오늘 곱창이아니라 척추뽑히네",
+      "publishedAt": "2026-10-28T02:46:55+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98038",
+      "recommended": false,
+      "contentText": "오늘 신화 영업안하는거아니냐?\n\n제이 쌍조 어상 신화트라이 다합치면 20이넘는데 천장제외 0신화임 씨발;;",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
+      "comments": [
+        {
+          "id": "273083",
+          "text": "프모는 괜찮어",
+          "reply": false
+        },
+        {
+          "id": "273087",
+          "text": "내돈아니잖아 한잔해~",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
+    },
+    {
+      "id": "98037",
+      "title": "300다이아 남았다",
+      "publishedAt": "2026-10-28T02:20:59+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98037",
+      "recommended": false,
+      "contentText": "99단 5만투력 입갤..",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
+    },
     {
       "id": "98036",
       "title": "데메 어멍길드",
@@ -243,10 +316,16 @@
       "contentText": "신화 13트 올실패 무과금은 진짜 씹 ㅋㅋ",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-27T16:25:40.594984+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "273060",
+          "text": "프모는 괜찮아",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98020",
@@ -260,7 +339,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98019",
@@ -274,7 +353,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98018",
@@ -290,11 +369,16 @@
           "id": "273056",
           "text": "동방예의지국에서 말세다 말세야",
           "reply": false
+        },
+        {
+          "id": "273086",
+          "text": "너 다음에 쌍조방송 또 들어갈껄?ㅋㅋㅋ 영감님 중독성있다",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98016",
@@ -305,10 +389,16 @@
       "contentText": "보니까 대상 인기게임상 이런거말고도\n\n최우수상, 우수상도 있고 분야가 되게 많구만\n\n솔직히 대상까진 아니더라도 뭐하나 받겠구나 싶긴한데\n\n투표좀 해서 끌어올릴만한데? 타 경쟁작 보면 ㅈ클립스 이딴거있는거보니까\n\n충분히 가능성있다고봄ㅋ",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-27T16:25:40.594984+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "273064",
+          "text": "애초에 그냥 다 나눠먹는 상이여 진짜 의미없는 상수준",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98015",
@@ -328,7 +418,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98014",
@@ -353,7 +443,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98013",
@@ -379,11 +469,26 @@
           "id": "273052",
           "text": "이건 맞아도 싸긴해 어제부터 말로 해도 안듣더라 나 제2중립인데 매가 약임 걍 명단올린애들 싸그리잡아다가 빠따처야함",
           "reply": false
+        },
+        {
+          "id": "273073",
+          "text": "삼일한",
+          "reply": false
+        },
+        {
+          "id": "273075",
+          "text": "묘생이는 1섭있다가 2섭으로 갔노 박쥐새끼 - dc App",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "투톤 크로스 스트랩부터 플라워 자수, 메탈 링 디테일까지! 인플루언서 Bella 비키니 연출법 분석\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98012",
@@ -418,7 +523,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98011",
@@ -439,11 +544,16 @@
           "id": "273050",
           "text": "안처맞으면될걸? - dc App",
           "reply": false
+        },
+        {
+          "id": "273059",
+          "text": "장판 세번 치는데 그 후에 들어가",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98010",
@@ -468,7 +578,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98009",
@@ -507,13 +617,13 @@
         },
         {
           "id": "0",
-          "text": "유방암 사망률 40% 격차 원인은 빈곤\n\n1/20",
+          "text": "월 300만 원 넘게 버는 직장인 사상 첫 50% 돌파\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98007",
@@ -533,7 +643,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98006",
@@ -547,7 +657,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98005",
@@ -577,7 +687,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98004",
@@ -616,7 +726,7 @@
         },
         {
           "id": "0",
-          "text": "北 김정은이 비만 상태에도 정력 키우려고 1만 마리 이상 먹은 ‘이것’\n\n1/20",
+          "text": "최충락이 자해 소동으로 치료 받은 병원, 알고 보니 20살 피해자가 입원한 곳\n\n1/20",
           "reply": false
         },
         {
@@ -647,7 +757,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98002",
@@ -667,7 +777,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "98000",
@@ -687,7 +797,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97999",
@@ -703,11 +813,16 @@
           "id": "273015",
           "text": "쌀먹이 열등감만 높아가지고 ㅋㅋㅋㅋㅋ 치킨구걸뱅이",
           "reply": false
+        },
+        {
+          "id": "273062",
+          "text": "하는게 무조건 이득이라던 ㅋㅋㅋㅋㅋ",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97998",
@@ -737,7 +852,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97997",
@@ -757,7 +872,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97996",
@@ -771,7 +886,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97995",
@@ -791,7 +906,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97994",
@@ -830,7 +945,7 @@
         },
         {
           "id": "0",
-          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
+          "text": "최충락이 자해 소동으로 치료 받은 병원, 알고 보니 20살 피해자가 입원한 곳\n\n1/20",
           "reply": false
         },
         {
@@ -857,11 +972,16 @@
           "id": "273053",
           "text": "4강에서 축바르고 5강뜨면 걍 거기서 축 함 더발라보긴함",
           "reply": false
+        },
+        {
+          "id": "273068",
+          "text": "그러다 몇번터졌다.. - dc App",
+          "reply": true
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97993",
@@ -891,7 +1011,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97992",
@@ -930,13 +1050,13 @@
         },
         {
           "id": "0",
-          "text": "헤이지니, ‘노동 착취’ 논란에 공식 입장문 내놨다…전 직원 주장에 반박\n\n1/20",
+          "text": "“쓰레기 같은 나라”… 트럼프, 결국 터졌다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97991",
@@ -961,7 +1081,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97990",
@@ -1000,13 +1120,13 @@
         },
         {
           "id": "0",
-          "text": "핑크 캐릭터 패턴부터 퍼 코버업, 메시 레이어드까지! 인플루언서 풂 비키니 스타일 분석\n\n1/20",
+          "text": "\"한국인 밥상 단골 반찬인데..\" 미국 식품 전문가들이 강력 경고했다는 '이것'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97989",
@@ -1026,7 +1146,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97988",
@@ -1056,7 +1176,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97987",
@@ -1100,13 +1220,13 @@
         },
         {
           "id": "0",
-          "text": "일본계 투자그룹의 공개매수 예고에 JYP 측, \"제안 받은 바 없다\" 반박\n\n1/20",
+          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97986",
@@ -1136,7 +1256,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97985",
@@ -1150,7 +1270,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97984",
@@ -1170,7 +1290,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97982",
@@ -1209,7 +1329,7 @@
         },
         {
           "id": "0",
-          "text": "현장 웃음바다로 만든 李 대통령의 농담, 뭐였냐면…\n\n1/20",
+          "text": "박명수, 방송서 잘렸다… 억울함 ‘호소’\n\n1/20",
           "reply": false
         },
         {
@@ -1225,7 +1345,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97981",
@@ -1269,13 +1389,13 @@
         },
         {
           "id": "0",
-          "text": "현장 웃음바다로 만든 李 대통령의 농담, 뭐였냐면…\n\n1/20",
+          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97980",
@@ -1305,7 +1425,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97979",
@@ -1349,7 +1469,7 @@
         },
         {
           "id": "0",
-          "text": "\"캠핑족들 난리 났다\"... 주방·화장실·침실까지 호텔급 실내 자랑하는 신형 캠핑카 등장\n\n1/20",
+          "text": "강신철 “북한과 전쟁 나면”…파장 부른 한마디\n\n1/20",
           "reply": false
         },
         {
@@ -1365,7 +1485,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97978",
@@ -1404,13 +1524,13 @@
         },
         {
           "id": "0",
-          "text": "월 300만 원 넘게 버는 직장인 사상 첫 50% 돌파\n\n1/20",
+          "text": "\"한국인 밥상 단골 반찬인데..\" 미국 식품 전문가들이 강력 경고했다는 '이것'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97977",
@@ -1430,7 +1550,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97976",
@@ -1450,7 +1570,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97975",
@@ -1464,7 +1584,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97974",
@@ -1478,7 +1598,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97973",
@@ -1517,13 +1637,13 @@
         },
         {
           "id": "0",
-          "text": "\"비싸서 자주 못 샀는데…\" 내일(28일)부터 63% 파격 할인하는 '식재료'의 정체\n\n1/20",
+          "text": "핑크 캐릭터 패턴부터 퍼 코버업, 메시 레이어드까지! 인플루언서 풂 비키니 스타일 분석\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97972",
@@ -1548,7 +1668,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97971",
@@ -1562,7 +1682,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97970",
@@ -1582,7 +1702,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97969",
@@ -1631,13 +1751,13 @@
         },
         {
           "id": "0",
-          "text": "투톤 크로스 스트랩부터 플라워 자수, 메탈 링 디테일까지! 인플루언서 Bella 비키니 연출법 분석\n\n1/20",
+          "text": "현장 웃음바다로 만든 李 대통령의 농담, 뭐였냐면…\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97968",
@@ -1662,7 +1782,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97967",
@@ -1676,7 +1796,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97966",
@@ -1720,13 +1840,13 @@
         },
         {
           "id": "0",
-          "text": "아직 결혼안한 여자 연예인, 돌연 임신…폭탄 발표에 가족,팬들 ‘깜짝’\n\n1/20",
+          "text": "헤이지니, ‘노동 착취’ 논란에 공식 입장문 내놨다…전 직원 주장에 반박\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97965",
@@ -1790,7 +1910,7 @@
         },
         {
           "id": "0",
-          "text": "\"돼지고기 김치찜에 한통 부어보세요\" 잡내 없어지고 감칠맛 폭발하네요.\n\n1/20",
+          "text": "\"후회 안 하려고\"…연예계 떠난 진짜 이유 9년 만에 밝힌 ‘유명 연예인’\n\n1/20",
           "reply": false
         },
         {
@@ -1801,7 +1921,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97964",
@@ -1826,7 +1946,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97963",
@@ -1840,7 +1960,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97962",
@@ -1934,7 +2054,7 @@
         },
         {
           "id": "0",
-          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
+          "text": "\"비싸서 자주 못 샀는데…\" 내일(28일)부터 63% 파격 할인하는 '식재료'의 정체\n\n1/20",
           "reply": false
         },
         {
@@ -1980,7 +2100,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97961",
@@ -2019,18 +2139,23 @@
         },
         {
           "id": "0",
-          "text": "최충락이 자해 소동으로 치료 받은 병원, 알고 보니 20살 피해자가 입원한 곳\n\n1/20",
+          "text": "유방암 사망률 40% 격차 원인은 빈곤\n\n1/20",
           "reply": false
         },
         {
           "id": "272868",
           "text": "아테나네 나랑똑같네ㅋㅋ",
           "reply": false
+        },
+        {
+          "id": "273081",
+          "text": "인터 개싸다 ㅋㅋㅋ200이 개싸다 느껴지다니",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97960",
@@ -2056,11 +2181,16 @@
           "id": "273022",
           "text": "운영비가 어딨노 고작해봐야 몇만 다야였을건데",
           "reply": false
+        },
+        {
+          "id": "273079",
+          "text": "궁금하면 연락주세요 내역 보여드릴게요",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97959",
@@ -2074,7 +2204,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97958",
@@ -2113,13 +2243,13 @@
         },
         {
           "id": "0",
-          "text": "\"성적 대상화 논란?\"… 아일릿 윤아, '체포하겠어' 여경 제복 의상 논란에 입 열었다\n\n1/20",
+          "text": "\"야경으로 보는 국립공원\" 처음으로 선보이는 '국립공원 야경 관광' 신청 일정\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97957",
@@ -2144,7 +2274,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97956",
@@ -2164,7 +2294,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97955",
@@ -2184,7 +2314,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97954",
@@ -2223,13 +2353,13 @@
         },
         {
           "id": "0",
-          "text": "월 300만 원 넘게 버는 직장인 사상 첫 50% 돌파\n\n1/20",
+          "text": "핑크 캐릭터 패턴부터 퍼 코버업, 메시 레이어드까지! 인플루언서 풂 비키니 스타일 분석\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97953",
@@ -2259,7 +2389,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97952",
@@ -2273,7 +2403,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97951",
@@ -2283,11 +2413,11 @@
       "recommended": false,
       "contentText": "시그니쳐 스킬 부스트 쓸때 그냥 쓰지 말고 슬라인딩 할때 쓰면 모션 스킵됨",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97950",
@@ -2297,7 +2427,7 @@
       "recommended": false,
       "contentText": "풀네임이 긴데 그냥 제라라고 부르면 될까요?형님들\n\n이 정도면 슬슬 다른 장르가 맞는거같음 ㅋㅋㅋㅋ\n\n린라라기에는 너무 맵지도 않고 ai모드로 편의성도 너무 좋음\n\n심지어 무궁무진한 컨텐츠 ㅇㅈ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272794",
@@ -2317,7 +2447,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97949",
@@ -2327,11 +2457,11 @@
       "recommended": false,
       "contentText": "62렙 5.9투 에테르빨고 426인데 평균인가?\n\n시련 11까진 컷",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97948",
@@ -2341,7 +2471,7 @@
       "recommended": false,
       "contentText": "앞으로 제우스 라이크라고 부릅시다 형님들",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272782",
@@ -2370,13 +2500,13 @@
         },
         {
           "id": "0",
-          "text": "\"한국인 밥상 단골 반찬인데..\" 미국 식품 전문가들이 강력 경고했다는 '이것'\n\n1/20",
+          "text": "\"성적 대상화 논란?\"… 아일릿 윤아, '체포하겠어' 여경 제복 의상 논란에 입 열었다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97947",
@@ -2386,7 +2516,7 @@
       "recommended": false,
       "contentText": "ㅈ밥이라고 꼽주는거 없냐?\n\n기여도 ㅈ또없으면 좀 그런대",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272963",
@@ -2396,7 +2526,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97946",
@@ -2406,11 +2536,11 @@
       "recommended": false,
       "contentText": "제이 없으면\n\n삼복이가 왕",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97945",
@@ -2420,7 +2550,7 @@
       "recommended": false,
       "contentText": "억빠 거르고 얘보다 안정적으로 운영하는 겜 뭐있음?\n\n2달만에 다른데서 몇달 걸릴 점령전,공성전,요새전(곧 나올 예정) ㅋㅋ\n\n그렇다고 그래픽이 구린것도 아니고 퀄 괜찮고 편의성은 모든 린라중 원탑 ㅇㅇ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272964",
@@ -2430,7 +2560,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97944",
@@ -2440,11 +2570,11 @@
       "recommended": false,
       "contentText": "쌍영이치는거 호로록",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97943",
@@ -2454,7 +2584,7 @@
       "recommended": false,
       "contentText": "병신새끼들 고아드립치고앉아있네ㅋㅋㅋㅋㅋㅋㅋㅋ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272836",
@@ -2464,7 +2594,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97942",
@@ -2474,11 +2604,11 @@
       "recommended": false,
       "contentText": "",
       "contentStatus": "no-text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97941",
@@ -2488,11 +2618,11 @@
       "recommended": false,
       "contentText": "진짜 앞으로 나올 거 까지 다 생각해도\n\n토악질 나올 정도로 노답인 거 같은데\n\n그래도 제우스는 그래픽도 나쁘지 않고\n\nai로 24시간 돌아가서 편하고\n\n섭이전 같은 거 타이밍이 맞게 하고\n\n그나마 난 이게 젤 나은 거 같은데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97940",
@@ -2502,7 +2632,7 @@
       "recommended": false,
       "contentText": "알살자vs뜨창 무조건입니다\n\n투력 경쟁중이면서 이번에 1섭 보내려고한 이유도 이 구도로 WWE하기 위해서입니다",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "273021",
@@ -2512,7 +2642,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97939",
@@ -2522,7 +2652,7 @@
       "recommended": false,
       "contentText": "아까 한 10분 올라온 계정 어닝10이던데 잘못본줄 근데 왜 내렸지 내판됬나",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272805",
@@ -2533,11 +2663,16 @@
           "id": "272896",
           "text": "어닝10은뭐만듬? 9만있어도다되는거아녀?",
           "reply": false
+        },
+        {
+          "id": "273077",
+          "text": "어님 10은 어케했노 ㅋㅋㅋㅋ 근데 9에서 누를만한 메리트가 있나",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97938",
@@ -2547,7 +2682,7 @@
       "recommended": false,
       "contentText": "감정싸움하지말라네 나중에연합할수도있다고 ㅋㅋㅋㅋㅋㅋㅋ\n\n에라이 밑에만 개손해지",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272770",
@@ -2557,7 +2692,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97937",
@@ -2567,7 +2702,7 @@
       "recommended": false,
       "contentText": "아무리 설명하고 인증해도\n\n지 믿고싶은데로 믿더라\n\n99단 6.0 이번주 내 도달 예정\n\n(다른 스펙 인증사진은 예전 글 찾아봐, 댓글 51개 달린거 있어)\n\n영웅은 그대로 의상 1개 탈거 3개 갖고있다\n\n합성 더럽게 안되더라\n\n마일리지 인증해달라는 요청이 있었어서\n\n추가로 올린다\n\n날이 찹찹한데 반신욕하니까 좋다야",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272764",
@@ -2596,7 +2731,7 @@
         },
         {
           "id": "0",
-          "text": "\"하루 16시간 근무, 연봉 2천만원\"…헤이지니 전 직원 ‘충격 폭로’\n\n1/20",
+          "text": "박명수, 방송서 잘렸다… 억울함 ‘호소’\n\n1/20",
           "reply": false
         },
         {
@@ -2642,7 +2777,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97936",
@@ -2652,11 +2787,11 @@
       "recommended": false,
       "contentText": "통발계정 못옮겨서 새로 만들까 하는데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97935",
@@ -2666,7 +2801,7 @@
       "recommended": false,
       "contentText": "파편이 남아요...",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272752",
@@ -2690,7 +2825,7 @@
         },
         {
           "id": "0",
-          "text": "아직 결혼안한 여자 연예인, 돌연 임신…폭탄 발표에 가족,팬들 ‘깜짝’\n\n1/20",
+          "text": "\"후회 안 하려고\"…연예계 떠난 진짜 이유 9년 만에 밝힌 ‘유명 연예인’\n\n1/20",
           "reply": false
         },
         {
@@ -2721,7 +2856,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97934",
@@ -2731,11 +2866,11 @@
       "recommended": false,
       "contentText": "일단 난 최대한 꿀빨고 싶은데\n\n또 섭이전 열리면 이 평화가 언제 꺠질지 모르잖아!!!\n\n우리 라인형님들 필보 중립들도 먹게 해주시는데\n\n이런 라인 또 없습니다 ㅜㅜ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97933",
@@ -2745,7 +2880,7 @@
       "recommended": false,
       "contentText": "섭초에 50개에 하나식 3개 희귀 뚤었는데\n\n이제 본격 적으로 뚤을려니 지금 500개 가량 썻는데 하나도 뭇뚤음;;;;;\n\n진심 벽느껴짐",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272736",
@@ -2774,13 +2909,13 @@
         },
         {
           "id": "0",
-          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
+          "text": "\"비싸서 자주 못 샀는데…\" 내일(28일)부터 63% 파격 할인하는 '식재료'의 정체\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97932",
@@ -2790,7 +2925,7 @@
       "recommended": false,
       "contentText": "ai딸깍 좋긴한데 너무 내가 할게없음.. 쟁도 없는서버라 라인이라 순위권 경쟁때문애 현질만 ㅈㄴ하고 돈써도 재미 못나끼는듯\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272743",
@@ -2819,13 +2954,13 @@
         },
         {
           "id": "0",
-          "text": "\"하루 16시간 근무, 연봉 2천만원\"…헤이지니 전 직원 ‘충격 폭로’\n\n1/20",
+          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97931",
@@ -2835,11 +2970,11 @@
       "recommended": false,
       "contentText": "솔까 처음에 게임 시작하기 전에는\n\n이런 걸 왜 하나 싶었는데\n\n막상 해보니까 다야도 은근 벌기 편해서 좋음\n\n참고로 8강짜리는 많이 팔아봤는데\n\n10강짜리는 딱 한 번 팔아봄",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97930",
@@ -2849,7 +2984,7 @@
       "recommended": false,
       "contentText": "오디세이도 보니까 쟁에서는 정말 대단했다고?? 하는데\n\n그걸 패는 악\n\n악을 두달동안 줘팬 우승\n\n우승은 그냥 천상계임?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272731",
@@ -2883,7 +3018,7 @@
         },
         {
           "id": "0",
-          "text": "SK하이닉스 레버리지 ETF…상장 석 달 만에 청산, 이유는?\n\n1/20",
+          "text": "헤이지니, ‘노동 착취’ 논란에 공식 입장문 내놨다…전 직원 주장에 반박\n\n1/20",
           "reply": false
         },
         {
@@ -2894,7 +3029,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97929",
@@ -2904,7 +3039,7 @@
       "recommended": false,
       "contentText": "우선 초월길드 한명 or 두명 연장안됐다네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272747",
@@ -2933,7 +3068,7 @@
         },
         {
           "id": "0",
-          "text": "아직 결혼안한 여자 연예인, 돌연 임신…폭탄 발표에 가족,팬들 ‘깜짝’\n\n1/20",
+          "text": "\"돼지고기 김치찜에 한통 부어보세요\" 잡내 없어지고 감칠맛 폭발하네요.\n\n1/20",
           "reply": false
         },
         {
@@ -2944,7 +3079,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97928",
@@ -2954,7 +3089,7 @@
       "recommended": false,
       "contentText": "다 개백수들인가 썰자 역하네 ㅋㅋㅋㅋㅋ\n\n연합메인들 지들만 80에서 편하게 사냥하면 다인가 잠수도아니면서 ㅋㅋ\n\n인터는 쳐다도못보네라고 필드에서 글쓰는중 즙나온다증말\n\n인터보스먹으면뭐해 다 지들껀데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272744",
@@ -2982,8 +3117,13 @@
           "reply": true
         },
         {
+          "id": "273080",
+          "text": "@ㅇㅇ 서약 사해 썰자 코빼기도 안보임 킬수 어멍이 개바르는중 ssss는 좀 비비더라",
+          "reply": true
+        },
+        {
           "id": "0",
-          "text": "\"후회 안 하려고\"…연예계 떠난 진짜 이유 9년 만에 밝힌 ‘유명 연예인’\n\n1/20",
+          "text": "\"성적 대상화 논란?\"… 아일릿 윤아, '체포하겠어' 여경 제복 의상 논란에 입 열었다\n\n1/20",
           "reply": false
         },
         {
@@ -2994,7 +3134,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97927",
@@ -3004,7 +3144,7 @@
       "recommended": false,
       "contentText": "필보를 AI로 갈 수 있는거얐어 ?\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272802",
@@ -3024,7 +3164,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97926",
@@ -3034,11 +3174,11 @@
       "recommended": false,
       "contentText": "낼 미다스머뜰지모르니 10다야잡템들빼둡시다",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97925",
@@ -3048,11 +3188,11 @@
       "recommended": false,
       "contentText": "섭이전 할까 말까 고민했는데\n\n이전보다 거래가 훨씬 잘 되니까\n게임이 진짜 재밌어짐\n\n역시 머리 굴려가면서 섭 고른 보람이 있ㄴ[\n\nAI 돌려놓고 넷플 보면 그냥 극락",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97924",
@@ -3062,7 +3202,7 @@
       "recommended": false,
       "contentText": "더 나오는거같음\n\n그냥 2 3천 수준이 아닌거같아 아무리 생각해도\n\n억 가까이 되는 사람부터 해서\n\n억 넘는 사람까지 있을거같다\n\n느낌이 그래",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T12:11:31.325326+00:00",
+      "contentFetchedAt": "2026-10-27T18:15:34.715562+00:00",
       "comments": [
         {
           "id": "272725",
@@ -3082,7 +3222,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97923",
@@ -3112,7 +3252,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97922",
@@ -3142,7 +3282,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97921",
@@ -3167,7 +3307,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97920",
@@ -3181,7 +3321,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97918",
@@ -3195,7 +3335,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97917",
@@ -3225,7 +3365,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97915",
@@ -3255,7 +3395,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97914",
@@ -3294,7 +3434,7 @@
         },
         {
           "id": "0",
-          "text": "아직 결혼안한 여자 연예인, 돌연 임신…폭탄 발표에 가족,팬들 ‘깜짝’\n\n1/20",
+          "text": "헤이지니, ‘노동 착취’ 논란에 공식 입장문 내놨다…전 직원 주장에 반박\n\n1/20",
           "reply": false
         },
         {
@@ -3315,7 +3455,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     },
     {
       "id": "97913",
@@ -3335,156 +3475,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
-    },
-    {
-      "id": "97912",
-      "title": "쌍조보다 저희 제이 형님이 더 대단합니다",
-      "publishedAt": "2026-10-27T19:42:34+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97912",
-      "recommended": true,
-      "contentText": "삼복 있으면 불공평해서 보내고 지금 접전 만드는 중입니다",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T17:20:50.767195+00:00",
-      "comments": [
-        {
-          "id": "272718",
-          "text": "차 떼고 싸우는 형님 ㄷㄷ",
-          "reply": false
-        },
-        {
-          "id": "272728",
-          "text": "이건 멕이는 거야?응원하는 거야?",
-          "reply": false
-        },
-        {
-          "id": "272795",
-          "text": "맥이는거 같은데 ㅋㅋㅋㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "272884",
-          "text": "역시 경영의신 제이",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
-    },
-    {
-      "id": "97911",
-      "title": "꿀꿀이가 인원3배많아도 지는이유",
-      "publishedAt": "2026-10-27T19:41:00+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97911",
-      "recommended": false,
-      "contentText": "꿀꿀이 -> 쌘쪽붙어서 꿀 빨다가 더쌘쪽 나오면 배신하고 그쪽 붙어서 꿀빨고\n\n서버이전때 상대좀 쌔니까 바로 런함\n\n연합에서 배급해준 공성다이아 운영진이 꿀꺽\n\n+ 분배 메인캐릭2개가 보스템,스킬강화석 독식\n\n+디코에서 투사목소리땜에 사기저하됨\n\n오마주 -> 오픈때부터 1,3섭연합이랑 단일길드로 싸워서 이기고 공성 까지 1등한 길드\n\n공성다이아 모든길드원 분배\n\n맞음?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T17:20:50.767195+00:00",
-      "comments": [
-        {
-          "id": "272671",
-          "text": "(Feat. 블랙홀 서월. 노아)",
-          "reply": false
-        },
-        {
-          "id": "272672",
-          "text": "오마주 까보면 대단하긴함; 13연합보다 메인캐릭도 밀리던데, 꾸역꾸역 50일동안 싸운거아님.",
-          "reply": false
-        },
-        {
-          "id": "272674",
-          "text": "적은인원으로 많은 인원만 상대하다보니 상대법을 제대로 아는듯 ㅋㅋㅋ",
-          "reply": true
-        },
-        {
-          "id": "272679",
-          "text": "투사 목소리도 목소리인데 말투가 그냥 병진임.. 존나 중딩 애새끼같음 - dc App",
-          "reply": false
-        },
-        {
-          "id": "272696",
-          "text": "투사가누군데 그 13만 나이트??",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "\"하루 16시간 근무, 연봉 2천만원\"…헤이지니 전 직원 ‘충격 폭로’\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
-    },
-    {
-      "id": "97910",
-      "title": "에픽86이건 사람이 깰수잇는난이도가아님",
-      "publishedAt": "2026-10-27T19:39:58+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97910",
-      "recommended": false,
-      "contentText": "9900단은 게임도 하지말란거냐?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T17:20:50.767195+00:00",
-      "comments": [
-        {
-          "id": "272676",
-          "text": "시간지나면 다 깸\n근데 86이 뭐였지",
-          "reply": false
-        },
-        {
-          "id": "272682",
-          "text": "드라폰이네 그 대머리",
-          "reply": true
-        },
-        {
-          "id": "272678",
-          "text": "렙90 찍고 가자",
-          "reply": false
-        },
-        {
-          "id": "272683",
-          "text": "그거 섭초에 글리치 있었는데 바위로 올라가는거 막혔냐",
-          "reply": false
-        },
-        {
-          "id": "272700",
-          "text": "99단 3일 94까지갔는데 버는거 투자좀해라",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "\"성적 대상화 논란?\"… 아일릿 윤아, '체포하겠어' 여경 제복 의상 논란에 입 열었다\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "272701",
-          "text": "새계정만들어서 99단으로키우는중인데 걍깨지던데? 오히려무탑60층이벽이였음 2티장비싸니깐 2티6강둘둘ㄱㄱ",
-          "reply": false
-        },
-        {
-          "id": "272965",
-          "text": "응 꺼저",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
-    },
-    {
-      "id": "97908",
-      "title": "[제우스1] 진지하게 꿀꿀이길드 어찌될거같냐",
-      "publishedAt": "2026-10-27T19:35:32+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97908",
-      "recommended": false,
-      "contentText": "얘들의 운명은????????\n\n그리고\n\n자칭 회장, 자칭 병원장의 운명은? ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-27T17:20:50.767195+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T16:25:40.594984+00:00"
+      "commentsFetchedAt": "2026-10-27T18:15:34.715562+00:00"
     }
   ]
 }
