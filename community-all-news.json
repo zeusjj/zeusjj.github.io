@@ -1,9 +1,1257 @@
 {
-  "collectedAt": "2026-10-27T00:02:12.589579+00:00",
+  "collectedAt": "2026-10-27T01:20:14.388952+00:00",
   "days": 14,
-  "coverageStart": "2026-10-26",
+  "coverageStart": "2026-10-27",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "97579",
+      "title": "어우 씨이잉발",
+      "publishedAt": "2026-10-27T10:19:54+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97579",
+      "recommended": false,
+      "contentText": "아테는 최저가에올려도 다음날안팔려있고 오리는 11원인데\n\n아레는 템올리면 바로팔려있다니까 ㅈ~~~ㄴ 부럽노\n\n아레에서 아테로 3계정옮긴 내탓이지만...",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97578",
+      "title": "ai게임의 한계",
+      "publishedAt": "2026-10-27T10:10:00+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97578",
+      "recommended": false,
+      "contentText": "필드 내전 터지면 ai게임이라 ai는 돌려야되는데 자꾸 쫓아와서 죽이니까 스트레스.\n\n농사섭되면 ai돌리느라 교단 보스 끝. 존나심심 통발됨\n\n적당히 인터싸움이 되어야하는데 이게 맞추기 힘들지",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271370",
+          "text": "린라가 그렇지 뭐 필드 내전은 자사 못돌리지",
+          "reply": false
+        },
+        {
+          "id": "271372",
+          "text": "반대로 ai 때문에 손 그나마 덜타서 제우스 하는것도이씀",
+          "reply": false
+        },
+        {
+          "id": "271374",
+          "text": "그건 불가능의 영역 아님? 합의 안된 사회에서 그게 어케 가능해",
+          "reply": false
+        },
+        {
+          "id": "271378",
+          "text": "시간,돈 많으면 모를까 직장인은 이정도에 타협보는거지",
+          "reply": false
+        },
+        {
+          "id": "271379",
+          "text": "직장인들은 농사만 해도 되는데 뭔 소리함 ㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "외국인 사이서 매출 1위 찍더니…새로운 맛으로 출시된다는 뜻밖의 ‘한국 라면’\n\n1/20",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97577",
+      "title": "목이 존나아픔",
+      "publishedAt": "2026-10-27T10:04:06+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97577",
+      "recommended": false,
+      "contentText": "엉엉띠",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271368",
+          "text": "그거 임신이야",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97576",
+      "title": "한달 뒤에 서버 이전 다시 하겠지?",
+      "publishedAt": "2026-10-27T09:59:03+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97576",
+      "recommended": false,
+      "contentText": "한달 설렁설렁 스펙업 하면서 좀 쉬다가 쟁서버 가면 되겟지?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271350",
+          "text": "지금 분위기 십창나서 해주지 않을까.. 기대해보긴 하는중",
+          "reply": false
+        },
+        {
+          "id": "271361",
+          "text": "시즌에 한번씩 섭이전 한다구 해씀 담달말쯤 하지 않을까",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97575",
+      "title": "길드안에서 투력 따라잡니 뭐니 견제오지긴하더라",
+      "publishedAt": "2026-10-27T09:58:42+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97575",
+      "recommended": false,
+      "contentText": "근데 두명이서 견제 오지게 하는데\n\n둘다 투력 4만따리라서 웃기긴함 ㅋㅋ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271356",
+          "text": "니가 5만따리 좆밥이니까 견제당하는거겠지 병신아 ㅋㅋ - dc App",
+          "reply": false
+        },
+        {
+          "id": "271365",
+          "text": "난 6.3이고 4.2랑 4.4가 둘이서 서로 견제한다는거야 병신새끼야 ㅋㅋ",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97574",
+      "title": "77400 레인저인데 에픽 133 밀수있음 ?",
+      "publishedAt": "2026-10-27T09:58:10+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97574",
+      "recommended": false,
+      "contentText": "아직 도전 안해봄 ....",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271327",
+          "text": "해보고 알려줘",
+          "reply": false
+        },
+        {
+          "id": "271341",
+          "text": "6만도 깨던데",
+          "reply": false
+        },
+        {
+          "id": "271342",
+          "text": "참고로 유튭 대리방송 ㅋㅋㅋㅋㅋ\n얼마받고 하는건지 나도 6만되면 해봐야지",
+          "reply": false
+        },
+        {
+          "id": "271362",
+          "text": "7.6인데 7.4때 와리가리로 깼음",
+          "reply": false
+        },
+        {
+          "id": "271376",
+          "text": "7.55 아티산으로 깸 노글리치",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "[스타트업-ing] ‘위성 통신에 AI 결합’ 퓨잇, 해외 오지까지 안전 서비스 연결 나선다\n\n1/20",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97573",
+      "title": "헤라1도 개 병신 깨롱꾸가 단검 개 잔바리들 데리고와서 ㅅㅂ 섭 좆망",
+      "publishedAt": "2026-10-27T09:54:33+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97573",
+      "recommended": false,
+      "contentText": "단검 개 잔바리들 데리고 보스쳐서 통제보스 잡는데 존나 오래걸림\n\n깨롱꾸도 아니고 단검 잔바리새끼가 외창도 털더라 보스올때 공대로 오면 접게 해준다던데 꼴깝떨고있네\n\n깨롱꾸가 똥싸고 난 후에 단검 애들이 핥아준다고 소문 났다\n\n기껏해봐야 8만 따까리 새끼들 가오 잡는거 개 킹 받 는 다",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271336",
+          "text": "킹 받으면 썰어 ㄱㄱㄱ",
+          "reply": false
+        },
+        {
+          "id": "271349",
+          "text": "단검 개백수 여드름 탈모 종합 여미새 병신세트 ㅋㅋㅋ\n고추에 열등감있어보임\n보스탐에 병신들 안봐서 좋다 ㅋㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271371",
+          "text": "어쩌라고 ㅋㅋㅋ",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97572",
+      "title": "계정 사려는 애들은 15일정도만 더 기다려봐",
+      "publishedAt": "2026-10-27T09:54:22+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97572",
+      "recommended": false,
+      "contentText": "미친듯한 저점 찍을거다.......\n\n지금 일반섭 중에 쟁하는 서버보다 농사서버가 많을텐데\n\n농사 서버에서\n\n무조건 저점 찍는다\n\n못 버팀 이거\n\n기다려봐",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271321",
+          "text": "농사하고 다시 쟁서버로 가보자",
+          "reply": false
+        },
+        {
+          "id": "271322",
+          "text": "농사는 버티지\n본토쟁하는애들이 못버티지",
+          "reply": false
+        },
+        {
+          "id": "271323",
+          "text": "못 버틴다는게 지루해서 그냥 계정 터는 애들 많다는거임?",
+          "reply": false
+        },
+        {
+          "id": "271326",
+          "text": "근데 본토쟁을 못 버티지 농사를 못 버틸 일이 있나…?",
+          "reply": true
+        },
+        {
+          "id": "271348",
+          "text": "@제수스2(223.38) ㅇㅇ.. 막말로 일주일에 한번만 접속해도 신탁 필보빼곤 할거다함",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "이연진 비키니 패션! 치어리더 여행룩 프로필과 인스타그램 근황\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271346",
+          "text": "ai딸깍인데 농시를 왜 못버팀 ㅋㅋㅋ 오히려 좋지",
+          "reply": false
+        },
+        {
+          "id": "271354",
+          "text": "농사됏는데 많이 내놓드라ㅋ",
+          "reply": false
+        },
+        {
+          "id": "271363",
+          "text": "반대 아니냐? ㅋㅋ - dc App",
+          "reply": false
+        },
+        {
+          "id": "271366",
+          "text": "다시 한번 말하지만 농사라서 못 버티는거다",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97571",
+      "title": "데메테르 성장도 순위",
+      "publishedAt": "2026-10-27T09:53:35+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97571",
+      "recommended": false,
+      "contentText": "",
+      "contentStatus": "no-text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271318",
+          "text": "개빡세네 ㅋㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271319",
+          "text": "어쩌라고",
+          "reply": false
+        },
+        {
+          "id": "271353",
+          "text": "데메 서버끼리연합있나요? 아님 1,2,3섭 다따로인가",
+          "reply": false
+        },
+        {
+          "id": "271355",
+          "text": "좆밥인줄 알았는데 쌔노",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97570",
+      "title": "유튭보면서 50리세 설렁설렁 하려면 본투력 몇이어야됨",
+      "publishedAt": "2026-10-27T09:53:31+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97570",
+      "recommended": false,
+      "contentText": "해본놈잇나",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271330",
+          "text": "6만 초반부터 했어",
+          "reply": false
+        },
+        {
+          "id": "271333",
+          "text": "겹사 하면서 눈팅 졸라해야되는거말고 대충 딸깍딸깍하면서 유튭보다 심심하면 딸잡다가 할수있는투력 말한거임",
+          "reply": true
+        },
+        {
+          "id": "271337",
+          "text": "@ㅇㅇ 그게 6만초반이야",
+          "reply": true
+        },
+        {
+          "id": "271340",
+          "text": "@드러그옴므빌런 그래? 45리세는 될거같은데 50은 빡셀거같앗는데",
+          "reply": true
+        },
+        {
+          "id": "271343",
+          "text": "@ㅇㅇ 6.3인데 그냥 퀘스트받고 자동돌리면 50까지 스무스함",
+          "reply": true
+        },
+        {
+          "id": "271344",
+          "text": "@ㅇㅇ 명중유기한거 아니면 무조건 될거임",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "“중국차, 결국 현대차 위협하나”…한국서 나온 ‘예상 밖 수치’에 충격\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271377",
+          "text": "5.5인데 하긴했음",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97569",
+      "title": "라인 안에서 대놓고 스펙 견제하는데",
+      "publishedAt": "2026-10-27T09:51:57+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97569",
+      "recommended": false,
+      "contentText": "한놈이 디코나 챗에서 계속 아 따라가니 멀어지네 아 누구누구 잡았는데 이러면서 견제하는데 정상임?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271310",
+          "text": "한두번이면 농담 . 계속되면 걸러야됨",
+          "reply": false
+        },
+        {
+          "id": "271315",
+          "text": "아 진짜 너무 거슬린다",
+          "reply": true
+        },
+        {
+          "id": "271311",
+          "text": "원래 그럼\n나같은 중립도 누구 제낄만한지 보고있는데 라인급이면 더하지",
+          "reply": false
+        },
+        {
+          "id": "271313",
+          "text": "다만 대놓고 이야기하는건 ㅋㅋㅋ",
+          "reply": true
+        },
+        {
+          "id": "271312",
+          "text": "투력 욕심이 센가 보지",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "뽑기 없이 매출 1위! ‘도깨비의세계’가 보여주고 있는 것\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271360",
+          "text": "친구들 끼리 겜하면 안그러는데 혼자하니까 동기부여 하는거지 뭐 ㅋㅋㅋ\n신경 안써도 될듯",
+          "reply": false
+        },
+        {
+          "id": "271373",
+          "text": "근데 저런놈 하나 있어야 다같이 쎄지긴함ㅋㅋㅋㅋㅋ",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97568",
+      "title": "신서버 안내나??",
+      "publishedAt": "2026-10-27T09:51:44+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97568",
+      "recommended": false,
+      "contentText": "지난 2번의 신섭은 다했음....새로운 신섭좀 내줘라....",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271325",
+          "text": "달마다 섭이전 한다는데 과연 나올라나",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97567",
+      "title": "교단 3패",
+      "publishedAt": "2026-10-27T09:51:35+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97567",
+      "recommended": false,
+      "contentText": "이거 맞냐? ㅋㅋ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97566",
+      "title": "이거 숫자가 너무야한데요",
+      "publishedAt": "2026-10-27T09:45:10+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97566",
+      "recommended": false,
+      "contentText": "",
+      "contentStatus": "no-text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271294",
+          "text": "개쌔노",
+          "reply": false
+        },
+        {
+          "id": "271347",
+          "text": "동건아 깝치지말고 투력이나올려라",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97565",
+      "title": "라인 어깨급인데 좀 지쳐서 계정 팔고 스펙다운할지 고민됨",
+      "publishedAt": "2026-10-27T09:43:24+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97565",
+      "recommended": false,
+      "contentText": "현질하는게 슬슬 아까운 마음 들고\n\n농사섭 되니까 굳이 현질해야 하나 싶은 마음도 들고\n\n그렇다고 안하자니 랭킹 밀리고\n\n걍 팔고 외전 계정 하나 100 언더로 떠와서 즐겜하는게 나을거 같다",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271287",
+          "text": "10만 넘으면 한달만 참아 농사로 꿀 빨고",
+          "reply": false
+        },
+        {
+          "id": "271290",
+          "text": "넘기는 한데 농사라 천천히 가고싶은데 다들 계속 달린다 ㅅㅂㅋㅋ",
+          "reply": true
+        },
+        {
+          "id": "271295",
+          "text": "@글쓴 제수스(223.38) 10만 넘기면 이제 슬슬 영웅 장판이랑 초월 노릴 때라 걍 천천히 ㄱㄱ",
+          "reply": true
+        },
+        {
+          "id": "271304",
+          "text": "@제수스1(106.101) ㅇㅋㅇㅋ그냥 패키지만 사면서 간다",
+          "reply": true
+        },
+        {
+          "id": "271296",
+          "text": "그냥 투자 최소로 하고 쌀먹 ㅈㄴ하다가 선물 나올 때 파는게 국룰",
+          "reply": false
+        },
+        {
+          "id": "271301",
+          "text": "아 차라리 그럴까",
+          "reply": true
+        },
+        {
+          "id": "271307",
+          "text": "@글쓴 제수스(223.38) 산물나올때 파는게 국룰인 이유가 그냥 팔때보다 비싸게 팔수있는거면 선물하기 나올때까지 감가먹는것도 고려해야됨",
+          "reply": true
+        },
+        {
+          "id": "271339",
+          "text": "투력 10만넘은사람한테 쌀먹하라는건 좀.. 쌀먹으로 회수가 가능한범위가 아니잖아 - dc App",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "KTX 4000장 싹쓸이한 매크로 암표상 직접 처벌\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271297",
+          "text": "농사시즌에는 싸게 스펙업 가능하다는 장점이 있는데",
+          "reply": false
+        },
+        {
+          "id": "271299",
+          "text": "ㅇㅇ근데 나도 적당히 하려는데 길드원들이 미친듯이 계속 내달리네..",
+          "reply": true
+        },
+        {
+          "id": "271305",
+          "text": "원래 경쟁자는 상대길원이 아니라 아군임ㅋ",
+          "reply": false
+        },
+        {
+          "id": "271314",
+          "text": "ㄹㅇ진짜 이게 맞다",
+          "reply": true
+        },
+        {
+          "id": "271329",
+          "text": "말하는거보니 스펙다운하면 접힐거같은데 걍 해라\n인터 5계 돌아다니다가 4계도 물약빨면서 비실거리면 겜할맛 좆나안날거같은데",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97564",
+      "title": "리세는 진짜 투력따라 체감 좆되게 다름",
+      "publishedAt": "2026-10-27T09:42:10+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97564",
+      "recommended": false,
+      "contentText": "내가 4.7인가에 처음 시도해봤거든?\n\n진짜 그 투력대에하면 뒤질맛이더라.. 그때 한 18시간인가 걸렸음\n\n4.9찍고 다시 해보니까 좆같긴해도 14~15시간쯤?걸려서 억지로 하긴 했고 이투력으로 두번하긴 힘들겠다 싶어서\n\n5.3만에 하니까 진짜 맨 처음했을때랑 피로도 한 10배차이 남\n\n걍 자동 돌려놓고 딴거하다 띠링소리들리면 가서 완료눌러주기만 하면 끝",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271375",
+          "text": "리세가 뭐임",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97563",
+      "title": "그동안 주간 안산게 씹에바였다",
+      "publishedAt": "2026-10-27T09:37:53+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97563",
+      "recommended": false,
+      "contentText": "주간이 한 20%쯤 효율 밀리길래 첨에 걍 월간만 샀는데\n\n생각해보니까 월간만 사면 전설 천장이 너무 늦게 찍혀서\n\n20% 차이면 그냥 그정도 더쓰고 주간까지 눌러서 2개월차에 전변천장까지 치는게 이득이라는걸\n\n좀 늦게 깨달음..\n\n주간까지 계속 눌렀으면 한 10월초에 천장치고 뽑았을것같은데 한달쯤 빼먹어서 담주쯤에 천장칠듯\n\n저거랑 탈것에 ㅄ같이 400뽑 좀 넘게 박은것도 아깝노\n\n탈것은 걍 천장 안치려고",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271276",
+          "text": "요즘 패키지 삼?솔직히 쌀 효율이 너무 넘사인거 같은데",
+          "reply": false
+        },
+        {
+          "id": "271283",
+          "text": "패키지가 걍 넘사임.. 쌀은 5천원은 가야 비비지 ㅋㅋ",
+          "reply": true
+        },
+        {
+          "id": "271284",
+          "text": "@드러그옴므빌런 3전 졸업해서 요즘 패키지 안 봐서 효율 잘 모르겠네",
+          "reply": true
+        },
+        {
+          "id": "271288",
+          "text": "@제수스1(106.101) 시세 0.7이라 쳤을때 월간>>>>주간>>깡다야정도 느낌. 마일리지랑 성장상자 배제하면 주간이랑 깡다이아는 큰차이까진 안나긴함",
+          "reply": true
+        },
+        {
+          "id": "271277",
+          "text": "나는깡다야침 주간도혜자다 이겜은",
+          "reply": false
+        },
+        {
+          "id": "271298",
+          "text": "프모섭은 근데 깡다야쳐도댈듯. 거긴 0.6아니냐",
+          "reply": true
+        },
+        {
+          "id": "271331",
+          "text": "@드러그옴므빌런 프모섭도 0.7이던데 - dc App",
+          "reply": true
+        },
+        {
+          "id": "271332",
+          "text": "@ㅇㅇ ㄹㅇ? 시세 왜케올랐냐 저번주 0.6이었는데",
+          "reply": true
+        },
+        {
+          "id": "271335",
+          "text": "@드러그옴므빌런 아레스 기준임 - dc App",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "‘활동 중단’ 백종원, 살 길 열렸다… ‘구세주 등장’\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271316",
+          "text": "뽑을거면 월간주간+ 수욜에나오는패키지는 전부사야 빨리채움 - dc App",
+          "reply": false
+        },
+        {
+          "id": "271320",
+          "text": "ㄹㅇ 맞는듯.. 수욜패키지중에 월간~주간 사이급은 다샀긴함. 담주쯤에 천장치긴할듯",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97562",
+      "title": "6만초반이면 리세할만하냐",
+      "publishedAt": "2026-10-27T09:36:07+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97562",
+      "recommended": false,
+      "contentText": "45까지에픽만깨서됨?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271269",
+          "text": "5~6만사이가 리세 하면 딱 효율좋음",
+          "reply": false
+        },
+        {
+          "id": "271274",
+          "text": "ㄱㅅ",
+          "reply": true
+        },
+        {
+          "id": "271270",
+          "text": "걍 리세는 돈 없는데 시간 많으면 추천\n아레스 라인 필드썰자 무한이라 하는 중 ㅋㅋ 잘 때 부캐 자사 해놓으니깐 피로도 없이 잘 되네",
+          "reply": false
+        },
+        {
+          "id": "271271",
+          "text": "6만초반이면 50까지도 하겟다 안하고 뭐한거야 지금까지",
+          "reply": false
+        },
+        {
+          "id": "271273",
+          "text": "나지금까지안함..",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "‘활동 중단’ 백종원, 살 길 열렸다… ‘구세주 등장’\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271279",
+          "text": "리세하면 10시간 걸린다는데,, 뭘 얻을수잇음? 아래글 보니까 투력 1천정도 올랐다고 하던데. 마즘?",
+          "reply": false
+        },
+        {
+          "id": "271281",
+          "text": "오리120개",
+          "reply": true
+        },
+        {
+          "id": "271286",
+          "text": "@KKMFAN 10시간 리세 작업을 하고 120 오리를 얻는거임?? ㄷㄷ...",
+          "reply": true
+        },
+        {
+          "id": "271293",
+          "text": "@제수스3(211.234) 돈많으몀 돈주고사는거지뭐 오리",
+          "reply": true
+        },
+        {
+          "id": "271302",
+          "text": "@제수스3(211.234) 오리120개, 신탁4-5개, 축줌 1-3개, 희귀2-4개",
+          "reply": true
+        },
+        {
+          "id": "271282",
+          "text": "ㅇㅇ",
+          "reply": false
+        },
+        {
+          "id": "271291",
+          "text": "ㄱㅅ",
+          "reply": true
+        },
+        {
+          "id": "271328",
+          "text": "딱 본캐 경손실 시간만큼 버리고 다야는 뭐 오리로 비교하면 또이또이 일수도 할만하다고 봄",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97561",
+      "title": "근데 다들 오리 45리세 하고있음?",
+      "publishedAt": "2026-10-27T09:33:14+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97561",
+      "recommended": false,
+      "contentText": "ㅇㅇ?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271259",
+          "text": "요즘에도 다들 하나? 이번주 주말에 좀해볼까",
+          "reply": false
+        },
+        {
+          "id": "271260",
+          "text": "이번주 50리세해봤는데 그냥 45가 가성비 짱인듯",
+          "reply": false
+        },
+        {
+          "id": "271267",
+          "text": "45리세는 할만한데 50리세는 너무 힘들다",
+          "reply": false
+        },
+        {
+          "id": "271268",
+          "text": "피로도가 너무 높아",
+          "reply": true
+        },
+        {
+          "id": "271317",
+          "text": "62레벨 22% 남아서 그거 찍고 할려고 난 어차피 62부터는 드럽게 안오를테니 투력도 올릴겸 재화도 얻어야지",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "너무 감동이다… 결혼하는 팬 위해 강동원이 보인 ‘깜짝 행동’\n\n1/20",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97560",
+      "title": "교단신과 씨이발",
+      "publishedAt": "2026-10-27T09:22:59+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97560",
+      "recommended": false,
+      "contentText": "이젠 3번 터지는 건 확정이라고 생각하고있다\n\n씨이발 왜 일일숙제 스팩업컨텐츠에 확률을 쳐박아놓은거야",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271239",
+          "text": "평균회귀라서 나중가면 다 비슷해짐",
+          "reply": false
+        },
+        {
+          "id": "271264",
+          "text": "난 오픈날부터 했는데 언제 평균회귀냐.ㅡ",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97559",
+      "title": "프모섭 간 애들은 시세 씹창날줄 알고 간거아님?",
+      "publishedAt": "2026-10-27T09:18:59+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97559",
+      "recommended": false,
+      "contentText": "린라 특성상 프모섭은 초반에만 시세좋고 결국엔 씹창나는거 무조건인데\n\n알고도 갔으면서 후회하긴 ㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271232",
+          "text": "프모섭은 영혼까지 끌어서 쌀팔던가.\n프모비제이 광팬이라 옆에 따라다니면서 뭐라도하고싶은애들.\n딱 두부류아니면 갈이유없음",
+          "reply": false
+        },
+        {
+          "id": "271249",
+          "text": "근데 운좋게 아레스 간애들은 아직 장기보류 가능 ㅋㅋㅋㅋ",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97558",
+      "title": "야 투력 7만 다되가는데 0전설 나같은애 없냐",
+      "publishedAt": "2026-10-27T09:17:35+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97558",
+      "recommended": false,
+      "contentText": "실타래 존나높긴함\n\n패키지 가지무침만 줘서 안사는중",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271228",
+          "text": "영웅에7만이라고?",
+          "reply": false
+        },
+        {
+          "id": "271230",
+          "text": "월간,주간 이런거 아예 안삼?",
+          "reply": false
+        },
+        {
+          "id": "271238",
+          "text": "월간도 바뀌고 난뒤에는 안사는중 구려져서",
+          "reply": true
+        },
+        {
+          "id": "271242",
+          "text": "@글쓴 제수스(39.121) 뽑기권 주는거 5%쯤 줄고 성장상자 추가된거라 걍 또이또이던데",
+          "reply": true
+        },
+        {
+          "id": "271247",
+          "text": "난 6만 0전설 ㅋ\n영웅은 꽤있음ㅋ",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "넷플릭스 10주년 행사 '넷플잔치', 현장 관객 1만 명 동원\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271265",
+          "text": "노전설 7만 어케햇노",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97557",
+      "title": "프모섭 제외 77300 투력이면 허리급 이냐 ?",
+      "publishedAt": "2026-10-27T09:09:49+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97557",
+      "recommended": false,
+      "contentText": "궁금하다 ㅅㅂ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271211",
+          "text": "ㅇㅇ",
+          "reply": false
+        },
+        {
+          "id": "271220",
+          "text": "라인에서 중간쯤은 댈듯",
+          "reply": false
+        },
+        {
+          "id": "271241",
+          "text": "허리 긴사람의 골반에서 허리 쯤 될듯",
+          "reply": false
+        },
+        {
+          "id": "271263",
+          "text": "라인기준 약간 꼬추 위치?",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97556",
+      "title": "필보정리되니까 진짜 개편하네..",
+      "publishedAt": "2026-10-27T09:09:16+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97556",
+      "recommended": false,
+      "contentText": "멸공햄나이스입니다~",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271218",
+          "text": "그 정리할땐 한입 못하지??",
+          "reply": false
+        },
+        {
+          "id": "271224",
+          "text": "기다렸다가 앞에서부터 정리 끝나는대로 라인이 잡을건데 그때 한입하면 되긴할거임. 근데 걍 하루 안잡고 다음날부터 가는게 편하긴할듯",
+          "reply": true
+        },
+        {
+          "id": "271225",
+          "text": "정리하는 하루동안은 접근불가 ㅋㅋ 그래서 어제 터진길드 많음",
+          "reply": true
+        },
+        {
+          "id": "271226",
+          "text": "@드러그옴므빌런 이거맞음 ㅇㅇ",
+          "reply": true
+        },
+        {
+          "id": "271246",
+          "text": "@글쓴 제수스(118.235) 아하 그냥 눈에 보이면 안되겠군",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "\"이 가격에 사는 게 맞나?\"... 풀옵션 넣으면 1억 넘어가는 제네시스 GV80 하이브리드, 가격대 총정리\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271243",
+          "text": "존나 개빡인데 시간",
+          "reply": false
+        },
+        {
+          "id": "271244",
+          "text": "3초만 망설이면 보스 한입못함",
+          "reply": true
+        },
+        {
+          "id": "271248",
+          "text": "@제수스2(202.8) 유ㅏ우...ㅋㅋㅋㅋ 거기 사람도 많으면서 쌔서 그런가\n3섭은 그래두 60부턴 여유 있는데",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97555",
+      "title": "헤파1 보스시간 다 맞춰줬다 이제 풀취침이다",
+      "publishedAt": "2026-10-27T09:08:23+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97555",
+      "recommended": false,
+      "contentText": "개꿀 ㅋㅋㅋ\n\n하루 3번만 가면되구 새벽시간 아예없음 ㅋㅋ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271201",
+          "text": "우리도 ㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271212",
+          "text": "시간이 어떻게 되는데?",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97554",
+      "title": "오리 45개 채굴하는데 1시간 40분 걸렸다",
+      "publishedAt": "2026-10-27T09:07:11+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97554",
+      "recommended": false,
+      "contentText": "50렙대 오리광산에서\n\n겹사 피해서 단독사냥했는데\n\n1시간동안 고작 27개 채굴\n\n이게 뭐냐싶어서 1시간 충전하고\n\n나머지 채굴하는데\n\n40분이 더걸림\n\n그나마도 너무 채굴안되서 사냥터 옮기면서\n\n겨우 45개 채웠다\n\n뭐지 이건?\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271203",
+          "text": "43으로 내려가라",
+          "reply": false
+        },
+        {
+          "id": "271208",
+          "text": "그래서 겨우 채굴한거야 5만 투력으로 - dc App",
+          "reply": true
+        },
+        {
+          "id": "271219",
+          "text": "니 투력안맞는곳에서 하니깐 그러지 ㅋㅋㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271229",
+          "text": "나도 5만투력인데 탐사의 막장에 겹사상관없이 그냥 돌려둠\n이번주내내 45개 다 캤는데 대충 55분쯤 걸리는듯",
+          "reply": false
+        },
+        {
+          "id": "271236",
+          "text": "오리던전 너무 욕심내지마",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "선풍기 비닐만 씌워 넣지 마세요... 내년 여름 켜자마자 후회합니다\n\n1/20",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97553",
+      "title": "거래소 프모섭 / 일반섭 통합 ㄱㄱ",
+      "publishedAt": "2026-10-27T09:06:09+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97553",
+      "recommended": false,
+      "contentText": "공성세금 n빵하고 ㅇㅇ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271204",
+          "text": "고고 같은 소리하고 있네",
+          "reply": false
+        },
+        {
+          "id": "271309",
+          "text": "딴건모르겟고 이새끼 아테네인건 암",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97552",
+      "title": "99단은 45리세 할만한가",
+      "publishedAt": "2026-10-27T09:05:44+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97552",
+      "recommended": false,
+      "contentText": "하나는 동일직업 하나는 근접이라 ㅋㅋ 아쉽지만\n\n5.3만이면 반나절 걸릴라나\n\n오리120개 신탁4개 희변2개 +@ 이게 메리트 같은데\n\n교단 말곤 본캐로 채울수 있어서 뭐가 좋을라나",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271194",
+          "text": "5.3 못함",
+          "reply": false
+        },
+        {
+          "id": "271196",
+          "text": "맞죠? 한 6만 근처때가 할만하겠죠?",
+          "reply": true
+        },
+        {
+          "id": "271205",
+          "text": "차라리 60인터 사서 돌리는게\n\n스펙업 될거 같기도하고 ㅋㅋ\n\n전변이나 올4티장비 아니면 시도 안해야겠다",
+          "reply": true
+        },
+        {
+          "id": "271209",
+          "text": "5.3만이면 걍 되긴하지. 안되면 명중이 좀 낮은거임. 시골섭 아니면 10시간쯤, 시골이면 11시간쯤 생각하면될듯",
+          "reply": false
+        },
+        {
+          "id": "271213",
+          "text": "난 4만대부터 했는데 그때도 한 13시간하면 됐었음",
+          "reply": true
+        },
+        {
+          "id": "271215",
+          "text": "시골은 아니라 겹사 괜찮을듯\n\n그냥 장비 풀4티 맞출때 시작해보려고요",
+          "reply": true
+        },
+        {
+          "id": "271216",
+          "text": "@글쓴 제수스(39.7) 전변에 4티다맞추고 6만에 할거면 걍 50리세 바로 가도 될듯",
+          "reply": true
+        },
+        {
+          "id": "271217",
+          "text": "@드러그옴므빌런 오우 일찍 하셨네요",
+          "reply": true
+        },
+        {
+          "id": "271334",
+          "text": "@드러그옴므빌런 형님 4만대면 117 포기하고 자사로 45 찍나유",
+          "reply": true
+        },
+        {
+          "id": "271338",
+          "text": "@제수스3(106.101) ㅇㅇ 4만대는 117안될거임 명중 변태같이 존나올렸으면 몰겠음. 난 4.9일때 116까지 꺠고 자하브서브퀘 다깬다음 사냥 30분쯤 더돌리니까 45찍혔음",
+          "reply": true
+        },
+        {
+          "id": "271345",
+          "text": "@드러그옴므빌런 행님 하고나니깐 본캐 투력 천정도 올라요??",
+          "reply": true
+        },
+        {
+          "id": "271352",
+          "text": "@글쓴 제수스(39.7) ㄴㄴ 한 3~400오른것 같았는데",
+          "reply": true
+        },
+        {
+          "id": "271358",
+          "text": "@드러그옴므빌런 감사합니다 삭제도 7일 148시간후에 삭제죠?",
+          "reply": true
+        },
+        {
+          "id": "271359",
+          "text": "@글쓴 제수스(39.7) ㅇㅇ",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "‘활동 중단’ 백종원, 살 길 열렸다… ‘구세주 등장’\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271289",
+          "text": "5.3 할수있다 ㅋㅋ 내가 지금은 5.6인데 5.3일때부터 함",
+          "reply": false
+        },
+        {
+          "id": "271292",
+          "text": "참고로 마지막 보스 명중은 370넘으면 꺨수있다.",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97551",
+      "title": "제우스 2섭근황.jpg",
+      "publishedAt": "2026-10-27T09:05:36+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97551",
+      "recommended": false,
+      "contentText": "어제 새로운 라인이.\n\n필보 보탐 정렬해주고 보스 잡는순서도 말해줫는데\n\n오늘 어떤 중립길드가 그걸 무시하고 보스잡는동안 다른보스먼저잡아서\n\n라인이 개빡침\n\n과자랑 해적길드는 뒤졋다고 선포\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271206",
+          "text": "나 제2중립 원주민인데 제2 중립 나사빠진곳 개많더라 좋게좋게 통제 해주는거같은데 말 징그럽게안들음 걍 맞는게맞음 아이디도 한명한명 호명해도 채팅을안보는건지 계속 치던데 전설때부터 엄청풀어주긴했음",
+          "reply": false
+        },
+        {
+          "id": "271210",
+          "text": "ㅋㅋㅋㄹㅇ 병신들 - dc App",
+          "reply": true
+        },
+        {
+          "id": "271214",
+          "text": "이건 중립길마 잘못도맞음 정보전달 뒤지게안함",
+          "reply": false
+        },
+        {
+          "id": "271234",
+          "text": "나도 제2 출신인데 여기 중립들 병신들 존나많음\n그냥 존나 쳐맞아야 정신차림",
+          "reply": false
+        },
+        {
+          "id": "271258",
+          "text": "체냥 쟨 걸러라 분조장임",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "[프리뷰] 미국 중간선거 결과와 세계경제 향방\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271285",
+          "text": "저능아새끼들임 좆중립은패야지",
+          "reply": false
+        },
+        {
+          "id": "271367",
+          "text": "린라 게임 처음인데 진짜 지능 낮은 아재들 개많더라 안쓰러울정도;;",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
+    {
+      "id": "97550",
+      "title": "중립은 길드원 막 짜르면 안됨",
+      "publishedAt": "2026-10-27T09:05:22+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97550",
+      "recommended": false,
+      "contentText": "지금 쌘 중립가봐도 밑에 투력 무슨 5만도 안되는 사람들 있을건데\n\n얘네 안짜르고 냅두는 이유가 있음\n\n걍 ai만 돌리고 겜 대충하거나 첨에 3영지르고 이후로 빤스까지 다팔아먹는 애들인데\n\n짤라봐야 결국 비슷한 애들만 들어옴\n\n차라리 투력컷 일정 이상 되는 사람들 받는다 해놓고 귓 올때마다 한명씩 밑에서부터 짜르는게 맞음\n\n내가 이전에 부길마 받고 투력 안오르는 통발새끼들 다짤랐는데\n\n인원 안채워지더라\n\n그래서 길탈하고 도망감",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
+      "comments": [
+        {
+          "id": "271300",
+          "text": "ㅇㅇ 들어올 인원이 없음\n라인이나 2군 정도 어나면 길드원 반은 쌀먹 통발임 걍 출첵하라고 냅둬",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
+    },
     {
       "id": "97549",
       "title": "아니 진짜 시발 장비 6강 너무 터지는데 진짜",
@@ -13,10 +1261,46 @@
       "contentText": "컬렉작 하는데 근 며칠동안 좀 좆같을 정도로 터지네\n\n진짜 웬만하면 확률 주작 타령 하고싶지 않은데\n\n이거 6강 확률은 진짜 좀 이상할 정도임",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-27T00:02:12.589579+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "271191",
+          "text": "간절하면 안터짐 ㅇㅇ",
+          "reply": false
+        },
+        {
+          "id": "271197",
+          "text": "ㅅㅂ안 간절할 수가 없어. 경험치 포기하고 필드 직접 돌아서 간신히 5시간만에 하나 캔건데",
+          "reply": true
+        },
+        {
+          "id": "271198",
+          "text": "나도 6강은 ㅈㄴ 의심됨 말이안될정도임 터질때는 걍 7연펑 10연펑도감 이게 연속으로 터질때는 계속더 터지는경향이있음",
+          "reply": false
+        },
+        {
+          "id": "271199",
+          "text": "컬렉 2500정도면 투력 10만 넘음 ? ㄷㄷ",
+          "reply": false
+        },
+        {
+          "id": "271222",
+          "text": "장신구도 2강 6개 지르는데 3개터짐 확률 80%인데",
+          "reply": false
+        },
+        {
+          "id": "271227",
+          "text": "ㅇㅇ장신구 2강도 좆같아 진짜",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "넷플릭스 10주년 행사 '넷플잔치', 현장 관객 1만 명 동원\n\n1/20",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97548",
@@ -27,10 +1311,16 @@
       "contentText": "거래가 안 된다",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-27T00:02:12.589579+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "271200",
+          "text": "ㄷㄷ 잘만되는데 씨발련아 서버이전실패했으면 찌그러져잇어라",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97547",
@@ -46,11 +1336,41 @@
           "id": "271183",
           "text": "나보다 방관이 150이나 높구녜~",
           "reply": false
+        },
+        {
+          "id": "271252",
+          "text": "아리가또녜",
+          "reply": true
+        },
+        {
+          "id": "271193",
+          "text": "진짜 멍청하게 생깄노 왜캐 띨빡같냐",
+          "reply": false
+        },
+        {
+          "id": "271253",
+          "text": "멍청 you-",
+          "reply": true
+        },
+        {
+          "id": "271266",
+          "text": "너냐? 미코 쌀먹인줄알앗더니 좀치노",
+          "reply": false
+        },
+        {
+          "id": "271278",
+          "text": "쌀 판적 없다녜!!",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "도지코인, '도지코인 랩스'로 일론 머스크 영향력 벗어나나\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97546",
@@ -71,11 +1391,31 @@
           "id": "271180",
           "text": "미친ㅋㅋㅋㅋ어디냐거기",
           "reply": false
+        },
+        {
+          "id": "271221",
+          "text": "오리 10원은 도대체 어디지?",
+          "reply": false
+        },
+        {
+          "id": "271250",
+          "text": "어디섭이야 개작업장서버",
+          "reply": false
+        },
+        {
+          "id": "271275",
+          "text": "벌어서 ㅂㅇ에 파는건가",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "이연진 비키니 패션! 치어리더 여행룩 프로필과 인스타그램 근황\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97545",
@@ -96,11 +1436,31 @@
           "id": "271184",
           "text": "새로보는 짤들 많네...",
           "reply": false
+        },
+        {
+          "id": "271256",
+          "text": "1억가지 준비데수",
+          "reply": true
+        },
+        {
+          "id": "271192",
+          "text": "옷 갈아입었네?",
+          "reply": false
+        },
+        {
+          "id": "271257",
+          "text": "응- 가을이자녜",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "넷플릭스 10주년 행사 '넷플잔치', 현장 관객 1만 명 동원\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97544",
@@ -114,7 +1474,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97543",
@@ -130,11 +1490,36 @@
           "id": "271178",
           "text": "99단임? 잘키웠노 희영영으로 5만이면",
           "reply": false
+        },
+        {
+          "id": "271223",
+          "text": "대단하노 ㅋㅋㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271231",
+          "text": "그게 가능한가?ㅋㅋㅋㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271251",
+          "text": "잘 키웟네 나도 희변으로 5만이였는데 ㅋㅋㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "271254",
+          "text": "합성 7트째 성공",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "\"이 자식아\" 일본 음식점서 손님 머리에 도끼 ‘쾅’…한국인 추정 40대 남성 체포\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97542",
@@ -148,7 +1533,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97541",
@@ -192,7 +1577,7 @@
         },
         {
           "id": "0",
-          "text": "\"이 가격에 사는 게 맞나?\"... 풀옵션 넣으면 1억 넘어가는 제네시스 GV80 하이브리드, 가격대 총정리\n\n1/20",
+          "text": "[프리뷰] 미국 중간선거 결과와 세계경제 향방\n\n1/20",
           "reply": false
         },
         {
@@ -211,6 +1596,16 @@
           "reply": true
         },
         {
+          "id": "271262",
+          "text": "@93ISTP 컬렉몇임?",
+          "reply": true
+        },
+        {
+          "id": "271280",
+          "text": "@93ISTP 나 신과 170 180대 인데 그래도 신과 해라",
+          "reply": true
+        },
+        {
           "id": "271176",
           "text": "한번은 돌려봐야지... 1만다야로",
           "reply": false
@@ -219,11 +1614,16 @@
           "id": "271185",
           "text": "리카온 신세계야",
           "reply": false
+        },
+        {
+          "id": "271245",
+          "text": "그냥써 - dc App",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97540",
@@ -237,7 +1637,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97539",
@@ -251,7 +1651,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97538",
@@ -277,11 +1677,16 @@
           "id": "271175",
           "text": "ㅋㅋ 군림쫄아서 괜히 아폴론 와서 고생함 그냥 아프찍었으면 서버먹은건데 - dc App",
           "reply": false
+        },
+        {
+          "id": "271261",
+          "text": "비응신 군림 선고아새기들ㅋㅋㅋㅋ거기 가서도 개쳐맞았으면 좋겠다",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97537",
@@ -307,11 +1712,31 @@
           "id": "271171",
           "text": "도깨비는 계속하던데...",
           "reply": false
+        },
+        {
+          "id": "271202",
+          "text": "도깨비가 좋으면 글로 꺼지세요",
+          "reply": true
+        },
+        {
+          "id": "271240",
+          "text": "라방 많이 하는게 운영 잘하는게 아니라니까\n한달동안 라방 7번이면 뭐가 잘못된거잖어 거긴ㅋㅋㅋㅋㅋㅋㅋㅋ - dc App",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "도지코인, '도지코인 랩스'로 일론 머스크 영향력 벗어나나\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271308",
+          "text": "라이브 많은게 좋은게 아니다 쇼통이라서 어차피 그걸 개돼지들은 소통이라고 믿는거뿐이고 쇼통은 어차피 사료 때문에 다들 기대하는거지 내용은 아무도 기대안함 그냥 됐으니까 업데이트나 잘하라그래.",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97536",
@@ -346,7 +1771,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97535",
@@ -360,7 +1785,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97534",
@@ -371,10 +1796,41 @@
       "contentText": "이새끼들 나 투력 1만 오를동안 제자리 걸음인거보면 개빡치는데 아무리 중립이라도 길드운영에 도움 1도안되노\n\n그래도 귓이라도 하나넣고 자르냐 걍자르냐 어차피 몇주동안 길레한번 안오고 채팅한번 안치는새끼들이 15명은 되는거같은데",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-26T23:06:21.399050+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "271145",
+          "text": "걍 냅둬라 1,2위하는 중립도 아니고 걔네 짜르면 누가 들어오긴 하냐",
+          "reply": false
+        },
+        {
+          "id": "271146",
+          "text": "하루에 한명씩 자르고 가입 들어오는지 봐봐",
+          "reply": false
+        },
+        {
+          "id": "271147",
+          "text": "내보내면 20위권됨 그럼 아뮤도 안옴\n다시 그런애들받음\n아니 이제 그런애들조차 없음",
+          "reply": false
+        },
+        {
+          "id": "271186",
+          "text": "ㅇㅇ 부캐보다 쓸모없는새끼들임",
+          "reply": false
+        },
+        {
+          "id": "271306",
+          "text": "3위도 통발밭이야",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "\"자전거 타고 240km 탈출\"… '아침마당' 북한 탈북 부부 박유성 김소연\n\n1/20",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97533",
@@ -392,14 +1848,39 @@
           "reply": false
         },
         {
+          "id": "271156",
+          "text": "??? 멘징이라니 99단은 시작부터 멘징아냐?",
+          "reply": true
+        },
+        {
           "id": "271142",
           "text": "메달 휘장이 그게머냐 - dc App",
+          "reply": false
+        },
+        {
+          "id": "271153",
+          "text": "99단이라 방법이 캐샾 아티팩트뿐",
+          "reply": true
+        },
+        {
+          "id": "271144",
+          "text": "62렙 5.2면 10단계 박히나?\n59렙 5.1인데 아예 안박히던데",
+          "reply": false
+        },
+        {
+          "id": "271154",
+          "text": "60레벨 5.4 뿡뎅님 깻음",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "뽑기 없이 매출 1위! ‘도깨비의세계’가 보여주고 있는 것\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97531",
@@ -413,7 +1894,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97530",
@@ -448,7 +1929,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97529",
@@ -479,11 +1960,26 @@
           "id": "271139",
           "text": "응 100퍼 실패 보여드림",
           "reply": true
+        },
+        {
+          "id": "271190",
+          "text": "이런 훈훈한글이 더 많아지면 좋겠다",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "“중국차, 결국 현대차 위협하나”…한국서 나온 ‘예상 밖 수치’에 충격\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271195",
+          "text": "넌 부계지 난 본계가 저지랄이다 하",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97528",
@@ -508,7 +2004,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97527",
@@ -524,11 +2020,16 @@
           "id": "271143",
           "text": "ㅅㅂ 다른애들 다나오는데 ㅈㄴ 안나옴 - dc App",
           "reply": false
+        },
+        {
+          "id": "271233",
+          "text": "전설천장곧인데 아직도 희귀장판 3개빈거 뒤지게 안나오노.. 리세도 존나하는데",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-26T23:06:21.399050+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97526",
@@ -563,7 +2064,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97525",
@@ -584,11 +2085,16 @@
           "id": "271127",
           "text": "린라는 궁수다",
           "reply": false
+        },
+        {
+          "id": "271188",
+          "text": "아티산으로 낮은 사냥터를 왜감? 븅신 ㅋㅋ",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97524",
@@ -609,11 +2115,16 @@
           "id": "271117",
           "text": "너는 한 일주일동안 안 붙어야 된다",
           "reply": false
+        },
+        {
+          "id": "271237",
+          "text": "이틀연속 0승 ㅅㅂㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97522",
@@ -643,7 +2154,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97521",
@@ -657,7 +2168,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97519",
@@ -682,7 +2193,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97518",
@@ -696,7 +2207,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97517",
@@ -735,7 +2246,7 @@
         },
         {
           "id": "0",
-          "text": "\"1,600년 전 지배층 무덤을 일본인이 발견했다고?\"... 거대 고분군이 자아내는 이국적 단풍 능선\n\n1/20",
+          "text": "\"이 자식아\" 일본 음식점서 손님 머리에 도끼 ‘쾅’…한국인 추정 40대 남성 체포\n\n1/20",
           "reply": false
         },
         {
@@ -761,7 +2272,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97516",
@@ -786,7 +2297,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97515",
@@ -811,7 +2322,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97514",
@@ -845,13 +2356,13 @@
         },
         {
           "id": "0",
-          "text": "\"이 가격에 사는 게 맞나?\"... 풀옵션 넣으면 1억 넘어가는 제네시스 GV80 하이브리드, 가격대 총정리\n\n1/20",
+          "text": "[프리뷰] 미국 중간선거 결과와 세계경제 향방\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97513",
@@ -876,7 +2387,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97511",
@@ -896,7 +2407,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97510",
@@ -910,7 +2421,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97509",
@@ -924,7 +2435,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97508",
@@ -938,7 +2449,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97507",
@@ -968,7 +2479,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97506",
@@ -993,7 +2504,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97504",
@@ -1007,7 +2518,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97503",
@@ -1037,7 +2548,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97502",
@@ -1076,7 +2587,7 @@
         },
         {
           "id": "0",
-          "text": "‘로또 당첨’ 안유진, 목격담 줄줄이… 현장서 ‘포착’\n\n1/20",
+          "text": "죽은 아기 몸에서 구더기 검출... 친모 ‘아이 죽이고 싶어요’ 검색\n\n1/20",
           "reply": false
         },
         {
@@ -1087,7 +2598,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97501",
@@ -1117,7 +2628,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97500",
@@ -1148,11 +2659,26 @@
           "id": "271093",
           "text": "아티 8강이 확률 3퍼임?",
           "reply": false
+        },
+        {
+          "id": "271187",
+          "text": "아직도 이런놈들이있네",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "넷플릭스 10주년 행사 '넷플잔치', 현장 관객 1만 명 동원\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "271235",
+          "text": "ㄹㅇ 자랑말곤 의도가 안보인다 ㅉ임?",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97499",
@@ -1166,7 +2692,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97498",
@@ -1176,7 +2702,7 @@
       "recommended": false,
       "contentText": "1번째 캐릭은 아티산 3영웅 5만따리\n\n2번쨰 캐릭은 아티산 1전설 2영웅 5만따리\n\n3번쨰 캐릭은 아티산 2전설 1영웅 6만따리\n\n헤헤",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T18:12:02.513180+00:00",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
       "comments": [
         {
           "id": "271010",
@@ -1210,7 +2736,7 @@
         },
         {
           "id": "0",
-          "text": "\"CCTV 없어도 다 잡힙니다\"… 문콕 뺑소니 잡는 의외의 방법\n\n1/20",
+          "text": "[스타트업-ing] ‘위성 통신에 AI 결합’ 퓨잇, 해외 오지까지 안전 서비스 연결 나선다\n\n1/20",
           "reply": false
         },
         {
@@ -1221,7 +2747,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97497",
@@ -1231,11 +2757,11 @@
       "recommended": false,
       "contentText": "먼가 봇처럼 움직이는 애들이 많네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T18:12:02.513180+00:00",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97496",
@@ -1245,7 +2771,7 @@
       "recommended": false,
       "contentText": "그건 바로 나 ㅅㅂ ㅈ같다\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T18:12:02.513180+00:00",
+      "contentFetchedAt": "2026-10-27T01:20:14.388952+00:00",
       "comments": [
         {
           "id": "271007",
@@ -1274,13 +2800,13 @@
         },
         {
           "id": "0",
-          "text": "PHP 취약점에 게임사들도 비상, 점검에 서비스 종료까지\n\n1/20",
+          "text": "\"마켓컬리·스타벅스 납품한다더니\"…지인 속여 3억 가로챈 대표 [사기\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97495",
@@ -1305,7 +2831,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97494",
@@ -1344,7 +2870,7 @@
         },
         {
           "id": "0",
-          "text": "도지코인, '도지코인 랩스'로 일론 머스크 영향력 벗어나나\n\n1/20",
+          "text": "\"CCTV 없어도 다 잡힙니다\"… 문콕 뺑소니 잡는 의외의 방법\n\n1/20",
           "reply": false
         },
         {
@@ -1360,7 +2886,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97492",
@@ -1380,7 +2906,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97491",
@@ -1400,7 +2926,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97490",
@@ -1449,7 +2975,7 @@
         },
         {
           "id": "0",
-          "text": "PHP 취약점에 게임사들도 비상, 점검에 서비스 종료까지\n\n1/20",
+          "text": "“중국차, 결국 현대차 위협하나”…한국서 나온 ‘예상 밖 수치’에 충격\n\n1/20",
           "reply": false
         },
         {
@@ -1475,7 +3001,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97489",
@@ -1514,7 +3040,7 @@
         },
         {
           "id": "0",
-          "text": "너무 감동이다… 결혼하는 팬 위해 강동원이 보인 ‘깜짝 행동’\n\n1/20",
+          "text": "“한국 논밭 14%가 일본인 것?”…광복 81년 지나 나온 황당 주장에 ‘부글’\n\n1/20",
           "reply": false
         },
         {
@@ -1535,7 +3061,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97488",
@@ -1560,7 +3086,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97487",
@@ -1580,7 +3106,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97486",
@@ -1615,7 +3141,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97485",
@@ -1640,7 +3166,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97484",
@@ -1679,7 +3205,7 @@
         },
         {
           "id": "0",
-          "text": "“남의 결혼식서 10만원 내고 4인 가족 뷔페 이용… 가성비 좋더라”\n\n1/20",
+          "text": "뽑기 없이 매출 1위! ‘도깨비의세계’가 보여주고 있는 것\n\n1/20",
           "reply": false
         },
         {
@@ -1700,7 +3226,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97483",
@@ -1720,7 +3246,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97482",
@@ -1734,7 +3260,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97481",
@@ -1773,13 +3299,13 @@
         },
         {
           "id": "0",
-          "text": "[프리뷰] 미국 중간선거 결과와 세계경제 향방\n\n1/20",
+          "text": "\"CCTV 없어도 다 잡힙니다\"… 문콕 뺑소니 잡는 의외의 방법\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97480",
@@ -1809,7 +3335,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97479",
@@ -1848,13 +3374,13 @@
         },
         {
           "id": "0",
-          "text": "니케 4주년, 퀸과 최종 결전! 마리안·홍련·라푼젤 총출동…무료 모집 최대 230회까지\n\n1/20",
+          "text": "\"비상계엄 6시간의 기록\"… MBC PD수첩 다큐 '서울의 밤', 12월 3일 극장 개봉 확정\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97478",
@@ -1884,7 +3410,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97477",
@@ -1914,7 +3440,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97476",
@@ -1928,7 +3454,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97475",
@@ -1958,7 +3484,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97474",
@@ -1983,7 +3509,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97473",
@@ -1997,7 +3523,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97472",
@@ -2036,7 +3562,7 @@
         },
         {
           "id": "0",
-          "text": "PHP 취약점에 게임사들도 비상, 점검에 서비스 종료까지\n\n1/20",
+          "text": "\"1,600년 전 지배층 무덤을 일본인이 발견했다고?\"... 거대 고분군이 자아내는 이국적 단풍 능선\n\n1/20",
           "reply": false
         },
         {
@@ -2047,7 +3573,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97471",
@@ -2072,7 +3598,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97470",
@@ -2097,7 +3623,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97469",
@@ -2111,7 +3637,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97468",
@@ -2150,13 +3676,13 @@
         },
         {
           "id": "0",
-          "text": "\"1,600년 전 지배층 무덤을 일본인이 발견했다고?\"... 거대 고분군이 자아내는 이국적 단풍 능선\n\n1/20",
+          "text": "‘로또 당첨’ 안유진, 목격담 줄줄이… 현장서 ‘포착’\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97467",
@@ -2195,7 +3721,7 @@
         },
         {
           "id": "0",
-          "text": "‘로또 당첨’ 안유진, 목격담 줄줄이… 현장서 ‘포착’\n\n1/20",
+          "text": "외국인 사이서 매출 1위 찍더니…새로운 맛으로 출시된다는 뜻밖의 ‘한국 라면’\n\n1/20",
           "reply": false
         },
         {
@@ -2206,7 +3732,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97466",
@@ -2245,7 +3771,7 @@
         },
         {
           "id": "0",
-          "text": "“한국 논밭 14%가 일본인 것?”…광복 81년 지나 나온 황당 주장에 ‘부글’\n\n1/20",
+          "text": "[스타트업-ing] ‘위성 통신에 AI 결합’ 퓨잇, 해외 오지까지 안전 서비스 연결 나선다\n\n1/20",
           "reply": false
         },
         {
@@ -2271,7 +3797,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97465",
@@ -2310,13 +3836,13 @@
         },
         {
           "id": "0",
-          "text": "\"비상계엄 6시간의 기록\"… MBC PD수첩 다큐 '서울의 밤', 12월 3일 극장 개봉 확정\n\n1/20",
+          "text": "도지코인, '도지코인 랩스'로 일론 머스크 영향력 벗어나나\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97464",
@@ -2355,7 +3881,7 @@
         },
         {
           "id": "0",
-          "text": "[프리뷰] 미국 중간선거 결과와 세계경제 향방\n\n1/20",
+          "text": "‘로또 당첨’ 안유진, 목격담 줄줄이… 현장서 ‘포착’\n\n1/20",
           "reply": false
         },
         {
@@ -2366,7 +3892,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97463",
@@ -2405,18 +3931,23 @@
         },
         {
           "id": "0",
-          "text": "\"마켓컬리·스타벅스 납품한다더니\"…지인 속여 3억 가로챈 대표 [사기\n\n1/20",
+          "text": "\"여기는 눈물바다\" SK하이닉스 품고도 6천만원 마피 터진 '이 동네' 전망 분석\n\n1/20",
           "reply": false
         },
         {
           "id": "270906",
           "text": "아레스2 원래 주인아니냐?? 무명?",
           "reply": false
+        },
+        {
+          "id": "271369",
+          "text": "이거 따져 저거 따져... 쫌 추잡하노... 쓰니 초월 길드니? 풉 ㅋ",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97462",
@@ -2446,7 +3977,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97461",
@@ -2485,7 +4016,7 @@
         },
         {
           "id": "0",
-          "text": "“한국 논밭 14%가 일본인 것?”…광복 81년 지나 나온 황당 주장에 ‘부글’\n\n1/20",
+          "text": "죽은 아기 몸에서 구더기 검출... 친모 ‘아이 죽이고 싶어요’ 검색\n\n1/20",
           "reply": false
         },
         {
@@ -2496,7 +4027,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97460",
@@ -2531,7 +4062,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97459",
@@ -2556,7 +4087,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97458",
@@ -2586,7 +4117,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97457",
@@ -2616,7 +4147,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97456",
@@ -2641,7 +4172,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97455",
@@ -2680,7 +4211,7 @@
         },
         {
           "id": "0",
-          "text": "KTX 4000장 싹쓸이한 매크로 암표상 직접 처벌\n\n1/20",
+          "text": "\"이 가격에 사는 게 맞나?\"... 풀옵션 넣으면 1억 넘어가는 제네시스 GV80 하이브리드, 가격대 총정리\n\n1/20",
           "reply": false
         },
         {
@@ -2711,7 +4242,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     },
     {
       "id": "97454",
@@ -2755,978 +4286,13 @@
         },
         {
           "id": "0",
-          "text": "사전예약만 1년…넥슨 '아주르 프로밀리아' 준비과정 어땠나\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97453",
-      "title": "어딜가던 템욕심 많은새끼들 때문에 서버가터지는거다",
-      "publishedAt": "2026-10-26T23:59:22+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97453",
-      "recommended": false,
-      "contentText": "제발 본인분수에 맞게 살자 각자다들 하고싶은말 많아도 납득이가니까 참고 지나가는거지 터트리기시작하면 끝도없어요 욕심부리는새끼들아 진짜 길드에서 하자는거 다하고 있는지부터 생각하자 그냥보스타임만 나온다고 참여하는게아니야 그건 니들 실타래챙기는거지\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97452",
-      "title": "다들 보스 어디부터함",
-      "publishedAt": "2026-10-26T23:58:11+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97452",
-      "recommended": false,
-      "contentText": "353540은 걸러두댐?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270831",
-          "text": "난 일단 놈 일정 생겨서 못챙기면 그거라도 돌릴려구",
-          "reply": false
-        },
-        {
-          "id": "270832",
-          "text": "45부터는 필수고 그 아래는 모래시계 갯수에 의해서 스페어로 쟁여두는거지\n리세하거나 패키지 사다보면 얻게 되는게 있으니까",
-          "reply": false
-        },
-        {
-          "id": "270838",
-          "text": "난 자하브만 돌긴함",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97451",
-      "title": "속보 무명길드 길드원에게 복구 물약 다이아 지급 제이네는?",
-      "publishedAt": "2026-10-26T23:57:40+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97451",
-      "recommended": false,
-      "contentText": "복지가 있나요?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270829",
-          "text": "무명 썰자에 미친놈들이라 버틸수 있을라나 싶다 ㅋㅋㅋㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "270830",
-          "text": "전사의 심장을 강조하는데 겠냐?",
-          "reply": false
-        },
-        {
-          "id": "270844",
-          "text": "제이네는 아무것도 없나요?",
-          "reply": true
-        },
-        {
-          "id": "270851",
-          "text": "맨날 운영의 제이 이러면서 바이럴하는데 뭔가 준비한게있겠지 설마 아무것도없이 스리슬쩍 넘기겠어",
-          "reply": false
-        },
-        {
-          "id": "270917",
-          "text": "프모 연장 되면 내가 신화 뽑을께~이러고 있겠지ㅋㅋ지가 신화 뽑는거랑 일반인들 터져나가는거랑 먼상관ㅋㅋ",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "‘활동 중단’ 백종원, 살 길 열렸다… ‘구세주 등장’\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97450",
-      "title": "좀도둑새끼 인성 논하는 서월이.",
-      "publishedAt": "2026-10-26T23:57:30+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97450",
-      "recommended": false,
-      "contentText": "매일 재밌는 자료 하나씩 올려드리겟음",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270826",
-          "text": "이때 서월이는 풀매수 썰자할때",
-          "reply": false
-        },
-        {
-          "id": "270958",
-          "text": "더라희 저새끼는 뭐임",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97449",
-      "title": "아니 꿀꿀이가 이긴다고???",
-      "publishedAt": "2026-10-26T23:51:40+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97449",
-      "recommended": false,
-      "contentText": "아니 반전이네\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270815",
-          "text": "ㄲㄲ인가 거기 적 많아서 ㅈ됐다더니 반전이누",
-          "reply": false
-        },
-        {
-          "id": "270850",
-          "text": "꿀꿀이가 헤르에서 평균투력 1등길드긴했음 그때 460만이었나 글고 저새끼들 시간빌게이츠 존나많음;",
-          "reply": false
-        },
-        {
-          "id": "271020",
-          "text": "그럼 머하노 아르에서 개쳐맞고 런쳤는데",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97448",
-      "title": "아니 신과가 원거리로 세팅돼있었다..",
-      "publishedAt": "2026-10-26T23:45:58+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97448",
-      "recommended": false,
-      "contentText": "오늘만 투력 500 정도 올렸네\n\n신과도 근거리로 바꾸니까 50 정도 더 오름..\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270808",
-          "text": "걸어다니다가 10만원 주은거야 임마 ㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "270818",
-          "text": "얼탱..",
-          "reply": true
-        },
-        {
-          "id": "270816",
-          "text": "모래주머니 풀었다",
-          "reply": false
-        },
-        {
-          "id": "270819",
-          "text": "월탱...",
-          "reply": true
-        },
-        {
-          "id": "270821",
-          "text": "ㅂㅅ",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "[스타트업-ing] ‘위성 통신에 AI 결합’ 퓨잇, 해외 오지까지 안전 서비스 연결 나선다\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "270824",
-          "text": "밥통아 ㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "270843",
-          "text": "ㅋㅋ",
-          "reply": true
-        },
-        {
-          "id": "270845",
-          "text": "원래 활 키우다가 아티산으로 바꿔서 그런가봐",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97447",
-      "title": "50리세 신탁 4개아님?",
-      "publishedAt": "2026-10-26T23:45:02+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97447",
-      "recommended": false,
-      "contentText": "에픽 124까지 미는거 아니야? 45리세랑 신탁개수 똑같은디??",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270791",
-          "text": "업적으로 1개 주나??",
-          "reply": false
-        },
-        {
-          "id": "270799",
-          "text": "서브퀘 단계 여러개 있는거 깸? - dc App",
-          "reply": false
-        },
-        {
-          "id": "270803",
-          "text": "아 찾았다 여기 있구나 고마웡",
-          "reply": true
-        },
-        {
-          "id": "270801",
-          "text": "지혜와 힘의시련 저거 열리나? 저거 조건을 몰겟네",
-          "reply": false
-        },
-        {
-          "id": "270804",
-          "text": "서브퀘중에 별개그룹중에 하나있긴한데 50에 열리는건가 몰겠음",
-          "reply": true
-        },
-        {
-          "id": "270805",
-          "text": "찾았다 ㄳㄳ 축무기도 하나 더 주네",
-          "reply": true
-        },
-        {
-          "id": "270806",
-          "text": "@글쓴 제수스(122.128) 굿굿",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "\"자전거 타고 240km 탈출\"… '아침마당' 북한 탈북 부부 박유성 김소연\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97445",
-      "title": "제우스 1 현황 오마주 vs 꿀꿀이",
-      "publishedAt": "2026-10-26T23:42:47+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97445",
-      "recommended": false,
-      "contentText": "꿀꿀이 불리하단글이 갑자기 많다?\n누가 올린다? 뻔할뻔자 불리한 애들이 조작하려고 올린다\n\n그말은????????\n\n오마주 발리고있다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ\n\n공성세금 포기못해서 욕심 끝까지 부려서 길드는 아르에 남겨야 되겠고\n\n길탈하고 넘어오라는데 안넘어온 인원 부지기수 ㅋㅋㅋ\n\n26명 넘어와서 뭐가 안되고 있다 ㅋㅋㅋㅋㅋ\n\n인원 밀려서 싸움이 안되니까\n\n쟁 끝나고 인원모집 하고 있다 ㅋㅋㅋㅋㅋㅋㅋㅋ\n\n심지어 꿀꿀이한테 넘어와 달라고 빌고 있다 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ\n\n이상 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ\n\n개발리고 있는 오마주 현황 전달 끝 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270814",
-          "text": "길드 이전 횟수초과가 아니라 배럭깔려고 넘어온거였어? 그럼 비비는거 아닌가",
-          "reply": false
-        },
-        {
-          "id": "270842",
-          "text": "제우스1은 불멸이 그나마도 있던 열심히 할 중립 고투 다 쓸어가서...\n라인 하고 싶어하는 중립이 아예 없을거긴 함",
-          "reply": false
-        },
-        {
-          "id": "270963",
-          "text": "오디세이 병신들은 어딜가나 병신짓하고 잇노 ㅋㅋㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "271021",
-          "text": "저새기들 ㅂㅅ짓거리 아르애들은 다안다 ㅋㅋㅋㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97444",
-      "title": "제우스1 꿀꿀인데",
-      "publishedAt": "2026-10-26T23:41:26+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97444",
-      "recommended": false,
-      "contentText": "상황보다가 귀순할라햇는데 오디세이별거없네;; 그냥 꿀꿀이잇어야겟다",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97443",
-      "title": "50리세 vs 60리세 효율생각하면 50이 이득인가?",
-      "publishedAt": "2026-10-26T23:38:35+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97443",
-      "recommended": false,
-      "contentText": "흠",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270782",
-          "text": "본캐는 9.1임",
-          "reply": false
-        },
-        {
-          "id": "270797",
-          "text": "55,60은 성장업적 뭐 없지않나? 걍 희귀2개 더먹는거랑 신탁 한두개 더하지 싶은데 별로같긴함",
-          "reply": false
-        },
-        {
-          "id": "270820",
-          "text": "9.1이라도 60은 너무 걸리지 않냐 ㄷㄷ",
-          "reply": false
-        },
-        {
-          "id": "270847",
-          "text": "50,60 걸리는 시간이랑 보상 나열해놓고 비교해봐야겠지만",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97442",
-      "title": "월 목 9시 침공질문",
-      "publishedAt": "2026-10-26T23:38:17+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97442",
-      "recommended": false,
-      "contentText": "선봉이랑 함락 두개있잖아여\n\n아무거나 가서 하나잡으면 되는건가요?\n\n둘다잡을수있나요?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270790",
-          "text": "이시발진짜 서버에도글코 좀 바뀐지가언젠데 저능아새기들인긴 존나물어보네",
-          "reply": false
-        },
-        {
-          "id": "270792",
-          "text": "하나만 잡으면 보상 다 들어옴",
-          "reply": false
-        },
-        {
-          "id": "270795",
-          "text": "둘다 잡아야해",
-          "reply": false
-        },
-        {
-          "id": "270823",
-          "text": "군대 안갔냐 모를때는 남들이 하는거 눈치껏 따라해라",
-          "reply": false
-        },
-        {
-          "id": "270827",
-          "text": "저능아 ㅇㄷ",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "외국인 사이서 매출 1위 찍더니…새로운 맛으로 출시된다는 뜻밖의 ‘한국 라면’\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97441",
-      "title": "거손 잡는데 라인길드면서 올미스뜨는게 맞냐?ㅋㅋ",
-      "publishedAt": "2026-10-26T23:36:26+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97441",
-      "recommended": false,
-      "contentText": "이게 어케 라인이냐고 ㅅㅍ\n\nㅈㄴ뺨싸대기 마렵네 안내쫒고뭐하냐 진짜 하 4만마바리라고\n\n부르기도 뭐한애들이 라인이야ㅁㅊ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270809",
-          "text": "라인 위장 쌀먹이야 5만 4만따리애들",
-          "reply": false
-        },
-        {
-          "id": "270853",
-          "text": "4만 5만은 랭킹 올리기 위해서 일단 머릿수 채우기용 아니냐",
-          "reply": false
-        },
-        {
-          "id": "270951",
-          "text": "99통발도 5만 찍어가는데 실화가",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97440",
-      "title": "24시간 풀로 돌려도 안죽길래 다음사냥터 갓는데",
-      "publishedAt": "2026-10-26T23:36:09+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97440",
-      "recommended": false,
-      "contentText": "사냥터 1렙차이인데 시발 20분만에 4번뒤졋다고 알람오노 ㅅㅂㅋㅋ\n\n렙보정 너무심한거아니냐",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97439",
-      "title": "45렙 3.4만 활잡이한테 48렙 3.8만 아티산이 pvp 지네..",
-      "publishedAt": "2026-10-26T23:32:37+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97439",
-      "recommended": false,
-      "contentText": "ㅠㅠ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270767",
-          "text": "화살비 다 쳐맞는거 아닌이상 질수가 없는데",
-          "reply": false
-        },
-        {
-          "id": "270772",
-          "text": "쌀적쌀 당해서 복수중인데 상대가 모니터링 중일때는 pvp 개뚜까맞음..",
-          "reply": true
-        },
-        {
-          "id": "270773",
-          "text": "투력이랑 레벨은 내가 훨씬 높은데 직업차이거나 pvp 세팅을 안해서 그런가봐",
-          "reply": true
-        },
-        {
-          "id": "270788",
-          "text": "겜 개열정적으로 하는거같은데 렙왜케낮노",
-          "reply": false
-        },
-        {
-          "id": "270812",
-          "text": "활잡이 본캐 45렙 찍구 아티산으로 바꿔서 1달 날림",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "[프리뷰] 미국 중간선거 결과와 세계경제 향방\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "270796",
-          "text": "4천차이크다병신아",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97438",
-      "title": "형들 교단상점 싹다챙겨?",
-      "publishedAt": "2026-10-26T23:31:11+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97438",
-      "recommended": false,
-      "contentText": "99단 마바리인데\n\n이거 교단 매주다사면 돈이안남는거같은데\n\n적당히챙기는편...?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270765",
-          "text": "스킬북 나중에 사고 교단부터 싹다챙겨 나중에 골드 남아돈다",
-          "reply": false
-        },
-        {
-          "id": "270771",
-          "text": "헉 스킬북때문에 모으고있던거 어캐알았지 바로풀매수하러감",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97437",
-      "title": "본캐 59렙 5.1투 마바리 리세 질문",
-      "publishedAt": "2026-10-26T23:29:45+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97437",
-      "recommended": false,
-      "contentText": "시작은 했는데 지금\n29렙에 공 553 방 630 명 266 인데\n이거 45리세하는게 맞냐?\n걍 본캐 61찍고 거손 한입집중이 맞냐?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270768",
-          "text": "렙 올려봐야 확실하긴한데, 짐작하기로는 명중딸릴것같기도 하고. 한번 올려보고 판단하는게 맞음. 116까지 깨면서 중간에 필드에서 미스뜨면 답없는거니까 명중 더올려야함",
-          "reply": false
-        },
-        {
-          "id": "270776",
-          "text": "부캐가 43렙에 명중+근원마명중 본인꺼+기본스킬명중 낮은거+보스명중 = 370 이거 맞출수있을때부터 할만함. 내 경험상 본캐에서 명중+근원마명중이 370넘을때쯤에 부캐가 저거 넘겼음",
-          "reply": true
-        },
-        {
-          "id": "270778",
-          "text": "처음에는 리세를 왜하누 ㅋ 했는데\n막상해보니 주문서,수집품,실타레,가속권등 나름 맛있누",
-          "reply": true
-        },
-        {
-          "id": "270783",
-          "text": "@글쓴 제수스(125.142) ㅇㅇ 계속 돌리다보면 은근 저렙구간 수집품도 조금씩 채워짐 ㅋㅋ 퀘스트만 밀어서 45,50 까지 찍을수 있을때는 할만함",
-          "reply": true
-        },
-        {
-          "id": "270780",
-          "text": "투력 6은 나와야 효율나오는듯 나도 하다가 말앗음",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "PHP 취약점에 게임사들도 비상, 점검에 서비스 종료까지\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97436",
-      "title": "아레스2 쟁 미쳤네 진짜",
-      "publishedAt": "2026-10-26T23:28:59+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97436",
-      "recommended": false,
-      "contentText": "이게 진짜 소모전이네\n\n먼저 지치는 놈이 지는 싸움\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270777",
-          "text": "진짜로 저 두 길드 박수받아 마땅함 존나 대단하다 진짜",
-          "reply": false
-        },
-        {
-          "id": "270828",
-          "text": "무명은 워낙 썰자로 대단한 놈들이라 초월이 체력전 이길수 있을라나 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97435",
-      "title": "꿀꿀이 근황",
-      "publishedAt": "2026-10-26T23:22:46+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97435",
-      "recommended": false,
-      "contentText": "경험치 복구 불가\n\n인터돌자니 썰자당해\n\n필드사냥하자니 필드썰자 미친놈들처럼 돌고있음\n\n잿빛에 돌려놧는데 7시간 이거..사용하면 걍 마을행임\n\n탈퇴하고 그냥 중립하는게 맘편할거같다 시발",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270759",
-          "text": "내전하려면 그정도 감수해야지 - dc App",
-          "reply": false
-        },
-        {
-          "id": "270769",
-          "text": "꿀꿀이랑 오디세이 둘다 순찰 빡세게 돌더만\n일방적으로 당하는건 아닌거 같던데",
-          "reply": false
-        },
-        {
-          "id": "270775",
-          "text": "솔직하게 꿀꿀이가 다 투력이 약간 낮아서 일방적으로 맞는거야 지금 열심히 돌아도 우리만 죽어나감",
-          "reply": true
-        },
-        {
-          "id": "270785",
-          "text": "ㅋㅋㅋ탈퇴해 그럼 글로 똥싸지말고",
-          "reply": false
-        },
-        {
-          "id": "270787",
-          "text": "복구비 지원해줄꺼야? 개색갸?",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "‘장윤정♥’ 도경완, 120억家 ‘신세한탄’… 비난 빗발\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "270789",
-          "text": "아니ㅋㅋㅋㅋ누가 꿀꿀이에 있으라고 협박함? 걍 나가면 될걸ㅋㅋㅋㅋ왜 징징거림",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97434",
-      "title": "오늘 프모들",
-      "publishedAt": "2026-10-26T23:17:24+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97434",
-      "recommended": false,
-      "contentText": "방송 거의 하는거 보니\n\n게임사에서 머라고 했나보네 ㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270756",
-          "text": "보는사람 입장에선 재밌는데 하는놈들은 지금 지옥일듯ㅋㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97433",
-      "title": "거손쟁 총합 5000킬이 넘네 ㅋㅋㅋㅋ",
-      "publishedAt": "2026-10-26T23:17:18+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97433",
-      "recommended": false,
-      "contentText": "개 또리이들 ㅈㄴ 재밌게하네 ㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97432",
-      "title": "린라 쟁 최대 몇시간이였냐?",
-      "publishedAt": "2026-10-26T23:16:36+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97432",
-      "recommended": false,
-      "contentText": "한번 최고 기록 찍어보자 자지말고 파이팅 ㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270757",
-          "text": "바연은 65시간인가 70시간인가",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97430",
-      "title": "아레스2 10시간쟁 실화냐",
-      "publishedAt": "2026-10-26T23:13:41+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97430",
-      "recommended": false,
-      "contentText": "새벽 4시간\n\n오늘저녁 6시간초과중\n\n새벽5시까지 싸워서 무복복구될때까지 싸우면 ㄹㅈㄷ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270742",
-          "text": "제우스 쟁 재밌었네 ㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "270750",
-          "text": "전쟁의신 아레스에 걸맞는 미친놈들임",
-          "reply": true
-        },
-        {
-          "id": "270749",
-          "text": "프모 연장받을라면 해야지",
-          "reply": false
-        },
-        {
-          "id": "270781",
-          "text": "복구물약 만드는 아티산만 행복사중",
-          "reply": false
-        },
-        {
-          "id": "270865",
-          "text": "팩트는 2시 고트시스부터시작된쟁이라는거임",
-          "reply": false
-        },
-        {
-          "id": "0",
           "text": "“집 앞까지 쫓아와”… 강민경, 긴급 소식\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97429",
-      "title": "님들 눈팅하다 궁금해서 질문하는대요",
-      "publishedAt": "2026-10-26T23:10:24+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97429",
-      "recommended": false,
-      "contentText": "문제 생긴 걔정은 이름변경권쓰면 안걸리는거 아닌가요???",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270739",
-          "text": "시간 빌게이츠들이 얼마나 무서운지 모르는구나 메이플 코디랑 닉 다 바꿔도 어떻게든 찾더라",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97428",
-      "title": "ㅅㅂ 너무 ㅈ같다",
-      "publishedAt": "2026-10-26T23:09:06+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97428",
-      "recommended": false,
-      "contentText": "남들은 합성 1트에 영웅먹고 그러는데 ㅅㅂ 몇 트를 쳐박아야 뜨는거야",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270760",
-          "text": "10트임?",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97427",
-      "title": "아레스2 내일까지 하는거 아니냐 ㅋㅋ",
-      "publishedAt": "2026-10-26T23:07:30+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97427",
-      "recommended": false,
-      "contentText": "서로 뺄 생각이 없네 ㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270741",
-          "text": "아까는 초월이 분위기 좋더니 이젠 또 모르겠네 새벽까진 갈듯 ㅋㅋㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "270753",
-          "text": "내내 방송도 안하고 꿀빨려다 프모 연장기간이니 하는척",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97426",
-      "title": "오늘 첨 게임하는데 서버랑 직업 추천 해주실수있나요??",
-      "publishedAt": "2026-10-26T23:07:13+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97426",
-      "recommended": false,
-      "contentText": "멤버십만 지르고 할만한가요??\n\n게임 첨 해볼라하는데 서버랑 직업 뭐가 좋나요??",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270754",
-          "text": "할만함 캐릭 어쌔 추천 부계로 아티산도 키우셈 서버는 알아서 눈치껏",
-          "reply": false
-        },
-        {
-          "id": "270762",
-          "text": "무과금? 멤버십만 질러서 하려고하는데 그래도 어쌔 추천하시는건가요?? 혹시 이유가... 원거리가 좋다고들 하던데 법사 힐러 궁수 이런건 별로인가요??\n그리고 아티산이라는 캐릭을 부계로 하는 이유가 뭔가요??\n아티산이라는 캐릭이 쌀먹캐릭이라고는 알고있긴한데..",
-          "reply": true
-        },
-        {
-          "id": "270764",
-          "text": "멤버십만 질러서 사냥위주로할거면 아티산 나쁘지않음\n사실 뭘해도 괜찮을거같은데 법사쪽만안하면..?",
-          "reply": false
-        },
-        {
-          "id": "270774",
-          "text": "헉.... 법사는 별로인가요....ㅠㅠ\n멤버십만 질러서 사냥하고 키우고 하려구합니당... 제 성격상 떼쟁 이런거 별로안좋아해서... 길드들어가서 그냥 길드레이드 돌구 사냥해서 캐릭 성장 시키고 이런걸 더 좋아해서 ㅎㅎ\n법사키우고싶은데 법사는 별로인가보군요\n근데 어쌔 추천하시는거보니까 근거리 할만한가요?? 원거리가 훨 좋다고 알ㅇ고있었는데",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97425",
-      "title": "1031 뽑기 삼?",
-      "publishedAt": "2026-10-26T23:00:00+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97425",
-      "recommended": false,
-      "contentText": "반값 할인이노",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270712",
-          "text": "통발엔 아깝고 본계정엔 지를만한듯",
-          "reply": false
-        },
-        {
-          "id": "270717",
-          "text": "1고급 10일반 개빡치노",
-          "reply": false
-        },
-        {
-          "id": "270720",
-          "text": "다 일반",
-          "reply": false
-        },
-        {
-          "id": "270722",
-          "text": "사긴햏ㅇ는데 녹차밭임ㅋㅋ - dc App",
-          "reply": false
-        },
-        {
-          "id": "0",
-          "text": "사전예약만 1년…넥슨 '아주르 프로밀리아' 준비과정 어땠나\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "270766",
-          "text": "삿음 다이아로 천장스택 주는건 다사는중",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97424",
-      "title": "근데 오리 똥될수록 멤버쉽 결제 ㅈㄴ 안할듯",
-      "publishedAt": "2026-10-26T22:58:41+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97424",
-      "recommended": false,
-      "contentText": "솔직히 통발겜에서 하루종일 돌려서 경손실 안나게 할정도로 따라갈만한 메리트는 없고\n\n멤버쉽 핵심이 거래가능 드랍률 상승되는 오리할콘이였는데\n\n가격 똥될수록 할 이유가 적긴함\n\n물론 던전이용시간 신탁 횟수 늘어나긴하는데",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T22:11:16.727869+00:00",
-      "comments": [
-        {
-          "id": "270719",
-          "text": "타르시간 늘어난동안 충전석 하나만 주워먹어도 오리값 다 메꾸는데 굳이 안할 이유가없는데",
-          "reply": false
-        },
-        {
-          "id": "270724",
-          "text": "아직까진 결제할만한데 점점 주식 코인처럼 똥되간다\n\n물론 이클같은거에 비하면 방어력 ㅆㅆㅌㅊ 선녀지만",
-          "reply": true
-        },
-        {
-          "id": "270723",
-          "text": "근데 만원이면 1.3천다야정도고 멤버쉽에 500다야이쓰니\n멤버쉽결제로 800다야만 멘징해도 본전인데\n오리가 1원이하로 가지않는이상 무조건 이득인데...\n그동안 너무 비쌋던거지 절대 손해볼수없는구조임",
-          "reply": false
-        },
-        {
-          "id": "270726",
-          "text": "ㅇㅇ 아직까진 괜찮음\n\n근데 멤버쉽 결제하면 출석체크마냥 하루 한두번은 설정해줘야하는데 그거마저 귀찮아서 그렇지 ㅋㅋ\n\n보통 모바일 게임 과금 좀 하더라도 안하거나 지우는 이유가 싫증나고 귀찮음인데",
-          "reply": true
-        },
-        {
-          "id": "270728",
-          "text": "@글쓴 제수스(180.64) 하루 한두번 설정이 귀찮으면 계정팔고 접어라..\n그정도도 안할거면 무슨 게임한다구..",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "\"이 자식아\" 일본 음식점서 손님 머리에 도끼 ‘쾅’…한국인 추정 40대 남성 체포\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "270751",
-          "text": "그런 마인드면 이참에 접는것도 방법임 딱봐도 할 의지가 안느껴지고 이대로면 억지로 할게 뻔함",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97423",
-      "title": "아테나 오히려 재밌어졌는뎅??",
-      "publishedAt": "2026-10-26T22:57:22+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97423",
-      "recommended": false,
-      "contentText": "프모가니까 황무지된줄아랏는데\n\n더재미써짐\n\n거래소는 원래 비상식적으로 높았던거지\n\n조만간 정상화될듯",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T20:08:43.049647+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
-    },
-    {
-      "id": "97422",
-      "title": "신 이색기들 꿀빨다가 쳐맞으니 계정 ㅈㄴ 파네 ㅋㅋㅋㅋㅋㅋㅋㅋ",
-      "publishedAt": "2026-10-26T22:57:05+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=97422",
-      "recommended": false,
-      "contentText": "구매한거 인증해도 중재안해주고 환불 받게 해야함\n\n걍 평생 제우스하던지 계정 버리던지해야됌 ㅇㅈ? ㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-26T20:08:43.049647+00:00",
-      "comments": [
-        {
-          "id": "270737",
-          "text": "먼 가문의 원수냐? ㅈㄴ 과몰입이네 겜상 적이지 쌍욕 박고 패드립친거면 중재 안해줄순 있어도 린라 접고 복귀하고 밥 먹듯이 일어나는 일인데",
-          "reply": false
-        },
-        {
-          "id": "270784",
-          "text": "신 ㅎㅇㅎㅇ",
-          "reply": true
-        },
-        {
-          "id": "270738",
-          "text": "서버 이전에 닉변까지 같이 팔아줬더만\n\n세탁할 시간이 충분한데도\n\n중재받을 정도면 무슨짓을 한거냐\n\n1대가 그것도 안하고 계정 팔아넘긴거냐 ㅅㅂ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-27T00:02:12.589579+00:00"
+      "commentsFetchedAt": "2026-10-27T01:20:14.388952+00:00"
     }
   ]
 }
