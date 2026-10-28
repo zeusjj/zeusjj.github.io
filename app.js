@@ -148,9 +148,33 @@ function renderRules(text) {
       if(match){const line=element('p');line.append(document.createTextNode(match[1]+' '),element('small',match[2]));body.append(line);}
       else bodyContent(content,body);
     } else if(kind==='schedule') {
-      const schedule=content.match(/^-\s*(\S+)\s+(\d+:\d+)/m);
-      if(schedule){const time=element('div',undefined,'schedule-time');time.append(element('span',schedule[1]),element('strong',schedule[2]));body.append(time);}
-      bodyContent(content.replace(/^-\s*\S+\s+\d+:\d+\s*$/m,''),body);
+      wrapper.firstElementChild.textContent='콘텐츠 시간';
+      const blocks=content.split(/\r?\n(?=성물 방어전\s*$|항아리\s*$)/m);
+      const weekend=element('div',undefined,'content-schedule-group');
+      weekend.append(element('h3','주말 콘텐츠'));
+      const schedule=blocks[0].match(/^-\s*(\S+)\s+(\d+:\d+)/m);
+      if(schedule){const time=element('div',undefined,'content-schedule-time');time.append(element('span',schedule[1]),element('strong',schedule[2]));weekend.append(time);}
+      bodyContent(blocks[0].replace(/^-\s*\S+\s+\d+:\d+\s*$/m,''),weekend);
+      body.append(weekend);
+      if(blocks.length>1){
+        const weekday=element('div',undefined,'content-schedule-group');weekday.append(element('h3','평일 콘텐츠'));
+        for(const block of blocks.slice(1)){
+          const [title,...lines]=block.trim().split(/\r?\n/),activity=element('div',undefined,'content-schedule-activity'),times=element('dl',undefined,'content-schedule-times');
+          activity.append(element('h4',title));
+          for(const line of lines){
+            if(!line.trim())continue;
+            const match=line.match(/^-\s*(메인|서브):\s*(\S+)\s+(\d+:\d+(?:\s*~\s*\d+:\d+)?)(.*)$/);
+            if(match){
+              const row=element('div'),value=element('dd'),time=element('div',undefined,'content-schedule-time');
+              time.append(element('span',match[2]),element('strong',match[3]));value.append(time);
+              const detail=match[4].replace(/^[\s,]+/,'');if(detail)value.append(element('p',detail,'content-schedule-note'));
+              row.append(element('dt',match[1]),value);times.append(row);
+            }else activity.append(element('p',line.replace(/^-\s*/,''),'content-schedule-note'));
+          }
+          activity.insertBefore(times,activity.children[1]??null);weekday.append(activity);
+        }
+        body.append(weekday);
+      }
     } else if(kind==='types') {
       for(const group of content.split('▶').filter(part=>part.trim())) {
         const parts=group.trim().split(/\s+-\s+/);body.append(element('h3',parts.shift()));
