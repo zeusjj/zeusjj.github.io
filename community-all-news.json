@@ -1,9 +1,112 @@
 {
-  "collectedAt": "2026-10-28T22:14:40.125134+00:00",
+  "collectedAt": "2026-10-28T23:11:26.347043+00:00",
   "days": 14,
   "coverageStart": "2026-10-28",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "98658",
+      "title": "아시발 인생 잘못 살았다...",
+      "publishedAt": "2026-10-29T08:09:40+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98658",
+      "recommended": false,
+      "contentText": "조건부 액티브부터 무조건 빨리 사야하는거였네...\n\n신섭 나오면 희귀 액티브 패시브 사는데 길드코인 낭비하지말고 최대한 빨리 조건부 스킬부터 사야겠다.\n\n꼴랑 희귀 스킬들 1강당 성능 몇프로씩 오를바에야 조건부 스킬 있냐 없냐가 사속체감 넘사벽이네",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
+    },
+    {
+      "id": "98657",
+      "title": "오늘 6.0 찍는날이다",
+      "publishedAt": "2026-10-29T08:03:22+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98657",
+      "recommended": false,
+      "contentText": "실타래 걸어둔거 완료되면 6.0 ㅅㅅ",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
+    },
+    {
+      "id": "98656",
+      "title": "내 랩보다 10랩 낮은 던전가도 오리 잘 나오는데?",
+      "publishedAt": "2026-10-29T07:43:44+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98656",
+      "recommended": false,
+      "contentText": "나 61랩인데 오늘 모르고 51랩 오리던전 갔는데 오리 거의 다 캣음. 템 잘나오는데?\n\n시간보면 오해할수도 있는데, 실제 던전 시간은 10분 이상 남음.\n\n진짜 사냥터랑 10랩 차이면 템 안나오는거 맞아?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
+      "comments": [
+        {
+          "id": "275281",
+          "text": "딱 10분 남았는데 오리 다캣고 에테도 2개 더캠.",
+          "reply": false
+        },
+        {
+          "id": "275286",
+          "text": "다 못먹으면 낮춰가라고 다들 얘기한다 ㅇㅇ",
+          "reply": false
+        },
+        {
+          "id": "275289",
+          "text": "나도 아는데 10랩 이상 차이나면 드랍락 걸려서 못 먹는다고 들어서",
+          "reply": true
+        },
+        {
+          "id": "275290",
+          "text": "@글쓴 제수스(112.147) 그거패치햇잖아 9월초 게임나왔을때 말많아서 - dc App",
+          "reply": true
+        },
+        {
+          "id": "275292",
+          "text": "@쩡글러 아그래?",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "\"하이닉스 주주들 계 탔나..\" 16조 특별배당 전망에 주가 대반전 기대\n\n1/20",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
+    },
+    {
+      "id": "98655",
+      "title": "교단 2일 연속 실패",
+      "publishedAt": "2026-10-29T07:31:33+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98655",
+      "recommended": false,
+      "contentText": "",
+      "contentStatus": "no-text",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
+      "comments": [
+        {
+          "id": "275274",
+          "text": "개ㅈ같다 7연패 하고 1승 했다가..다시 5연패 중이다 ㅅㅂ것ㅋㅋ50렙 넘어가니 하루 날리는 건 기본인듯",
+          "reply": false
+        },
+        {
+          "id": "275282",
+          "text": "다그렇다 너만그런게아냐",
+          "reply": false
+        },
+        {
+          "id": "275284",
+          "text": "정상입니다",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
+    },
     {
       "id": "98653",
       "title": "교단 1승 3패 ㅈ같드아~",
@@ -169,7 +272,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98643",
@@ -183,7 +286,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98642",
@@ -197,7 +300,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98641",
@@ -217,7 +320,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98640",
@@ -231,7 +334,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98639",
@@ -247,11 +350,16 @@
           "id": "275226",
           "text": "통발 영정 기원~",
           "reply": false
+        },
+        {
+          "id": "275246",
+          "text": "ㅠㅠ - dc App",
+          "reply": true
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98638",
@@ -519,7 +627,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98627",
@@ -549,7 +657,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98626",
@@ -563,7 +671,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98625",
@@ -577,7 +685,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98624",
@@ -588,10 +696,16 @@
       "contentText": "의상이랑 날탈만 전설인데 의상은 자연산 날탈은 천장이라 의상천장이 400정도 남앗고 탈것천장은 아예 초반인데 그래도 탈것부터 해야하나.. 투력은 7만이고 걍 패키지 괜찮아보이면 사는정도라 고민이네..",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-28T18:18:01.974687+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "275250",
+          "text": "의상 천천히 천장 가고 지탈 먼저 가야지",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98623",
@@ -630,13 +744,13 @@
         },
         {
           "id": "0",
-          "text": "“버닝썬→임신” 승리, 침묵 깼다… 입장 발표\n\n1/20",
+          "text": "[라이브] 던파, 보상·파밍 구조 바꾼다...박종민 디렉터 \"결과로 신뢰 회복할 것\"\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98622",
@@ -675,13 +789,18 @@
         },
         {
           "id": "0",
-          "text": "레드 도트 패턴부터 브라운 2피스까지! 인플루언서 서영 비키니 스타일링 분석\n\n1/20",
+          "text": "고영욱, ♥톱여배우와 열애… 스스로 ‘폭로’\n\n1/20",
+          "reply": false
+        },
+        {
+          "id": "275277",
+          "text": "관심 주지마 이새1끼 관심 받으려고 일부러 어그로 끄는거잖아 병신련들아",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98621",
@@ -701,7 +820,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98620",
@@ -724,6 +843,11 @@
           "reply": false
         },
         {
+          "id": "275249",
+          "text": "처치 되기 전 마지막 전투 시작 기준으로 젠 되는데\n이건 못막는 애들이 ㅂㅅ이지",
+          "reply": true
+        },
+        {
           "id": "275197",
           "text": "처치기준이였으면 진작했을듯",
           "reply": false
@@ -731,7 +855,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98619",
@@ -761,7 +885,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98618",
@@ -804,14 +928,19 @@
           "reply": true
         },
         {
+          "id": "275262",
+          "text": "알아듣게 말을해 ㅡㅡ - dc App",
+          "reply": true
+        },
+        {
           "id": "0",
-          "text": "‘구독자 413만’ 유튜버, 녹취 유출… 사태 심각\n\n1/20",
+          "text": "\"미제 침략자들을 소멸하라\"…북한, 포구 남쪽으로 돌린 상황, 애기봉 코앞서 '발칵'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98617",
@@ -831,7 +960,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98616",
@@ -861,7 +990,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98615",
@@ -900,13 +1029,13 @@
         },
         {
           "id": "0",
-          "text": "\"무대에선 몰랐는데\".. 일상 사진에서 달라진 분위기, 스트라이프 홀터부터 화이트 드레스까지 아이돌 데일리룩\n\n1/20",
+          "text": "레드 도트 패턴부터 브라운 2피스까지! 인플루언서 서영 비키니 스타일링 분석\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98614",
@@ -916,7 +1045,7 @@
       "recommended": false,
       "contentText": "라인들이 점령전하고 공성전하니까\n\n이제 하위구간은 요새전 가서 놀면 되는거지?\n\n중립인데 쟁 생각해본적없었는데 요새전은 그냥 가서 치고박고하다가 점령전 비슷하게 하면 되는걸까\n\n이게 오픈전에 말했던 그 경쟁구간 나눈다는 그런 느낌이라고 보면 되는거겟네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275164",
@@ -926,7 +1055,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98613",
@@ -936,7 +1065,7 @@
       "recommended": false,
       "contentText": "통발에도 4티 맞춰주고 싶은 너낌 같은 너낌?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275160",
@@ -946,7 +1075,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98612",
@@ -956,11 +1085,11 @@
       "recommended": false,
       "contentText": "디펜스처럼 웨이브 몰려나오는거 잡고 보스잡는 형식인거같은데\n\n실타래보상 수급처에다가 길드컨텐츠라 쭉 빼먹지말고 해야될듯\n\n최대참여인원 60명이면 난이도가 좀 있을래나 설명만 보면 재밌어보이긴함",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98611",
@@ -970,7 +1099,7 @@
       "recommended": false,
       "contentText": "아닌가?그냥 운이 없는건가??\n\n너네 체감어떰",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275134",
@@ -999,7 +1128,7 @@
         },
         {
           "id": "0",
-          "text": "실력에 인성까지 갖춰 1인자 지켜온 유재석, 결국 ‘정부’가 상 준다\n\n1/20",
+          "text": "곽튜브 \"차 살 돈을 게임에 다 썼다\"…패밀리카는 아직\n\n1/20",
           "reply": false
         },
         {
@@ -1010,7 +1139,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98610",
@@ -1020,7 +1149,7 @@
       "recommended": false,
       "contentText": "꿀꿀이들 스펙업 멈춘상태\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275141",
@@ -1049,7 +1178,7 @@
         },
         {
           "id": "0",
-          "text": "레드 도트 패턴부터 브라운 2피스까지! 인플루언서 서영 비키니 스타일링 분석\n\n1/20",
+          "text": "’15세연하♥’ 바비킴, 잘사는 줄… “엇갈린 입장”\n\n1/20",
           "reply": false
         },
         {
@@ -1075,7 +1204,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98609",
@@ -1085,7 +1214,7 @@
       "recommended": false,
       "contentText": "시간 꽉채우고 받아야대나...",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275122",
@@ -1095,7 +1224,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98608",
@@ -1105,7 +1234,7 @@
       "recommended": false,
       "contentText": "진짜 지랄하지말라고",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275117",
@@ -1124,7 +1253,7 @@
         },
         {
           "id": "0",
-          "text": "\"손이 떨려서 진료 못하겠다\" 아주대병원 소아응급실 교수 7명 사직\n\n1/20",
+          "text": "“장관 집에 몰래 지뢰 심어도 방어냐?” 정동영에 물었다\n\n1/20",
           "reply": false
         },
         {
@@ -1135,7 +1264,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98607",
@@ -1145,7 +1274,7 @@
       "recommended": false,
       "contentText": "예구 1000개정도 걸어야되는데 얼마쯤 걸어야될까",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275151",
@@ -1160,7 +1289,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98606",
@@ -1170,7 +1299,7 @@
       "recommended": false,
       "contentText": "폰번호 하나야\n\n지금 본계 부계 이렇게 2개있는데\n\n하나더하고싶은데 가능한거야 ? 정지 안먹음 ?\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275112",
@@ -1214,13 +1343,13 @@
         },
         {
           "id": "0",
-          "text": "[문화유산] 튀르키예 퀼테페 유적서 헬레니즘 모자이크 바닥 첫 발견…한·튀 공동 성과\n\n1/20",
+          "text": "무슨 일?…오늘 아침 광주 어린이집서 벌어진 날벼락 사고 (현장 사진)\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98605",
@@ -1230,7 +1359,7 @@
       "recommended": false,
       "contentText": "지금 입문해보려는대 에바인가요? ai모드 있다해서 살짝 해볼까합니다\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275096",
@@ -1340,7 +1469,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98603",
@@ -1350,7 +1479,7 @@
       "recommended": false,
       "contentText": "해외 로밍으로 가능?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275080",
@@ -1375,7 +1504,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98602",
@@ -1385,7 +1514,7 @@
       "recommended": false,
       "contentText": "+몇강이런식으로",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T16:26:30.978554+00:00",
+      "contentFetchedAt": "2026-10-28T23:11:26.347043+00:00",
       "comments": [
         {
           "id": "275083",
@@ -1410,7 +1539,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98601",
@@ -1435,7 +1564,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98600",
@@ -1470,7 +1599,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98599",
@@ -1509,7 +1638,7 @@
         },
         {
           "id": "0",
-          "text": "\"블루베리,사과 다 아닙니다\" 떨어진 혈관 탄력 살려주는데 좋은 '이 음식'\n\n1/20",
+          "text": "대낮 성매매 적발된 현직 판사…그런데 법원이 내린 충격적인 판결\n\n1/20",
           "reply": false
         },
         {
@@ -1555,7 +1684,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98598",
@@ -1590,7 +1719,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98597",
@@ -1604,7 +1733,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98596",
@@ -1643,7 +1772,7 @@
         },
         {
           "id": "0",
-          "text": "대통령비서실이 36억 예산 들여 실시했다는 조사, 파장 심상치 않다\n\n1/20",
+          "text": "’15세연하♥’ 바비킴, 잘사는 줄… “엇갈린 입장”\n\n1/20",
           "reply": false
         },
         {
@@ -1659,7 +1788,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98595",
@@ -1698,13 +1827,13 @@
         },
         {
           "id": "0",
-          "text": "\"하이닉스 주주들 계 탔나..\" 16조 특별배당 전망에 주가 대반전 기대\n\n1/20",
+          "text": "10년 넘게 유령 시달린 텍사스 가족 3명\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98594",
@@ -1724,7 +1853,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98592",
@@ -1759,7 +1888,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98591",
@@ -1798,7 +1927,7 @@
         },
         {
           "id": "0",
-          "text": "“장관 집에 몰래 지뢰 심어도 방어냐?” 정동영에 물었다\n\n1/20",
+          "text": "\"블루베리,사과 다 아닙니다\" 떨어진 혈관 탄력 살려주는데 좋은 '이 음식'\n\n1/20",
           "reply": false
         },
         {
@@ -1829,7 +1958,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98590",
@@ -1849,7 +1978,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98589",
@@ -1874,7 +2003,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98588",
@@ -1943,7 +2072,7 @@
         },
         {
           "id": "0",
-          "text": "\"그냥 씻어라 좀\"…엔믹스 설윤, 안 씻겠다는 팬에 일침\n\n1/20",
+          "text": "\"무대에선 몰랐는데\".. 일상 사진에서 달라진 분위기, 스트라이프 홀터부터 화이트 드레스까지 아이돌 데일리룩\n\n1/20",
           "reply": false
         },
         {
@@ -1959,7 +2088,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98587",
@@ -1994,7 +2123,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98586",
@@ -2024,7 +2153,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98585",
@@ -2063,7 +2192,7 @@
         },
         {
           "id": "0",
-          "text": "\"블루베리,사과 다 아닙니다\" 떨어진 혈관 탄력 살려주는데 좋은 '이 음식'\n\n1/20",
+          "text": "태국인 아내 얼굴에 끓는 물 부은 남편… 항소심서 감형, 왜?\n\n1/20",
           "reply": false
         },
         {
@@ -2074,7 +2203,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98584",
@@ -2099,7 +2228,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98583",
@@ -2124,7 +2253,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98582",
@@ -2144,7 +2273,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98581",
@@ -2188,7 +2317,7 @@
         },
         {
           "id": "0",
-          "text": "증명사진이 너무 잘 나와서 법정까지 갔던 여배우\n\n1/20",
+          "text": "10년 넘게 유령 시달린 텍사스 가족 3명\n\n1/20",
           "reply": false
         },
         {
@@ -2239,7 +2368,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98580",
@@ -2253,7 +2382,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98579",
@@ -2292,7 +2421,7 @@
         },
         {
           "id": "0",
-          "text": "\"손이 떨려서 진료 못하겠다\" 아주대병원 소아응급실 교수 7명 사직\n\n1/20",
+          "text": "’15세연하♥’ 바비킴, 잘사는 줄… “엇갈린 입장”\n\n1/20",
           "reply": false
         },
         {
@@ -2318,7 +2447,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98578",
@@ -2387,7 +2516,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98576",
@@ -2412,7 +2541,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98575",
@@ -2426,7 +2555,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98574",
@@ -2461,7 +2590,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98573",
@@ -2475,7 +2604,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98572",
@@ -2514,7 +2643,7 @@
         },
         {
           "id": "0",
-          "text": "\"아이돌 그만둔 뒤 계좌 압류\"… JBJ 켄타, 4억 빚에 천 원만 남았던 사연\n\n1/20",
+          "text": "‘열애설’ 트와이스 쯔위, 母 입 열었다… “친구 사이”\n\n1/20",
           "reply": false
         },
         {
@@ -2540,7 +2669,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98571",
@@ -2579,7 +2708,7 @@
         },
         {
           "id": "0",
-          "text": "‘李 직속’ 박진영, 제대로 저격 당했다… ‘일파만파’\n\n1/20",
+          "text": "“장관 집에 몰래 지뢰 심어도 방어냐?” 정동영에 물었다\n\n1/20",
           "reply": false
         },
         {
@@ -2616,11 +2745,16 @@
           "id": "275051",
           "text": "@쩡글러 ㄴㄴ 삭제안됨 그니간 일욜날 삭제해놓고 담주에 반나절 걸리면 월욜로 넘어가잖아\n그러니까 바로바로 맞춰봤자 의미없다이말임",
           "reply": true
+        },
+        {
+          "id": "275258",
+          "text": "일단 하다가 잠들었구녜",
+          "reply": true
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98570",
@@ -2640,7 +2774,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98569",
@@ -2684,13 +2818,13 @@
         },
         {
           "id": "0",
-          "text": "\"블루베리,사과 다 아닙니다\" 떨어진 혈관 탄력 살려주는데 좋은 '이 음식'\n\n1/20",
+          "text": "[르포] 태극기 흔들며 \"생중계\"…선관위 특검 검증에 '올공 시위대'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98568",
@@ -2724,7 +2858,7 @@
         },
         {
           "id": "0",
-          "text": "레드 도트 패턴부터 브라운 2피스까지! 인플루언서 서영 비키니 스타일링 분석\n\n1/20",
+          "text": "\"그냥 씻어라 좀\"…엔믹스 설윤, 안 씻겠다는 팬에 일침\n\n1/20",
           "reply": false
         },
         {
@@ -2735,7 +2869,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98567",
@@ -2749,7 +2883,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98566",
@@ -2788,7 +2922,7 @@
         },
         {
           "id": "0",
-          "text": "증명사진이 너무 잘 나와서 법정까지 갔던 여배우\n\n1/20",
+          "text": "태국인 아내 얼굴에 끓는 물 부은 남편… 항소심서 감형, 왜?\n\n1/20",
           "reply": false
         },
         {
@@ -2799,7 +2933,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98565",
@@ -2838,13 +2972,13 @@
         },
         {
           "id": "0",
-          "text": "실력에 인성까지 갖춰 1인자 지켜온 유재석, 결국 ‘정부’가 상 준다\n\n1/20",
+          "text": "“대놓고 불륜”… 한동훈, 수위 높은 비판\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98564",
@@ -2858,7 +2992,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98563",
@@ -2888,7 +3022,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98562",
@@ -2927,7 +3061,7 @@
         },
         {
           "id": "0",
-          "text": "[문화유산] 튀르키예 퀼테페 유적서 헬레니즘 모자이크 바닥 첫 발견…한·튀 공동 성과\n\n1/20",
+          "text": "‘구독자 413만’ 유튜버, 녹취 유출… 사태 심각\n\n1/20",
           "reply": false
         },
         {
@@ -2943,7 +3077,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98561",
@@ -2982,7 +3116,7 @@
         },
         {
           "id": "0",
-          "text": "[라이브] 던파, 보상·파밍 구조 바꾼다...박종민 디렉터 \"결과로 신뢰 회복할 것\"\n\n1/20",
+          "text": "‘열애설’ 트와이스 쯔위, 母 입 열었다… “친구 사이”\n\n1/20",
           "reply": false
         },
         {
@@ -2993,7 +3127,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98559",
@@ -3014,11 +3148,16 @@
           "id": "274950",
           "text": "설명해줘도 이해못하는거까지가 초식임",
           "reply": true
+        },
+        {
+          "id": "275248",
+          "text": "내계정 빈슬롯에 선물받은 케릭이 오는게 아니고 덮어쓰기 개념임",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98558",
@@ -3052,13 +3191,13 @@
         },
         {
           "id": "0",
-          "text": "고영욱, ♥톱여배우와 열애… 스스로 ‘폭로’\n\n1/20",
+          "text": "무슨 일?…오늘 아침 광주 어린이집서 벌어진 날벼락 사고 (현장 사진)\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98557",
@@ -3093,7 +3232,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98556",
@@ -3132,13 +3271,13 @@
         },
         {
           "id": "0",
-          "text": "\"블루베리,사과 다 아닙니다\" 떨어진 혈관 탄력 살려주는데 좋은 '이 음식'\n\n1/20",
+          "text": "\"그냥 씻어라 좀\"…엔믹스 설윤, 안 씻겠다는 팬에 일침\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98555",
@@ -3152,7 +3291,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98554",
@@ -3191,7 +3330,7 @@
         },
         {
           "id": "0",
-          "text": "‘열애설’ 트와이스 쯔위, 母 입 열었다… “친구 사이”\n\n1/20",
+          "text": "“버닝썬→임신” 승리, 침묵 깼다… 입장 발표\n\n1/20",
           "reply": false
         },
         {
@@ -3227,7 +3366,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98553",
@@ -3241,7 +3380,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98552",
@@ -3280,13 +3419,13 @@
         },
         {
           "id": "0",
-          "text": "태국인 아내 얼굴에 끓는 물 부은 남편… 항소심서 감형, 왜?\n\n1/20",
+          "text": "레드 도트 패턴부터 브라운 2피스까지! 인플루언서 서영 비키니 스타일링 분석\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98551",
@@ -3325,13 +3464,13 @@
         },
         {
           "id": "0",
-          "text": "암살자(들) 감독, 한 달 만에 침묵 깼다…\"의문점, 받아들일 수 없다\"\n\n1/20",
+          "text": "대낮 성매매 적발된 현직 판사…그런데 법원이 내린 충격적인 판결\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98550",
@@ -3361,7 +3500,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98549",
@@ -3381,7 +3520,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98548",
@@ -3406,7 +3545,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98547",
@@ -3431,7 +3570,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98546",
@@ -3451,7 +3590,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98545",
@@ -3471,7 +3610,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98544",
@@ -3496,7 +3635,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98543",
@@ -3524,6 +3663,11 @@
           "reply": true
         },
         {
+          "id": "275264",
+          "text": "@ㅇㅇ(61.81) 개고기 파는집한테 소고기 팔아야 롱런한는 개소리를 길게도 썼네 외국 rpg하러 ㄱㄱ해",
+          "reply": true
+        },
+        {
           "id": "274870",
           "text": "흔한린라인데\n갤은 알바천국",
           "reply": false
@@ -3535,13 +3679,13 @@
         },
         {
           "id": "0",
-          "text": "‘열애설’ 트와이스 쯔위, 母 입 열었다… “친구 사이”\n\n1/20",
+          "text": "[문화유산] 튀르키예 퀼테페 유적서 헬레니즘 모자이크 바닥 첫 발견…한·튀 공동 성과\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98542",
@@ -3555,7 +3699,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98541",
@@ -3569,7 +3713,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98540",
@@ -3594,7 +3738,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98539",
@@ -3648,13 +3792,13 @@
         },
         {
           "id": "0",
-          "text": "\"손이 떨려서 진료 못하겠다\" 아주대병원 소아응급실 교수 7명 사직\n\n1/20",
+          "text": "’15세연하♥’ 바비킴, 잘사는 줄… “엇갈린 입장”\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98538",
@@ -3689,7 +3833,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98537",
@@ -3733,7 +3877,7 @@
         },
         {
           "id": "0",
-          "text": "‘李 직속’ 박진영, 제대로 저격 당했다… ‘일파만파’\n\n1/20",
+          "text": "\"아이돌 그만둔 뒤 계좌 압류\"… JBJ 켄타, 4억 빚에 천 원만 남았던 사연\n\n1/20",
           "reply": false
         },
         {
@@ -3744,7 +3888,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98536",
@@ -3764,7 +3908,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98535",
@@ -3778,7 +3922,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     },
     {
       "id": "98534",
@@ -3832,7 +3976,7 @@
         },
         {
           "id": "0",
-          "text": "곽튜브 \"차 살 돈을 게임에 다 썼다\"…패밀리카는 아직\n\n1/20",
+          "text": "‘李 직속’ 박진영, 제대로 저격 당했다… ‘일파만파’\n\n1/20",
           "reply": false
         },
         {
@@ -3848,121 +3992,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
-    },
-    {
-      "id": "98533",
-      "title": "오늘 아주 섹스네요",
-      "publishedAt": "2026-10-28T21:29:30+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98533",
-      "recommended": false,
-      "contentText": "영스에 패시브까지 55되부럿노",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T20:16:42.569245+00:00",
-      "comments": [
-        {
-          "id": "274819",
-          "text": "통매음 신고",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
-    },
-    {
-      "id": "98532",
-      "title": "쌍조님 길드 운영을 대국적으로 하시길 바랍니다",
-      "publishedAt": "2026-10-28T21:27:15+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98532",
-      "recommended": false,
-      "contentText": "어제 아테나1이랑 전쟁시작되고 10명 나갔다고\n\n구체적인 숫자를 언급하면서까지 푸념하셨는데\n\n뭐 혈비나 복구비용 이런 운영까지는 제가 참견할일이 아니고\n\n필드썰자라던가 적극적으로 쟁에 임하는 인원이 10명이 채안됩니다\n\nPVP목록 나열해봤을때 프모인원 제외하면 5명도 안돼요\n\n나머지는 죄다 마치 다음서버이전에 아테나가 서버를 나갈게 기정사실화된양 썰자는 안하고 부캐로 중립을 몰래 들어가서 사냥하다가 피해를 주거나\n\n부캐로 사냥만 하고 있습니다\n\n10명이 나갔다고 언급하셨는데 적극적으로 쟁에 임하는 인원이 10명이 안된다는 소리입니다\n\n뭐 보탐같은거 시간 거지같이 짜여있는건 이제 말하기도 귀찮고\n\n적극적으로 쟁에 임하지 않은 인원이 중립에 부캐를 몰래 넣어서\n\n엄한 중립들까지 피해입는건 막아야되지않겠습니까?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T20:16:42.569245+00:00",
-      "comments": [
-        {
-          "id": "274788",
-          "text": "그걸왜막아ㅠ병신아 ㅋㅋㅋ 니들이 잘걸러내봐",
-          "reply": false
-        },
-        {
-          "id": "274840",
-          "text": "라인으로 꿀은 다빨았으면 중립한테 피해는 주지말라는게 어려운 부탁인가요?",
-          "reply": true
-        },
-        {
-          "id": "274837",
-          "text": "너네나 잘해 ㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "274841",
-          "text": "뭐래 사냥터에 사람이 없더만 ㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
-    },
-    {
-      "id": "98531",
-      "title": "요새전 보상 나온건 없지?",
-      "publishedAt": "2026-10-28T21:26:35+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98531",
-      "recommended": false,
-      "contentText": "공성전 태클 걸 수 있는 시스템이 아니라\n\n그냥 2~6위 싸움인거지?\n\n뭐가 됐든 재밌게 나왔으면 좋겠네 ㅋㅋㅋ\n\n이왕이면 보상도 좀 달달하게 기대할께 영자형들\n\n다야 같은건 아니여도 성장에 도움될만한 템이나 오리?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T20:16:42.569245+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
-    },
-    {
-      "id": "98530",
-      "title": "쌀먹하러왔다가 정신차려보니 500 조금 더썼는데",
-      "publishedAt": "2026-10-28T21:25:49+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=98530",
-      "recommended": false,
-      "contentText": "의상이랑 지상탈것은 천장채워서 뽑았고\n\n공중탈것은 전설뽑아도 성장도 800오른다그래서 뽑기 싫어져서 고민중이고\n\n지금 투력이 6만 중반밖에안되는데\n\n지금부터라도 열심히 쌀캐면 어느정도 복구 가능할까..",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-28T20:16:42.569245+00:00",
-      "comments": [
-        {
-          "id": "274787",
-          "text": "공중탈것이 경험치때문에 중요한건아니었음? 500을 쌀먹으로언제 복구해..",
-          "reply": false
-        },
-        {
-          "id": "274791",
-          "text": "내가 해봐서 아는데\n쌀먹 1 2주 하다가 좀만 투자하면 사냥터 올라갈각 보이면 좆같아서 때려치고 재투자한다 ㅋ",
-          "reply": false
-        },
-        {
-          "id": "274797",
-          "text": "사람 심리가 더 쌔지고 싶어서 쓰기 시작하면 그냥 계속 쓰게 되있음 그래서 쌀캐고 싶은놈이면 차라리 아에 99단으로만 사는게 답임. 과금하는순간 그냥 더 쌔고 싶어지는 심리를 버릴 수 없음",
-          "reply": false
-        },
-        {
-          "id": "274802",
-          "text": "이새끼 하버드 심리학 학사",
-          "reply": true
-        },
-        {
-          "id": "274804",
-          "text": "99단도 자하브 입성하고싶어서 역쌀먹하게 설정 좆같이 잘해논 제우스 씹거",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "\"미제 침략자들을 소멸하라\"…북한, 포구 남쪽으로 돌린 상황, 애기봉 코앞서 '발칵'\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-28T21:15:52.419642+00:00"
+      "commentsFetchedAt": "2026-10-28T23:11:26.347043+00:00"
     }
   ]
 }
