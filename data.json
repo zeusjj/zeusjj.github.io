@@ -2823,12 +2823,193 @@
     "2026-10-28": "2026-10-28T12:54:22.936Z"
   },
   "membersUpdatedAt": "2026-10-28T12:54:24Z",
-  "distributionUpdatedAt": "2026-10-25T13:46:13Z",
+  "distributionUpdatedAt": "2026-10-28T13:07:37Z",
   "distribution": [
     {
+      "title": "필드",
+      "records": [
+        {
+          "name": "케이론",
+          "item": "T5 숭고한 지팡이",
+          "amount": 3966,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "드리트민존슨",
+          "item": "T6 위대한 망토",
+          "amount": 11160,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "치마",
+          "item": "T6 위대한 투구",
+          "amount": 8791,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "치마",
+          "item": "T5 숭고한 상의",
+          "amount": 4576,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "엘카디야",
+          "item": "T4 영광의 하의",
+          "amount": 986,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "치마",
+          "item": "T4 영광의 보주",
+          "amount": 439,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "골든벨",
+          "item": "T4 영광의 반지",
+          "amount": 1727,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "Geronimo",
+          "item": "T3 축복의 곡괭이",
+          "amount": 102,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "T3 축복의 활",
+          "amount": 171,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "골든벨",
+          "item": "T3 축복의 장갑",
+          "amount": 93,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "안농",
+          "item": "T3 축복의 대형방패",
+          "amount": 9,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "역풍",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 303,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "골든벨",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 276,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "엘카디야",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 275,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 275,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "성녀",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 251,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 239,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "치마",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "드리트민존슨",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "드리트민존슨",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "엘카디야",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "케이론",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "꾸디",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 227,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "치마",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 195,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "엘카디야",
+          "item": "T4 영광의 망치",
+          "amount": 465,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "역풍",
+          "item": "스킬 비전: 희귀 액티브",
+          "amount": 232,
+          "bidding": "자유 경매"
+        }
+      ],
+      "schedule": "경매 기록 10/25~10/27"
+    },
+    {
       "title": "길드레이드 7차",
-      "records": [],
-      "schedule": "10/25 · 낙찰 기록 미등록"
+      "records": [
+        {
+          "name": "엘카디야",
+          "item": "T5 찬란한 투구 (캐릭터 귀속)",
+          "amount": 3906,
+          "bidding": "자유 경매"
+        },
+        {
+          "name": "최희원",
+          "item": "T5 찬란한 상의 (캐릭터 귀속)",
+          "amount": 930,
+          "bidding": "지정가 경매"
+        }
+      ],
+      "schedule": "10/25 레이드 · 경매 기록 10/28"
     },
     {
       "title": "필드",
