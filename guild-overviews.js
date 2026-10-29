@@ -1,4 +1,4 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261026-weekly';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261030-goal-achievers';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
 
@@ -161,6 +161,16 @@ function renderWeekly(){
   if(summary.previous&&summary.last){const caption=el('p',short(summary.previous.date)+' → '+short(summary.last.date)+' · 주 시작 전 마지막 기록 대비','overview-note overview-period');weeklyRate.querySelector('h2').after(caption);}
   const contribution=topList(columns,'공헌도 상위',summary.contributionRanks,format);
   if(summary.contribution){const caption=el('p',short(summary.contribution.date)+(/중간/.test(summary.contribution.header)?' · 중간 기록':''),'overview-note overview-period');contribution.querySelector('h2').after(caption);}
+  const achievers=section(columns,'이번 주 목표 달성자');
+  note(achievers,summary.goal.level||summary.goal.growth?'목표 '+[summary.goal.level?'Lv.'+summary.goal.level:'',summary.goal.growth?'성장도 '+format(summary.goal.growth):''].filter(Boolean).join(' · ')+(summary.goal.deadline?' · ~'+summary.goal.deadline:''):'성장 목표 미설정');
+  const achievementHeaders=['닉네임','달성일','달성 전 → 후'],achievementRows=summary.goalAchievers.map(row=>{
+    const change=el('span');change.append(el('span',format(row.previousGrowth)+' → '+format(row.growth)));
+    if(summary.goal.level)change.append(el('small','Lv.'+(row.previousLevel??'미기록')+' → '+(row.level??'미기록'),'overview-note'));
+    return [row.name,short(row.date),change];
+  });
+  if(achievementRows.length){table(achievers,achievementHeaders,achievementRows.slice(0,5));if(achievementRows.length>5){const details=el('details',undefined,'overview-absences');details.append(el('summary','전체 달성자 보기 · '+achievementRows.length+'명'));table(details,achievementHeaders,achievementRows.map(row=>row.map(value=>value instanceof Node?value.cloneNode(true):value)));achievers.append(details);}}
+  else note(achievers,'이번 주 새로 확인된 목표 달성자가 없습니다.');
+  information(achievers,'현재 성장 목표 기준. 주 시작 전 기록에서 미달이 확인되고, 이번 주 기록에서 목표를 달성한 현재 길드원입니다. 성장도와 레벨 조건을 함께 충족해야 하며, 비교 기록이 부족한 인원은 제외합니다. 달성일은 최초로 충족이 확인된 기록일입니다. 선택 주를 포함한 최근 3주에 매주 기록된 콘텐츠가 모두 X이면 제외합니다. 미기록(-) 또는 콘텐츠 기록이 없는 주는 불참으로 단정하지 않습니다.');
   const scheduled=section(weekly,'일정 · 분배');
   for(const event of summary.upcoming){const item=el('p',undefined,'overview-schedule');item.append(badge(short(event.date),'date'),el('strong',event.header));scheduled.append(item);}
   for(const group of summary.distributions){const item=el('p',undefined,'overview-schedule');item.append(el('strong',group.title),el('span',group.records.length?group.records.length+'건 기록':group.schedule||'분배 예정'));scheduled.append(item);}
