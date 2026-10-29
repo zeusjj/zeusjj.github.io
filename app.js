@@ -140,9 +140,11 @@ function renderRules(text) {
     const body=element('div',undefined,'policy-body');
     const content=match[2].trim();
     if(kind==='chat') {
-      const linkMatch=content.match(/^(.*?)\s*(https:\/\/open\.kakao\.com\/o\/[A-Za-z0-9]+)\s*$/);
-      if(linkMatch){const line=element('p'),link=element('a',linkMatch[2]);link.href=linkMatch[2];link.target='_blank';link.rel='noopener noreferrer';line.append(document.createTextNode(linkMatch[1]+' '),link);body.append(line);}
-      else bodyContent(content,body);
+      for(const text of content.split(/\r?\n/).filter(line=>line.trim())){
+        const linkMatch=text.match(/^(.*?)\s*(https:\/\/open\.kakao\.com\/o\/[A-Za-z0-9]+)\s*$/);
+        if(linkMatch){const line=element('p'),link=element('a',linkMatch[2]);link.href=linkMatch[2];link.target='_blank';link.rel='noopener noreferrer';line.append(document.createTextNode(linkMatch[1]+' '),link);body.append(line);}
+        else bodyContent(text,body);
+      }
     } else if(kind==='target') {
       const match=content.match(/^(.*?)\s*(\([^)]*\))$/);
       if(match){const line=element('p');line.append(document.createTextNode(match[1]+' '),element('small',match[2]));body.append(line);}
