@@ -164,8 +164,8 @@ function renderWeekly(){
   const achievers=section(columns,'이번 주 목표 달성자');
   note(achievers,summary.goal.level||summary.goal.growth?'목표 '+[summary.goal.level?'Lv.'+summary.goal.level:'',summary.goal.growth?'성장도 '+format(summary.goal.growth):''].filter(Boolean).join(' · ')+(summary.goal.deadline?' · ~'+summary.goal.deadline:''):'성장 목표 미설정');
   const achievementHeaders=['닉네임','달성일','달성 전 → 후'],achievementRows=summary.goalAchievers.map(row=>{
-    const change=el('span');change.append(el('span',format(row.previousGrowth)+' → '+format(row.growth)));
-    if(summary.goal.level)change.append(el('small','Lv.'+(row.previousLevel??'미기록')+' → '+(row.level??'미기록'),'overview-note'));
+    const change=el('div');change.append(el('div',format(row.previousGrowth)+' → '+format(row.growth)));
+    if(summary.goal.level)change.append(el('div','Lv.'+(row.previousLevel??'미기록')+' → '+(row.level??'미기록'),'overview-note'));
     return [row.name,short(row.date),change];
   });
   if(achievementRows.length){table(achievers,achievementHeaders,achievementRows.slice(0,5));if(achievementRows.length>5){const details=el('details',undefined,'overview-absences');details.append(el('summary','전체 달성자 보기 · '+achievementRows.length+'명'));table(details,achievementHeaders,achievementRows.map(row=>row.map(value=>value instanceof Node?value.cloneNode(true):value)));achievers.append(details);}}
