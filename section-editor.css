@@ -1,0 +1,22 @@
+.section-editable-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.section-edit-trigger{flex-shrink:0;width:28px;min-width:28px;height:28px;min-height:28px;padding:5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.section-edit-trigger svg{width:14px;height:14px}
+.section-editor-dialog{width:min(640px,calc(100vw - 24px));max-width:640px;max-height:calc(100dvh - 24px);padding:22px;overflow-y:auto;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.section-editor-dialog::backdrop{background:#0007}
+.section-editor-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.section-editor-heading h2{margin:0;font-size:18px}
+.section-editor-tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+.section-editor-tabs [aria-pressed=true]{color:var(--accent);background:var(--surface-subtle)}
+.section-editor-fields{display:grid;gap:14px}
+.section-editor-fields[hidden],.section-editor-preview[hidden],.section-editor-history[hidden]{display:none}
+.section-editor-fields label{display:grid;gap:7px;font-size:13px;font-weight:600}
+.section-editor-fields input,.section-editor-fields textarea{width:100%;min-width:0;font:inherit;font-weight:400;box-sizing:border-box;background:var(--surface);color:var(--ink)}
+.section-editor-fields textarea{resize:vertical;line-height:1.8;min-height:220px}
+.section-editor-preview{min-height:220px;overflow-wrap:anywhere}
+.section-editor-preview h3{font-size:16px}.section-editor-preview p{white-space:pre-wrap;line-height:1.9;font-size:13px}
+.section-editor-history{display:flex;flex-wrap:wrap;gap:8px;min-height:90px;align-content:flex-start}
+.section-editor-history select{flex:1;min-width:0;max-width:100%}
+.section-editor-status{min-height:20px;font-size:12px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere}
+.section-editor-dialog .form-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+@media(max-width:700px){.section-edit-trigger{width:44px;min-width:44px;height:44px;min-height:44px}}
+@media(max-width:480px){.section-editor-dialog{padding:16px}.section-editor-dialog .form-actions{gap:6px}}
