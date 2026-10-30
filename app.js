@@ -54,6 +54,9 @@ async function refreshMemberArchive(){
 }
 window.addEventListener('guild-auth-change',refreshMemberArchive);
 let memberSort=null;
+const temporaryMemberToggle=document.getElementById('member-temporary-toggle'),temporaryFilterKey='guild-members-exclude-temporary-v1';
+try{temporaryMemberToggle.checked=localStorage.getItem(temporaryFilterKey)==='true';}catch{}
+temporaryMemberToggle.addEventListener('change',()=>{try{localStorage.setItem(temporaryFilterKey,String(temporaryMemberToggle.checked));}catch{}if(publicMemberSource)renderMembers(currentMemberSource(),document.getElementById('search').value);});
 let memberDateTimer;
 let calculateParticipation;
 const participationModel=import('./guild-overview-model.js?v=20261030-defense').then(model=>{calculateParticipation=model.weightedParticipation;});
@@ -718,7 +721,8 @@ function renderMembers(data, query='') {
   data.members.forEach(row=>row.splice(participationIndex,0,scores.get(row[data.headers.indexOf('닉네임')])??null));
   memberData=data;
   const nameIndex=data.headers.indexOf('닉네임');
-  const rows=data.members.filter(row=>GuildNicknameSearch.matches(row[nameIndex],query));
+  const excluded=temporaryMemberToggle.checked?new Set(source.temporaryMembers??[]):new Set();
+  const rows=data.members.filter(row=>!excluded.has(row[nameIndex])&&GuildNicknameSearch.matches(row[nameIndex],query));
   if(memberSort){
     const index=memberSort.index,direction=memberSort.direction==='descending'?-1:1;
     const rank=value=>{const text=String(value??'').trim().toUpperCase();return text==='O'||text==='ㅇ'?2:text==='X'?1:0;};
@@ -768,7 +772,7 @@ function renderMembers(data, query='') {
   for(const [line,row] of rows.entries()) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===0)td.textContent=line+1;else if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const level=data.headers[index]==='성장도 기록'?data.levels?.[data.dates?.[index]?.start]?.[row[nameIndex]]:null;const text=typeof value==='number'?value.toLocaleString('ko-KR')+(Number.isInteger(level)?` (${level})`:''):value??'-';const status=element('span',text,'status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else if(index===nameIndex){const name=String(value??''),characters=Array.from(name);td.append(element('span',name,'member-name-label'));td.dataset.shortName=characters.slice(0,3).join('')+(characters.length>3?'…':'');td.title=name;td.setAttribute('aria-label',name);}else td.textContent=value;tr.append(td);});body.append(tr);}
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>{cell.hidden=hiddenColumn(index);const total=memberFestivalTotal(data,rows[row.sectionRowIndex],index);if(total){cell.querySelector('.status').append(total);cell.title='2차 제전 기여도 (1·2차 누적)';}if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';cell.textContent=typeof rows[row.sectionRowIndex][index]==='number'?new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(rows[row.sectionRowIndex][index]):'—';}}));
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach(markWeek));
-  table.append(body);document.getElementById('member-count').textContent=`${source.members.length} / 60 명`;
+  table.append(body);document.getElementById('member-count').textContent=`${source.members.length} / 60 명`+(temporaryMemberToggle.checked?` · ${rows.length}명 표시`:'');
   [...body.rows].forEach((tr,index)=>{
     const name=rows[index][nameIndex],record=participationRecords.find(record=>record.name===name);tr.dataset.memberName=name;tr.classList.toggle('member-is-me',name===window.GuildNickname?.get());
     if(window.GuildMemberArchive.has(source,name)){tr.dataset.departed='true';const cell=tr.querySelector('.member-name');cell.title=name+' · 탈퇴';cell.append(element('small','탈퇴','member-departed-label'));}
