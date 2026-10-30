@@ -1,5 +1,5 @@
-import {growthHistory,levelHistory} from './member-growth-history.js?v=20261026-fixed-axis';
-import {weeklyOverview,weekStart,koreaDay} from './guild-overview-model.js?v=20261030-goal-achievers';
+import {growthHistory,levelHistory} from './member-growth-history.js?v=20261030-participation';
+import {weeklyOverview,weekStart,koreaDay} from './guild-overview-model.js?v=20261030-defense';
 
 export function growthAchievementSummary(data,today=koreaDay()){
  const weekly=weeklyOverview(data,weekStart(today),today),nameIndex=data.headers.indexOf('닉네임');

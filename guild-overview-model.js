@@ -4,6 +4,8 @@ export const shiftDay=(day,offset)=>new Date(Date.parse(day+'T00:00:00Z')+offset
 export function weekStart(day){const date=new Date(day+'T00:00:00Z');return shiftDay(day,-date.getUTCDay());}
 const numeric=value=>typeof value==='number'&&Number.isFinite(value);
 const status=value=>{const text=String(value??'').toUpperCase();return ['O','ㅇ'].includes(text)?'yes':text==='X'?'no':null;};
+export const isGuildActivity=header=>/레이드|제전$|점령전|성물 방어전/.test(header)&&!/기여/.test(header);
+export const isRelicDefense=header=>/성물 방어전/.test(header);
 export function columns(data,match,through=koreaDay()){
   return data.headers.flatMap((header,index)=>{const date=data.dates?.[index]?.start;return match(header)&&/^\d{4}-\d{2}-\d{2}$/.test(date||'')&&date<=through&&data.members.some(row=>numeric(row[index]))?[{header,index,date,end:data.dates[index].end}]:[];}).sort((a,b)=>a.date.localeCompare(b.date)||a.index-b.index);
 }
@@ -14,8 +16,8 @@ export function ranked(entries){
 }
 export function events(data,through=koreaDay()){
   return data.headers.flatMap((header,index)=>{
-    const date=data.dates?.[index]?.start;
-    if(!/레이드|제전$|점령전/.test(header)||/기여/.test(header)||!date||date>through)return [];
+    const period=data.dates?.[index],date=isRelicDefense(header)?period?.end||period?.start:period?.start;
+    if(!isGuildActivity(header)||!date||date>through)return [];
     const eligible=data.members.flatMap(row=>{const value=status(row[index]);return value?[{name:row[data.headers.indexOf('닉네임')],status:value}]:[];});
     return eligible.length?[{header,index,date,eligible,attended:eligible.filter(row=>row.status==='yes').length}]:[];
   }).sort((a,b)=>b.date.localeCompare(a.date)||b.index-a.index);
@@ -29,18 +31,27 @@ export function guildGrowthSeries(data,through=koreaDay()){
     return {date:column.date,value:values.reduce((sum,value)=>sum+value,0)/values.length,count:values.length};
   });
 }
-export function weightedParticipation(data,through=koreaDay()){
-  const activities=events(data,through),nameIndex=data.headers.indexOf('닉네임');
-  if(!activities.length)return {lastDate:null,periods:[],rows:[]};
+export function participationPeriods(data,through=koreaDay(),activities=events(data,through)){
+  if(!activities.length)return [];
   const anchor=weekStart(activities[0].date);
-  const periods=Array.from({length:4},(_,i)=>{
+  return Array.from({length:4},(_,i)=>{
     const start=shiftDay(anchor,(i-3)*7),end=shiftDay(start,6),held=activities.filter(event=>event.date>=start&&event.date<=end);
-    return {start,end,events:held,ambiguous:new Set(held.map(event=>event.date)).size>1};
+    const scheduled=data.headers.flatMap((header,index)=>{const period=data.dates?.[index],date=isRelicDefense(header)?period?.end||period?.start:period?.start;return isGuildActivity(header)&&date>=start&&date<=end?[{header,index,date}]:[];});
+    const hasDefense=scheduled.some(event=>isRelicDefense(event.header));
+    const main=held.filter(event=>!isRelicDefense(event.header));
+    const planned=held.length&&hasDefense?scheduled:held;
+    const mainCount=planned.filter(event=>!isRelicDefense(event.header)).length,defenseCount=planned.filter(event=>isRelicDefense(event.header)).length;
+    const weightedEvents=planned.map(event=>({...event,weight:isRelicDefense(event.header)?5/defenseCount:(hasDefense?20:25)/mainCount,pending:event.date>through}));
+    return {start,end,events:weightedEvents,hasDefense,ambiguous:new Set(main.map(event=>event.date)).size>1};
   });
+}
+export function weightedParticipation(data,through=koreaDay(),activities=events(data,through)){
+  const nameIndex=data.headers.indexOf('닉네임'),periods=participationPeriods(data,through,activities);
+  if(!activities.length)return {lastDate:null,periods:[],rows:[]};
   const rows=data.members.map(row=>{
     const breakdown=periods.map(period=>{
-      const values=period.events.map(event=>status(row[event.index])),attended=values.filter(value=>value==='yes').length,missing=values.filter(value=>value===null).length;
-      return {...period,attended,missing,total:values.length,points:period.ambiguous?null:values.length?25*attended/values.length:0};
+      const values=period.events.map(event=>event.pending?null:status(row[event.index])),attended=values.filter(value=>value==='yes').length,missing=values.filter(value=>value===null).length;
+      return {...period,attended,missing,total:values.length,points:period.ambiguous?null:period.events.reduce((sum,event,i)=>sum+(values[i]==='yes'?event.weight:0),0)};
     });
     const needsReview=breakdown.some(period=>period.ambiguous);
     return {name:row[nameIndex],score:needsReview?null:breakdown.reduce((sum,period)=>sum+period.points,0),breakdown,incomplete:breakdown.some(period=>period.missing||!period.total),needsReview};
@@ -110,7 +121,7 @@ export function weeklyOverview(data,start,through=koreaDay()){
     const goalAchieved=goalKnown?(!goal.growth||row[last.index]>=goal.growth)&&(!goal.level||level>=goal.level):null;
     return [{name,value,goalAchieved}];
   }).sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name,'ko'));
-  const allEvents=data.headers.flatMap((header,index)=>{const date=data.dates?.[index]?.start;return /레이드|제전$|점령전/.test(header)&&!/기여/.test(header)&&date>=start&&date<=end&&date>through?[{header,date}]:[];});
+  const allEvents=data.headers.flatMap((header,index)=>{const period=data.dates?.[index],date=isRelicDefense(header)?period?.end||period?.start:period?.start;return isGuildActivity(header)&&date>=start&&date<=end&&date>through?[{header,date}]:[];});
   const distributions=(data.distribution||[]).filter(group=>{const number=group.title.match(/(\d+)차/)?.[1],index=data.headers.indexOf(number+'차 레이드'),date=data.dates?.[index]?.start;return date>=start&&date<=end;});
   return {start,end,until,last,previous,growth,growthRates,contribution,contributionRanks,activities,eligible,attended,goal,goalRows:goalRows.length,achieved,goalAchievers,participationRows,upcoming:allEvents,distributions,report};
 }

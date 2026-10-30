@@ -1,4 +1,4 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261030-goal-achievers';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261030-defense';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
 
@@ -85,7 +85,7 @@ function renderProfile(){
     for(const period of weighted.breakdown){const track=el('span',undefined,'participation-meter-week'),fill=el('span');fill.style.width=Math.max(0,Math.min(100,(period.points??0)*4))+'%';track.title=short(period.start)+' '+(period.points===null?'산정 확인 필요':decimal.format(period.points)+'% / 25%');track.append(fill);meter.append(track);}const threshold=el('span','75%','participation-meter-threshold');meter.append(threshold);participationScore.append(meter);
     note(participationScore,short(report.weighted.lastDate)+' 최근 콘텐츠 기록 기준 · 입찰의 다른 조건은 별도 확인');
     table(participationScore,['집계 주간','콘텐츠 수','내 참여','반영 점수'],weighted.breakdown.map(period=>[short(period.start)+' ~ '+short(period.end),period.total?period.total+'개':'기록 없음',period.total?period.attended+' / '+period.total+'회'+(period.missing?' · 미기록 '+period.missing+'개':''):'—',period.points===null?'산정 확인 필요':decimal.format(period.points)+'% / 25%']));
-    information(participationScore,'최근 4주 각 25%. 같은 날 콘텐츠를 N개 진행하면 1개당 25/N%로 계산하고 반올림 전 원수치로 합산합니다.');
+    information(participationScore,'최근 4주 각 25%. 성물 방어전이 포함된 주는 일요일 콘텐츠 합계 20%(N개이면 각 20/N%)와 성물 방어전 5%로 나눕니다. 성물은 월·화 중 한 번 참여하면 5% 전부를 받습니다. 성물 일정이 없던 과거 주는 기존 25/N%를 유지하며 반올림 전 수치로 합산합니다.');
     if(weighted.incomplete)note(participationScore,'미기록(-) 또는 기록이 없는 주는 점수를 가산하지 않았습니다. 가입 전 기록 등은 별도 확인이 필요합니다.');
     if(weighted.needsReview)note(participationScore,'같은 주에 여러 날짜의 콘텐츠가 있어 주간 25% 배분 기준 확인이 필요합니다.');
   }else note(participationScore,'참여 기록이 없습니다.');

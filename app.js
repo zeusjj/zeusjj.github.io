@@ -56,7 +56,7 @@ window.addEventListener('guild-auth-change',refreshMemberArchive);
 let memberSort=null;
 let memberDateTimer;
 let calculateParticipation;
-const participationModel=import('./guild-overview-model.js?v=20261020-190').then(model=>{calculateParticipation=model.weightedParticipation;});
+const participationModel=import('./guild-overview-model.js?v=20261030-defense').then(model=>{calculateParticipation=model.weightedParticipation;});
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';

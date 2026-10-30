@@ -19,6 +19,7 @@ input,select,textarea{min-width:0;border:1px solid #d9e0e5;border-radius:5px;pad
 input,select,textarea{color:var(--ink)}
 .allocation-facts dt,.entry-author,.board-entry time,.record-count,.tool label,.tool p,.notice-schedule dt{color:#6c7d76}
 .guestbook-login{display:inline-flex;align-items:center;gap:7px;margin-bottom:2px;min-height:44px}#guestbook-dialog [hidden]{display:none!important}
+.member-history-basis{display:block;max-width:100%;margin-top:8px;color:var(--muted);font-size:11px;line-height:1.6;overflow-wrap:anywhere}.member-history-basis[hidden]{display:none}
 #member-table thead tr:last-child th:first-child{min-width:48px;width:48px}
 #member-table thead tr:last-child th:nth-child(3){min-width:70px;width:70px}
 .tip-entry-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}.tip-manage-form{margin:20px 0 0;max-width:900px}.tip-manage-form h3{margin-bottom:18px}.danger-button{border:1px solid #b35343;border-radius:5px;background:#b35343;color:#fff;font-size:12px;font-weight:600;min-height:38px;padding:8px 15px}.danger-button:hover{background:#944536}.tip-manage-form input,.tip-manage-form textarea{font-size:14px}
