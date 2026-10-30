@@ -686,6 +686,25 @@ function memberDateBadge(period,today){
   if(days>=1&&days<=3)return {label:'D-'+days,kind:'upcoming',description:days+'일 후 일정'};
   return null;
 }
+function memberFestivalTotal(data,row,index){
+  if(data.headers[index]!=='2차 제전 기여'||typeof row[index]!=='number')return '';
+  const first=row[data.headers.indexOf('1차 제전 기여')];
+  return ` (${(row[index]+(typeof first==='number'?first:0)).toLocaleString('ko-KR')})`;
+}
+function renderSeasonBand(table,data,identityCount,isHidden){
+  table.parentElement.querySelector('.member-season-band')?.remove();
+  if(!window.GuildArcadiaSeasons)return;
+  const band=element('div',undefined,'member-season-band');band.setAttribute('role','group');band.setAttribute('aria-label','아카디아 시즌별 일정');
+  band.append(element('span','시즌','member-season-corner'));
+  const short=value=>value.slice(5).split('-').map(Number).join('/');
+  for(const group of GuildArcadiaSeasons.groups(data,identityCount,isHidden)){
+    const cell=element('div',undefined,'member-season-segment');cell.style.setProperty('--season-columns',group.count);cell.dataset.tone=group.key?(group.key%2?'a':'b'):'none';
+    const label=element('span',undefined,'member-season-label');label.append(element('strong',group.season?'아카디아 시즌 '+group.key:'시즌 이전'));
+    if(group.season)label.append(element('small',short(group.season.start)+' ~ '+short(group.season.end)));
+    cell.append(label);band.append(cell);
+  }
+  table.before(band);
+}
 function renderMembers(data, query='') {
   const source=data;
   const archivedRows=query.trim()?window.GuildMemberArchive.rows(source):[];
@@ -716,6 +735,7 @@ function renderMembers(data, query='') {
   const table=document.getElementById('member-table');table.replaceChildren();
   const hiddenColumn=index=>index!==participationIndex&&hiddenMemberColumn(data,index);
   const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=participationIndex+1;
+  renderSeasonBand(table,data,identityCount,hiddenColumn);
   const weekGroups=memberWeekGroups(data,identityCount,hiddenColumn);
   const markWeek=(cell,index)=>{const group=weekGroups[index];if(!group)return;cell.dataset.week=group.week;cell.dataset.weekTone=group.tone;if(group.start)cell.dataset.weekStart='true';};
   const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':index===participationIndex?'member-participation':undefined;
@@ -746,7 +766,7 @@ function renderMembers(data, query='') {
   });head.append(titles);table.append(head);
   const body=element('tbody');
   for(const [line,row] of rows.entries()) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===0)td.textContent=line+1;else if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const level=data.headers[index]==='성장도 기록'?data.levels?.[data.dates?.[index]?.start]?.[row[nameIndex]]:null;const text=typeof value==='number'?value.toLocaleString('ko-KR')+(Number.isInteger(level)?` (${level})`:''):value??'-';const status=element('span',text,'status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else if(index===nameIndex){const name=String(value??''),characters=Array.from(name);td.append(element('span',name,'member-name-label'));td.dataset.shortName=characters.slice(0,3).join('')+(characters.length>3?'…':'');td.title=name;td.setAttribute('aria-label',name);}else td.textContent=value;tr.append(td);});body.append(tr);}
-  body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>{cell.hidden=hiddenColumn(index);if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';cell.textContent=typeof rows[row.sectionRowIndex][index]==='number'?new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(rows[row.sectionRowIndex][index]):'—';}}));
+  body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>{cell.hidden=hiddenColumn(index);const total=memberFestivalTotal(data,rows[row.sectionRowIndex],index);if(total){cell.querySelector('.status').append(total);cell.title='2차 제전 기여도 (1·2차 누적)';}if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';cell.textContent=typeof rows[row.sectionRowIndex][index]==='number'?new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(rows[row.sectionRowIndex][index]):'—';}}));
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach(markWeek));
   table.append(body);document.getElementById('member-count').textContent=`${source.members.length} / 60 명`;
   [...body.rows].forEach((tr,index)=>{

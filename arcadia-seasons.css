@@ -1,0 +1,10 @@
+.member-grid{--season-height:34px;--season-identity:calc(var(--identity-width) + var(--chat-width) + var(--participation-width))}
+.member-season-band{position:sticky;top:0;z-index:6;display:flex;height:var(--season-height);width:max-content;min-width:100%;background:var(--surface);border-bottom:1px solid var(--line);font-size:11px;line-height:32px}
+.member-season-corner{position:sticky;left:0;z-index:2;flex:0 0 var(--season-identity);width:var(--season-identity);background:var(--surface-subtle);box-shadow:1px 0 var(--line);text-align:center;color:var(--muted)}
+.member-season-segment{flex:0 0 calc(var(--season-columns) * var(--content-width));width:calc(var(--season-columns) * var(--content-width));min-width:0;border-right:1px solid var(--line);border-bottom:2px solid #287b70;background:#e9f3f0;color:#215e54;box-sizing:border-box}
+.member-season-segment[data-tone="b"]{border-bottom-color:#8b5680;background:#f4edf2;color:#744668}
+.member-season-segment[data-tone="none"]{border-bottom-color:var(--line);background:var(--surface-subtle);color:var(--muted)}
+.member-season-label{position:sticky;left:var(--season-identity);display:inline-flex;align-items:center;gap:10px;padding:0 12px;max-width:calc(100vw - var(--season-identity) - 48px);white-space:nowrap;box-sizing:border-box}
+.member-season-label strong{font-size:11px;font-weight:650;letter-spacing:0}.member-season-label small{font-size:10px;opacity:.85}
+#members #member-table th{top:var(--season-height)}
+@media(max-width:700px){.member-grid{--season-height:44px}.member-season-band{line-height:1.4}.member-season-label{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;height:43px;padding:0 8px}.member-season-label strong{font-size:10px}.member-season-label small{font-size:9px}.member-season-corner{display:flex;align-items:center;justify-content:center;font-size:10px}}
