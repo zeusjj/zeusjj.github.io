@@ -1,9 +1,127 @@
 {
-  "collectedAt": "2026-10-31T20:06:51.612563+00:00",
+  "collectedAt": "2026-10-31T21:08:44.366547+00:00",
   "days": 14,
   "coverageStart": "2026-10-31",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "100084",
+      "title": "클래스 특화 오리강화",
+      "publishedAt": "2026-11-01T05:55:24+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100084",
+      "recommended": false,
+      "contentText": "오리강화 대충 신과 몇부터 할만함?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
+    },
+    {
+      "id": "100083",
+      "title": "4만투력 정도면 쌀먹 엥간함?",
+      "publishedAt": "2026-11-01T05:40:01+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100083",
+      "recommended": false,
+      "contentText": "내가 너무 늦게 시작해서 이제 본캐가 이제 36렙에 이제 1.8만인데 넘 낮은거 같아서 새로 살려고함\n대충 3후반이나 4만대에 영영희 계정 업어오면 하루에 몇다이아 정도 벎?",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
+      "comments": [
+        {
+          "id": "280406",
+          "text": "벌겠냐 50도 안 벌리는데 이 겜 수명 이제 끝났어",
+          "reply": false
+        },
+        {
+          "id": "280410",
+          "text": "헐..",
+          "reply": true
+        },
+        {
+          "id": "280411",
+          "text": "난 한달에 10~15만 정도만 버는게 목푠데 그래도 힘들어?",
+          "reply": true
+        },
+        {
+          "id": "280409",
+          "text": "4만 사봤자 달라지는거 없어\n\n살거면 아싸리 7-8만 이상 전설 계정을 떠와야지",
+          "reply": false
+        },
+        {
+          "id": "280412",
+          "text": "난 한달에 10~15만 정도만 버는게 목푠데 그래도 힘들어?",
+          "reply": true
+        },
+        {
+          "id": "280414",
+          "text": "@글쓴 제수스(113.59) 그냥 자동 통발으로는 달달이 계정비 빼면 3만원이나 벌면 다행이지",
+          "reply": true
+        },
+        {
+          "id": "280416",
+          "text": "@글쓴 제수스(113.59) 템 이나 오리 버는 족족 빤쓰까지 팔면 가능 하겠지\n\n그럼 게임하는 맛이 없지 않냐 성장하는 맛도 있을텐데",
+          "reply": true
+        },
+        {
+          "id": "280418",
+          "text": "그런감.. 오케이 알겠으",
+          "reply": true
+        },
+        {
+          "id": "0",
+          "text": "배달 음식 아래 웬 종이 한 장?… 이유 알려지자 누리꾼들 ‘감동’\n\n1/20",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
+    },
+    {
+      "id": "100082",
+      "title": "추적 몇분 유지임?",
+      "publishedAt": "2026-11-01T05:37:17+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100082",
+      "recommended": false,
+      "contentText": "제곧내",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
+    },
+    {
+      "id": "100081",
+      "title": "갤평 축성 몇이냐",
+      "publishedAt": "2026-11-01T05:19:06+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100081",
+      "recommended": false,
+      "contentText": "올파랑 이쁘네",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
+      "comments": [
+        {
+          "id": "280399",
+          "text": "얼마썼냐",
+          "reply": false
+        },
+        {
+          "id": "280400",
+          "text": "오픈이후 축성관련된건 다삼 마일리지포함",
+          "reply": true
+        },
+        {
+          "id": "280401",
+          "text": "딱 갤평이네",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
+    },
     {
       "id": "100080",
       "title": "타르소스 7개 무과낫다",
@@ -13,10 +131,26 @@
       "contentText": "다신안산다..\n\n0파템",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-31T20:06:51.612563+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "280398",
+          "text": "7시간을 했는데???????????????????? 저주캐릭이누",
+          "reply": false
+        },
+        {
+          "id": "280402",
+          "text": "ㅋㅋㅋㅋㅋ 난 11시간 1개 생각하면 비슷한듯",
+          "reply": false
+        },
+        {
+          "id": "280405",
+          "text": "어제오늘 진짜안주더라 ㅋㅋ 그전까진 그럭저럭떳는데",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T20:06:51.612563+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100079",
@@ -27,10 +161,16 @@
       "contentText": "아시는분",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-31T20:06:51.612563+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "280393",
+          "text": "비~밀 - dc App",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T20:06:51.612563+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100078",
@@ -46,11 +186,16 @@
           "id": "280390",
           "text": "ㅈㄴ 나는데 3티 뽑음?",
           "reply": false
+        },
+        {
+          "id": "280395",
+          "text": "2티 100포짜리 - dc App",
+          "reply": true
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T20:06:51.612563+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100077",
@@ -64,7 +209,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T20:06:51.612563+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100076",
@@ -80,11 +225,16 @@
           "id": "280388",
           "text": "ㅋㅋ",
           "reply": false
+        },
+        {
+          "id": "280391",
+          "text": "나두 ㅋㅋㅋ",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T20:06:51.612563+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100075",
@@ -98,7 +248,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T20:06:51.612563+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100074",
@@ -114,11 +264,26 @@
           "id": "280375",
           "text": "개백수 확정이지뭐",
           "reply": false
+        },
+        {
+          "id": "280378",
+          "text": "쉬엄쉬엄했는데 개백수라고?? 그럼개백수는 도대체 몇이라는거야",
+          "reply": true
+        },
+        {
+          "id": "280376",
+          "text": "개백수 축하한다 - dc App",
+          "reply": false
+        },
+        {
+          "id": "280377",
+          "text": "kbs 입사축하",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100073",
@@ -132,7 +297,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100072",
@@ -152,7 +317,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100071",
@@ -166,7 +331,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100070",
@@ -177,10 +342,16 @@
       "contentText": "5.6 찍고 드디어 깼다 ㅅㅂ\n\n이거 무슨 5.3에 깼니 뭐네 하는거 다 구라임\n\n글리치 말고 맞다이하는건 택도 없던데\n\n5.6 찍고 딸피로 겨우 깸",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-31T19:19:22.570028+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "280403",
+          "text": "나는 1대치고 쳐맞으면서 벽위에 올라가서 깼는데",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100069",
@@ -200,7 +371,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100068",
@@ -211,10 +382,16 @@
       "contentText": "영웅 날탈도 운좋게 뽑은거 아니면 55찍고 받지 않음?\n\n자하브 보스 실타래 시작 시점 51 / 56 / 61 과금없이 도달이 빠를수가 없어서 말이 안되는 듯?",
       "contentStatus": "text",
       "contentFetchedAt": "2026-10-31T19:19:22.570028+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "280383",
+          "text": "전설 뜨고 시작해도 힘들 거 같긴 함 - dc App",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100067",
@@ -228,7 +405,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100066",
@@ -242,7 +419,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100065",
@@ -262,7 +439,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100064",
@@ -282,7 +459,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100063",
@@ -302,7 +479,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100062",
@@ -341,7 +518,7 @@
         },
         {
           "id": "0",
-          "text": "\"이래서 삼성 삼성 하는구나\"…중국 폰에 차세대 칩 넣어봤더니 '발칵'\n\n1/20",
+          "text": "김치전 부칠 때 부침가루만 넣지 마세요… 시장 맛집에서는 '이 가루' 넣습니다\n\n1/20",
           "reply": false
         },
         {
@@ -398,11 +575,46 @@
           "id": "280373",
           "text": "5.5쯤되면 너가 상상하는거 이상으로 투자대비 성장도 좆도안오름",
           "reply": true
+        },
+        {
+          "id": "280381",
+          "text": "갤이 환상도 심하고 병신들이 자꾸 소설 써서 그렇지 그냥 쌀먹 안하는 기준으로도 99단으로 5.5만 찍어도 존내 잘찍은거임 최근 기준으로 그리고 갤말 믿지마라 대부분 개소리니까 반은 믿고 반은 걸러라 진짜도 있고 구라도 있음 그리고 지가 쳐물려가지고 99단이라고 주장하는놈도 있음. 3영 맞춰놓고 과금 잠궈놓고 99단이라고 외치는놈도 있음. 아무리 운 좋아도 6만 절대 못넘김 99단은",
+          "reply": false
+        },
+        {
+          "id": "280389",
+          "text": "개소리임\n\n모든 뽑기 확률 주작했으면 몰라",
+          "reply": false
+        },
+        {
+          "id": "280392",
+          "text": "그거 다 통발로 몰아주기해서그런거임. 통발지원없이는 불가능",
+          "reply": false
+        },
+        {
+          "id": "280394",
+          "text": "그리거 통발도 계정떠와서 3개는 더 넘을듯",
+          "reply": false
+        },
+        {
+          "id": "280396",
+          "text": "2개만잇어도 초반에 영변이나 전변 운좋게먹엇음되려나.. 내가 40쓰고 통발하나에서 다이아 번거 반정도만 지원받앗는디 데메섭시작 6이긴하니까 통발두개 + 1주일 + 라인분배하면 될지도.. 난 분배받은거없음",
+          "reply": false
+        },
+        {
+          "id": "280419",
+          "text": "30만원쓰고 내가 6.4이긴함",
+          "reply": false
+        },
+        {
+          "id": "280420",
+          "text": "통발계정 2개 몰빵하긴함",
+          "reply": true
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100061",
@@ -441,13 +653,13 @@
         },
         {
           "id": "0",
-          "text": "\"진짜 완전히 내 이상형\"… 218cm 최홍만, 중국 미녀와 암흑 속 입맞춤 현장\n\n1/20",
+          "text": "“손흥민, 호날두처럼 국대 분열, ‘탁구 게이트’ 때보다 더해”…한국축구 국제 망신\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100060",
@@ -477,7 +689,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100059",
@@ -512,7 +724,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100058",
@@ -543,11 +755,21 @@
           "id": "280319",
           "text": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 포세이돈 선고 군림 새끼들 저리가라할정도네",
           "reply": true
+        },
+        {
+          "id": "280382",
+          "text": "알바들 놀이터",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "\"시급 50배 꿀알바의 기괴한 악몽\"… '알함브라' 이재욱 표 인생작 또 터졌다\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100057",
@@ -591,7 +813,7 @@
         },
         {
           "id": "0",
-          "text": "단기관점 26.10.31 비트코인 월봉마감 꼭 지켜야하는자리.\n\n1/20",
+          "text": "한화생명, 1-3 열세 뒤집고 G2 2-0 완승…2승 2패로 BLG와 8강 길목 승부\n\n1/20",
           "reply": false
         },
         {
@@ -607,7 +829,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100056",
@@ -632,7 +854,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100055",
@@ -666,7 +888,7 @@
         },
         {
           "id": "0",
-          "text": "고전 게임 IP의 새로운 변신 … 팬 개발 프로젝트 잇달아 히트\n\n1/20",
+          "text": "한화생명, 1-3 열세 뒤집고 G2 2-0 완승…2승 2패로 BLG와 8강 길목 승부\n\n1/20",
           "reply": false
         },
         {
@@ -677,7 +899,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100054",
@@ -697,7 +919,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100053",
@@ -741,13 +963,13 @@
         },
         {
           "id": "0",
-          "text": "김주혁 묘소에 팬들 꽃다발, 9년째 끊이지 않았다\n\n1/20",
+          "text": "\"지금 주식 팔아요 말아요?\" 미국 중간선거 '코앞' 전문가들 반전 전망 들어보니\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100052",
@@ -782,7 +1004,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100051",
@@ -807,7 +1029,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100050",
@@ -827,7 +1049,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100049",
@@ -841,7 +1063,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100048",
@@ -861,7 +1083,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100047",
@@ -886,7 +1108,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100046",
@@ -900,7 +1122,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100045",
@@ -914,7 +1136,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100044",
@@ -949,7 +1171,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100043",
@@ -988,7 +1210,7 @@
         },
         {
           "id": "0",
-          "text": "배달 음식 아래 웬 종이 한 장?… 이유 알려지자 누리꾼들 ‘감동’\n\n1/20",
+          "text": "[롤드컵] 한화생명, G2 2대0 꺾고 스위스 5R 진출\n\n1/20",
           "reply": false
         },
         {
@@ -999,7 +1221,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100041",
@@ -1013,7 +1235,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100040",
@@ -1027,7 +1249,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100039",
@@ -1052,7 +1274,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100038",
@@ -1072,7 +1294,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100037",
@@ -1097,7 +1319,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100036",
@@ -1136,7 +1358,7 @@
         },
         {
           "id": "0",
-          "text": "\"이래서 삼성 삼성 하는구나\"…중국 폰에 차세대 칩 넣어봤더니 '발칵'\n\n1/20",
+          "text": "고전 게임 IP의 새로운 변신 … 팬 개발 프로젝트 잇달아 히트\n\n1/20",
           "reply": false
         },
         {
@@ -1157,7 +1379,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100035",
@@ -1196,18 +1418,23 @@
         },
         {
           "id": "0",
-          "text": "\"지금 주식 팔아요 말아요?\" 미국 중간선거 '코앞' 전문가들 반전 전망 들어보니\n\n1/20",
+          "text": "\"연금 정책에 드디어 칼 빼들었다\"…\"국민 기만 아닌가\" 이 대통령 한마디에 '깜짝'\n\n1/20",
           "reply": false
         },
         {
           "id": "280370",
           "text": "장비쪽 해야 될 듯 - dc App",
           "reply": false
+        },
+        {
+          "id": "280404",
+          "text": "장비부터 무기 보조라도 5티 나머지 다4티",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100034",
@@ -1221,7 +1448,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100033",
@@ -1241,7 +1468,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100032",
@@ -1255,7 +1482,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100031",
@@ -1275,7 +1502,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100030",
@@ -1295,7 +1522,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100029",
@@ -1309,7 +1536,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100028",
@@ -1348,7 +1575,7 @@
         },
         {
           "id": "0",
-          "text": "“손흥민, 호날두처럼 국대 분열, ‘탁구 게이트’ 때보다 더해”…한국축구 국제 망신\n\n1/20",
+          "text": "“인사 안 하냐, 감방에서 나왔다”… 출소 나흘 만에 또 시작된 스토킹, 결국\n\n1/20",
           "reply": false
         },
         {
@@ -1359,7 +1586,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100027",
@@ -1418,7 +1645,7 @@
         },
         {
           "id": "0",
-          "text": "닷새째 사라진 ‘부캉이’…전문가들 '이 가능성' 제기했다\n\n1/20",
+          "text": "“우울증 있는 직장인, 결근·업무효율 저하 뚜렷”…서울대병원 연구 결과\n\n1/20",
           "reply": false
         },
         {
@@ -1429,7 +1656,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100026",
@@ -1473,7 +1700,7 @@
         },
         {
           "id": "0",
-          "text": "\"시급 50배 꿀알바의 기괴한 악몽\"… '알함브라' 이재욱 표 인생작 또 터졌다\n\n1/20",
+          "text": "\"진짜 완전히 내 이상형\"… 218cm 최홍만, 중국 미녀와 암흑 속 입맞춤 현장\n\n1/20",
           "reply": false
         },
         {
@@ -1489,7 +1716,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100025",
@@ -1514,7 +1741,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100024",
@@ -1534,7 +1761,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100022",
@@ -1564,7 +1791,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100021",
@@ -1603,7 +1830,7 @@
         },
         {
           "id": "0",
-          "text": "\"하루에도 몇 잔씩 마셨는데\"…신장에 '돌' 생길 수 있다는 뜻밖의 음료\n\n1/20",
+          "text": "\"음주·쇼핑이나 즐긴 줄 아나\"… 이재명 대통령, 해외 순방 의혹에 반발\n\n1/20",
           "reply": false
         },
         {
@@ -1614,7 +1841,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100020",
@@ -1653,7 +1880,7 @@
         },
         {
           "id": "0",
-          "text": "고전 게임 IP의 새로운 변신 … 팬 개발 프로젝트 잇달아 히트\n\n1/20",
+          "text": "“손흥민, 호날두처럼 국대 분열, ‘탁구 게이트’ 때보다 더해”…한국축구 국제 망신\n\n1/20",
           "reply": false
         },
         {
@@ -1669,7 +1896,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100019",
@@ -1683,7 +1910,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100017",
@@ -1697,7 +1924,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100016",
@@ -1711,7 +1938,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100015",
@@ -1741,7 +1968,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100014",
@@ -1780,7 +2007,7 @@
         },
         {
           "id": "0",
-          "text": "배달 음식 아래 웬 종이 한 장?… 이유 알려지자 누리꾼들 ‘감동’\n\n1/20",
+          "text": "단기관점 26.10.31 비트코인 월봉마감 꼭 지켜야하는자리.\n\n1/20",
           "reply": false
         },
         {
@@ -1796,7 +2023,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100013",
@@ -1810,7 +2037,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100012",
@@ -1845,7 +2072,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100011",
@@ -1859,7 +2086,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100010",
@@ -1898,13 +2125,13 @@
         },
         {
           "id": "0",
-          "text": "작은 게임이 주인공이 되는 시간…홍대 ‘HIP’에서 만난 인디의 온기\n\n1/20",
+          "text": "\"주류 거래처 늘리겠다\"던 4억5000만원…클럽 인수에 쓴 대표 징역\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100009",
@@ -1918,7 +2145,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100008",
@@ -1938,7 +2165,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100007",
@@ -1969,11 +2196,21 @@
           "id": "280150",
           "text": "ㄴㄴ",
           "reply": false
+        },
+        {
+          "id": "280386",
+          "text": "똑같은데 잡은 수가 달라져서 체감상 떨어진다고 느껴질듯?",
+          "reply": false
+        },
+        {
+          "id": "0",
+          "text": "한화생명, 1-3 열세 뒤집고 G2 2-0 완승…2승 2패로 BLG와 8강 길목 승부\n\n1/20",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100006",
@@ -1998,7 +2235,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100005",
@@ -2028,7 +2265,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100004",
@@ -2067,13 +2304,13 @@
         },
         {
           "id": "0",
-          "text": "차예련 소속사 \"학폭 의혹 사실무근\" 즉각 반박\n\n1/20",
+          "text": "\"시급 50배 꿀알바의 기괴한 악몽\"… '알함브라' 이재욱 표 인생작 또 터졌다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100003",
@@ -2112,7 +2349,7 @@
         },
         {
           "id": "0",
-          "text": "‘불륜 의혹’ 양홍원, 이번엔 홍대 클럽서 포착…♥원현주 '언팔' 일주일 만\n\n1/20",
+          "text": "[라이브] \"아하 등장\"...'스타레일' 4.7에 아키비리 돌아온다?\n\n1/20",
           "reply": false
         },
         {
@@ -2133,7 +2370,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100002",
@@ -2163,7 +2400,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100001",
@@ -2188,7 +2425,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "100000",
@@ -2223,7 +2460,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99999",
@@ -2243,7 +2480,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99998",
@@ -2263,7 +2500,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99997",
@@ -2297,13 +2534,13 @@
         },
         {
           "id": "0",
-          "text": "[라이브] \"아하 등장\"...'스타레일' 4.7에 아키비리 돌아온다?\n\n1/20",
+          "text": "\"주류 거래처 늘리겠다\"던 4억5000만원…클럽 인수에 쓴 대표 징역\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99996",
@@ -2317,7 +2554,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99995",
@@ -2331,7 +2568,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99994",
@@ -2370,13 +2607,13 @@
         },
         {
           "id": "0",
-          "text": "고전 게임 IP의 새로운 변신 … 팬 개발 프로젝트 잇달아 히트\n\n1/20",
+          "text": "\"연금 정책에 드디어 칼 빼들었다\"…\"국민 기만 아닌가\" 이 대통령 한마디에 '깜짝'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99993",
@@ -2411,7 +2648,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99992",
@@ -2425,7 +2662,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99991",
@@ -2464,7 +2701,7 @@
         },
         {
           "id": "0",
-          "text": "차예련 소속사 \"학폭 의혹 사실무근\" 즉각 반박\n\n1/20",
+          "text": "\"지금 주식 팔아요 말아요?\" 미국 중간선거 '코앞' 전문가들 반전 전망 들어보니\n\n1/20",
           "reply": false
         },
         {
@@ -2476,11 +2713,16 @@
           "id": "280125",
           "text": "fix 애들은 라인이라 부르지 마라\n라인조무사라고 부르면 된다",
           "reply": false
+        },
+        {
+          "id": "280407",
+          "text": "중립이면 중립답게 짜져있어라 여기서 입털지말고ㅋㅋㅋㅋ반왕하던가??자신없쥬??",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99990",
@@ -2524,7 +2766,7 @@
         },
         {
           "id": "0",
-          "text": "[롤드컵] 한화생명, G2 2대0 꺾고 스위스 5R 진출\n\n1/20",
+          "text": "차예련 소속사 \"학폭 의혹 사실무근\" 즉각 반박\n\n1/20",
           "reply": false
         },
         {
@@ -2575,7 +2817,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99989",
@@ -2610,7 +2852,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99988",
@@ -2630,7 +2872,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99987",
@@ -2665,7 +2907,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99986",
@@ -2685,7 +2927,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99985",
@@ -2710,7 +2952,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99984",
@@ -2724,7 +2966,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99983",
@@ -2738,7 +2980,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99982",
@@ -2748,7 +2990,7 @@
       "recommended": false,
       "contentText": "천장 vs 파니,겜블 누가 이길까\n이러면 또 싸우는동안 다른데서 보스먹겠지?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280056",
@@ -2758,7 +3000,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99981",
@@ -2768,11 +3010,11 @@
       "recommended": false,
       "contentText": "하데 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99980",
@@ -2782,7 +3024,7 @@
       "recommended": false,
       "contentText": "이전전에 보탐마다 뜨창이 강요야 열심히하자 치더니\n\n이제 나이뜨와서 부캐로 파이팅하라하노\n\n뭐하는 새끼임?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280044",
@@ -2807,7 +3049,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99979",
@@ -2817,11 +3059,11 @@
       "recommended": false,
       "contentText": "아나 다들 축제 갔냐 왜 템안팔려 !!!!!!!!!",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99978",
@@ -2831,7 +3073,7 @@
       "recommended": false,
       "contentText": "8만ㅡ9만 따리들도 리세가 더 이득이라\n\n리세 돌리는 게임은 첨 봄ㅋㅋㅋㅋ\n\n필드 드랍이 얼마나 좆같으면 이런 말도 안 되는 상황이 벌어지냐",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280037",
@@ -2860,13 +3102,13 @@
         },
         {
           "id": "0",
-          "text": "노동절·제헌절 대체공휴일 첫 적용… 2027년 휴일 및 연차 활용법 총정리\n\n1/20",
+          "text": "김주혁 묘소에 팬들 꽃다발, 9년째 끊이지 않았다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99977",
@@ -2876,7 +3118,7 @@
       "recommended": false,
       "contentText": "보탐좀 맞춰줘라 진짜부탁한다....",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280034",
@@ -2901,7 +3143,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99976",
@@ -2911,7 +3153,7 @@
       "recommended": false,
       "contentText": "동맹 요청한다녜\n\n송키\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280032",
@@ -2945,7 +3187,7 @@
         },
         {
           "id": "0",
-          "text": "11월 7일 무려 100만 명 인파 예상되는 ‘부산불꽃축제’ …부산시장 “긴장의 끈 놓지 말아달라” 당부\n\n1/20",
+          "text": "작은 게임이 주인공이 되는 시간…홍대 ‘HIP’에서 만난 인디의 온기\n\n1/20",
           "reply": false
         },
         {
@@ -2961,7 +3203,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99975",
@@ -2971,7 +3213,7 @@
       "recommended": false,
       "contentText": "녹슨상의 0강 18개 등록해놓고 기다리는중\n\n다른거 아무것도 못파는중ㅇㅇ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280029",
@@ -2986,7 +3228,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99974",
@@ -2996,7 +3238,7 @@
       "recommended": false,
       "contentText": "ㅋㅋㅋㅋㅋㅋㅋ 게임에서도 욕먹고잇누",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280054",
@@ -3006,7 +3248,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99973",
@@ -3016,11 +3258,11 @@
       "recommended": false,
       "contentText": "프모 의존도가 높은 겜이 아니라\n\n프모들 나가도 큰 타격은 없을듯?\n\n애초에 다른 일반섭들도 핫해가지고 ㅋㅋㅋ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99972",
@@ -3030,7 +3272,7 @@
       "recommended": false,
       "contentText": "시발 공대 만들엇는지 모른다며\n명분주지 말자면서 바로 적대걸렸네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "280002",
@@ -3059,7 +3301,7 @@
         },
         {
           "id": "0",
-          "text": "[미래 칼럼] 10년 후, 우리는 누구의 음악을 듣게 될까\n\n1/20",
+          "text": "한화생명, 1-3 열세 뒤집고 G2 2-0 완승…2승 2패로 BLG와 8강 길목 승부\n\n1/20",
           "reply": false
         },
         {
@@ -3090,7 +3332,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99971",
@@ -3100,7 +3342,7 @@
       "recommended": false,
       "contentText": "어디서버인지 말은 안하겠지만...라인이고...그중에서 나는 중상위정도...?? 다 좋은데 사람들한테 정이안감.... 뭔가 내가 싫어하는 부류들 같기도하고\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "279988",
@@ -3129,7 +3371,7 @@
         },
         {
           "id": "0",
-          "text": "배달 음식 아래 웬 종이 한 장?… 이유 알려지자 누리꾼들 ‘감동’\n\n1/20",
+          "text": "차예련 소속사 \"학폭 의혹 사실무근\" 즉각 반박\n\n1/20",
           "reply": false
         },
         {
@@ -3160,7 +3402,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99970",
@@ -3170,11 +3412,11 @@
       "recommended": false,
       "contentText": "뢰는 넘어가서 잘 살고 있나?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99969",
@@ -3184,7 +3426,7 @@
       "recommended": false,
       "contentText": "51 가다가 겹사 때문에 짜증나서 54 57 60 63 뒤적거리다가\n\n추천 사냥터 57 가니까 4천 넘게 먹는다...",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "279983",
@@ -3213,13 +3455,13 @@
         },
         {
           "id": "0",
-          "text": "\"음주·쇼핑이나 즐긴 줄 아나\"… 이재명 대통령, 해외 순방 의혹에 반발\n\n1/20",
+          "text": "배달 음식 아래 웬 종이 한 장?… 이유 알려지자 누리꾼들 ‘감동’\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99968",
@@ -3229,7 +3471,7 @@
       "recommended": false,
       "contentText": "찐텐인 프모만 하자 좀",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [
         {
           "id": "279987",
@@ -3257,6 +3499,11 @@
           "reply": true
         },
         {
+          "id": "280408",
+          "text": "@제수스1(58.29) 주인님 프모짤린거 대리발끈 ㄷㄷ",
+          "reply": true
+        },
+        {
           "id": "0",
           "text": "작은 게임이 주인공이 되는 시간…홍대 ‘HIP’에서 만난 인디의 온기\n\n1/20",
           "reply": false
@@ -3269,7 +3516,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99967",
@@ -3279,11 +3526,11 @@
       "recommended": false,
       "contentText": "아레스2 거손쟁 금방끝났네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T14:14:15.400869+00:00",
+      "contentFetchedAt": "2026-10-31T21:08:44.366547+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99966",
@@ -3313,7 +3560,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99965",
@@ -3352,13 +3599,13 @@
         },
         {
           "id": "0",
-          "text": "배달 음식 아래 웬 종이 한 장?… 이유 알려지자 누리꾼들 ‘감동’\n\n1/20",
+          "text": "작은 게임이 주인공이 되는 시간…홍대 ‘HIP’에서 만난 인디의 온기\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99964",
@@ -3388,7 +3635,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99963",
@@ -3437,7 +3684,7 @@
         },
         {
           "id": "0",
-          "text": "노동절·제헌절 대체공휴일 첫 적용… 2027년 휴일 및 연차 활용법 총정리\n\n1/20",
+          "text": "김치전 부칠 때 부침가루만 넣지 마세요… 시장 맛집에서는 '이 가루' 넣습니다\n\n1/20",
           "reply": false
         },
         {
@@ -3463,7 +3710,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     },
     {
       "id": "99962",
@@ -3532,7 +3779,7 @@
         },
         {
           "id": "0",
-          "text": "\"연금 정책에 드디어 칼 빼들었다\"…\"국민 기만 아닌가\" 이 대통령 한마디에 '깜짝'\n\n1/20",
+          "text": "‘불륜 의혹’ 양홍원, 이번엔 홍대 클럽서 포착…♥원현주 '언팔' 일주일 만\n\n1/20",
           "reply": false
         },
         {
@@ -3668,226 +3915,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
-    },
-    {
-      "id": "99961",
-      "title": "계정 질문좀..",
-      "publishedAt": "2026-10-31T22:05:57+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99961",
-      "recommended": false,
-      "contentText": "형들 계정 구글 하나 가져왔는데\n\n구매했을때 판매자가 복구번호랑 이멜을 내껄로 바꿔서 줬거든?\n\n그래서 이제 아무것도 안건들고 2주차가 되서 이제 수정좀 하려는데\n\n아직도 판매자한테 인증 문자가 날라가..\n\n여기서 물어볼께 아직 등록된기기 확인하니 판매자랑 내꺼랑 같이 등록되있거든.? 패스키도 등록되있음\n\n2차인증설정에도 판매자랑 내께 같이 있어..\n\n해결하려면 이제 판매자꺼 전부 삭제하면되는거야??\n\nㅈ고수 형들있으면 알려줘",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T20:06:51.612563+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
-    },
-    {
-      "id": "99960",
-      "title": "헤라2 감성서커 박제!",
-      "publishedAt": "2026-10-31T22:04:47+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99960",
-      "recommended": false,
-      "contentText": "갑자기 시비녜-?\n\n귀찮타녜- 지금.\n\n니 맞춰주기 할 때가 아니다요\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T20:06:51.612563+00:00",
-      "comments": [
-        {
-          "id": "279930",
-          "text": "미친개한테 물렸노 ㅋㅋㅋ 키로 송도 비슷한 미친놈인가보네 1섭 미친개들이 다 절로갔나",
-          "reply": false
-        },
-        {
-          "id": "279934",
-          "text": "맨날 똑 같은 소리만 해단다요. 눈알이 어찐다고 난리일카나",
-          "reply": true
-        },
-        {
-          "id": "279952",
-          "text": "쟤 투략 멏이냐 내가 따드림 - dc App",
-          "reply": false
-        },
-        {
-          "id": "279955",
-          "text": "쟤 부캐데수. 3만",
-          "reply": true
-        },
-        {
-          "id": "279957",
-          "text": "누군지 모르겠구녜",
-          "reply": true
-        },
-        {
-          "id": "279958",
-          "text": "아무리봐도 본캐는 따로있음 말투가 상스러운거보면 송도 키로도 부캐로 몰래 심틈 돌리고 보스 잡으러온다 ㅋㅋ",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "\"진짜 완전히 내 이상형\"… 218cm 최홍만, 중국 미녀와 암흑 속 입맞춤 현장\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "279978",
-          "text": "넷카마련 현실에서도 녜녜 ㅇㅈㄹ하려나 ㅋㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
-    },
-    {
-      "id": "99959",
-      "title": "다시 길드ㅈ옮긴다녜",
-      "publishedAt": "2026-10-31T21:56:54+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99959",
-      "recommended": false,
-      "contentText": "내일 다시 다른곳으로 이적! 데수-\n\n지금 길드는 싸움나서 탈주 4명했다녜\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T20:06:51.612563+00:00",
-      "comments": [
-        {
-          "id": "279914",
-          "text": "이적왕이녜",
-          "reply": false
-        },
-        {
-          "id": "279916",
-          "text": "이번 시즌 물이 올랐구녜",
-          "reply": true
-        },
-        {
-          "id": "279924",
-          "text": "헤라2는 송도 키로 미친놈 때문에 난리다 쳐도 헤라3섭은 뭐 때문에 또 난리녜 거기가 싸움판 날일이 있어?ㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "279929",
-          "text": "딴길드에서 온 몇명하고 조금 복잡데수",
-          "reply": true
-        },
-        {
-          "id": "279925",
-          "text": "헤라는 지금 3가 제일 평화로워보이는데 의외네",
-          "reply": false
-        },
-        {
-          "id": "279931",
-          "text": "전쟁이 아니고 길드안에서 분쟁이다녜",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "차예련 소속사 \"학폭 의혹 사실무근\" 즉각 반박\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "279928",
-          "text": "이적시즌이여?",
-          "reply": false
-        },
-        {
-          "id": "279932",
-          "text": "그릔가보구녜 미코 요새",
-          "reply": true
-        },
-        {
-          "id": "279933",
-          "text": "헤라3는 내전없어서 잼없다녜",
-          "reply": false
-        },
-        {
-          "id": "279936",
-          "text": "내전 끔찍할거 같은케도.\n구경은 잼날지도녜",
-          "reply": true
-        },
-        {
-          "id": "279953",
-          "text": "미코 철새가 - dc App",
-          "reply": false
-        },
-        {
-          "id": "279959",
-          "text": "애초에 처음에 초대 받은거다녜!\n\n근데 싸움나고 이상해서 탈출",
-          "reply": true
-        },
-        {
-          "id": "279960",
-          "text": "왜캐 적응을 못해",
-          "reply": false
-        },
-        {
-          "id": "279963",
-          "text": "새로 가는곳에 지인 두명 존재한다녜",
-          "reply": true
-        },
-        {
-          "id": "279967",
-          "text": "거기도 지금 3위.\n\n미코 가면 2위ㅈ될카나",
-          "reply": true
-        },
-        {
-          "id": "279969",
-          "text": "방금 나온 곳은 오자마자 4명 나가서 5위됐었다녜-",
-          "reply": true
-        },
-        {
-          "id": "279971",
-          "text": "미코 그래도 뱀탕부터 봠ㅅ는데ㅜ겜 재밌나보네? 얄심히 하는거같음 - dc App",
-          "reply": false
-        },
-        {
-          "id": "279980",
-          "text": "모든 린라는 비슷하다녜- 그냥 지구력 싸움이다요",
-          "reply": true
-        },
-        {
-          "id": "279986",
-          "text": "이번에 그래도 요새전 하려면 상위권 가야지 ㅇㅇ",
-          "reply": false
-        },
-        {
-          "id": "280004",
-          "text": "맞다녜- 요새전",
-          "reply": true
-        },
-        {
-          "id": "280015",
-          "text": "어이 십덕아 자지나 빨아",
-          "reply": false
-        },
-        {
-          "id": "280258",
-          "text": "빨어",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
-    },
-    {
-      "id": "99958",
-      "title": "야 게임사 계정사면 좃되냐?",
-      "publishedAt": "2026-10-31T21:49:09+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99958",
-      "recommended": false,
-      "contentText": "전번 이멜변경된다든데",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-31T20:06:51.612563+00:00",
-      "comments": [
-        {
-          "id": "279965",
-          "text": "하이브 계정은 괜찮음 옆집 컴프야도 다 하이브계정으로 거래함 ㅇㅇ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T19:19:22.570028+00:00"
+      "commentsFetchedAt": "2026-10-31T21:08:44.366547+00:00"
     }
   ]
 }
