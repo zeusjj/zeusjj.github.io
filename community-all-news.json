@@ -1,9 +1,408 @@
 {
-  "collectedAt": "2026-10-31T01:35:56.398330+00:00",
+  "collectedAt": "2026-10-31T02:25:20.745786+00:00",
   "days": 14,
   "coverageStart": "2026-10-31",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "99753",
+      "title": "담달 신규 맵 나오는건가",
+      "publishedAt": "2026-10-31T11:22:16+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99753",
+      "recommended": false,
+      "contentText": "공지를 지금 봤는데\n\n신맵 나오는거지?\n\nㅈㄴ 기대되는구만",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99752",
+      "title": "아티산 신스킬 뭐 줄거 같냐",
+      "publishedAt": "2026-10-31T11:17:39+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99752",
+      "recommended": false,
+      "contentText": "그냥 무난한거 주려나\n\n아니면 제작 관련 스킬 주나?\n\n재화 추가 획득이라던가",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279125",
+          "text": "어닝 어메이징",
+          "reply": false
+        },
+        {
+          "id": "279128",
+          "text": "뜨개질",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99751",
+      "title": "이정도 공속이면",
+      "publishedAt": "2026-10-31T11:15:27+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99751",
+      "recommended": false,
+      "contentText": "3티전설 흉내는 내는거냐??????",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279123",
+          "text": "대겠냐",
+          "reply": false
+        },
+        {
+          "id": "279127",
+          "text": "흉내도 못내?9%차인데",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99750",
+      "title": "아레스 1섭 캐릭 팔고접냐 마냐?",
+      "publishedAt": "2026-10-31T11:14:34+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99750",
+      "recommended": false,
+      "contentText": "64렙 6만투 중립인데\n\n열심히하다가\n\n이제보탐도안가고(실타래한입)\n\nai돌리면서\n\n하루 2번봄 신탁, 실타래(일반), 템정리, 출첵임무만함\n\n주간던전은 따로다소모하고\n\n먹는거다가져다파는중\n\n200장 들었고\n\n캐릭잘받아야 60받을듯\n\n다른게임하고있어서 컴은계속돌아가는데\n\n이거 그냥 쭉끌고가냐 아니면 지금이라도 접냐?\n\n아레스 1섭임",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279119",
+          "text": "의상만전설",
+          "reply": false
+        },
+        {
+          "id": "279129",
+          "text": "보탐안할거면 접어라 캐릭뒤로간다",
+          "reply": false
+        },
+        {
+          "id": "279130",
+          "text": "쌀먹각 안보이면 런",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99749",
+      "title": "아테나 123연합했었구나",
+      "publishedAt": "2026-10-31T11:13:49+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99749",
+      "recommended": false,
+      "contentText": "미친놈처럼 구도 망치고 있었네ㅋㅋㅋ..",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99748",
+      "title": "요즘도 숭고 매물 금방 나가나",
+      "publishedAt": "2026-10-31T11:12:31+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99748",
+      "recommended": false,
+      "contentText": "저번에 양손검 4만짜리 순식간에 팔리던데\n\n요즘도 매물 귀하나..",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99747",
+      "title": "교단은 절대 못만남",
+      "publishedAt": "2026-10-31T11:11:59+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99747",
+      "recommended": false,
+      "contentText": "확장될거라서\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99746",
+      "title": "뉴비 투력 4.3인데요 어디 돌려놔야해요?",
+      "publishedAt": "2026-10-31T11:06:49+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99746",
+      "recommended": false,
+      "contentText": "렙은 56이고요. 지금 52돌고있긴합니다.",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99745",
+      "title": "일본극장판 오프닝 힐링",
+      "publishedAt": "2026-10-31T11:05:35+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99745",
+      "recommended": false,
+      "contentText": "https://youtu.be/PDSkFeMVNFs\n\nhttps://youtu.be/luhOu2hcWIU\n\nhttps://youtu.be/wQeaQ4zybGA",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99744",
+      "title": "제우스는 쌘 중립 거의 없는데",
+      "publishedAt": "2026-10-31T11:03:05+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99744",
+      "recommended": false,
+      "contentText": "쌨던 중립 형들도 걍 라인 들어가더만 어치피 쌘 중립들 보탐 안 돌면 약해지고 라인도 할거 딱히 없어서 걍 라인 감",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99743",
+      "title": "+9 숭고의활",
+      "publishedAt": "2026-10-31T11:00:57+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99743",
+      "recommended": false,
+      "contentText": "",
+      "contentStatus": "no-text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279111",
+          "text": "도라이네 ㅋㅋ",
+          "reply": false
+        },
+        {
+          "id": "279113",
+          "text": "와 ....이렇게 좋은 무기지만 t2영무기보다 못하다는거 아냐?",
+          "reply": false
+        },
+        {
+          "id": "279115",
+          "text": "영웅무기 만들기 전에 꼬접할듯 ㅎ",
+          "reply": true
+        },
+        {
+          "id": "279120",
+          "text": "영웅무기가 ㅈㄴ 세긴하네",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99742",
+      "title": "아우 지금 인났네",
+      "publishedAt": "2026-10-31T10:57:55+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99742",
+      "recommended": false,
+      "contentText": "새벽까지 스팀겜하다 늦게 잤음 ㅋ\n\nai가 오랜만에 파템 2개나 물어왔네\n\n개꿀~",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99741",
+      "title": "아레스 틀딱 형들 내일 ㅈㄴ 글 쓰겠네",
+      "publishedAt": "2026-10-31T10:56:02+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99741",
+      "recommended": false,
+      "contentText": "점령전 못 먹고 또 징징거릴 생각하니깐 머리가 뜨겁다\n\n아테나2,3으로 이미 겪었고 그냥 자연재해라고 생각하고 버티면 됩니다 ㅈㄴ 징징거려봤는데 바뀌는거 없어요",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99740",
+      "title": "아티산은 일정 스펙 이상만 상향해줘야함",
+      "publishedAt": "2026-10-31T10:55:36+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99740",
+      "recommended": false,
+      "contentText": "쌀티산새끼들은 오히려 너프필요",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279110",
+          "text": "걍 어닝 말고 사냥터에 따라 재료 수급이든 높은 재료 나눠나숴 수급 가능하게 해야함 예를 들면 가루10개=조각, 조각10개=결정 이렇게 나눠서 걍 사냥터 높으면 떨어지는거를 다르게 세세하세 나눴어야지 아니면 걍 작업장이 돈 버는 구조임",
+          "reply": false
+        },
+        {
+          "id": "279126",
+          "text": "ㄹㅇ 아티산 상향이 쉽지않은이유가 쌀먹새끼들때문임 쌀티산들은 아작내고 찐티산들만 상향필요함",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99739",
+      "title": "공물 200개 모아서 교단 한번에 시도해봤다",
+      "publishedAt": "2026-10-31T10:54:34+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99739",
+      "recommended": false,
+      "contentText": "매일 50~60개 시도하는거 감질맛나서\n\n200개 모아서 시도했다\n\n근데\n\n1번 성공하고 나머지 나가리다\n\n교단 확률 문제가 있네\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279114",
+          "text": "교단은 결국 모두가 수렴함... 맘 편하게 해라. 다 비슷한 구간에서 만남",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99738",
+      "title": "니네 다 뭐함 ?",
+      "publishedAt": "2026-10-31T10:49:22+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99738",
+      "recommended": false,
+      "contentText": "라인중립 그딴게어디있노 이게임에 ?\n\n걍 보스템먹고싶은사람 모인데가 라인이고\n\n조용히겜하고싶은사람 모인데가 중립임\n\n그리고 쌀거지가 80%",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99737",
+      "title": "씹티산 상향안 (전국 108만 씹티산들아 개추좀...)",
+      "publishedAt": "2026-10-31T10:45:32+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99737",
+      "recommended": false,
+      "contentText": "모래시계를 되돌려주는거임 ㅇㅇ\n\n근데 이번엔 그냥 모래시계가 아니라, 계정귀속 모래시계 ㅇㅇ 즉 거래 못하는 모래시계로 돌려주는거임.\n\n영자들이 씹티산 밸런싱이나 제작템 고민하는게 그거 아냐...\n\n씹티산 상향하면 캐릭 밸런스도 밸런슨데, 통발 씹티산들이 꽁돈 너무 벌어가고, 지들 벌이 좆되는거 그거 걱정하는거 아냐\n\n모래시계를 귀속으로 다시 제작할수 있게 되면 대부분의 문제에서 해피해짐.\n\n1. 모래시계를 귀속으로라도 만들수 있으면 어쨋든 씹티산 유저들의 성장이나 pve에 대한 불만을 조금이라도 줄일수 있다.\n\n2. 통발레기들은 귀속 모래시계가 별로 쓸모 없다. 어차피 저랩구간에선 가루가 거의 안떨어짐. 주문서 금괴 영약 만들기에도 가루 빠듯함.\n\n본캐 보탐 갖기도 개귀찮은데 통발 아티산 따위한테 보탐 돌릴새끼 없음. 있다면 그건 노력을 인정해줘야댐. 그냥 실타레는 뭐 모래시계 하든 말든 ㅆㅂㅋㅋ\n\n그리고 모래시계 쓸 정도면 악세 갈아서 실타레 만들어야 하는데 통발 아티산이 그럴수 있겠냐? 절대 ㄴㄴ\n\n3. 고랩 씹티산들은 가루가 항상 2천개풀인데, 이 가루의 쓰임이 다시 생긴다.\n\n하루에 10~20개 정도 만들게 해주고 개당 가루 30~50개 정도 들면 적당할듯 ㅇㅈ? ㅇㅇㅈ\n\n눈팅하고 있는 씹티산 유저들은 개추좀",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279100",
+          "text": "9만 아티산인데 걍 버프나 늘려주면 좋겠다 스킬 구성 꼬라지가 뭘 원하는지 모르겠음 CC하나라도 제대로 넣어주면 좋겠음 경제특화 이미 포기한지 오래고 어닝이라는 시스템은 ㅅㅂ 걍 작업장이 너무 유리함 여러캐가 있으면 그 중에 한두캐는 어닝 8,9 뜨니깐 걍 어닝 보다는 레벨별로 사냥터에서 나오는 재료 다르게 하던지 스펙으로 수급을 조절 했어야함",
+          "reply": false
+        },
+        {
+          "id": "279101",
+          "text": "씹티산 개씹븅신인데 고생이 많다.. 9만이면 돈도 존나 들었을텐데 그 돈으로 어쌔신이나 레인저를 했다면....ㅠㅠ",
+          "reply": true
+        },
+        {
+          "id": "279107",
+          "text": "@글쓴 제수스(112.147) 물려서 못 감 솔직히 여기서 바꾸려면 에테리온 이게 ㅈㄴ 문제임 축성 어차피 ㅈ망해서 괜찮은데 에테리온이 진짜 시간이 녹은거였음..",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99736",
+      "title": "라인이 원래 중립눈치도 보고 했던게",
+      "publishedAt": "2026-10-31T10:44:26+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99736",
+      "recommended": false,
+      "contentText": "돈많은 사람들중에서도 프리한거좋아해서\n\n중립있는 경우 많아가주고\n\n건들었을때 피곤해지는거때문에\n\n눈치도 좀 보고하는게 있는데\n\n이 겜만 이런건지 요즘 추세가 그런건지\n\n중립에 고투가 없으니까 라인이 막 나가는것도\n\n있는거 같음 ㅇ\n\n중립고투가 흑화하면 진짜 개꿀잼인데",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279098",
+          "text": "겜 시스템이 ㅈ같아서임 공성다야를 저따위로뿌리는데\n중립고투가 라인안기어들어가고 배김 ?",
+          "reply": false
+        },
+        {
+          "id": "279099",
+          "text": "쌘중립 있는섭은 글케못하긴하는데 쌘중립이별로없음 - dc App",
+          "reply": false
+        },
+        {
+          "id": "279106",
+          "text": "띠용이 보면 모르냐 쎈중립은 결국에 맥시엄으로 돈발라도 템때문에 털려잉",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99735",
+      "title": "교단 신과 올실패 ㅅㅂ",
+      "publishedAt": "2026-10-31T10:43:44+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99735",
+      "recommended": false,
+      "contentText": "ㅈ같은 아침이노\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
+    {
+      "id": "99734",
+      "title": "민빡이는 왜 센터한테 제보 안보내는거녜",
+      "publishedAt": "2026-10-31T10:43:23+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99734",
+      "recommended": false,
+      "contentText": "내가 채팅 캡처도 해서 게시판에 줬었는케도-\n\n어서 제보하라녜!!\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-10-31T02:25:20.745786+00:00",
+      "comments": [
+        {
+          "id": "279108",
+          "text": "뭐라는거녜!! 설명좀 해달라요- -",
+          "reply": false
+        },
+        {
+          "id": "279112",
+          "text": "헤라2 어떤애가 패드립퍼인케도\n\n그거 유터버한테 제보 한다고해서 캡쳐본 줬는데 제보 안한다녜",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-10-31T02:25:20.745786+00:00"
+    },
     {
       "id": "99733",
       "title": "어제 쌍조방송 보면서 느낀점",
@@ -3339,492 +3738,6 @@
         {
           "id": "278926",
           "text": "농사섭이면 스펙업 지리게 가능함 ㅋㅋㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99628",
-      "title": "라인이 아니라 호구지",
-      "publishedAt": "2026-10-31T01:10:25+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99628",
-      "recommended": false,
-      "contentText": "실타래 다먹게 해주고 보스 빈집털이 당해도 싸바싸바 몇 번 해주면 중재해주고ㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99627",
-      "title": "이게다 뜨뜨가 연기력이 부족해서 그렇다",
-      "publishedAt": "2026-10-31T01:09:39+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99627",
-      "recommended": false,
-      "contentText": "WWE 할거면 가면무도회 제대로 해야하는데 종겜스라 린라식 wwe 연기 어색하기 그지 없네 뜨뜨야 연기학원 레슨 끊어라 ㅠㅠ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278704",
-          "text": "화끈하게 UFC나 열던가 여는척만 ㅈㄴ함",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99626",
-      "title": "수집품낚시한거 야무지게 팔렷노",
-      "publishedAt": "2026-10-31T01:07:54+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99626",
-      "recommended": false,
-      "contentText": "어떤 호구가삿노 10원짜리 200원에 팜 ㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278721",
-          "text": "자랑이냐 한숨아",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99625",
-      "title": "앞으로 개천민프모서버 새끼들은 글쓰지 마라",
-      "publishedAt": "2026-10-31T01:03:14+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99625",
-      "recommended": false,
-      "contentText": "어딜 냄새나는 개천민서버 새끼들이 겜갤에 글을 써 인방갤로 꺼져라 게임 존나 편하게 하고 맘에 안들면 방송가서 꾕가리 쳐대는 품바새끼들이 갤 분위기를 쳐 흐리고 앉아있어 나대지 말고 글쓰지 마라 쉰내나니까 좆같으면 광대들 방송 쳐들어가서 꾕가리 쳐 여기서 징징거리지 말고",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278694",
-          "text": "방송국 가서 글쓰던가 ㅋㅋㅋㅋㅋㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "278699",
-          "text": "아테나는 프모없는시골서버인데 말해도되나요?",
-          "reply": false
-        },
-        {
-          "id": "278702",
-          "text": "아테는 일반섭이라고 해도되지 ㅇㅇ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99624",
-      "title": "걍 다 썰지 말만 ㅈㄴ많네",
-      "publishedAt": "2026-10-31T01:02:10+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99624",
-      "recommended": false,
-      "contentText": "어차피 좀썰다가 민심챙기는척 그만둘거면서 입만 ㅈㄴ털어",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278695",
-          "text": "ㄹㅇㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "278703",
-          "text": "그니까 그게 젤역겨움시발 썰면 썰던가 씨발 마지막이에요~ 시발ㅋㅋㅋㅋ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99623",
-      "title": "아레스 중립들 시세 꿀빨면서 실타래로 징징거리노?",
-      "publishedAt": "2026-10-31T00:59:14+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99623",
-      "recommended": false,
-      "contentText": "물론 우리 아테는 실타래 프리임 케케케",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99622",
-      "title": "“애초에 썰자서버라고 했으면 안갔다”",
-      "publishedAt": "2026-10-31T00:56:07+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99622",
-      "recommended": false,
-      "contentText": "이런 말 하는 저지능이라 프모서버를 간거라는 나쁜 말은 ㄴㄴ\n\n일반서버는 썰자 없는 줄 알겠네 린라에서 썰자 좆같으면 접거나 썰자하는 새끼들보다 돈 더 써서 반왕 선포해라 ㅇㅇ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278691",
-          "text": "프모섭은 썰리면 방송가서 징징이라도 하지 일반섭이면 걍 어디 배설도 못한다",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99621",
-      "title": "근데 ㄹㅇ 프모섭 왜들어감?",
-      "publishedAt": "2026-10-31T00:53:02+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99621",
-      "recommended": false,
-      "contentText": "존나 노잼임\n\n- dc official App",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278689",
-          "text": "나가고싶어 시발",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99620",
-      "title": "광대들이 중립들 팬이라고 생각해서 다 들어주는게 문제다",
-      "publishedAt": "2026-10-31T00:51:51+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99620",
-      "recommended": false,
-      "contentText": "라인이면 라인답게 중립이 기어오르면 쥐잡듯이 잡고 썰고 통제하고 가스라이팅 해야지 오냐오냐 오구오구 하니까 라인이 무슨 동사무소 말단 공무원인줄 아나 걍 통제 협조 안하면 칼 박아",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278706",
-          "text": "프모라인은 동사무소 직원맞는데 컴투스직원맞아요 형님",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99619",
-      "title": "뜨뜨야 중립 통제니 뭐니",
-      "publishedAt": "2026-10-31T00:49:58+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99619",
-      "recommended": false,
-      "contentText": "보스 시간이나 맞춰줘라\n\n피곤해 뒤지겠다",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278687",
-          "text": "쌍조가 꼬장 겁나 부리는데 어떻게 맞추냐 상식적으로",
-          "reply": false
-        },
-        {
-          "id": "278688",
-          "text": "날잡고 전면통제하면 될거같은데",
-          "reply": true
-        },
-        {
-          "id": "278697",
-          "text": "그건 양쪽에 말해야지",
-          "reply": false
-        },
-        {
-          "id": "278700",
-          "text": "수백명 보스 지키고 벌서고 있으라는게 맞말?",
-          "reply": false
-        },
-        {
-          "id": "278758",
-          "text": "까라면 까야지",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "핼러윈 앞두고 경찰 7800여명 투입…경찰청장 대행, 이태원 현장점검\n\n1/20",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99618",
-      "title": "라인이 중립한테 겹사당해도",
-      "publishedAt": "2026-10-31T00:47:01+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99618",
-      "recommended": false,
-      "contentText": "죽이고싶다는이유로 죽이지 말랍니다\n\n이게 무슨 라인인가요 중립하청길드지",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278684",
-          "text": "라인이 중립한테 겹사당할 투력이면 걍 라인에서 내보내고 그 중립데려오는게 맞음",
-          "reply": false
-        },
-        {
-          "id": "278685",
-          "text": "ㄹㅇㅋㅋ",
-          "reply": true
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99617",
-      "title": "4.6 아티인데요",
-      "publishedAt": "2026-10-31T00:46:45+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99617",
-      "recommended": false,
-      "contentText": "무기는 다 맞췄는데\n\n방어구나 장신구 맞추는 순서가 어떻게.될까요?\n\n방어구 맞추는 순서와\n\n장신구 맞추는 순서가 궁금해요",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278683",
-          "text": "대충 2~3티 안전강화하고 컬렉,신과나해라",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99616",
-      "title": "쿠폰",
-      "publishedAt": "2026-10-31T00:46:03+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99616",
-      "recommended": false,
-      "contentText": "너 써라",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278696",
-          "text": "개빠르네! 나두줭",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99615",
-      "title": "아레스3은 자기들이 통제당하는지도 모르고 있었음",
-      "publishedAt": "2026-10-31T00:45:18+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99615",
-      "recommended": false,
-      "contentText": "자하브 필보들 시간 띄엄띄엄 있고\n\n새벽 5시까지 깨있어야 다도는게 가능함\n\n이걸 원래 시간맞추는게 라인이 해야될일인데\n\n자기들의 수면시간\n\n자신들의 일상이 통제당하고 있었단걸 모름",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99614",
-      "title": "프모섭 중립은 도대체 뭐임?",
-      "publishedAt": "2026-10-31T00:45:11+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99614",
-      "recommended": false,
-      "contentText": "프모섭이면 걍 팬이라 간거 아님? 그럼 라인 해야지\n\n시간 없어서 라인 못 한다고? 그럼 왜 프모섭을 간건데\n\n안 할거면서 프모섭은 왜 간거? 쌀숭이들이나 프모섭 가서 시세 비싼거 초반에 짧게 치고 빠지는거지 프모섭 가서 중립인데 게임사 돈 가지 뭐라 하는건 이해가 안 되노 그럼 일반섭 오지 그랬어 ㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278681",
-          "text": "돈없는 한끼줍쇼 쉬었음 청년들이라 돈벌러 그리스로 외노자 가신거래 ㅠㅠ",
-          "reply": false
-        },
-        {
-          "id": "278686",
-          "text": "그냥 쌀먹하러간거지 ㅋㅋ",
-          "reply": false
-        },
-        {
-          "id": "278724",
-          "text": "팬도 아닌데 그냥 프모섭이 뭔지 모르고 왔고, 가볍게 하려고 안알아봤다가 재밌어서 계속하는데 되돌리기엔 늦었고 진짜 짜증난다",
-          "reply": false
-        },
-        {
-          "id": "278834",
-          "text": "거래소가 활발하거덩 ㅎㅎㅎㅎㅎㅎㅎㅎㅎ",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99613",
-      "title": "스킬강화 너무 역겹다",
-      "publishedAt": "2026-10-31T00:42:05+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99613",
-      "recommended": false,
-      "contentText": "ㅈㄴ 여러장 모아서 확정성공 내놔라 ㅆㅂ\n\n천장도 없고 하락지옥 개 ㅈ같네\n\n아이온2 석판만드는거처럼 갯수 ㅈㄴ 모아서 확정성공 하는거 처만들어라",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278673",
-          "text": "이씨발 100장 300장먹더라도 확정성공좀 처 내라\n스킬 거꾸로가면 돈으로 복구하는법도 없고 기분만 드럽다",
-          "reply": false
-        },
-        {
-          "id": "278677",
-          "text": "도파민 느끼고싶은애들은 확률 딸칵 노리게하고\n오래걸려도 뒤로가는거 싫어하는사람 위해서 확정성공 처내라\n컴투스 씨발",
-          "reply": false
-        },
-        {
-          "id": "278682",
-          "text": "생각할수록. 이 씨발련들이 스펙 올라가도 수급처 쥐좆만한 스킬강화서인데 몇주치 기모아서 강화누르면 투력이 처 떨어지는게 무슨 설계야 다른 게임도 하락 다 있지만 스킬강화서 수급이 쉬운데 이건 씨발 하루1시간던전 , 길레가 끝인데 이 병신년들이",
-          "reply": false
-        },
-        {
-          "id": "278698",
-          "text": "입닥쳐",
-          "reply": false
-        },
-        {
-          "id": "278722",
-          "text": "너나닥쳐 좆패버릴라 ㅈ만한새끼가 뒤질래?",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "“삼성·하이닉스 다니는 남자들에게 물어요, 이 정도 여자는 어때요?”\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "278767",
-          "text": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 걍 욕심을 버려 난 8에서 주차함",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99612",
-      "title": "프모가 뭔지 모르나봄 ㅋㅋ",
-      "publishedAt": "2026-10-31T00:40:45+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99612",
-      "recommended": false,
-      "contentText": "해물이 영상 열심히 올리는 거는 둘째치더라도\n\n잘한다잘한다하는게\n\n광대역할하는거 때문에 그런건데\n\n누구는 기싸움걸고있네 ㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278671",
-          "text": "원래부터 광대력 MAX형이라 방송 재밌긴해",
-          "reply": false
-        },
-        {
-          "id": "278674",
-          "text": "시청자 입장은 그럴지 몰라도 게임사는 뜨뜨 옆에서 돈 쓴 알트,전드,무력,산생을 더 좋아할걸",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99611",
-      "title": "일반 섭은 그냥 야생이었는데?",
-      "publishedAt": "2026-10-31T00:40:02+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99611",
-      "recommended": false,
-      "contentText": "라인 말 안들으면 길드 터질때까지 쳐맞고, 서버쟁 터지면 인터 못가고, 재수없는 서버는 보스 실타래 한입도 못하고, 인터쟁 고기방패 하러 오라고 불러서 갔더니 많이 안와줬다고 일주일 썰자 당하고, 자하브까지 사냥 통재 당했는데…?\n\n프모섭 병신들 얼마나 게임을 편하게 해왔길래 고작 마지막 기회라고 껄자하겠다는 말에 부랄발광들이지…?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99610",
-      "title": "해물파전은 진짜 재능있는듯",
-      "publishedAt": "2026-10-31T00:36:16+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99610",
-      "recommended": false,
-      "contentText": "뭔가 인방인 특유의 상스러움없이\n\n밝게 방송하는데도 안 지루하네\n\n방송 진짜 잘 해",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278664",
-          "text": "요즘 최애 방송임",
-          "reply": false
-        },
-        {
-          "id": "278667",
-          "text": "ㄹㅇ",
-          "reply": false
-        },
-        {
-          "id": "278668",
-          "text": "그 새끼랑은 다름 방송 진짜 재밌게 잘함",
-          "reply": false
-        },
-        {
-          "id": "278690",
-          "text": "재밋긴하더라 - dc App",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-10-31T01:35:56.398330+00:00"
-    },
-    {
-      "id": "99608",
-      "title": "도대체 프모섭 중립들이 왜 지랄병 도진거지?",
-      "publishedAt": "2026-10-31T00:34:05+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=99608",
-      "recommended": true,
-      "contentText": "쌀먹 하겠다고 광대들 따라가서\n\n“병쉰듀리 곔 회섀 돈 뱌댜셔 곔 햬눈 쥬쟤예 껴드력 걔릐고 잇눼~”\n\nㅇㅈㄹ ㅋㅋㅋㅋㅋ\n\n병신은 프모섭 들어간 니들이 병신이고ㅋㅋㅋㅋㅋㅋ\n\n겜 회사에서 “프모섭” 이라고 대놓고 박아놓고 섭이전때도 ”일반서버랑 분리한다“ 고 겜 출시 전 부터 노래를 불러줬는데ㅋㅋㅋㅋㅋ 알고도 푸모섭간 지능 수준ㅋㅋㅋㅋㅋ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-10-30T23:13:41.066820+00:00",
-      "comments": [
-        {
-          "id": "278979",
-          "text": "말 정말 이쁘게 한다",
           "reply": false
         }
       ],
