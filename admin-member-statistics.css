@@ -9,6 +9,10 @@
 .admin-member-filters input,.admin-member-filters select,.admin-member-history-filter select{min-height:44px;background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:8px;border-radius:4px;max-width:100%}
 .admin-member-table{min-width:950px}
 .admin-member-table th,.admin-member-table td{white-space:nowrap}
+.admin-member-sort-button{display:inline-flex;align-items:center;justify-content:flex-end;gap:6px;min-height:44px;padding:0;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;white-space:nowrap}
+.admin-member-sort-button svg{width:14px;height:14px;flex:none}
+.admin-member-sort-button:hover{color:var(--accent)}
+.admin-member-sort-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 #admin-member-statistics .admin-statistics-table table{table-layout:auto}
 #admin-member-statistics .admin-statistics-table th{width:auto;white-space:nowrap}
 #admin-member-statistics .admin-statistics-table thead th{background:var(--surface-subtle);color:var(--muted)}

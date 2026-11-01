@@ -6,11 +6,21 @@
   const integer=new Intl.NumberFormat('ko-KR'),date=value=>value?new Date(value).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',hour12:false}):'—';
   const element=(tag,text)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node;};
   const active=()=>!document.getElementById('admin').hidden;
-  let data=null,generation=0,controller,lastToken='';
+  let data=null,generation=0,controller,lastToken='',sortDirection='descending';
+  const sortSelect=find('admin-member-sort'),sortHeaders=[];
+  sortSelect.add(new Option('최근 방문순','last_visit_at'));
+  for(const [index,key,label]of [[5,'last_login_at','최근 로그인'],[6,'last_visit_at','최근 방문']]){
+    const cell=host.querySelector('.admin-member-table thead tr').children[index],button=element('button',label);
+    button.type='button';button.className='admin-member-sort-button';button.title=label+' 최신순 정렬';button.setAttribute('aria-label',button.title);cell.setAttribute('aria-sort','none');cell.replaceChildren(button);sortHeaders.push({cell,button,key,label});
+    button.addEventListener('click',()=>{sortDirection=sortSelect.value===key&&sortDirection==='descending'?'ascending':'descending';sortSelect.value=key;renderRows();});
+  }
   function clear(){generation++;controller?.abort();lastToken='';data=null;host.hidden=true;rows.replaceChildren();historyRows.replaceChildren();metrics.replaceChildren();status.textContent='';find('admin-member-note').textContent='';find('admin-member-count').textContent='';historyName.replaceChildren(new Option('전체',''));find('admin-member-history').open=false;}
   function renderRows(){
     if(!data)return;const query=find('admin-member-search').value,login=find('admin-member-login-filter').value,password=find('admin-member-password-filter').value,sort=find('admin-member-sort').value;
-    const records=data.accounts.filter(account=>(!query||GuildNicknameSearch.matches(account.nickname,query))&&(login===''||Number(!!account.has_logged_in)===Number(login))&&(password===''||Number(!!account.password_changed)===Number(password))).sort((a,b)=>(sort==='nickname'?0:(b[sort]||0)-(a[sort]||0))||a.nickname.localeCompare(b.nickname,'ko'));
+    const time=value=>value==null||value===''?null:typeof value==='number'?value:Number.isFinite(Number(value))?Number(value):Number.isFinite(Date.parse(value))?Date.parse(value):null;
+    const compare=(a,b)=>{const tie=a.nickname.localeCompare(b.nickname,'ko');if(sort==='nickname')return tie;const dates=sort==='last_login_at'||sort==='last_visit_at',av=dates?time(a[sort]):a[sort]||0,bv=dates?time(b[sort]):b[sort]||0;if(av===null||bv===null)return av===bv?tie:av===null?1:-1;return (sortDirection==='ascending'?av-bv:bv-av)||tie;};
+    const records=data.accounts.filter(account=>(!query||GuildNicknameSearch.matches(account.nickname,query))&&(login===''||Number(!!account.has_logged_in)===Number(login))&&(password===''||Number(!!account.password_changed)===Number(password))).sort(compare);
+    for(const {cell,button,key,label}of sortHeaders){const selected=sort===key,icon=element('i');cell.setAttribute('aria-sort',selected?sortDirection:'none');icon.dataset.lucide=selected?(sortDirection==='descending'?'arrow-down':'arrow-up'):'arrow-up-down';icon.setAttribute('aria-hidden','true');button.replaceChildren(document.createTextNode(label),icon);button.title=label+' '+(selected&&sortDirection==='descending'?'오래된순':'최신순')+' 정렬';button.setAttribute('aria-label',button.title);}
     rows.replaceChildren();
     for(const account of records){const row=element('tr');for(const [index,text]of [account.nickname,integer.format(account.visit_count),integer.format(account.login_count),account.has_logged_in?'있음':'없음',account.password_changed?'변경 완료':'초기 비밀번호',date(account.last_login_at),date(account.last_visit_at)].entries()){const cell=element(index===0?'th':'td',text);if(index===0)cell.scope='row';if(index===4){const badge=element('span',text);badge.className='admin-member-badge';badge.dataset.changed=String(!!account.password_changed);cell.replaceChildren(badge);}row.append(cell);}const cell=element('td'),button=element('button'),icon=element('i');button.type='button';button.className='icon-button';button.title=account.nickname+' 활동 기록';button.setAttribute('aria-label',button.title);icon.dataset.lucide='history';button.append(icon);button.addEventListener('click',()=>{historyName.value=account.username;find('admin-member-history').open=true;load();});cell.append(button);row.append(cell);rows.append(row);}
     if(!records.length){const row=element('tr'),cell=element('td','해당하는 길드원이 없습니다.');cell.colSpan=8;row.append(cell);rows.append(row);}
@@ -36,7 +46,8 @@
       data=result;render();status.textContent='';
     }catch(error){if(id===generation&&error.name!=='AbortError')status.textContent='통계를 불러오지 못했습니다. 새로고침해주세요.';}
   }
-  for(const id of ['admin-member-search','admin-member-login-filter','admin-member-password-filter','admin-member-sort'])find(id).addEventListener(id.endsWith('search')?'input':'change',renderRows);
+  for(const id of ['admin-member-search','admin-member-login-filter','admin-member-password-filter'])find(id).addEventListener(id.endsWith('search')?'input':'change',renderRows);
+  sortSelect.addEventListener('change',()=>{sortDirection='descending';renderRows();});
   historyName.addEventListener('change',load);document.getElementById('admin-refresh').addEventListener('click',load);
   window.addEventListener('guild-admin-open',load);window.addEventListener('guild-admin-auth',()=>{if(!noticeAdmin())clear();else if(active()&&lastToken!==noticeToken)load();});
   if(active()&&noticeAdmin())load();
