@@ -1,4 +1,4 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261030-defense';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261101-rolling';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
 
@@ -50,7 +50,7 @@ function renderProfile(){
   const goal=report.target,remaining=latest&&goal.growth?Math.max(0,goal.growth-latest.value):null,remainingLevel=Number.isInteger(level)&&goal.level?Math.max(0,goal.level-level):null;
   const growthRank=report.rankings.growth.find(record=>record.name===name),top=growthTopPercent(growthRank);
   const weighted=report.weighted.rows.find(record=>record.name===name),increase=report.rankings.increase.find(record=>record.name===name),rate=report.rankings.rate.find(record=>record.name===name);
-  metrics(profile,[['현재 성장도',format(latest?.value),latest?short(latest.date)+' 기록':'기록 없음'],['길드 성장도 순위',growthRank?(growthRank.joint?'공동 ':'')+growthRank.rank+'위':'—',top!==null?'상위 '+decimal.format(top)+'% · '+growthRank.total+'명 기준':'기록 없음'],['최근 7일 성장량',increase?signed(increase.value):'—',rate?(rate.value>0?'+':'')+decimal.format(rate.value)+'% · '+short(report.baseline.date)+' → '+short(report.latest.date):'비교 기록 없음'],['공식 참여율',weighted?.score!==null&&weighted?decimal.format(weighted.score)+'%':'—','최근 4주 · 주당 25%']]);
+  metrics(profile,[['현재 성장도',format(latest?.value),latest?short(latest.date)+' 기록':'기록 없음'],['길드 성장도 순위',growthRank?(growthRank.joint?'공동 ':'')+growthRank.rank+'위':'—',top!==null?'상위 '+decimal.format(top)+'% · '+growthRank.total+'명 기준':'기록 없음'],['최근 7일 성장량',increase?signed(increase.value):'—',rate?(rate.value>0?'+':'')+decimal.format(rate.value)+'% · '+short(report.baseline.date)+' → '+short(report.latest.date):'비교 기록 없음'],['공식 참여율',weighted?.score!==null&&weighted?decimal.format(weighted.score)+'%':'—','최근 28일 · 진행 콘텐츠 기준']]);
   const goals=el('div',undefined,'profile-goal-line');goals.append(badge(remaining===0?'성장도 목표 달성':remaining===null?'성장도 목표 미설정':format(remaining)+' 성장도 남음',remaining===0?'yes':'pending'),badge(remainingLevel===0?'레벨 목표 달성':remainingLevel===null?'레벨 기록 없음':remainingLevel+'레벨 남음',remainingLevel===0?'yes':'pending'));
   if(goal.growth)goals.append(el('small','목표 Lv.'+goal.level+' · '+format(goal.growth)+(goal.deadline?' · ~'+goal.deadline:'')));
   profile.append(goals);
@@ -64,7 +64,7 @@ function renderProfile(){
     ['최근 7일 성장률','rate',value=>(value>0?'+':'')+decimal.format(value)+'%',period],
     ['최근 7일 성장량','increase',signed,period],
     ['제전 포인트 기여','festival',value=>format(value),report.festivalColumns.length?report.festivalColumns.map(column=>column.header.replace(' 제전 기여','')).join(' + ')+' 제전 합산':'기록 없음'],
-    ['공식 콘텐츠 참여율','weighted',value=>decimal.format(value)+'%',report.weighted.periods.length?'최근 4주 · 주당 25%':'기록 없음'],
+    ['공식 콘텐츠 참여율','weighted',value=>decimal.format(value)+'%',report.weighted.periods.length?'최근 28일 · 진행 콘텐츠 기준':'기록 없음'],
     ['단순 누적 참여비율','participation',value=>decimal.format(value)+'%','참여·미참여 기록 건수 기준'],
   ];
   const rankGroups=el('div',undefined,'profile-rank-groups');rankings.append(rankGroups);
@@ -82,10 +82,11 @@ function renderProfile(){
     if(weighted.score!==null){const qualifies=weighted.score>=75-1e-9;headline.append(badge(qualifies?'75% 참여율 조건 충족':'75% 참여율 조건 미달',qualifies?'yes':'no'));}
     participationScore.append(headline);
     const meter=el('div',undefined,'participation-meter');meter.setAttribute('role','img');meter.setAttribute('aria-label','최근 4주 참여율 '+(weighted.score===null?'산정 확인 필요':decimal.format(weighted.score)+'%')+' · 기준 75%');
-    for(const period of weighted.breakdown){const track=el('span',undefined,'participation-meter-week'),fill=el('span');fill.style.width=Math.max(0,Math.min(100,(period.points??0)*4))+'%';track.title=short(period.start)+' '+(period.points===null?'산정 확인 필요':decimal.format(period.points)+'% / 25%');track.append(fill);meter.append(track);}const threshold=el('span','75%','participation-meter-threshold');meter.append(threshold);participationScore.append(meter);
-    note(participationScore,short(report.weighted.lastDate)+' 최근 콘텐츠 기록 기준 · 입찰의 다른 조건은 별도 확인');
-    table(participationScore,['집계 주간','콘텐츠 수','내 참여','반영 점수'],weighted.breakdown.map(period=>[short(period.start)+' ~ '+short(period.end),period.total?period.total+'개':'기록 없음',period.total?period.attended+' / '+period.total+'회'+(period.missing?' · 미기록 '+period.missing+'개':''):'—',period.points===null?'산정 확인 필요':decimal.format(period.points)+'% / 25%']));
-    information(participationScore,'최근 4주 각 25%. 성물 방어전이 포함된 주는 일요일 콘텐츠 합계 20%(N개이면 각 20/N%)와 성물 방어전 5%로 나눕니다. 성물은 월·화 중 한 번 참여하면 5% 전부를 받습니다. 성물 일정이 없던 과거 주는 기존 25/N%를 유지하며 반올림 전 수치로 합산합니다.');
+    meter.style.gridTemplateColumns=weighted.breakdown.map(period=>period.capacity+'fr').join(' ');
+    for(const period of weighted.breakdown){const track=el('span',undefined,'participation-meter-week'),fill=el('span');track.style.flex=String(period.capacity);fill.style.width=Math.max(0,Math.min(100,(period.points??0)/period.capacity*100))+'%';track.title=short(period.start)+' '+(period.points===null?'산정 확인 필요':decimal.format(period.points)+' / '+decimal.format(period.capacity)+'점');track.append(fill);meter.append(track);}const threshold=el('span','75%','participation-meter-threshold');meter.append(threshold);participationScore.append(meter);
+    note(participationScore,short(report.weighted.start)+' ~ '+short(report.weighted.end)+' · 현시점 최근 28일 기준 · 입찰의 다른 조건은 별도 확인');
+    table(participationScore,['집계 주간','콘텐츠 수','내 참여','획득 / 집계 배점'],weighted.breakdown.map(period=>[short(period.start)+' ~ '+short(period.end),period.total?period.total+'개':'기록 없음',period.total?period.attended+' / '+period.total+'회'+(period.missing?' · 미기록 '+period.missing+'개':''):'—',period.points===null?'산정 확인 필요':decimal.format(period.points)+' / '+decimal.format(period.capacity)+'점']));
+    information(participationScore,'현시점까지 최근 28일의 진행된 콘텐츠만 집계합니다. 획득 배점 ÷ 집계 배점 × 100으로 계산하며 미래 일정은 분모와 미기록에서 제외합니다. 주간 배점 비중은 일요일 콘텐츠 합계 20점(N개이면 각 20/N점), 성물 방어전 5점입니다. 성물은 월·화 중 한 번 참여하면 5점 전부를 받으며 화요일 종료 기준으로 집계합니다. 성물 일정이 없던 과거 주는 기존 25/N점을 유지합니다.');
     if(weighted.incomplete)note(participationScore,'미기록(-) 또는 기록이 없는 주는 점수를 가산하지 않았습니다. 가입 전 기록 등은 별도 확인이 필요합니다.');
     if(weighted.needsReview)note(participationScore,'같은 주에 여러 날짜의 콘텐츠가 있어 주간 25% 배분 기준 확인이 필요합니다.');
   }else note(participationScore,'참여 기록이 없습니다.');

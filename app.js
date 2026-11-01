@@ -59,7 +59,7 @@ try{temporaryMemberToggle.checked=localStorage.getItem(temporaryFilterKey)==='tr
 temporaryMemberToggle.addEventListener('change',()=>{try{localStorage.setItem(temporaryFilterKey,String(temporaryMemberToggle.checked));}catch{}if(publicMemberSource)renderMembers(currentMemberSource(),document.getElementById('search').value);});
 let memberDateTimer;
 let calculateParticipation;
-const participationModel=import('./guild-overview-model.js?v=20261030-defense').then(model=>{calculateParticipation=model.weightedParticipation;});
+const participationModel=import('./guild-overview-model.js?v=20261101-rolling').then(model=>{calculateParticipation=model.weightedParticipation;});
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';

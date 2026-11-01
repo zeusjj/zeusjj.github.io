@@ -1,4 +1,4 @@
-import {personalParticipationHistory,guildParticipationHistory} from './participation-history.js?v=20261030-defense';
+import {personalParticipationHistory,guildParticipationHistory} from './participation-history.js?v=20261101-rolling';
 export function growthHistory(data,name=''){
  const nameIndex=data.headers.indexOf('닉네임'),rows=name?data.members.filter(row=>row[nameIndex]===name):data.members;
  return data.headers.flatMap((header,index)=>{const date=data.dates?.[index]?.start;if(header!=='성장도 기록'||!date)return [];const values=rows.map(row=>row[index]).filter(value=>typeof value==='number'&&Number.isFinite(value)&&value>=0);return values.length?[{date,value:values.reduce((n,v)=>n+v,0)/values.length,count:values.length}]:[];}).sort((a,b)=>a.date.localeCompare(b.date));
@@ -35,7 +35,7 @@ if(typeof document!=='undefined'){
  const frame=document.createElement('div'),axisCanvas=document.createElement('canvas');frame.className='member-history-frame';axisCanvas.id='member-history-axis';axisCanvas.setAttribute('aria-hidden','true');axisCanvas.width=72;axisCanvas.height=300;scroll.before(frame);frame.append(axisCanvas,scroll);
  const guild=document.getElementById('member-history-guild'),tooltip=document.createElement('div');tooltip.id='member-history-tooltip';tooltip.className='member-history-tooltip';tooltip.setAttribute('role','tooltip');tooltip.hidden=true;document.body.append(tooltip);
  const footer=document.createElement('div'),stepLabel=document.createElement('label'),step=document.createElement('select');footer.className='member-history-footer';step.id='member-history-step';step.setAttribute('aria-label','눈금 간격');for(const value of [100,500,1000,2500,5000])step.add(new Option(value.toLocaleString('ko-KR'),String(value)));step.value='500';stepLabel.append('눈금 간격 ',step);status.before(footer);footer.append(status,stepLabel);
- const participationBasis=document.createElement('small');participationBasis.className='member-history-basis';participationBasis.hidden=true;participationBasis.textContent='최근 4주 · 주당 25% (일요일 20% + 성물 5%). 길드 집계는 당시 O/X 기록 기준이며 탈퇴자를 포함합니다. 미기록(-)은 불참으로 간주하지 않습니다.';footer.after(participationBasis);
+ const participationBasis=document.createElement('small');participationBasis.className='member-history-basis';participationBasis.hidden=true;participationBasis.textContent='최근 28일 · 진행 콘텐츠 기준 (일요일 20% + 성물 5%). 길드 집계는 당시 O/X 기록 기준이며 탈퇴자를 포함합니다. 미기록(-)은 불참으로 간주하지 않습니다.';footer.after(participationBasis);
  function hideTooltip(){tooltip.hidden=true;canvas.removeAttribute('aria-describedby');clearHighlight();}
  const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0});let source,points=[],positions=[],scrollEnd=true,lastEnd=0,axis={minimum:0,maximum:500,step:500};
  const levelNumber=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:1}),percent=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});let lastMetric='growth';const savedSteps={growth:'500',level:'1',participation:'10'};

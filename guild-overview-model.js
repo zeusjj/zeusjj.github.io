@@ -33,30 +33,32 @@ export function guildGrowthSeries(data,through=koreaDay()){
 }
 export function participationPeriods(data,through=koreaDay(),activities=events(data,through)){
   if(!activities.length)return [];
-  const anchor=weekStart(activities[0].date);
-  return Array.from({length:4},(_,i)=>{
-    const start=shiftDay(anchor,(i-3)*7),end=shiftDay(start,6),held=activities.filter(event=>event.date>=start&&event.date<=end);
-    const scheduled=data.headers.flatMap((header,index)=>{const period=data.dates?.[index],date=isRelicDefense(header)?period?.end||period?.start:period?.start;return isGuildActivity(header)&&date>=start&&date<=end?[{header,index,date}]:[];});
+  const from=shiftDay(through,-27),anchor=weekStart(from),count=Math.round((Date.parse(weekStart(through))-Date.parse(anchor))/dayMs/7)+1;
+  return Array.from({length:count},(_,i)=>{
+    const week=shiftDay(anchor,i*7),weekEnd=shiftDay(week,6),start=week<from?from:week,end=weekEnd>through?through:weekEnd;
+    const held=activities.filter(event=>event.date>=start&&event.date<=end);
+    const scheduled=data.headers.flatMap((header,index)=>{const period=data.dates?.[index],date=isRelicDefense(header)?period?.end||period?.start:period?.start;return isGuildActivity(header)&&date>=week&&date<=weekEnd?[{header,index,date}]:[];});
     const hasDefense=scheduled.some(event=>isRelicDefense(event.header));
     const main=held.filter(event=>!isRelicDefense(event.header));
-    const planned=held.length&&hasDefense?scheduled:held;
-    const mainCount=planned.filter(event=>!isRelicDefense(event.header)).length,defenseCount=planned.filter(event=>isRelicDefense(event.header)).length;
-    const weightedEvents=planned.map(event=>({...event,weight:isRelicDefense(event.header)?5/defenseCount:(hasDefense?20:25)/mainCount,pending:event.date>through}));
-    return {start,end,events:weightedEvents,hasDefense,ambiguous:new Set(main.map(event=>event.date)).size>1};
-  });
+    // Use the complete week's split, but never count future/out-of-window events.
+    const mainCount=scheduled.filter(event=>!isRelicDefense(event.header)).length,defenseCount=scheduled.filter(event=>isRelicDefense(event.header)).length;
+    const weightedEvents=scheduled.filter(event=>event.date>=start&&event.date<=end).map(event=>({...event,weight:isRelicDefense(event.header)?5/defenseCount:(hasDefense?20:25)/mainCount}));
+    return {start,end,events:weightedEvents,capacity:weightedEvents.reduce((sum,event)=>sum+event.weight,0),hasDefense,ambiguous:new Set(main.map(event=>event.date)).size>1};
+  }).filter(period=>period.events.length);
 }
 export function weightedParticipation(data,through=koreaDay(),activities=events(data,through)){
   const nameIndex=data.headers.indexOf('닉네임'),periods=participationPeriods(data,through,activities);
   if(!activities.length)return {lastDate:null,periods:[],rows:[]};
+  const capacity=periods.reduce((sum,period)=>sum+period.capacity,0);
   const rows=data.members.map(row=>{
     const breakdown=periods.map(period=>{
       const values=period.events.map(event=>event.pending?null:status(row[event.index])),attended=values.filter(value=>value==='yes').length,missing=values.filter(value=>value===null).length;
       return {...period,attended,missing,total:values.length,points:period.ambiguous?null:period.events.reduce((sum,event,i)=>sum+(values[i]==='yes'?event.weight:0),0)};
     });
     const needsReview=breakdown.some(period=>period.ambiguous);
-    return {name:row[nameIndex],score:needsReview?null:breakdown.reduce((sum,period)=>sum+period.points,0),breakdown,incomplete:breakdown.some(period=>period.missing||!period.total),needsReview};
+    return {name:row[nameIndex],score:needsReview||!capacity?null:breakdown.reduce((sum,period)=>sum+period.points,0)/capacity*100,breakdown,incomplete:breakdown.some(period=>period.missing),needsReview};
   });
-  return {lastDate:activities[0].date,periods,rows};
+  return {lastDate:activities[0].date,start:shiftDay(through,-27),end:through,capacity,periods,rows};
 }
 export const growthTopPercent=record=>record&&record.total>0?record.rank/record.total*100:null;
 export function target(data){

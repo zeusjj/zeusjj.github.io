@@ -1,4 +1,4 @@
-import {events,participationPeriods,weightedParticipation,koreaDay,isRelicDefense} from './guild-overview-model.js?v=20261030-defense';
+import {events,participationPeriods,weightedParticipation,koreaDay,isRelicDefense} from './guild-overview-model.js?v=20261101-rolling';
 const known=value=>['O','ㅇ','X'].includes(String(value??'').trim().toUpperCase());
 
 export function personalParticipationHistory(data,whole=data,through=koreaDay()){
@@ -27,6 +27,7 @@ export function guildParticipationHistory(data,{klass='',band=''}={},through=kor
   const periods=participationPeriods(data,date,held);if(periods.some(period=>period.ambiguous))return [];
   let value=0,incomplete=false;
   for(const period of periods){if(!period.events.length)incomplete=true;for(const event of period.events){const counts=held.find(item=>item.index===event.index);if(!counts?.eligible||event.pending){incomplete=true;continue;}value+=event.weight*counts.attended/counts.eligible;}}
-  return [{date,value,count,incomplete,attended:latest.reduce((sum,event)=>sum+event.attended,0),eligible:latest.reduce((sum,event)=>sum+event.eligible,0)}];
+  const capacity=periods.reduce((sum,period)=>sum+period.capacity,0);if(!capacity)return [];
+  return [{date,value:value/capacity*100,count,incomplete,attended:latest.reduce((sum,event)=>sum+event.attended,0),eligible:latest.reduce((sum,event)=>sum+event.eligible,0)}];
  });
 }
