@@ -1,9 +1,34 @@
 {
-  "collectedAt": "2026-11-01T20:08:23.771602+00:00",
+  "collectedAt": "2026-11-01T21:12:19.530240+00:00",
   "days": 14,
   "coverageStart": "2026-11-01",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "100539",
+      "title": "응애 질문",
+      "publishedAt": "2026-11-02T05:15:11+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100539",
+      "recommended": false,
+      "contentText": "지금 법사 48에 3.5 찍었는데 50 찍고 부캐 리세하는건가요?? 부캐 리세한다면 같은 직업으로 만들어서 템옮기고 하는거에요?? 그거 아니면 아티산 만들어서 키워도 상관없나요???",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
+      "comments": [
+        {
+          "id": "281895",
+          "text": "리세는 최소 5만초반부터 가능. 직업은 같으면 장비를 다 옮겨서 할수있고, 타직업으로 할거면 무기,보조무기를 따로구입해야함",
+          "reply": false
+        },
+        {
+          "id": "281897",
+          "text": "리세 말고 그냥 부캐키우는건 지금해도 ㄱㅊ. 부캐2개 안키웟으면 키우셈. 에픽79까지밀고 농부서브퀘 해서 오리120개 받은다음 버려두면됨. 이 부캐를 삭제하고 다시 또 만드는 과정이 리세인건데 삭제하려면 부캐를 최소45렙 찍어야함. 그래서 45까지키우고 삭제가 45리세, 50까지 키우고 삭제가 50리세",
+          "reply": true
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
+    },
     {
       "id": "100538",
       "title": "아르2 필보 시간대가",
@@ -16,7 +41,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T20:08:23.771602+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100537",
@@ -30,7 +55,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T20:08:23.771602+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100536",
@@ -44,7 +69,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T20:08:23.771602+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100535",
@@ -58,7 +83,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100534",
@@ -72,7 +97,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100533",
@@ -83,10 +108,21 @@
       "contentText": "좋티 조티!",
       "contentStatus": "text",
       "contentFetchedAt": "2026-11-01T19:18:00.566339+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "281898",
+          "text": "호옹이",
+          "reply": false
+        },
+        {
+          "id": "281900",
+          "text": "홍어파워 - dc App",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100532",
@@ -106,7 +142,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100531",
@@ -120,7 +156,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100530",
@@ -131,10 +167,16 @@
       "contentText": "",
       "contentStatus": "no-text",
       "contentFetchedAt": "2026-11-01T19:18:00.566339+00:00",
-      "comments": [],
+      "comments": [
+        {
+          "id": "281892",
+          "text": "Pdf캡쳐완료",
+          "reply": false
+        }
+      ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100529",
@@ -148,7 +190,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100528",
@@ -162,7 +204,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100527",
@@ -178,11 +220,16 @@
           "id": "281887",
           "text": "50원",
           "reply": false
+        },
+        {
+          "id": "281891",
+          "text": "1만",
+          "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100526",
@@ -202,7 +249,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100525",
@@ -216,7 +263,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100524",
@@ -236,7 +283,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100523",
@@ -250,7 +297,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100522",
@@ -285,7 +332,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100521",
@@ -315,7 +362,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100520",
@@ -345,7 +392,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100519",
@@ -359,7 +406,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100518",
@@ -373,7 +420,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100517",
@@ -393,7 +440,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100516",
@@ -428,7 +475,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100515",
@@ -448,7 +495,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100514",
@@ -462,7 +509,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100513",
@@ -506,7 +553,7 @@
         },
         {
           "id": "0",
-          "text": "박위 또 논란, 아내 송지은 절친에게 “나 좋아했어?” 농담에 대중들 분노\n\n1/20",
+          "text": "한강에서 ‘이것’ 타면 과태료 4만원... 11월부터 단속 더 세진다\n\n1/20",
           "reply": false
         },
         {
@@ -517,7 +564,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100512",
@@ -537,7 +584,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100511",
@@ -557,7 +604,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100510",
@@ -571,7 +618,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100509",
@@ -591,7 +638,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100508",
@@ -630,7 +677,7 @@
         },
         {
           "id": "0",
-          "text": "로마 황제는 매주 1200개씩 먹었다는데… 찬바람 불면 살 제대로 오르는 식재료\n\n1/20",
+          "text": "‘은퇴 언급’ 기성용, 경기 중 ‘부상’… 눈물바다\n\n1/20",
           "reply": false
         },
         {
@@ -641,7 +688,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100507",
@@ -666,7 +713,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100506",
@@ -696,7 +743,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100505",
@@ -745,7 +792,7 @@
         },
         {
           "id": "0",
-          "text": "백지영, 정석원 마약 사건에도 이혼 안 한 이유 밝혔다\n\n1/20",
+          "text": "\"김밥용 김을 계란에 넣어 보세요\" 한번 맛보면 계속 먹게 되는 반찬 되네요.\n\n1/20",
           "reply": false
         },
         {
@@ -766,7 +813,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100503",
@@ -796,7 +843,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100502",
@@ -821,7 +868,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100501",
@@ -856,7 +903,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100499",
@@ -886,7 +933,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100498",
@@ -900,7 +947,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100497",
@@ -935,7 +982,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100496",
@@ -960,7 +1007,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100495",
@@ -974,7 +1021,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100494",
@@ -1009,7 +1056,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100493",
@@ -1044,7 +1091,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100492",
@@ -1064,7 +1111,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100491",
@@ -1099,7 +1146,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100489",
@@ -1183,7 +1230,7 @@
         },
         {
           "id": "0",
-          "text": "\"강남도 아닌데 월세 320만원\"…서울 외곽 아파트에서 벌어진 일\n\n1/20",
+          "text": "한강에서 ‘이것’ 타면 과태료 4만원... 11월부터 단속 더 세진다\n\n1/20",
           "reply": false
         },
         {
@@ -1244,7 +1291,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100488",
@@ -1258,7 +1305,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100487",
@@ -1288,7 +1335,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100486",
@@ -1302,7 +1349,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100485",
@@ -1327,7 +1374,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100484",
@@ -1352,7 +1399,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100483",
@@ -1377,7 +1424,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100482",
@@ -1421,13 +1468,13 @@
         },
         {
           "id": "0",
-          "text": "\"몸 속 염증 완화에 가장 좋다\" 영양사가 밝힌 '3가지 음식'\n\n1/20",
+          "text": "\"자동차보험료 괜히 더 냈네\" 자기부담금 20만원 vs 30만원, 보험료 차이 '깜짝'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100481",
@@ -1441,7 +1488,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100480",
@@ -1471,7 +1518,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100479",
@@ -1525,7 +1572,7 @@
         },
         {
           "id": "0",
-          "text": "\"코로나 백신 맞으면 암 걸린다?\"…3600만명 조사 결과 ‘반전’\n\n1/20",
+          "text": "‘은퇴 언급’ 기성용, 경기 중 ‘부상’… 눈물바다\n\n1/20",
           "reply": false
         },
         {
@@ -1561,7 +1608,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100478",
@@ -1581,7 +1628,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100477",
@@ -1620,7 +1667,7 @@
         },
         {
           "id": "0",
-          "text": "\"코로나 백신 맞으면 암 걸린다?\"…3600만명 조사 결과 ‘반전’\n\n1/20",
+          "text": "지금은 마트에서 흔히 사는데… 조선시대엔 왕실을 발칵 뒤집었다는 뜻밖의 식재료\n\n1/20",
           "reply": false
         },
         {
@@ -1636,7 +1683,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100476",
@@ -1681,7 +1728,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100475",
@@ -1725,7 +1772,7 @@
         },
         {
           "id": "0",
-          "text": "\"자동차보험료 괜히 더 냈네\" 자기부담금 20만원 vs 30만원, 보험료 차이 '깜짝'\n\n1/20",
+          "text": "8조 털린 바이낸스 역대 최대 해킹\n\n1/20",
           "reply": false
         },
         {
@@ -1756,7 +1803,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100474",
@@ -1786,7 +1833,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100473",
@@ -1800,7 +1847,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100472",
@@ -1849,13 +1896,13 @@
         },
         {
           "id": "0",
-          "text": "\"골뱅이무침에 소면 넣지 마세요\"…'이 해조류' 넣었더니 꼬들꼬들 씹는 맛이 다릅니다\n\n1/20",
+          "text": "9톤 화물차가 모닝 들이받아... 3중 추돌 사고로 모녀 심정지\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100471",
@@ -1894,13 +1941,13 @@
         },
         {
           "id": "0",
-          "text": "자동 가입된 3500만 원짜리 시민안전보험\n\n1/20",
+          "text": "9톤 화물차가 모닝 들이받아... 3중 추돌 사고로 모녀 심정지\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100470",
@@ -1910,11 +1957,11 @@
       "recommended": false,
       "contentText": "나참",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100469",
@@ -1924,7 +1971,7 @@
       "recommended": false,
       "contentText": "달달하노 ㅋ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281678",
@@ -1934,7 +1981,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100468",
@@ -1944,7 +1991,7 @@
       "recommended": false,
       "contentText": "영웅 12 +2중복\n\n11 + 1중복\n\n전설의상 1번 (실패)\n\n탈것 1번(성공) 이긴한데\n\n영웅 개잘먹었네\n\n근데 나보다 투력 낮더라 분발해라\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281650",
@@ -1978,13 +2025,13 @@
         },
         {
           "id": "0",
-          "text": "‘미코 善’ 최미나수, 슬렌더 여신의 정석…괌 바다 앞 청량한 수영복 자태\n\n1/20",
+          "text": "[르포]장갑차·탐지견까지 동원…핼러윈 이태원·홍대 '인파와의 전쟁'\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100467",
@@ -1994,11 +2041,11 @@
       "recommended": false,
       "contentText": "걍 소비한돈으로 생각하지 보상심리보소 ㅋㅋ\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100466",
@@ -2008,7 +2055,7 @@
       "recommended": false,
       "contentText": "투력 5.5 간신히넘기는 통발캐릭아님?\n\n통발캐가 자랑거리는 아닌데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281657",
@@ -2018,7 +2065,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100465",
@@ -2028,7 +2075,7 @@
       "recommended": false,
       "contentText": "어차피 린라 한두번해본것도 아니고\n\n심심해서 하는걸텐데\n\n40대이상정도면 나중에 10~20%정도 건지는거 알고하는거아님??\n\n그리고 아예 그냥 구깡으로 겜안하고 자기 본계정으로 만들고 겜접을때 그냥 놓는사람이 대부분아닌가?\n\n하도 멘징멘징거려서 너넨 몇살이길래 린라에서 회수할생각을하냐?\n\n암튼 시팔\n\n나도 낼모레 이제 40이네 시팔 하 인생에 반절살앗구나 ㅈ같은거",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281624",
@@ -2067,7 +2114,7 @@
         },
         {
           "id": "0",
-          "text": "[르포]장갑차·탐지견까지 동원…핼러윈 이태원·홍대 '인파와의 전쟁'\n\n1/20",
+          "text": "[롤드컵] 한화생명, BLG 넘지 못하고 8강 진출 좌절\n\n1/20",
           "reply": false
         },
         {
@@ -2123,7 +2170,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100464",
@@ -2133,7 +2180,7 @@
       "recommended": false,
       "contentText": "필드 통제 당하는 서버 아닌이상 저거 갈 이유 없는거지?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281620",
@@ -2143,7 +2190,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100463",
@@ -2153,7 +2200,7 @@
       "recommended": false,
       "contentText": "지금 3t 5강 보조무기쓰는데 바꾸면 체감클라나? 갑자기 꽁다야 생겨서 스펙업 하고싶은데",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281627",
@@ -2163,7 +2210,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100462",
@@ -2173,7 +2220,7 @@
       "recommended": false,
       "contentText": "그래서 다들 멘징 몇프로함?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281611",
@@ -2202,13 +2249,13 @@
         },
         {
           "id": "0",
-          "text": "\"강남도 아닌데 월세 320만원\"…서울 외곽 아파트에서 벌어진 일\n\n1/20",
+          "text": "[롤드컵] MSI 챔피언 한화생명, 월즈 8강 진출 실패…LCK 3개 팀 생존\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100461",
@@ -2218,7 +2265,7 @@
       "recommended": false,
       "contentText": "먼 씨부레 경치 페널티던전 머냐 중립도 사람답게좀 살자",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281610",
@@ -2247,13 +2294,13 @@
         },
         {
           "id": "0",
-          "text": "\"골뱅이무침에 소면 넣지 마세요\"…'이 해조류' 넣었더니 꼬들꼬들 씹는 맛이 다릅니다\n\n1/20",
+          "text": "[롤드컵] MSI 챔피언 한화생명, 월즈 8강 진출 실패…LCK 3개 팀 생존\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100460",
@@ -2263,11 +2310,11 @@
       "recommended": false,
       "contentText": "",
       "contentStatus": "no-text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100459",
@@ -2277,7 +2324,7 @@
       "recommended": false,
       "contentText": "지금 앵간하면 다 합의되서 연합일텐데\n\n타섭 대전으로 가면 분배 다이아도 더 많으니\n\n먹으려면 과금하려고 더 지를테고",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281682",
@@ -2287,7 +2334,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100458",
@@ -2297,11 +2344,11 @@
       "recommended": false,
       "contentText": "점령전 구도는 라인들 노나 먹기 예상 안되었던것도 아니잖어?\n\n요새전은 중립 마바리들 꽁다야라도 먹을라면\n\n뒤질듯 싸워야지\n\n섭내 중립쟁까지 생긴다? 겜사가 바라는걸꺼임\n\n린라는 중립이고뭐고 싸우려고 하는거지",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100457",
@@ -2311,7 +2358,7 @@
       "recommended": false,
       "contentText": "신섭 망했다더니 갓섭이었네요 ㅋㅋㅋ\n\n하데스 2섭이랑 3섭에도 통발 좀 놓으려고 했는데 생제 걸렸넹",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281608",
@@ -2340,7 +2387,7 @@
         },
         {
           "id": "0",
-          "text": "[롤드컵] 한화생명, BLG 넘지 못하고 8강 진출 좌절\n\n1/20",
+          "text": "박위 또 논란, 아내 송지은 절친에게 “나 좋아했어?” 농담에 대중들 분노\n\n1/20",
           "reply": false
         },
         {
@@ -2351,7 +2398,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100456",
@@ -2361,7 +2408,7 @@
       "recommended": false,
       "contentText": "",
       "contentStatus": "no-text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281604",
@@ -2371,7 +2418,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100455",
@@ -2381,11 +2428,11 @@
       "recommended": false,
       "contentText": "점령지못먹음?",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100454",
@@ -2395,7 +2442,7 @@
       "recommended": false,
       "contentText": "개꿀잼이엇을텐데 ㅋㅋㅋ",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281668",
@@ -2405,7 +2452,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100453",
@@ -2415,7 +2462,7 @@
       "recommended": false,
       "contentText": "큰거 2장이면 멘징좀 해도 되자녜 ㅜㅜㅜㅜㅜㅜ\n\n이제 시작함 다이아 2천만 모으라면 몇개고",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281592",
@@ -2444,13 +2491,13 @@
         },
         {
           "id": "0",
-          "text": "9톤 화물차가 모닝 들이받아... 3중 추돌 사고로 모녀 심정지\n\n1/20",
+          "text": "\"감자조림에 설탕 따로 넣지 마세요\"…콜라 반 컵 부었더니 윤기가 좔좔 흐릅니다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100452",
@@ -2460,7 +2507,7 @@
       "recommended": false,
       "contentText": "당장 도깨비세계만해도 프모랑 pvp전장에서 맞붙여놔도\n\n상대 일반인 큰손들 지르면서 서버경제도 활기돌고 구도 잡히고\n\n유사모바일게임 아이온2 같은경우 지금 쌍조같은 17만급 세팅들 알트가 걍 지원해서 시엘에 여러개 만들어내도\n\n이스라펠 텐같은 큰손들 난입해서 지원하면서 구도 맞춰지는식인데\n\n걍 지들이 프모비 싹싹김치해서 쌀먹해서 구도 망가진걸\n\n누구가 너무 질렀네 이지랄하는게 너무 짜침\n\n쌍조는 그나마 지르려는 노력이라도 하지\n\n그 아랫놈들은 형님 화이팅~ 이러면서 혈비 빨아먹을 생각만 하지\n\n지를맘은 1도 없다는거임\n\n웃기는건 아레스고 아테나고 서버마다 팀장급 배당해서 동일한 세팅선상에서 시작했다는거임\n\n린라류 아니고 오딘류라쳐도 지른사람이 너무 질러서 구도 망쳤다는\n\n빨갱이들의 해괴한 망발에 적당히 지른게 현재정도고\n\n너무질러서 게임망쳤다는데 그런 사람을 템빨에 또 프모붙여줌?\n\n그냥 미코가 아래에서 지적하는것처럼\n\n이 게임은 지른만큼 회수에 혈안된 새끼들이 너무많음\n\n아레스쟁도 썰자할때 혈비 안주면 참가도 안하잖아 아레스쌀먹들ㅋㅋ\n\n점령전때 보이는 인원중에 구라안치고\n\n90%정도가 썰자안다녀서 맵에서 처음본애들임",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281637",
@@ -2494,13 +2541,13 @@
         },
         {
           "id": "0",
-          "text": "\"감자조림에 설탕 따로 넣지 마세요\"…콜라 반 컵 부었더니 윤기가 좔좔 흐릅니다\n\n1/20",
+          "text": "\"골뱅이무침에 소면 넣지 마세요\"…'이 해조류' 넣었더니 꼬들꼬들 씹는 맛이 다릅니다\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100451",
@@ -2510,7 +2557,7 @@
       "recommended": false,
       "contentText": "지금 계정시세 한 300언저리 하는거같은데.. 시발 쓴돈 생각나네",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281570",
@@ -2535,7 +2582,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100450",
@@ -2545,7 +2592,7 @@
       "recommended": false,
       "contentText": "게임 즐기는거 보다 걍 멘징을 하냐 못 하냐가 중요한 개그지",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281568",
@@ -2584,13 +2631,13 @@
         },
         {
           "id": "0",
-          "text": "\"감자조림에 설탕 따로 넣지 마세요\"…콜라 반 컵 부었더니 윤기가 좔좔 흐릅니다\n\n1/20",
+          "text": "\"김밥용 김을 계란에 넣어 보세요\" 한번 맛보면 계속 먹게 되는 반찬 되네요.\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100449",
@@ -2600,7 +2647,7 @@
       "recommended": false,
       "contentText": "캐선이라는거 출시하면 계정 안팔고 캐릭터만 판매가 가능한건가요?\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281586",
@@ -2615,7 +2662,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100448",
@@ -2625,7 +2672,7 @@
       "recommended": false,
       "contentText": "그래서 2섭에서 3섭 전체 썰자 진행중 ㅇㅇ 뢰 하나때문에 3섭 중립들까지 휘말렸음",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281598",
@@ -2635,7 +2682,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100447",
@@ -2645,7 +2692,7 @@
       "recommended": false,
       "contentText": "우리 없으면 느들 계정 구경도 못 하면서 시비녜-\n\n계정 쳐! 내놓라녜- 그럼\n\n- dc official App",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281560",
@@ -2679,7 +2726,7 @@
         },
         {
           "id": "0",
-          "text": "\"마트에서 고추참치 한통 사오세요\" 밥 3공기 뚝딱하게 만드는 진짜 꿀팁.\n\n1/20",
+          "text": "\"몸 속 염증 완화에 가장 좋다\" 영양사가 밝힌 '3가지 음식'\n\n1/20",
           "reply": false
         },
         {
@@ -2705,7 +2752,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100446",
@@ -2715,7 +2762,7 @@
       "recommended": false,
       "contentText": "뉴비라 잘 모르는데 다들 통발 뒀다고 해서 얻은 재화로 어떻게 본캐 강화해?\n\n알려줘",
       "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T14:15:00.481738+00:00",
+      "contentFetchedAt": "2026-11-01T21:12:19.530240+00:00",
       "comments": [
         {
           "id": "281551",
@@ -2740,7 +2787,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100445",
@@ -2779,7 +2826,7 @@
         },
         {
           "id": "0",
-          "text": "[롤드컵] MSI 챔피언 한화생명, 월즈 8강 진출 실패…LCK 3개 팀 생존\n\n1/20",
+          "text": "백지영, 정석원 마약 사건에도 이혼 안 한 이유 밝혔다\n\n1/20",
           "reply": false
         },
         {
@@ -2850,7 +2897,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100444",
@@ -2864,7 +2911,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100443",
@@ -2899,7 +2946,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100442",
@@ -2924,7 +2971,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100441",
@@ -2954,7 +3001,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100440",
@@ -2966,11 +3013,6 @@
       "contentStatus": "text",
       "contentFetchedAt": "2026-11-01T20:08:23.771602+00:00",
       "comments": [
-        {
-          "id": "281512",
-          "text": "미코 핵과금러야?? ㄷㄷㄷ",
-          "reply": false
-        },
         {
           "id": "281524",
           "text": "운이 좋타녜-",
@@ -2988,7 +3030,7 @@
         },
         {
           "id": "0",
-          "text": "자동 가입된 3500만 원짜리 시민안전보험\n\n1/20",
+          "text": "\"코로나 백신 맞으면 암 걸린다?\"…3600만명 조사 결과 ‘반전’\n\n1/20",
           "reply": false
         },
         {
@@ -3044,7 +3086,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100439",
@@ -3083,13 +3125,13 @@
         },
         {
           "id": "0",
-          "text": "8조 털린 바이낸스 역대 최대 해킹\n\n1/20",
+          "text": "지금은 마트에서 흔히 사는데… 조선시대엔 왕실을 발칵 뒤집었다는 뜻밖의 식재료\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100438",
@@ -3124,7 +3166,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100437",
@@ -3154,7 +3196,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100436",
@@ -3174,7 +3216,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100435",
@@ -3204,7 +3246,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100434",
@@ -3243,13 +3285,13 @@
         },
         {
           "id": "0",
-          "text": "9톤 화물차가 모닝 들이받아... 3중 추돌 사고로 모녀 심정지\n\n1/20",
+          "text": "로마 황제는 매주 1200개씩 먹었다는데… 찬바람 불면 살 제대로 오르는 식재료\n\n1/20",
           "reply": false
         }
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100433",
@@ -3274,7 +3316,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100432",
@@ -3304,7 +3346,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100431",
@@ -3343,7 +3385,7 @@
         },
         {
           "id": "0",
-          "text": "트랜스젠더 하리수, 기자에게 “성관계 어떻게?” 무례한 질문받자 보인 반응\n\n1/20",
+          "text": "\"사람 안 좋아하는 데 이유 있나\"… 장원영, 각종 억까 속 심경 고백?\n\n1/20",
           "reply": false
         },
         {
@@ -3354,7 +3396,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100430",
@@ -3368,7 +3410,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100429",
@@ -3382,7 +3424,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100428",
@@ -3402,7 +3444,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100427",
@@ -3422,7 +3464,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100426",
@@ -3461,7 +3503,7 @@
         },
         {
           "id": "0",
-          "text": "마케팅 사원에서 치어리더로, 조다정의 반전 가득한 응원 무대 뒷이야기\n\n1/20",
+          "text": "트랜스젠더 하리수, 기자에게 “성관계 어떻게?” 무례한 질문받자 보인 반응\n\n1/20",
           "reply": false
         },
         {
@@ -3477,7 +3519,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100425",
@@ -3491,7 +3533,7 @@
       "comments": [],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100424",
@@ -3530,7 +3572,7 @@
         },
         {
           "id": "0",
-          "text": "9톤 화물차가 모닝 들이받아... 3중 추돌 사고로 모녀 심정지\n\n1/20",
+          "text": "마케팅 사원에서 치어리더로, 조다정의 반전 가득한 응원 무대 뒷이야기\n\n1/20",
           "reply": false
         },
         {
@@ -3551,7 +3593,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100423",
@@ -3581,7 +3623,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100422",
@@ -3636,7 +3678,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100421",
@@ -3661,7 +3703,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100420",
@@ -3700,7 +3742,7 @@
         },
         {
           "id": "0",
-          "text": "9톤 화물차가 모닝 들이받아... 3중 추돌 사고로 모녀 심정지\n\n1/20",
+          "text": "[롤드컵] 한화생명, BLG 넘지 못하고 8강 진출 좌절\n\n1/20",
           "reply": false
         },
         {
@@ -3711,7 +3753,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100419",
@@ -3741,7 +3783,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100418",
@@ -3780,7 +3822,7 @@
         },
         {
           "id": "0",
-          "text": "백지영, 정석원 마약 사건에도 이혼 안 한 이유 밝혔다\n\n1/20",
+          "text": "\"코로나 백신 맞으면 암 걸린다?\"…3600만명 조사 결과 ‘반전’\n\n1/20",
           "reply": false
         },
         {
@@ -3796,7 +3838,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     },
     {
       "id": "100417",
@@ -3831,37 +3873,7 @@
       ],
       "commentsStatus": "ok",
       "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
-    },
-    {
-      "id": "100416",
-      "title": "최소한 필드pk좀 없애라",
-      "publishedAt": "2026-11-01T21:23:35+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100416",
-      "recommended": false,
-      "contentText": "저 밑에들 글처럼 농사섭들 다되간다 서버가 다 연합인데 점령전이고 공성전이든 먼 의미잇냐 겜 제작자도 서버쟁을 메인으로 한거 아님?",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-11-01T20:08:23.771602+00:00",
-      "comments": [
-        {
-          "id": "281438",
-          "text": "필드피케이가 아이러니 하게도 더 농사서버를 장려하는 느낌이긴함 ㅋㅋㅋ 다 지쳐가지고 기운이 쏙 빠지니 다른 컨텐츠 열심히 할 기운이 나나 막피놈들 때문에 필드에서 피로도 다 빠지는데",
-          "reply": false
-        },
-        {
-          "id": "281440",
-          "text": "필드쟁을 없애면 통제도 못하고 꺼드럭도 못대서 절대 안할듯",
-          "reply": false
-        },
-        {
-          "id": "281491",
-          "text": "풉 - dc App",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-01T19:18:00.566339+00:00"
+      "commentsFetchedAt": "2026-11-01T21:12:19.530240+00:00"
     }
   ]
 }
