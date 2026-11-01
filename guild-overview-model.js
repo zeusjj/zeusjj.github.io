@@ -70,8 +70,10 @@ export function overview(data,through=koreaDay()){
   const latest=columns(data,h=>h==='성장도 기록',through).at(-1);
   const baseline=latest?columns(data,h=>h==='성장도 기록',shiftDay(latest.date,-7)).at(-1):null;
   const contribution=columns(data,h=>/공헌/.test(h),through).at(-1);
-  const festival=columns(data,h=>/제전 기여$/.test(h),through).sort((a,b)=>Number(a.header.match(/^\d+/)?.[0])-Number(b.header.match(/^\d+/)?.[0])).at(-1);
-  const festivalColumns=[...new Map(columns(data,h=>/^\d+차 제전 기여$/.test(h),through).map(column=>[column.header,column])).values()];
+  const contributions=columns(data,h=>/^\d+차 제전 기여$/.test(h),through);
+  const festival=contributions.at(-1);
+  const season=column=>{const title=column.header.replace(/ 기여$/,''),event=data.headers.findIndex((h,c)=>c>column.index&&h===title),date=data.dates?.[event]?.start||column.date;return Math.floor((Date.parse(date)-Date.parse('2026-10-04'))/(28*dayMs));};
+  const festivalColumns=festival?contributions.filter(column=>season(column)===season(festival)):[];
   const festivalRanks=ranked(data.members.flatMap(row=>{const values=festivalColumns.map(column=>row[column.index]).filter(numeric);return values.length?[{name:row[nameIndex],value:values.reduce((sum,value)=>sum+value,0)}]:[];}));
   const metric=column=>column?ranked(data.members.filter(row=>numeric(row[column.index])).map(row=>({name:row[nameIndex],value:row[column.index]}))):[];
   const matched=latest&&baseline?data.members.filter(row=>numeric(row[latest.index])&&numeric(row[baseline.index])&&row[baseline.index]>0):[];

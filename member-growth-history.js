@@ -1,4 +1,4 @@
-import {personalParticipationHistory,guildParticipationHistory} from './participation-history.js?v=20261101-rolling';
+import {personalParticipationHistory,guildParticipationHistory} from './participation-history.js?v=20261102-season';
 export function growthHistory(data,name=''){
  const nameIndex=data.headers.indexOf('닉네임'),rows=name?data.members.filter(row=>row[nameIndex]===name):data.members;
  return data.headers.flatMap((header,index)=>{const date=data.dates?.[index]?.start;if(header!=='성장도 기록'||!date)return [];const values=rows.map(row=>row[index]).filter(value=>typeof value==='number'&&Number.isFinite(value)&&value>=0);return values.length?[{date,value:values.reduce((n,v)=>n+v,0)/values.length,count:values.length}]:[];}).sort((a,b)=>a.date.localeCompare(b.date));

@@ -59,7 +59,7 @@ try{temporaryMemberToggle.checked=localStorage.getItem(temporaryFilterKey)==='tr
 temporaryMemberToggle.addEventListener('change',()=>{try{localStorage.setItem(temporaryFilterKey,String(temporaryMemberToggle.checked));}catch{}if(publicMemberSource)renderMembers(currentMemberSource(),document.getElementById('search').value);});
 let memberDateTimer;
 let calculateParticipation;
-const participationModel=import('./guild-overview-model.js?v=20261101-rolling').then(model=>{calculateParticipation=model.weightedParticipation;});
+const participationModel=import('./guild-overview-model.js?v=20261102-season').then(model=>{calculateParticipation=model.weightedParticipation;});
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -668,7 +668,7 @@ function hiddenMemberColumn(data,index){
 function memberWeekGroups(data,identityCount,hiddenColumn){
   const weeks=data.headers.map((header,index)=>{
     if(index<identityCount)return null;
-    const festival=header.match(/^(\d+차 제전) 기여$/),eventIndex=festival?data.headers.indexOf(festival[1]):-1;
+    const eventIndex=window.GuildArcadiaSeasons.festivalEventIndex(data,index);
     const day=data.dates?.[eventIndex>=0?eventIndex:index]?.start;
     if(!/^\d{4}-\d{2}-\d{2}$/.test(day||''))return null;
     const date=new Date(day+'T00:00:00Z');date.setUTCDate(date.getUTCDate()-date.getUTCDay());
@@ -691,7 +691,7 @@ function memberDateBadge(period,today){
 }
 function memberFestivalTotal(data,row,index){
   if(data.headers[index]!=='2차 제전 기여'||typeof row[index]!=='number')return '';
-  const first=row[data.headers.indexOf('1차 제전 기여')];
+  const first=row[window.GuildArcadiaSeasons.firstFestivalContribution(data,index)];
   return ` (${(row[index]+(typeof first==='number'?first:0)).toLocaleString('ko-KR')})`;
 }
 function renderSeasonBand(table,data,identityCount,isHidden){
