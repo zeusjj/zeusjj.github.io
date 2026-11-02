@@ -1,7 +1,7 @@
 const panel=document.getElementById('fate-panel');
 const root=document.createElement('section');root.id='fate-enhancement';root.setAttribute('aria-labelledby','fate-enhancement-title');
 root.innerHTML=`
- <div class="fate-enhance-heading"><h2 id="fate-enhancement-title"><i data-lucide="gem"></i>희귀 장신구 강화·분해</h2><span>0강 구매 · 실패까지 강화</span></div>
+ <div class="fate-enhance-heading"><h2 id="fate-enhancement-title"><i data-lucide="gem"></i>희귀 장신구 강화·분해</h2><span>장신구를 바로 분해하지 않고, 깨질 때까지 강화했을 때의 기대값 계산기</span></div>
  <div class="fate-enhance-controls">
   <fieldset><legend>장신구 티어</legend><div class="fate-tier-options">${[1,2,3,4,5,6].map(t=>`<label><input type="radio" name="fate-tier" value="${t}" ${t===1?'checked':''}><span>T${t}</span></label>`).join('')}</div></fieldset>
   <label class="fate-enhance-price" for="fate-item-price">개당 평균 구매가<div><input id="fate-item-price" type="number" min="0.1" max="1000000" step="0.1" value="50" inputmode="decimal"><span>다이아</span></div></label>
