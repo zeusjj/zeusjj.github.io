@@ -33,7 +33,10 @@
 .fate-enhance-graph-heading h3{margin:0;font-size:14px}
 .fate-chart-modes{display:flex;gap:16px}
 .fate-chart-modes span{display:grid;place-items:center;min-height:44px;border-bottom:2px solid transparent;font-size:12px}
-.fate-enhance-chart{margin:0;min-width:0}
+.fate-enhance-chart{position:relative;margin:0;min-width:0}
+#fate-chart-tooltip{position:absolute;z-index:10;display:grid;gap:5px;max-width:calc(100% - 8px);width:max-content;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);box-shadow:0 3px 12px #0002;font-size:12px;line-height:1.5;pointer-events:none;overflow-wrap:anywhere}
+#fate-chart-tooltip strong{font-size:12px;font-weight:650}
+#fate-chart-tooltip span{color:var(--muted)}
 #fate-enhance-plot{display:block;width:100%;height:230px;outline-offset:2px}
 .fate-chart-grid{stroke:var(--line);stroke-width:1}
 .fate-chart-text{fill:var(--muted);font-size:11px;font-family:inherit}
