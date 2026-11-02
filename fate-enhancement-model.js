@@ -2,6 +2,7 @@ import {fatePrices} from './fate-price-data.js';
 import {ENHANCEMENT_PROBABILITIES} from './enhancement-model.js';
 import * as poissonLibrary from './vendor/stdlib-poisson.js';
 export const FATE_SAMPLE_COUNT=40000;
+export const FATE_RETAIL_PRICE=0.5;
 export function fateOutcomes(tier){
  const item=fatePrices.find(row=>row.grade==='희귀 T'+tier);if(!item)throw new RangeError('Invalid tier');
  const outcomes=[];let survival=1;
@@ -14,7 +15,7 @@ export function fateExpectation({tier,quantity,itemPrice,scrollPrice}){
  const {baseFlow,outcomes}=fateOutcomes(tier);
  const mean=key=>outcomes.reduce((s,o)=>s+o.probability*o[key],0),flow=mean('flow'),scrolls=mean('scrolls');
  const cost=quantity*(itemPrice+scrollPrice*scrolls),totalFlow=quantity*flow,baselineCost=quantity*itemPrice,baselineFlow=quantity*baseFlow;
- return {outcomes,baseFlow,flow:totalFlow,scrolls:quantity*scrolls,cost,baselineCost,baselineFlow,efficiency:(totalFlow/cost)/(baseFlow/itemPrice),unitCost:cost/totalFlow,breakEvenScroll:itemPrice*(flow/baseFlow-1)/scrolls,flowVariance:quantity*outcomes.reduce((s,o)=>s+o.probability*(o.flow-flow)**2,0)};
+ return {outcomes,baseFlow,flow:totalFlow,scrolls:quantity*scrolls,cost,baselineCost,baselineFlow,retailPrice:FATE_RETAIL_PRICE,retailCost:totalFlow*FATE_RETAIL_PRICE,efficiency:totalFlow*FATE_RETAIL_PRICE/cost,unitCost:cost/totalFlow,breakEvenScroll:(flow*FATE_RETAIL_PRICE-itemPrice)/scrolls,flowVariance:quantity*outcomes.reduce((s,o)=>s+o.probability*(o.flow-flow)**2,0)};
 }
 export function sampleFateBatches(tier,quantity,count=FATE_SAMPLE_COUNT,seed=1102){
  const {outcomes}=fateOutcomes(tier),cdf=[];let probability=0;
@@ -34,6 +35,6 @@ export function fateDistribution(values){
 }
 export function summarizeFate(options,samples){
  const expected=fateExpectation(options),efficiencies=new Float64Array(samples.flow.length);let better=0;
- for(let i=0;i<efficiencies.length;i++){const cost=options.quantity*options.itemPrice+samples.scrolls[i]*options.scrollPrice;efficiencies[i]=samples.flow[i]/cost/(expected.baseFlow/options.itemPrice);if(efficiencies[i]>1+1e-12)better++;}
+ for(let i=0;i<efficiencies.length;i++){const cost=options.quantity*options.itemPrice+samples.scrolls[i]*options.scrollPrice;efficiencies[i]=samples.flow[i]*FATE_RETAIL_PRICE/cost;if(efficiencies[i]>1+1e-12)better++;}
  return {expected,efficiency:fateDistribution(efficiencies),flow:fateDistribution(samples.flow),betterProbability:better/efficiencies.length,samples:efficiencies.length};
 }

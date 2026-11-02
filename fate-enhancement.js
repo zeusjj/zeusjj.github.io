@@ -11,10 +11,10 @@ root.innerHTML=`
  <p id="fate-enhance-status" role="status"></p>
  <div id="fate-enhance-result" hidden>
   <div class="fate-enhance-metrics">
-   <div><span>같은 비용 대비 기대 효율</span><strong id="fate-efficiency"></strong><small>구매 후 바로 분해 = 1배</small></div>
+   <div><span>정가 대비 기대 효율</span><strong id="fate-efficiency"></strong><small>실타래 정가 0.5 다이아/개 = 1배</small></div>
    <div><span>기대 흐름 획득량</span><strong id="fate-flow"></strong><small id="fate-flow-gain"></small></div>
    <div><span>기대 총비용 (다이아)</span><strong id="fate-cost"></strong><small id="fate-scroll-count"></small></div>
-   <div><span>바로 분해보다 효율적일 확률</span><strong id="fate-better"></strong><small>40,000회 표본 · 수익 보장 아님</small></div>
+   <div><span>정가보다 저렴하게 얻을 확률</span><strong id="fate-better"></strong><small>40,000회 표본 · 수익 보장 아님</small></div>
   </div>
   <div class="fate-enhance-graph-heading"><h3>결과 분포</h3><fieldset class="fate-chart-modes"><legend class="visually-hidden">분포 기준</legend><label><input type="radio" name="fate-chart-mode" value="efficiency" checked><span>효율 배수</span></label><label><input type="radio" name="fate-chart-mode" value="flow"><span>흐름 획득량</span></label></fieldset></div>
   <figure class="fate-enhance-chart"><svg id="fate-enhance-plot" role="img" tabindex="0"></svg><figcaption id="fate-chart-detail"></figcaption></figure>
@@ -23,7 +23,7 @@ root.innerHTML=`
   <div class="fate-enhance-comparison"><table><caption id="fate-compare-caption"></caption><thead><tr><th scope="col">방식</th><th scope="col">흐름</th><th scope="col">총비용</th><th scope="col">흐름 1개당 비용</th></tr></thead><tbody id="fate-compare-rows"></tbody></table></div>
   <p id="fate-break-even" class="fate-break-even"></p>
  </div>
- <details class="fate-enhance-method"><summary>계산 기준·강화 확률</summary><p>+0 희귀 장신구를 구매해 최초 실패까지 강화합니다. 실패 시 직전 강화 단계의 분해량을 받고, +12까지 모두 성공하면 +12 장신구를 분해합니다. 강화 시도당 주문서 1장, 실패한 시도의 주문서도 비용에 포함합니다. 추가 수수료·골드·보호·확률 보정은 제외합니다.</p><p>기대 효율 = (기대 총흐름 ÷ 기대 총비용) ÷ (0강 분해량 ÷ 개당 구매가). 수량을 정한 반복 실험의 효율 평균과는 다를 수 있습니다. 기대 흐름·비용은 단계별 확률을 합산한 정확한 기댓값이며, 분포·백분위·유리할 확률은 독립 시행 40,000회의 추정치입니다. 강화 횟수와 보상의 상관관계를 함께 반영합니다.</p><p>분포의 마지막 막대는 우측 경계 이상 결과를 모두 포함합니다. 매우 드문 고강화 보상은 표본에 나타나지 않을 수 있으나, 기댓값에는 +12까지 모두 포함합니다.</p><div class="fate-rates" id="fate-enhance-rates"></div></details>`;
+ <details class="fate-enhance-method"><summary>계산 기준·강화 확률</summary><p>+0 희귀 장신구를 구매해 최초 실패까지 강화합니다. 실패 시 직전 강화 단계의 분해량을 받고, +12까지 모두 성공하면 +12 장신구를 분해합니다. 강화 시도당 주문서 1장, 실패한 시도의 주문서도 비용에 포함합니다. 추가 수수료·골드·보호·확률 보정은 제외합니다.</p><p>실타래 정가를 흐름 1개당 0.5다이아로 환산합니다. 기대 효율 = 기대 총흐름 × 0.5 ÷ 기대 총비용. 1배는 정가와 동일하며 2배는 정가의 절반 비용입니다. 수량을 정한 반복 실험의 효율 평균과는 다를 수 있습니다. 기대 흐름·비용은 단계별 확률을 합산한 정확한 기댓값이며, 분포·백분위·유리할 확률은 독립 시행 40,000회의 추정치입니다. 강화 횟수와 보상의 상관관계를 함께 반영합니다.</p><p>분포의 마지막 막대는 우측 경계 이상 결과를 모두 포함합니다. 매우 드문 고강화 보상은 표본에 나타나지 않을 수 있으나, 기댓값에는 +12까지 모두 포함합니다.</p><div class="fate-rates" id="fate-enhance-rates"></div></details>`;
 panel.prepend(root);
 const find=id=>root.querySelector('#'+id),number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const ns='http://www.w3.org/2000/svg',svg=find('fate-enhance-plot'),detail=find('fate-chart-detail');
@@ -46,9 +46,9 @@ function draw(){
  for(const f of [0,.5,1]){const y=top+h*(1-f);svg.append(mark('line',{x1:left,x2:width-right,y1:y,y2:y,class:'fate-chart-grid'}),mark('text',{x:left-7,y:y+4,'text-anchor':'end',class:'fate-chart-text'},decimal.format(ceiling*f*100)+'%'));}
  dist.bins.forEach((b,i)=>{const bar=mark('rect',{x:left+i*w/28+1,y:top+h*(1-b.probability/ceiling),width:Math.max(1,w/28-2),height:h*b.probability/ceiling,'data-bin':i,class:'fate-chart-bar'});bar.addEventListener('pointerenter',()=>describe(i));svg.append(bar);});
  for(const [i,value]of dist.quantiles.entries())svg.append(mark('line',{x1:x(value),x2:x(value),y1:top,y2:top+h,class:'fate-chart-percentile percentile-'+i}));
- if(mode()==='efficiency'&&low<=1&&high>=1){svg.append(mark('line',{x1:x(1),x2:x(1),y1:top,y2:top+h,class:'fate-chart-baseline'}),mark('text',{x:x(1),y:12,'text-anchor':'middle',class:'fate-chart-text'},'바로 분해 1배'));}
+ if(mode()==='efficiency'&&low<=1&&high>=1){svg.append(mark('line',{x1:x(1),x2:x(1),y1:top,y2:top+h,class:'fate-chart-baseline'}),mark('text',{x:x(1),y:12,'text-anchor':'middle',class:'fate-chart-text'},'정가 1배'));}
  for(const f of [0,.5,1])svg.append(mark('text',{x:left+w*f,y:height-12,'text-anchor':f===0?'start':f===1?'end':'middle',class:'fate-chart-text'},format(low+(high-low)*f)));
- detail.textContent='가로: '+(mode()==='efficiency'?'같은 비용 대비 효율':'총 흐름 획득량')+' · 세로: 결과가 해당 구간에 속할 확률';
+ detail.textContent='가로: '+(mode()==='efficiency'?'정가 0.5 다이아 대비 효율':'총 흐름 획득량')+' · 세로: 결과가 해당 구간에 속할 확률';
  const quantiles=find('fate-quantiles');quantiles.replaceChildren();
  dist.quantiles.forEach((value,i)=>{const block=node('div');block.className='fate-quantile-'+i;block.append(node('span',['운이 나쁜 쪽 · 하위 5%','운 보통 · 중앙값','운이 좋은 쪽 · 상위 5%'][i]),node('strong',format(value)));quantiles.append(block);});selected=-1;
 }
@@ -58,8 +58,9 @@ function render(){
  find('fate-cost').textContent=decimal.format(e.cost);find('fate-scroll-count').textContent='주문서 평균 '+decimal.format(e.scrolls)+'장 포함';find('fate-better').textContent=decimal.format(result.betterProbability*100)+'%';
  find('fate-compare-caption').textContent='희귀 T'+o.tier+' 장신구 '+number.format(o.quantity)+'개 기준';
  const rows=find('fate-compare-rows');rows.replaceChildren();
- for(const [label,flow,cost]of [['바로 분해',e.baselineFlow,e.baselineCost],['실패까지 강화 후 분해 (기대)',e.flow,e.cost]]){const row=node('tr');const heading=node('th',label);heading.scope='row';row.append(heading,node('td',number.format(flow)+'개'),node('td',decimal.format(cost)+' 다이아'),node('td',decimal.format(cost/flow)+' 다이아'));rows.append(row);}
- find('fate-break-even').textContent=(e.efficiency>=1?'현재 조건은 강화 후 분해의 기대 효율이 더 높습니다.':'현재 조건은 바로 분해의 기대 효율이 더 높습니다.')+' 주문서 가격 '+decimal.format(e.breakEvenScroll)+' 다이아 미만이면 강화 후 분해가 기대값 기준으로 유리합니다.';
+ for(const [label,flow,cost]of [['정가로 동일 기대량 구매',e.flow,e.retailCost],['장신구 바로 분해',e.baselineFlow,e.baselineCost],['실패까지 강화 후 분해 (기대)',e.flow,e.cost]]){const row=node('tr');const heading=node('th',label);heading.scope='row';row.append(heading,node('td',number.format(flow)+'개'),node('td',decimal.format(cost)+' 다이아'),node('td',decimal.format(cost/flow)+' 다이아'));rows.append(row);}
+ const verdict=Math.abs(e.efficiency-1)<1e-10?'현재 조건은 정가와 기대 효율이 같습니다.':e.efficiency>1?'현재 조건은 정가보다 저렴하게 얻을 것으로 기대됩니다.':'현재 조건은 정가로 구매하는 편이 기대값 기준으로 유리합니다.';
+ find('fate-break-even').textContent=verdict+' '+(e.breakEvenScroll>0?'주문서 가격 '+decimal.format(e.breakEvenScroll)+' 다이아 미만이면 정가보다 기대 효율이 높습니다.':e.breakEvenScroll<0?'주문서가 무료여도 정가보다 기대 효율이 낮습니다.':'주문서가 무료일 때만 정가와 기대 효율이 같습니다.');
  find('fate-enhance-result').hidden=false;find('fate-enhance-status').textContent='';root.removeAttribute('aria-busy');draw();
 }
 function request(){
@@ -68,7 +69,7 @@ function request(){
  if(!find('fate-item-price').validity.valid||Number(find('fate-item-price').value)<=0){find('fate-enhance-result').hidden=true;find('fate-enhance-status').textContent='개당 구매가를 0.1~1,000,000 다이아로 입력해주세요.';return;}
  root.setAttribute('aria-busy','true');find('fate-enhance-status').textContent='분포 계산 중…';
  timer=setTimeout(()=>{try{
-  if(!worker){worker=new Worker(new URL('./fate-enhancement-worker.js?v=20261102',import.meta.url),{type:'module'});worker.onmessage=({data})=>{if(data.id!==generation||root.hidden)return;if(data.error){fail();return;}result=data.result;render();};worker.onerror=fail;}
+  if(!worker){worker=new Worker(new URL('./fate-enhancement-worker.js?v=20261102-retail',import.meta.url),{type:'module'});worker.onmessage=({data})=>{if(data.id!==generation||root.hidden)return;if(data.error){fail();return;}result=data.result;render();};worker.onerror=fail;}
   worker.postMessage({id,options:options()});
  }catch{fail();}},160);
 }
