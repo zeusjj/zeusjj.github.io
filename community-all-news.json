@@ -1,9 +1,54 @@
 {
-  "collectedAt": "2026-11-02T16:37:31.894116+00:00",
+  "collectedAt": "2026-11-02T17:29:53.665665+00:00",
   "days": 14,
   "coverageStart": "2026-11-02",
   "source": "https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride",
   "items": [
+    {
+      "id": "101012",
+      "title": "계구하면 이거 뜨는거 맞음?",
+      "publishedAt": "2026-11-03T02:00:27+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=101012",
+      "recommended": false,
+      "contentText": "이거 맞나? 자기꺼로 인증하면 정지됨?\n\n- dc official App",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-11-02T17:29:53.665665+00:00",
+      "comments": [
+        {
+          "id": "283575",
+          "text": "그지새끼야 싸게 사놓고 뭘 물어 좆된거지 ㅋ - dc App",
+          "reply": false
+        },
+        {
+          "id": "283581",
+          "text": "잘가라",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-11-02T17:29:53.665665+00:00"
+    },
+    {
+      "id": "101011",
+      "title": "곧 신성력 600이당",
+      "publishedAt": "2026-11-03T01:55:32+09:00",
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=101011",
+      "recommended": false,
+      "contentText": "디바인 줜나 맛있네~",
+      "contentStatus": "text",
+      "contentFetchedAt": "2026-11-02T17:29:53.665665+00:00",
+      "comments": [
+        {
+          "id": "283579",
+          "text": "영탬 많이 꼈나보네",
+          "reply": false
+        }
+      ],
+      "commentsStatus": "ok",
+      "commentsTruncated": false,
+      "commentsFetchedAt": "2026-11-02T17:29:53.665665+00:00"
+    },
     {
       "id": "101010",
       "title": "잘자",
@@ -2897,135 +2942,6 @@
         {
           "id": "283282",
           "text": "요즘 사람 엄청줄어든게 느껴지긴하더라",
-          "reply": false
-        }
-      ],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-02T16:37:31.894116+00:00"
-    },
-    {
-      "id": "100890",
-      "title": "아레스2 삼복캐릭도 빼고 리더,초월 아테2인데 갈라지고 했는데도",
-      "publishedAt": "2026-11-02T20:42:22+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100890",
-      "recommended": false,
-      "contentText": "기존아레2가 지는거면 그냥 순수하게 아레스가 너무 약했던거임\n\n그리고 아레스1 방송인들 서버지는거 프모수차이가 심하다는데\n\n리더 프모 팡이 한명이고 올림푸스는 아테3 기존혈임 짤린사람많고\n\n숫자 별차이안나 미안하지만 변명ㄴㄴ",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-11-02T12:28:18.309395+00:00",
-      "comments": [],
-      "commentsStatus": "ok",
-      "commentsTruncated": false,
-      "commentsFetchedAt": "2026-11-02T16:37:31.894116+00:00"
-    },
-    {
-      "id": "100889",
-      "title": "59렙인데 진지하게 뭐올려야되냐? 투력48000임",
-      "publishedAt": "2026-11-02T20:39:04+09:00",
-      "url": "https://gall.dcinside.com/mgallery/board/view/?id=zeusthegodofpride&no=100889",
-      "recommended": false,
-      "contentText": "진지하게 투력 5만까진 올려보고싶은데\n\n존나 안오르네\n\n필보 매번 시간 안맞아서 한두번 하고 안했음 아에\n\n현질24만 회수16만\n\n5만투력 어케 찍냐 싯팔",
-      "contentStatus": "text",
-      "contentFetchedAt": "2026-11-02T12:28:18.309395+00:00",
-      "comments": [
-        {
-          "id": "283253",
-          "text": "걍 컬렉이 너무 비었는데",
-          "reply": false
-        },
-        {
-          "id": "283254",
-          "text": "59렙 컬렉몇이 적당한거?",
-          "reply": true
-        },
-        {
-          "id": "283263",
-          "text": "@글쓴 제수스(175.212) 보통 저쯤이면 700쯤 찍힘 그정도까진 그렇게 안비싸서",
-          "reply": true
-        },
-        {
-          "id": "283266",
-          "text": "@제수스1(211.234) 일반 8강짜리2개들 합치면 100~200다이아인데 사야됌?",
-          "reply": true
-        },
-        {
-          "id": "283273",
-          "text": "@글쓴 제수스(175.212) ㄴㄴ 그런거 다거르고 사도 살거 은근 많을텐데",
-          "reply": true
-        },
-        {
-          "id": "283277",
-          "text": "@제수스1(211.234) 다걸르면 없어 죄다 8강일반이거나 적용안되는 아티산것들 그런거",
-          "reply": true
-        },
-        {
-          "id": "283278",
-          "text": "@글쓴 제수스(175.212) 이게 분류가 개똥처럼 되어있어서 가격대 비싼거들 나오면 좀 내려서 지역바뀐곳에서 컬렉하면 싼거 많음",
-          "reply": true
-        },
-        {
-          "id": "283283",
-          "text": "@글쓴 제수스(175.212) 컬렉 순서가 걍 개똥처럼 지역별로 나뉘는거라 자하브지역초입꺼까지 내리면 그부분은 8강도 가격쌈",
-          "reply": true
-        },
-        {
-          "id": "0",
-          "text": "\"해외에선 금값만큼 비싼데\" 한국에선 동네 마트에 흔하게 파는 '해산물'\n\n1/20",
-          "reply": false
-        },
-        {
-          "id": "283255",
-          "text": "실타래 아에 안하면 잘안오르긴 할듯 쌀먹은 아에 안하고 그냥 다 투자만 한거면 5만까진 가능할텐데",
-          "reply": false
-        },
-        {
-          "id": "283258",
-          "text": "쌀먹햇음 16만원어치 뭐올림 이제",
-          "reply": true
-        },
-        {
-          "id": "283280",
-          "text": "쌀먹 멈추고 컬렉 열심히해라 금방 오른다 엘리시움 새로 추가된 템들이 싸가지고 일단 0강이나 안전강화 위주로 사 고강은 비싸니까 최대한 미루고",
-          "reply": true
-        },
-        {
-          "id": "283256",
-          "text": "대충 800까지 컬렉만 올려도 5만넘음",
-          "reply": false
-        },
-        {
-          "id": "283261",
-          "text": "지금500인데 300치 올릴려면 다이아 얼마씀?",
-          "reply": true
-        },
-        {
-          "id": "283267",
-          "text": "신석을 왜 저렇게 꼈어",
-          "reply": false
-        },
-        {
-          "id": "283271",
-          "text": "추천좀ㄱ",
-          "reply": true
-        },
-        {
-          "id": "283268",
-          "text": "t2 방어구 8강까지 올려보고 터지면 t3 6강 쓰자",
-          "reply": false
-        },
-        {
-          "id": "283272",
-          "text": "악세도 t3 2강이상으로",
-          "reply": true
-        },
-        {
-          "id": "283286",
-          "text": "컬렉 안하고 다이아 전부 쌀했구나\n전설인데 씨바투력 꼬라지가 ㄷㄷ",
-          "reply": false
-        },
-        {
-          "id": "283300",
-          "text": "수집 너무 충격이다 800다야 썻는데 150투력 올름",
           "reply": false
         }
       ],
