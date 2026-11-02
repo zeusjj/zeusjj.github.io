@@ -1,5 +1,5 @@
 import {sinkwaPrices} from './sinkwa-prices.js?v=20261019-185';
-import {fatePrices} from './fate-prices.js?v=20261017-122';
+import {fatePrices} from './fate-price-data.js';
 
 export const craftingMaterials={iron:{name:'철',equipment:'무기'},leather:{name:'가죽',equipment:'방어구'},gem:{name:'보석',equipment:'장신구'}};
 const grades=[{grade:'일반',required:10},{grade:'고급',required:30}];
