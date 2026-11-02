@@ -1,5 +1,5 @@
 const panel=document.getElementById('fate-panel');
-const root=document.createElement('section');root.id='fate-enhancement';root.hidden=true;root.setAttribute('aria-labelledby','fate-enhancement-title');
+const root=document.createElement('section');root.id='fate-enhancement';root.setAttribute('aria-labelledby','fate-enhancement-title');
 root.innerHTML=`
  <div class="fate-enhance-heading"><h2 id="fate-enhancement-title"><i data-lucide="gem"></i>희귀 장신구 강화·분해</h2><span>0강 구매 · 실패까지 강화</span></div>
  <div class="fate-enhance-controls">
@@ -87,10 +87,9 @@ function request(){
  }catch{fail();}},160);
 }
 function fail(){find('fate-enhance-status').textContent='분포를 계산하지 못했습니다. 값을 변경해 다시 계산해주세요.';find('fate-enhance-result').hidden=true;root.removeAttribute('aria-busy');worker?.terminate();worker=null;}
-function auth(){root.hidden=!window.GuildAuth?.user;if(root.hidden){generation++;clearTimeout(timer);worker?.terminate();worker=null;result=null;find('fate-enhance-result').hidden=true;root.removeAttribute('aria-busy');}else request();}
 root.querySelectorAll('.fate-enhance-controls input').forEach(input=>input.addEventListener('input',request));root.querySelectorAll('[name=fate-chart-mode]').forEach(input=>input.addEventListener('change',draw));
 svg.addEventListener('keydown',event=>{if(event.key==='Escape'){hideTooltip();return;}if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;event.preventDefault();describe(Math.max(0,Math.min(27,selected+(event.key==='ArrowRight'?1:-1))));});
 svg.addEventListener('pointerleave',hideTooltip);svg.addEventListener('blur',hideTooltip);
-new ResizeObserver(draw).observe(svg);window.addEventListener('guild-auth-change',auth);
+new ResizeObserver(draw).observe(svg);
 import('./enhancement-model.js').then(({ENHANCEMENT_PROBABILITIES})=>{for(const [i,p]of ENHANCEMENT_PROBABILITIES.accessory.entries()){const entry=node('span','+'+(i+1)+' · '+decimal.format(p*100)+'%');find('fate-enhance-rates').append(entry);}});
-window.lucide?.createIcons();auth();
+window.lucide?.createIcons();request();
