@@ -25,7 +25,7 @@
 #fate-enhancement[aria-busy=true] #fate-enhance-result{opacity:.45;pointer-events:none}
 .fate-enhance-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding:18px 0 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .fate-enhance-metrics>div{display:grid;align-content:start;gap:8px;min-width:0}
-.fate-enhance-metrics span,.fate-enhance-metrics small{font-size:12px;line-height:1.6;color:var(--muted)}
+.fate-enhance-metrics span,.fate-enhance-metrics small{font-size:12px;line-height:1.6;color:var(--muted);word-break:keep-all;overflow-wrap:anywhere}
 .fate-enhance-metrics strong{font-size:24px;line-height:1.5;color:var(--ink);overflow-wrap:anywhere}
 #fate-efficiency[data-favorable=true]{color:var(--accent)}
 #fate-efficiency[data-favorable=false]{color:#a24b34}

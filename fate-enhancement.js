@@ -13,7 +13,7 @@ root.innerHTML=`
   <div class="fate-enhance-metrics">
    <div><span>같은 비용 대비 기대 효율</span><strong id="fate-efficiency"></strong><small>구매 후 바로 분해 = 1배</small></div>
    <div><span>기대 흐름 획득량</span><strong id="fate-flow"></strong><small id="fate-flow-gain"></small></div>
-   <div><span>기대 총비용</span><strong id="fate-cost"></strong><small id="fate-scroll-count"></small></div>
+   <div><span>기대 총비용 (다이아)</span><strong id="fate-cost"></strong><small id="fate-scroll-count"></small></div>
    <div><span>바로 분해보다 효율적일 확률</span><strong id="fate-better"></strong><small>40,000회 표본 · 수익 보장 아님</small></div>
   </div>
   <div class="fate-enhance-graph-heading"><h3>결과 분포</h3><fieldset class="fate-chart-modes"><legend class="visually-hidden">분포 기준</legend><label><input type="radio" name="fate-chart-mode" value="efficiency" checked><span>효율 배수</span></label><label><input type="radio" name="fate-chart-mode" value="flow"><span>흐름 획득량</span></label></fieldset></div>
@@ -55,7 +55,7 @@ function draw(){
 function render(){
  const e=result.expected,o=options();find('fate-efficiency').textContent=decimal.format(e.efficiency)+'배';find('fate-efficiency').dataset.favorable=String(e.efficiency>=1);
  find('fate-flow').textContent=number.format(e.flow)+'개';find('fate-flow-gain').textContent='바로 분해 '+number.format(e.baselineFlow)+'개';
- find('fate-cost').textContent=decimal.format(e.cost)+' 다이아';find('fate-scroll-count').textContent='주문서 평균 '+decimal.format(e.scrolls)+'장 포함';find('fate-better').textContent=decimal.format(result.betterProbability*100)+'%';
+ find('fate-cost').textContent=decimal.format(e.cost);find('fate-scroll-count').textContent='주문서 평균 '+decimal.format(e.scrolls)+'장 포함';find('fate-better').textContent=decimal.format(result.betterProbability*100)+'%';
  find('fate-compare-caption').textContent='희귀 T'+o.tier+' 장신구 '+number.format(o.quantity)+'개 기준';
  const rows=find('fate-compare-rows');rows.replaceChildren();
  for(const [label,flow,cost]of [['바로 분해',e.baselineFlow,e.baselineCost],['실패까지 강화 후 분해 (기대)',e.flow,e.cost]]){const row=node('tr');const heading=node('th',label);heading.scope='row';row.append(heading,node('td',number.format(flow)+'개'),node('td',decimal.format(cost)+' 다이아'),node('td',decimal.format(cost/flow)+' 다이아'));rows.append(row);}
