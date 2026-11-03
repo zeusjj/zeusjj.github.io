@@ -1,6 +1,7 @@
 import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261102-season';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
+import {mountMyTips} from './my-tips.js?v=20261103-ownership';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -41,7 +42,7 @@ function renderProfile(){
   document.getElementById('profile-viewer-controls').hidden=!user;
   document.getElementById('profile-viewer-reset').style.visibility=viewingName?'visible':'hidden';
   document.getElementById('profile-caption').textContent=row?name+' · '+row[report.classIndex]+(window.GuildMemberArchive.has(source,name)?' · 탈퇴':''):user?'현재 길드 기록이 없습니다.':'로그인 후 내 정보를 확인하세요.';
-  if(!row)return;
+  if(!row){if(user&&!viewingName)mountMyTips(profile);return;}
   const history=growthSeries(source,row,today),latest=history.at(-1),previous=history.at(-2),level=latest?source.levels?.[latest.date]?.[name]:null;
   const heading=el('div',undefined,'profile-identity');
   const emblem=el('img');emblem.src='assets/guild-emblem.png';emblem.alt='';emblem.width=48;emblem.height=48;
@@ -112,6 +113,7 @@ function renderProfile(){
   const auctions=section(profile,'내 낙찰 기록');
   const ownRecords=(source.distribution||[]).flatMap(group=>group.records.filter(record=>record.name===name).map(record=>[group.title,record.item,record.amount===null?'미정':format(record.amount)+' 다이아']));
   table(auctions,['분배 회차','아이템','낙찰 금액'],ownRecords);auctions.append(link('전체 분배 기록','#distribution'));
+  if(name===user.nickname)mountMyTips(profile);
   requestAnimationFrame(drawChart);icons();
 }
 function drawChart(){

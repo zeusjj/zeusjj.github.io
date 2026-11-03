@@ -16,13 +16,13 @@
   <script src="member-archives.js?v=20261022-archive" defer></script>
   <link rel="stylesheet" href="section-editor.css?v=20261030-1">
   <script src="section-editor.js?v=20261030-2" defer></script>
-  <script type="module" src="member-auth.js?v=20261026-login-note"></script>
+  <script type="module" src="member-auth.js?v=20261103-tip-ownership"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261025-password-reminder">
   <link rel="stylesheet" href="profile-preview.css?v=20261025-preview">
   <script src="profile-preview.js?v=20261025-preview" defer></script>
   <script src="raid-distribution.js?v=20261025-restrictions" defer></script>
   <script src="arcadia-seasons.js?v=20261102-season" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261102-season" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261103-tip-ownership" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261102-season"></script>
   <script type="module" src="member-growth-achievements.js?v=20261102-season"></script>
   <script type="module" src="member-distributions.js?v=20261030-populated-levels"></script>
@@ -60,8 +60,8 @@
   <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
   <script src="main-menu-share.js?v=20261024-all-pages" defer></script>
-  <link rel="stylesheet" href="guild-overviews.css?v=20261021-196">
-  <script type="module" src="guild-overviews.js?v=20261102-season"></script>
+  <link rel="stylesheet" href="guild-overviews.css?v=20261103-tip-ownership">
+  <script type="module" src="guild-overviews.js?v=20261103-tip-ownership"></script>
   <script type="module" src="community-page.js?v=20261021-196"></script>
   <link rel="stylesheet" href="dashboard-refinement.css?v=20261021-195">
 </head>
@@ -158,7 +158,7 @@
       <section id="distribution" hidden><div class="page-heading"><div><h1>분배 기록</h1><p>회차별 아이템과 낙찰 내역</p></div><span class="date-label"><i data-lucide="arrow-down-wide-narrow"></i>최신 회차순</span></div><div id="distribution-content"></div></section>
       <section id="tips" hidden>
         <div class="page-heading"><div><h1>팁 공유</h1><p>함께 나누는 공략과 유용한 링크</p></div><button id="new-tip" class="primary-button" type="button" aria-expanded="false" aria-controls="tip-form"><i data-lucide="square-pen"></i>글쓰기</button></div>
-        <form id="tip-form" class="tip-form" hidden><h2>새 팁</h2><div class="form-fields"><label>제목<input name="title" maxlength="100" required></label><label>닉네임<input name="author" maxlength="30" placeholder="익명"></label><label class="full-field">링크<input name="url" type="url" maxlength="2000" placeholder="https://"></label><label class="full-field">내용<textarea name="content" rows="5" maxlength="5000" required></textarea></label><label class="full-field">수정·삭제 비밀번호<input name="password" type="password" minlength="4" maxlength="128" autocomplete="new-password" required></label></div><div class="form-actions"><span id="tip-form-status" role="status"></span><button id="cancel-tip" type="button" class="secondary-button">취소</button><button type="submit" class="primary-button">등록</button></div></form>
+        <form id="tip-form" class="tip-form" hidden><h2>새 팁</h2><div class="form-fields"><label>제목<input name="title" maxlength="100" required></label><label>작성자<input name="author" maxlength="30" readonly aria-readonly="true"></label><label class="full-field">링크<input name="url" type="url" maxlength="2000" placeholder="https://"></label><label class="full-field">내용<textarea name="content" rows="5" maxlength="5000" required></textarea></label></div><div class="form-actions"><span id="tip-form-status" role="status"></span><button id="cancel-tip" type="button" class="secondary-button">취소</button><button type="submit" class="primary-button">등록</button></div></form>
         <div class="board-toolbar tip-search-toolbar"><label class="search-field"><i data-lucide="search"></i><input id="tip-search" type="search" placeholder="팁 검색" aria-label="팁 검색"></label><span id="tip-count" aria-live="polite"></span><button id="refresh-tips" class="icon-button" type="button" aria-label="새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="tips-status" role="status"></p><p id="tips-empty-search" hidden>검색 결과가 없습니다.</p><div id="tips-list" class="tips-list"></div>
       </section>
       <section id="alarms" hidden>
