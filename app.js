@@ -59,7 +59,7 @@ try{temporaryMemberToggle.checked=localStorage.getItem(temporaryFilterKey)==='tr
 temporaryMemberToggle.addEventListener('change',()=>{try{localStorage.setItem(temporaryFilterKey,String(temporaryMemberToggle.checked));}catch{}if(publicMemberSource)renderMembers(currentMemberSource(),document.getElementById('search').value);});
 let memberDateTimer;
 let calculateParticipation;
-const participationModel=import('./guild-overview-model.js?v=20261102-season').then(model=>{calculateParticipation=model.weightedParticipation;});
+const participationModel=import('./guild-overview-model.js?v=20261104-members').then(model=>{calculateParticipation=model.weightedParticipation;});
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
@@ -813,7 +813,9 @@ function renderDistribution(groups) {
   }
 }
 window.addEventListener('guild-section-content-change',event=>{if(!publicMemberSource)return;publicMemberSource={...publicMemberSource,rules:event.detail.rules};joinedMemberArchive=null;renderRules(publicMemberSource.rules);renderMembers(currentMemberSource(),document.getElementById('search').value);});
-fetch('data.json',{cache:'no-store'}).then(async response=>{if(!response.ok)throw new Error('load');await participationModel;return response.json();}).then(data=>{window.GuildSectionEditor?.setSource(data.rules);data={...data,rules:window.GuildSectionEditor?.rules(data.rules)??data.rules};publicMemberSource=data;renderRules(data.rules);renderMembers(currentMemberSource());renderDistribution(data.distribution);syncMemberAdministrator();refreshMemberArchive();document.getElementById('search').addEventListener('input',event=>renderMembers(currentMemberSource(),event.target.value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort && hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
+function acceptGuildSource(data){window.GuildSectionEditor?.setSource(data.rules);publicMemberSource={...data,rules:window.GuildSectionEditor?.rules(data.rules)??data.rules};memberArchive=null;joinedMemberArchive=null;renderRules(publicMemberSource.rules);renderMembers(currentMemberSource());renderDistribution(data.distribution);refreshMemberArchive();}
+window.addEventListener('guild-roster-updated',event=>acceptGuildSource(event.detail));
+window.GuildData.load().then(async data=>{await participationModel;acceptGuildSource(data);syncMemberAdministrator();document.getElementById('search').addEventListener('input',()=>renderMembers(currentMemberSource(),document.getElementById('search').value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort&&hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
 loadNotices();
 try{const cache=JSON.parse(localStorage.getItem('guild-tips-cache-v1'));if(cache && Date.now()-cache.savedAt<86400000 && validTips(cache.tips)){renderTips(cache.tips);tipsLoaded=true;}}catch{}
 loadTips();

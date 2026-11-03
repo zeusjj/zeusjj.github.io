@@ -30,7 +30,8 @@ export function memberDistribution(data){
   const column=growthColumns.find(({index})=>typeof row[index]==='number' && Number.isFinite(row[index]) && row[index]>=0);
   const nickname=row[data.headers.indexOf('닉네임')];
   if(column){values.push(row[column.index]);growthMembers.push({name:nickname,value:row[column.index]});}else missing++;
-  const level=latest&&typeof row[latest.index]==='number'&&Number.isFinite(row[latest.index])&&row[latest.index]>=0?data.levels?.[latest.date]?.[row[data.headers.indexOf('닉네임')]]:null;
+  const levelColumn=growthColumns.find(({index,date})=>typeof row[index]==='number'&&Number.isInteger(data.levels?.[date]?.[nickname]));
+  const level=levelColumn?data.levels[levelColumn.date][nickname]:null;
   if(Number.isInteger(level)){levelMembers.push({name:nickname,level});levelRecorded++;}
  }
  const levelBins=populatedLevelBins(levelMembers);

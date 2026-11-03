@@ -75,7 +75,7 @@ export function overview(data,through=koreaDay()){
   const season=column=>{const title=column.header.replace(/ 기여$/,''),event=data.headers.findIndex((h,c)=>c>column.index&&h===title),date=data.dates?.[event]?.start||column.date;return Math.floor((Date.parse(date)-Date.parse('2026-10-04'))/(28*dayMs));};
   const festivalColumns=festival?contributions.filter(column=>season(column)===season(festival)):[];
   const festivalRanks=ranked(data.members.flatMap(row=>{const values=festivalColumns.map(column=>row[column.index]).filter(numeric);return values.length?[{name:row[nameIndex],value:values.reduce((sum,value)=>sum+value,0)}]:[];}));
-  const metric=column=>column?ranked(data.members.filter(row=>numeric(row[column.index])).map(row=>({name:row[nameIndex],value:row[column.index]}))):[];
+  const metric=column=>column?ranked(data.members.flatMap(row=>{const value=column.header==='성장도 기록'?growthSeries(data,row,through).at(-1)?.value:row[column.index];return numeric(value)?[{name:row[nameIndex],value}]:[];})):[];
   const matched=latest&&baseline?data.members.filter(row=>numeric(row[latest.index])&&numeric(row[baseline.index])&&row[baseline.index]>0):[];
   const changes=matched.map(row=>({name:row[nameIndex],value:row[latest.index]-row[baseline.index],previous:row[baseline.index],current:row[latest.index]}));
   const activities=events(data,through);
@@ -93,8 +93,9 @@ export function weeklyOverview(data,start,through=koreaDay()){
   const contributionRanks=contribution?ranked(data.members.filter(row=>numeric(row[contribution.index])).map(row=>({name:row[nameIndex],value:row[contribution.index]}))):[];
   const activities=report.activities.filter(event=>event.date>=start&&event.date<=until);
   const eligible=activities.reduce((n,event)=>n+event.eligible.length,0),attended=activities.reduce((n,event)=>n+event.attended,0);
-  const goal=report.target,goalRows=last?data.members.filter(row=>numeric(row[last.index])&&Number.isInteger(data.levels?.[last.date]?.[row[nameIndex]])):[];
-  const achieved=goalRows.filter(row=>(!goal.growth||row[last.index]>=goal.growth)&&(!goal.level||data.levels[last.date][row[nameIndex]]>=goal.level)).length;
+  const current=row=>growthSeries(data,row,until).at(-1);
+  const goal=report.target,goalRows=data.members.filter(row=>current(row)&&Number.isInteger(data.levels?.[current(row).date]?.[row[nameIndex]]));
+  const achieved=goalRows.filter(row=>(!goal.growth||current(row).value>=goal.growth)&&(!goal.level||data.levels[current(row).date][row[nameIndex]]>=goal.level)).length;
   const goalAttendanceWeeks=Array.from({length:3},(_,i)=>{
     const from=shiftDay(start,-i*7),to=shiftDay(from,6);
     return report.activities.filter(event=>event.date>=from&&event.date<=to);
@@ -120,9 +121,9 @@ export function weeklyOverview(data,start,through=koreaDay()){
     const values=activities.map(event=>status(row[event.index])).filter(Boolean);
     if(!values.length)return [];
     const name=row[nameIndex],value=values.filter(value=>value==='yes').length/values.length*100;
-    const level=last?data.levels?.[last.date]?.[name]:null;
-    const goalKnown=!!(goal.growth||goal.level)&&(!goal.growth||numeric(row[last?.index]))&&(!goal.level||Number.isInteger(level));
-    const goalAchieved=goalKnown?(!goal.growth||row[last.index]>=goal.growth)&&(!goal.level||level>=goal.level):null;
+    const latest=current(row),level=latest?data.levels?.[latest.date]?.[name]:null;
+    const goalKnown=!!(goal.growth||goal.level)&&(!goal.growth||numeric(latest?.value))&&(!goal.level||Number.isInteger(level));
+    const goalAchieved=goalKnown?(!goal.growth||latest.value>=goal.growth)&&(!goal.level||level>=goal.level):null;
     return [{name,value,goalAchieved}];
   }).sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name,'ko'));
   const allEvents=data.headers.flatMap((header,index)=>{const period=data.dates?.[index],date=isRelicDefense(header)?period?.end||period?.start:period?.start;return isGuildActivity(header)&&date>=start&&date<=end&&date>through?[{header,date}]:[];});

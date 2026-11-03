@@ -18,7 +18,7 @@
   list.hidden=false;input.setAttribute('aria-expanded','true');input.removeAttribute('aria-activedescendant');
  }
  async function loadNames(){
-  if(!namesRequest)namesRequest=fetch('data.json',{cache:'no-store',signal:AbortSignal.timeout(10000)}).then(async response=>{if(!response.ok)throw new Error();const data=await response.json();names=[...new Set(data.members.map(row=>row[1]).filter(name=>typeof name==='string'))];}).catch(()=>{namesRequest=null;});
+  if(!namesRequest)namesRequest=window.GuildData.load().then(data=>{names=[...new Set(data.members.map(row=>row[1]).filter(name=>typeof name==='string'))];}).catch(()=>{}).finally(()=>namesRequest=null);
   await namesRequest;if(dialog.open && document.activeElement===input)suggest();
  }
  function open(reset=true){if(reset){form.reset();GuildNickname.fill(input);id=crypto.randomUUID();status.textContent='';}hide();syncIdentity();if(!dialog.open)dialog.showModal();(identity()?form.elements.memo:input).focus();if(!identity())loadNames();}

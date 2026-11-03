@@ -8,6 +8,9 @@
 @keyframes password-change-glow{0%,100%{box-shadow:0 0 0 1px var(--accent-line),0 0 3px var(--accent-line)}50%{box-shadow:0 0 0 2px var(--accent),0 0 10px var(--accent-line)}}
 @media(prefers-reduced-motion:reduce){.member-session-controls .password-change-required{animation:none;box-shadow:0 0 0 2px var(--accent)}}
 .member-login-button{display:flex;gap:8px;align-items:center;min-height:44px}
+.member-login-button,.member-login-form button[type=submit]{border:1px solid var(--accent);animation:member-login-glow 2.8s ease-in-out infinite}
+@keyframes member-login-glow{0%,100%{box-shadow:0 0 0 1px var(--accent-line),0 0 4px var(--accent-line)}50%{box-shadow:0 0 0 1px var(--accent),0 0 12px var(--accent-line)}}
+@media(prefers-reduced-motion:reduce){.member-login-button,.member-login-form button[type=submit]{animation:none;box-shadow:0 0 0 1px var(--accent-line),0 0 6px var(--accent-line)}}
 #login{max-width:1100px;margin:auto;padding:28px}
 .member-login-mount{max-width:400px}
 .member-login-form,#member-password-form{display:grid;gap:16px}

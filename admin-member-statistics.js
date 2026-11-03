@@ -49,6 +49,6 @@
   for(const id of ['admin-member-search','admin-member-login-filter','admin-member-password-filter'])find(id).addEventListener(id.endsWith('search')?'input':'change',renderRows);
   sortSelect.addEventListener('change',()=>{sortDirection='descending';renderRows();});
   historyName.addEventListener('change',load);document.getElementById('admin-refresh').addEventListener('click',load);
-  window.addEventListener('guild-admin-open',load);window.addEventListener('guild-admin-auth',()=>{if(!noticeAdmin())clear();else if(active()&&lastToken!==noticeToken)load();});
+  window.addEventListener('guild-admin-open',load);window.addEventListener('guild-member-management-changed',load);window.addEventListener('guild-admin-auth',()=>{if(!noticeAdmin())clear();else if(active()&&lastToken!==noticeToken)load();});
   if(active()&&noticeAdmin())load();
 })();
