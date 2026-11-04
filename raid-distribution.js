@@ -2,13 +2,14 @@
   const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text)node.textContent=text;if(cls)node.className=cls;return node;};
   const icon=name=>{const node=el('i');node.dataset.lucide=name;return node;};
   function create(data){
+    const restrictions=window.GuildSectionEditor?.getBody('입찰 제한 조건',data.bidRestrictions?.join('\n')??'')??(data.bidRestrictions??[]).join('\n');
     const grid=el('div',null,'proposal-options');
     data.rules.forEach(rule=>{
       const card=el('article',null,'proposal-option'+(rule.event?' proposal-event':''));
       const top=el('div',null,'proposal-option-top');top.append(icon(rule.icon),el('span',rule.event?'이벤트 경매':rule.label));card.append(top);if(rule.event)card.append(el('p',rule.label,'proposal-event-condition'));card.append(el('h3',rule.title));
       const method=el('p',null,'proposal-method');method.append(el('span','경매 방식'),el('strong',rule.method));card.append(method);
       if(rule.event)card.append(el('p',data.eventExplanation,'proposal-event-explanation'));
-      const price=el('p',null,'proposal-price');price.append(el('strong',rule.price),el('span',rule.priceLabel));card.append(price);
+      const price=el('p',null,'proposal-price');price.append(el('strong',rule.price));if(rule.priceLabel)price.append(el('span',rule.priceLabel));card.append(price);
       const list=el('dl'),pair=(label,value)=>{const row=el('div');row.append(el('dt',label),el('dd',value));list.append(row);};
       pair('입찰 대상',rule.audience);
       if(rule.event){const note=el('p',null,'proposal-participation-link'),link=el('a','[내정보]');link.href='#profile';note.append(document.createTextNode('참여 현황 확인 방법 : 홈페이지 좌측 하단 '),link);list.lastElementChild.querySelector('dd').append(note);}
@@ -19,13 +20,17 @@
       }
       grid.append(card);
     });
-    if(data.bidRestrictions?.length){
+    if(restrictions.trim()){
       grid.classList.add('raid-allocation-options');
-      const section=el('section',null,'raid-bid-restrictions'),heading=el('h3','입찰 제한 조건'),list=el('ul');
-      section.append(heading,list);data.bidRestrictions.forEach(text=>list.append(el('li',text)));grid.append(section);
+      const section=el('section',null,'raid-bid-restrictions'),heading=el('h2','입찰 제한 조건'),list=el('ul');
+      section.append(heading,list);restrictions.split(/\r?\n/).map(text=>text.trim()).filter(Boolean).forEach(text=>list.append(el('li',text)));grid.append(section);
+      window.GuildSectionEditor?.decorateStandalone(section,'입찰 제한 조건',data.bidRestrictions?.join('\n')??'');
     }
     return grid;
   }
+  window.addEventListener('guild-section-content-change',()=>{
+    for(const host of document.querySelectorAll('#raid-distribution-cards'))if(host.isConnected)mount(host);
+  });
   let pending;
   async function mount(host){
     host.replaceChildren(el('p','분배 규칙을 불러오는 중입니다.','overview-note'));

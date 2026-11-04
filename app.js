@@ -132,7 +132,7 @@ function renderRules(text) {
       }
     }
   }
-  const layouts={'길드 운영 방향성':'direction','시간':'schedule','인터':'relations','길드원 활동 기준':'growth','분배 기조':'principles','분배 시스템':'system','1. 분배 아이템 유형':'types','2. 공통 분배 및 입찰 조건':'conditions','3. 최소 입찰가':'prices','4. 클래스 전용 아이템 분배':'class-items','5. 방어구,장신구 분배':'armor','6. 방어구,장신구 분배 로테이션':'rotation','입찰 규칙':'bidding','분배 시간':'timing','분배 관련 안내':'updates'};
+  const layouts={'길드 운영 방향성':'direction','시간':'schedule','인터':'relations','길드원 활동 기준':'growth','분배 기조':'principles','분배 시스템':'system','1. 분배 아이템 유형':'types','2. 공통 분배 및 입찰 조건':'conditions','3. 최소 입찰가':'prices','4. 클래스 전용 아이템 분배':'class-items','5. 방어구,장신구 분배':'armor','6. 방어구,장신구 분배 로테이션':'rotation','입찰 규칙':'bidding','분배 시간':'timing','경매 시작가':'auction-start','분배 관련 안내':'updates'};
   for(const section of text.split(/\r?\n(?=\[)/)) {
     const match=section.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);
     if(!match) continue;
@@ -229,7 +229,7 @@ function renderRules(text) {
   }
   const group=(className,kinds)=>{const node=element('div',undefined,className);for(const kind of kinds){const section=sections.get(kind);if(section){node.append(section);sections.delete(kind);}}return node;};
   const overview=element('div',undefined,'operations-layout');overview.id='guild-operations';
-  overview.append(group('operation-copy',['direction','growth','relations','chat']),group('schedule-rail',['target','schedule','timing']));target.append(overview);
+  overview.append(group('operation-copy',['direction','growth','relations','chat']),group('schedule-rail',['target','schedule','timing','auction-start']));target.append(overview);
   const chapter=(id,title,icon)=>{const node=element('section',undefined,'policy-chapter');node.id=id;const heading=element('div',undefined,'chapter-heading');const symbol=element('i');symbol.dataset.lucide=icon;heading.append(symbol,element('h2',title));node.append(heading);return node;};
   const distribution=chapter('guild-distribution','분배 기준','scale');
   distribution.append(group('distribution-intro',['principles']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));

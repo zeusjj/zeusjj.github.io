@@ -28,20 +28,23 @@
   pending=(async()=>{try{const value=await request();if(!value.sections||Array.isArray(value.sections)||typeof value.sections!=='object')throw Error('Invalid section data');const next={...value.sections};for(const [key,record]of Object.entries(overrides))if(record.version>(next[key]?.version??0))next[key]=record;const changed=JSON.stringify(next)!==JSON.stringify(overrides);overrides=next;loaded=true;if(changed&&base)announce();return true;}catch{loaded=false;return false;}finally{pending=null;}})();return pending;
  }
  function setSource(text){base=text;original.clear();for(const part of text.split(/\r?\n(?=\[)/)){const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);if(m)original.set(m[1],{title:m[1]==='시간'?'콘텐츠 시간':m[1].replace(/^\d+\.\s*/,''),body:m[2].trim()});}}
- function rules(text=base){return text.split(/\r?\n(?=\[)/).map(part=>{const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/),saved=m&&overrides[m[1]];return m&&typeof saved?.body==='string'?'['+m[1]+']\n\n'+saved.body+'\n':part;}).join('\n');}
+ function decorateStandalone(section,key,bodyText){if(!original.has(key))original.set(key,{title:key,body:bodyText});decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');icons();}
+ function getBody(key,fallback=''){return typeof overrides[key]?.body==='string'?overrides[key].body:fallback;}
+ function splitLegacyAuction(value){const match=String(value??'').match(/(?:^|\n)\s*경매 시작가\s*\n([\s\S]*)$/);return match?{distribution:value.slice(0,match.index).trimEnd(),auction:match[1].trim()}:null;}
+ function rules(text=base){const legacy=splitLegacyAuction(overrides['분배 시간']?.body);return text.split(/\r?\n(?=\[)/).map(part=>{const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/),saved=m&&overrides[m[1]];if(!m)return part;let content=typeof saved?.body==='string'?saved.body:m[2].trim();if(m[1]==='분배 시간'&&legacy&&typeof saved?.body==='string')content=legacy.distribution;if(m[1]==='경매 시작가'&&!saved&&legacy)content=legacy.auction;return '['+m[1]+']\n\n'+content+'\n';}).join('\n');}
  function announce(){window.dispatchEvent(new CustomEvent('guild-section-content-change',{detail:{rules:rules()}}));}
  function decorate(section,key){
-  section.dataset.sectionKey=key;const h=section.querySelector(':scope>h2');if(!h)return;
+  section.dataset.sectionKey=key;const h=section.querySelector(':scope>h2,:scope>h3');if(!h)return;
   if(typeof overrides[key]?.title==='string')h.textContent=overrides[key].title;
   if(admin()){h.classList.add('section-editable-heading');h.append(iconButton('섹션 편집: '+key,'pencil',()=>open(key)));icons();}
  }
- function sync(){for(const section of document.querySelectorAll('[data-section-key]')){const heading=section.querySelector(':scope>h2');heading?.querySelector('.section-edit-trigger')?.remove();heading?.classList.remove('section-editable-heading');if(admin()&&heading){const button=iconButton('섹션 편집: '+section.dataset.sectionKey,'pencil',()=>open(section.dataset.sectionKey));button.classList.add('section-edit-trigger');heading.classList.add('section-editable-heading');heading.append(button);}}icons();}
+ function sync(){for(const section of document.querySelectorAll('[data-section-key]')){const heading=section.querySelector(':scope>h2,:scope>h3');heading?.querySelector('.section-edit-trigger')?.remove();heading?.classList.remove('section-editable-heading');if(admin()&&heading){const button=iconButton('섹션 편집: '+section.dataset.sectionKey,'pencil',()=>open(section.dataset.sectionKey));button.classList.add('section-edit-trigger');heading.classList.add('section-editable-heading');heading.append(button);}}icons();}
  async function open(key){
   if(!admin()||!original.has(key))return;
   if(!loaded&&!await load()){alert('편집 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');return;}
   if(!admin())return;active={key,version:overrides[key]?.version??0};fill();dialog.showModal();title.focus();
  }
- function fill(){const saved=overrides[active.key],fallback=original.get(active.key);title.value=saved?.title??fallback.title;body.value=saved?.body??fallback.body;restoredFrom=null;reset=false;dirty=false;status.textContent='';mode('edit');icons();}
+ function fill(){const saved=overrides[active.key],fallback=original.get(active.key),legacy=splitLegacyAuction(overrides['분배 시간']?.body);title.value=saved?.title??fallback.title;body.value=saved?.body??(active.key==='분배 시간'&&legacy?legacy.distribution:active.key==='경매 시작가'&&legacy?legacy.auction:fallback.body);restoredFrom=null;reset=false;dirty=false;status.textContent='';mode('edit');icons();}
  function cancel(){if(busy)return;if(dirty&&!confirm('수정한 내용을 저장하지 않고 닫을까요?'))return;dialog.close();}
  dialog.addEventListener('cancel',event=>{event.preventDefault();cancel();});dialog.addEventListener('close',()=>{active=null;dirty=false;body.value='';title.value='';revisions=[];historySelect.replaceChildren();});
  for(const input of [title,body])input.addEventListener('input',()=>{dirty=true;reset=false;restoredFrom=null;});
@@ -63,6 +66,6 @@
  });
  window.addEventListener('guild-auth-change',()=>{if(!admin()&&dialog.open)dialog.close();sync();});
  window.addEventListener('pageshow',()=>{if(base)load();});
- window.GuildSectionEditor={ready:load(),setSource,rules,decorate:(section,key)=>{decorate(section,key);section.querySelector(':scope>h2 button')?.classList.add('section-edit-trigger');},get loaded(){return loaded;}};
+ window.GuildSectionEditor={ready:load(),setSource,rules,getBody,decorateStandalone,decorate:(section,key)=>{decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');},get loaded(){return loaded;}};
  setInterval(()=>{if(!document.hidden&&base)load();},60000);
 })();

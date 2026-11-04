@@ -19,7 +19,7 @@
 .admin-member-dialog::backdrop{background:#0007}
 .admin-member-dialog form{display:grid;gap:16px}.admin-member-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .admin-member-dialog label{display:grid;gap:7px;font-size:13px;min-width:0}.admin-member-dialog input,.admin-member-dialog select{width:100%;min-width:0;min-height:44px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:4px;color:var(--ink);font-size:16px}
-.admin-member-fields>label:last-child{grid-column:1/-1}.admin-member-password{display:flex;gap:6px;min-width:0}.admin-member-password input{flex:1}.admin-member-password button{flex-shrink:0}
+.admin-member-fields>label:last-child{grid-column:1/-1}.admin-member-account-note{grid-column:1/-1;margin:0;color:var(--muted);font-size:12px;line-height:1.6}
 .admin-member-dialog .admin-member-confirm{display:flex;align-items:center;gap:8px;line-height:1.5}.admin-member-confirm input{width:18px;min-height:18px;flex-shrink:0;accent-color:var(--accent)}
 .admin-member-dialog p{line-height:1.7;font-size:13px;margin:0}.admin-member-dialog .admin-member-target{font-weight:600;font-size:15px}
 #admin-member-credentials{display:grid;gap:16px}#admin-member-credentials:not([open]){display:none}#admin-member-credentials .admin-members-heading{margin:0}
