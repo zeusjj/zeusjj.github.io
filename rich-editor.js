@@ -3,7 +3,7 @@
  function decode(content){if(!String(content).startsWith(prefix))return null;try{const value=JSON.parse(content.slice(prefix.length));return Array.isArray(value.ops)?value:null;}catch{return null;}}
  function attributes(value={}){const result={};for(const name of ['bold','italic','underline','strike','blockquote'])if(value[name]===true)result[name]=true;if([1,2,3].includes(value.header))result.header=value.header;if(['ordered','bullet'].includes(value.list))result.list=value.list;if(typeof value.link==='string'){try{const url=new URL(value.link);if(['https:','http:'].includes(url.protocol))result.link=url.href;}catch{}}return result;}
  function contentOps(content,images,url){const rich=decode(content);if(!rich)return [{insert:String(content || '')+'\n'},...images.flatMap(image=>[{insert:{image:url(image)}},{insert:'\n'}])];return rich.ops.flatMap(op=>{if(typeof op.insert==='string')return [{insert:op.insert,attributes:attributes(op.attributes)}];const match=String(op.insert?.image || '').match(/^guild-image:(\d+)$/);return match && images[Number(match[1])]? [{insert:{image:url(images[Number(match[1])])}}]:[];});}
- function editor(form,{status,content='',images=[],url,encode}){
+ function editor(form,{status,content='',images=[],url,encode,allowEmpty=false}){
   const textarea=form.elements.content;textarea.hidden=true;textarea.required=false;
   const wrapper=document.createElement('div');wrapper.className='rich-editor';textarea.after(wrapper);
   const toolbar=document.createElement('div');toolbar.className='rich-toolbar';
@@ -13,7 +13,7 @@
   function load(text,pictures){generation++;known.clear();for(const image of pictures)known.set(url(image),image);quill.setContents({ops:contentOps(text,pictures,url)},'silent');quill.history.clear();textarea.value=text;failed='';}
   load(content,images);
   function serialize(){const pictures=[],ops=[];for(const op of quill.getContents().ops){if(typeof op.insert==='string'){ops.push({insert:op.insert,...(op.attributes?{attributes:attributes(op.attributes)}:{})});continue;}const image=known.get(op.insert?.image);if(!image)throw new Error('사진을 다시 붙여넣어주세요.');ops.push({insert:{image:'guild-image:'+pictures.length}});pictures.push(image.id?{id:image.id}:{mime:image.mime,data:image.data});}
-   if(pictures.length>5)throw new Error('사진은 최대 5장까지 삽입할 수 있습니다.');if(!quill.getText().trim() && !pictures.length)throw new Error('내용이나 사진을 추가해주세요.');const serialized=prefix+JSON.stringify({ops});if(serialized.length>5000)throw new Error('글이 너무 깁니다. 내용을 조금 줄여주세요.');textarea.value=serialized;return {content:serialized,images:pictures};}
+   if(pictures.length>5)throw new Error('사진은 최대 5장까지 삽입할 수 있습니다.');if(!allowEmpty && !quill.getText().trim() && !pictures.length)throw new Error('내용이나 사진을 추가해주세요.');const serialized=prefix+JSON.stringify({ops});if(serialized.length>5000)throw new Error('글이 너무 깁니다. 내용을 조금 줄여주세요.');textarea.value=serialized;return {content:serialized,images:pictures};}
   async function insert(files){if(locked)return;failed='';const current=generation,selection=quill.getSelection(true) || {index:Math.max(0,quill.getLength()-1),length:0};
    // A live marker keeps the paste position stable while the screenshot is encoded.
    const marker='\uFFFC';quill.deleteText(selection.index,selection.length,'user');quill.insertText(selection.index,marker,'user');let markerIndex=selection.index;

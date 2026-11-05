@@ -24,6 +24,7 @@
 .notice-visibility-toggle input:checked{background:var(--accent);border-color:var(--accent)}
 .notice-visibility-toggle input:checked::before{transform:translateX(16px);background:var(--surface)}
 .notice-visibility-toggle input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.tip-video-upload{display:flex;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-top:16px}.tip-video-upload>button{flex:none}.tip-video-upload input{display:none}.tip-video-upload #tip-video-preview{display:flex;align-items:flex-start;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted)}#tip-video-preview video,.tip-video-attachment video{display:block;width:min(100%,720px);max-height:420px;background:#101719;border-radius:4px}.tip-video-attachment{margin:18px 0 4px}.tip-video-status{font-size:12px;color:var(--muted)}.tip-video-status:empty{display:none}
 .notice-member-badge{margin-left:6px;color:var(--accent);font-size:11px;font-weight:500;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.notice-visibility-toggle input::before{transition:none}}
 .member-departed-label{margin-left:5px;color:var(--muted);font-size:10px;font-weight:400}

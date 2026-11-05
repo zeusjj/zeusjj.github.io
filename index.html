@@ -23,7 +23,7 @@
   <script src="profile-preview.js?v=20261025-preview" defer></script>
   <script src="raid-distribution.js?v=20261104-card-editor" defer></script>
   <script src="arcadia-seasons.js?v=20261102-season" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261105-extra-sections" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261105-tip-video" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261105-tip-video" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261105-single-init"></script>
   <script type="module" src="member-growth-achievements.js?v=20261105-weekly-rankings"></script>
   <script type="module" src="member-distributions.js?v=20261104-members"></script>
@@ -57,7 +57,7 @@
   <script src="guestbook.js?v=20261104-members" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261018-156"></script>
-  <link rel="stylesheet" href="site-design.css?v=20261105-extra-sections">
+  <link rel="stylesheet" href="site-design.css?v=20261105-tip-video">
   <link rel="stylesheet" href="november-plan.css?v=20261104-card-editor">
   <script src="november-plan.js?v=20261104-card-editor" defer></script>
   <link rel="stylesheet" href="site-themes.css?v=20261021-200">
@@ -163,7 +163,7 @@
       <section id="distribution" hidden><div class="page-heading"><div><h1>분배 기록</h1><p>회차별 아이템과 낙찰 내역</p></div><span class="date-label"><i data-lucide="arrow-down-wide-narrow"></i>최신 회차순</span></div><div id="distribution-content"></div></section>
       <section id="tips" hidden>
         <div class="page-heading"><div><h1>팁 공유</h1><p>함께 나누는 공략과 유용한 링크</p></div><button id="new-tip" class="primary-button" type="button" aria-expanded="false" aria-controls="tip-form"><i data-lucide="square-pen"></i>글쓰기</button></div>
-        <form id="tip-form" class="tip-form" hidden><h2>새 팁</h2><div class="form-fields"><label>제목<input name="title" maxlength="100" required></label><label>작성자<input name="author" maxlength="30" readonly aria-readonly="true"></label><label class="full-field">링크<input name="url" type="url" maxlength="2000" placeholder="https://"></label><label class="full-field">내용<textarea name="content" rows="5" maxlength="5000" required></textarea></label></div><div class="form-actions"><span id="tip-form-status" role="status"></span><button id="cancel-tip" type="button" class="secondary-button">취소</button><button type="submit" class="primary-button">등록</button></div></form>
+        <form id="tip-form" class="tip-form" hidden><h2>새 팁</h2><div class="form-fields"><label>제목<input name="title" maxlength="100" required></label><label>작성자<input name="author" maxlength="30" readonly aria-readonly="true"></label><label class="full-field">링크<input name="url" type="url" maxlength="2000" placeholder="https://"></label><label class="full-field">내용<textarea name="content" rows="5" maxlength="5000"></textarea></label><label class="full-field notice-visibility-toggle"><input name="members_only" type="checkbox" role="switch"> 로그인한 사람만 공개</label></div><div class="tip-video-upload"><button id="tip-video-button" class="secondary-button" type="button"><i data-lucide="video"></i>MP4 영상 추가</button><input id="tip-video-input" type="file" accept="video/mp4,.mp4" hidden><div id="tip-video-preview"></div></div><div class="form-actions"><span id="tip-form-status" role="status"></span><button id="cancel-tip" type="button" class="secondary-button">취소</button><button type="submit" class="primary-button">등록</button></div></form>
         <div class="board-toolbar tip-search-toolbar"><label class="search-field"><i data-lucide="search"></i><input id="tip-search" type="search" placeholder="팁 검색" aria-label="팁 검색"></label><span id="tip-count" aria-live="polite"></span><button id="refresh-tips" class="icon-button" type="button" aria-label="새로고침" title="새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="tips-status" role="status"></p><p id="tips-empty-search" hidden>검색 결과가 없습니다.</p><div id="tips-list" class="tips-list"></div>
       </section>
       <section id="alarms" hidden>
