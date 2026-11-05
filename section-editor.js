@@ -28,7 +28,12 @@
   pending=(async()=>{try{const value=await request();if(!value.sections||Array.isArray(value.sections)||typeof value.sections!=='object')throw Error('Invalid section data');const next={...value.sections};for(const [key,record]of Object.entries(overrides))if(record.version>(next[key]?.version??0))next[key]=record;const changed=JSON.stringify(next)!==JSON.stringify(overrides);overrides=next;loaded=true;if(changed&&base)announce();return true;}catch{loaded=false;return false;}finally{pending=null;}})();return pending;
  }
  function setSource(text){base=text;original.clear();for(const part of text.split(/\r?\n(?=\[)/)){const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);if(m)original.set(m[1],{title:m[1]==='시간'?'콘텐츠 시간':m[1].replace(/^\d+\.\s*/,''),body:m[2].trim()});}}
- function decorateStandalone(section,key,bodyText){if(!original.has(key))original.set(key,{title:key,body:bodyText});decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');icons();}
+ function decorateStandalone(section,key,bodyText,titleText=key){if(!original.has(key))original.set(key,{title:titleText,body:bodyText});decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');icons();}
+ function getAdditionalSections(){
+  const entries=Object.entries(overrides).map(([key,record])=>{const match=key.match(/^운영 추가 섹션 (\d{1,2})$/);return match?{key,index:Number(match[1]),title:record.title||`추가 안내 ${match[1]}`,body:record.body||''}:null;}).filter(Boolean).sort((a,b)=>a.index-b.index);
+  const visible=entries.filter(entry=>entry.body.trim());
+  return {visible,nextIndex:Math.max(0,...entries.map(entry=>entry.index))+1};
+ }
  function getBody(key,fallback=''){return typeof overrides[key]?.body==='string'?overrides[key].body:fallback;}
  function splitLegacyAuction(value){const match=String(value??'').match(/(?:^|\n)\s*경매 시작가\s*\n([\s\S]*)$/);return match?{distribution:value.slice(0,match.index).trimEnd(),auction:match[1].trim()}:null;}
  function rules(text=base){const legacy=splitLegacyAuction(overrides['분배 시간']?.body);return text.split(/\r?\n(?=\[)/).map(part=>{const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/),saved=m&&overrides[m[1]];if(!m)return part;let content=typeof saved?.body==='string'?saved.body:m[2].trim();if(m[1]==='분배 시간'&&legacy&&typeof saved?.body==='string')content=legacy.distribution;if(m[1]==='경매 시작가'&&!saved&&legacy)content=legacy.auction;return '['+m[1]+']\n\n'+content+'\n';}).join('\n');}
@@ -66,6 +71,6 @@
  });
  window.addEventListener('guild-auth-change',()=>{if(!admin()&&dialog.open)dialog.close();sync();});
  window.addEventListener('pageshow',()=>{if(base)load();});
- window.GuildSectionEditor={ready:load(),setSource,rules,getBody,getVersion:key=>overrides[key]?.version??0,refresh:load,decorateStandalone,decorate:(section,key)=>{decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');},get loaded(){return loaded;}};
+ window.GuildSectionEditor={ready:load(),setSource,rules,getBody,getVersion:key=>overrides[key]?.version??0,getAdditionalSections,refresh:load,decorateStandalone,decorate:(section,key)=>{decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');},get loaded(){return loaded;}};
  setInterval(()=>{if(!document.hidden&&base)load();},60000);
 })();

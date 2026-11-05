@@ -229,7 +229,19 @@ function renderRules(text) {
   }
   const group=(className,kinds)=>{const node=element('div',undefined,className);for(const kind of kinds){const section=sections.get(kind);if(section){node.append(section);sections.delete(kind);}}return node;};
   const overview=element('div',undefined,'operations-layout');overview.id='guild-operations';
-  overview.append(group('operation-copy',['direction','growth','relations','chat']),group('schedule-rail',['target','schedule','timing','auction-start']));target.append(overview);
+  const operationCopy=group('operation-copy',['direction','growth','relations','chat']);
+  const additional=window.GuildSectionEditor?.getAdditionalSections?.()??{visible:[],nextIndex:1};
+  const renderAdditional=(entry,reserve=false)=>{
+    const section=element('section',undefined,'policy-section policy-extra-section');section.dataset.extraSection='true';
+    section.append(element('h2',reserve?'예비 섹션':entry.title));const body=element('div',undefined,'policy-body');
+    if(!reserve)bodyContent(entry.body,body);section.append(body);
+    window.GuildSectionEditor?.decorateStandalone(section,entry.key,entry.body,entry.title);
+    if(reserve&&!section.querySelector('.section-edit-trigger'))section.hidden=true;
+    operationCopy.append(section);
+  };
+  for(const entry of additional.visible)renderAdditional(entry);
+  if(additional.nextIndex<=50)renderAdditional({key:`운영 추가 섹션 ${additional.nextIndex}`,title:'예비 섹션',body:''},true);
+  overview.append(operationCopy,group('schedule-rail',['target','schedule','timing','auction-start']));target.append(overview);
   const chapter=(id,title,icon)=>{const node=element('section',undefined,'policy-chapter');node.id=id;const heading=element('div',undefined,'chapter-heading');const symbol=element('i');symbol.dataset.lucide=icon;heading.append(symbol,element('h2',title));node.append(heading);return node;};
   const distribution=chapter('guild-distribution','분배 기준','scale');
   distribution.append(group('distribution-intro',['principles']),group('eligibility-layout',['types','conditions']),group('price-band',['prices']));
@@ -813,6 +825,7 @@ function renderDistribution(groups) {
   }
 }
 window.addEventListener('guild-section-content-change',event=>{if(!publicMemberSource)return;publicMemberSource={...publicMemberSource,rules:event.detail.rules};joinedMemberArchive=null;renderRules(publicMemberSource.rules);renderMembers(currentMemberSource(),document.getElementById('search').value);});
+window.addEventListener('guild-auth-change',()=>{if(publicMemberSource)renderRules(publicMemberSource.rules);});
 function acceptGuildSource(data){window.GuildSectionEditor?.setSource(data.rules);publicMemberSource={...data,rules:window.GuildSectionEditor?.rules(data.rules)??data.rules};memberArchive=null;joinedMemberArchive=null;renderRules(publicMemberSource.rules);renderMembers(currentMemberSource());renderDistribution(data.distribution);refreshMemberArchive();}
 window.addEventListener('guild-roster-updated',event=>acceptGuildSource(event.detail));
 window.GuildData.load().then(async data=>{await participationModel;acceptGuildSource(data);syncMemberAdministrator();document.getElementById('search').addEventListener('input',()=>renderMembers(currentMemberSource(),document.getElementById('search').value));for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort&&hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
