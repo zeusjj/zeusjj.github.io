@@ -6,7 +6,7 @@
   <script src="site-themes.js?v=20261019-180"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/quill.snow.css">
-  <link rel="stylesheet" href="style.css?v=20261030-participation">
+  <link rel="stylesheet" href="style.css?v=20261105-achievement-updated-at">
   <link rel="stylesheet" href="official-news.css?v=20261019-181">
   <script type="module" src="official-news.js?v=20261019-181"></script>
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
@@ -25,7 +25,7 @@
   <script src="arcadia-seasons.js?v=20261102-season" defer></script>
   <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261009-67" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261105-extra-sections" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261105-single-init"></script>
-  <script type="module" src="member-growth-achievements.js?v=20261105-single-init"></script>
+  <script type="module" src="member-growth-achievements.js?v=20261105-weekly-rankings"></script>
   <script type="module" src="member-distributions.js?v=20261104-members"></script>
   <link rel="stylesheet" href="arcadia-seasons.css?v=20261030">
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
@@ -53,6 +53,7 @@
   <link rel="stylesheet" href="admin-member-statistics.css?v=20261102-sort">
   <script src="admin-members.js?v=20261104-auto-account" defer></script>
   <link rel="stylesheet" href="admin-members.css?v=20261104-auto-account">
+  <script src="header-announcements.js?v=20261105-announcement-queue" defer></script>
   <script src="guestbook.js?v=20261104-members" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
   <script type="module" src="alarms.js?v=20261018-156"></script>
@@ -96,7 +97,7 @@
     </div>
   </aside>
   <div class="workspace">
-    <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="header-nickname" class="nickname-picker"></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
+    <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="site-announcement" class="site-announcement" role="region" aria-label="길드 공지" hidden><div class="site-announcement-viewport"><span id="site-announcement-message"></span></div><button id="site-announcement-pause" class="icon-button" type="button" aria-label="공지 흐름 멈추기" aria-pressed="false" title="공지 흐름 멈추기"><i data-lucide="pause"></i></button></div><div id="header-nickname" class="nickname-picker"></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
       <section id="login" hidden aria-labelledby="member-login-heading"><div class="page-heading"><h1 id="member-login-heading">로그인</h1></div><div id="member-login-page" class="member-login-mount"></div></section>
@@ -140,6 +141,7 @@
           <div id="admin-statistics-content" hidden>
             <div id="admin-metrics" class="admin-metrics"></div>
             <p id="admin-tracking-note" class="admin-tracking-note"></p>
+            <section id="header-announcements-admin" class="header-announcements-admin" aria-labelledby="header-announcements-heading" hidden><div class="admin-period-heading"><div><h2 id="header-announcements-heading">상단 흐르는 공지</h2><p>메시지를 하나씩 순서대로 표시합니다.</p></div><button id="header-announcement-add" class="secondary-button" type="button"><i data-lucide="plus"></i>메시지 추가</button></div><div id="header-announcement-list"></div><div class="form-actions"><span id="header-announcement-status" role="status" aria-live="polite"></span><button id="header-announcement-save" class="primary-button" type="button"><i data-lucide="save"></i>저장</button></div></section>
             <div class="admin-statistics-columns">
               <section class="admin-statistics-period"><div class="admin-period-heading"><h2>일별 방문자</h2><label>기간<select id="admin-days"><option value="7">최근 7일</option><option value="30" selected>최근 30일</option><option value="90">최근 90일</option><option value="365">최근 1년</option></select></label></div><div class="admin-statistics-table"><table><thead><tr><th scope="col">날짜</th><th scope="col">고유 방문자</th><th scope="col">추이</th></tr></thead><tbody id="admin-daily"></tbody></table></div></section>
               <section class="admin-statistics-period"><div class="admin-period-heading"><h2>주별 방문자</h2><label>기간<select id="admin-weeks"><option value="4">최근 4주</option><option value="12" selected>최근 12주</option><option value="26">최근 26주</option><option value="52">최근 1년</option></select></label></div><div class="admin-statistics-table"><table><thead><tr><th scope="col">기간</th><th scope="col">고유 방문자</th><th scope="col">방문일 합계</th></tr></thead><tbody id="admin-weekly"></tbody></table></div><p class="admin-period-note">주별 고유 방문자는 같은 브라우저의 재방문을 제외합니다. 방문일 합계는 일별 방문자 수를 더한 값으로, 같은 브라우저도 다른 날짜에는 다시 포함됩니다.</p></section>

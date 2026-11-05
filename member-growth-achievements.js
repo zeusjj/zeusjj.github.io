@@ -1,13 +1,20 @@
 import {growthHistory,levelHistory} from './member-growth-history.js?v=20261105-single-init';
-import {weeklyOverview,weekStart,koreaDay} from './guild-overview-model.js?v=20261104-members';
+import {ranked,weekStart,koreaDay} from './guild-overview-model.js?v=20261104-members';
 
 export function growthAchievementSummary(data,today=koreaDay()){
- const weekly=weeklyOverview(data,weekStart(today),today),nameIndex=data.headers.indexOf('닉네임');
+ const start=weekStart(today),nameIndex=data.headers.indexOf('닉네임');
+ const weeklyRows=data.members.flatMap(row=>{
+  const history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),current=history.findLast(point=>point.date>=start),previous=history.findLast(point=>point.date<start);
+  return current&&previous?[{name:row[nameIndex],value:current.value-previous.value,previous:previous.value,from:previous.date,to:current.date}]:[];
+ });
+ const rankedGrowth=ranked(weeklyRows);
+ const weeklyRates=ranked(rankedGrowth.filter(row=>row.previous>0).map(row=>({...row,value:row.value/row.previous*100})));
+ const weeklyDates=rankedGrowth.map(row=>row.to).sort();
  const levelUps=data.members.flatMap(row=>{
   const history=levelHistory({...data,members:[row]}).filter(point=>point.date<=today),current=history.findLast(point=>point.date===today),previous=history.findLast(point=>point.date<today);
   return current&&previous&&current.value>previous.value?[{name:row[nameIndex],date:today,previousDate:previous.date,previousLevel:previous.value,level:current.value}]:[];
  }).sort((a,b)=>(b.level-b.previousLevel)-(a.level-a.previousLevel)||b.level-a.level||a.name.localeCompare(b.name,'ko'));
- return {weeklyGrowth:weekly.growth.filter(row=>row.rank<=7),weeklyRates:weekly.growthRates.filter(row=>row.rank<=7),levelUps,today,from:weekly.previous?.date??null,to:weekly.last?.date??null};
+ return {weeklyGrowth:rankedGrowth.filter(row=>row.rank<=7),weeklyRates:weeklyRates.filter(row=>row.rank<=7),levelUps,today,from:rankedGrowth.map(row=>row.from).sort().at(-1)??null,to:weeklyDates.at(-1)??null};
 }
 
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
@@ -30,7 +37,14 @@ if(typeof document!=='undefined'){
  const number=new Intl.NumberFormat('ko-KR'),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});let source;
  function render(){
   if(!source)return;const result=recentGrowthAchievements(source),summary=growthAchievementSummary(source);host.replaceChildren();
-  function card(title,icon,records,{kind='milestone',period='최근 7일',empty='',range=''}={}){
+  const updatedLabel=date=>{
+   if(!date)return '';
+   const stamp=source.growthUpdatedAt?.[date];
+   const parts=stamp?Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date(stamp)).map(part=>[part.type,part.value])):null;
+   const time=parts?parts.month+'/'+parts.day+' '+parts.hour+':'+parts.minute+' 업데이트':date.slice(5).replace('-','/')+' 업데이트';
+   return {text:time,title:stamp?new Date(stamp).toLocaleString('ko-KR',{timeZone:'Asia/Seoul'}):date};
+  };
+  function card(title,icon,records,{kind='milestone',period='최근 7일',empty='',range='',updatedDate=''}={}){
    const ranked=kind==='increase'||kind==='rate';
    const article=document.createElement('section'),heading=document.createElement('h3'),symbol=document.createElement('i'),caption=document.createElement('span'),list=document.createElement('ol');article.className='member-achievement'+(ranked?' member-achievement-ranked':'');symbol.dataset.lucide=icon;caption.textContent=title;heading.append(symbol,caption);article.append(heading,list);
    if(period){const caption=document.createElement('span');caption.className='member-achievement-period';caption.textContent=period;heading.append(caption);}
@@ -43,14 +57,15 @@ if(typeof document!=='undefined'){
     item.append(name,value);list.append(item);
    }
    if(!records.length&&empty){const note=document.createElement('p');note.className='member-achievement-empty';note.textContent=empty;article.append(note);}
+   const updated=updatedLabel(updatedDate);if(updated){const footer=document.createElement('footer');footer.className='member-achievement-updated';footer.textContent=updated.text;footer.title=updated.title;article.append(footer);}
    host.append(article);
   }
   const range=summary.from&&summary.to?summary.from+' → '+summary.to+' · 주 시작 전 마지막 기록 대비':'주간 비교 기록 없음';
-  card('이번 주 성장률 상위','percent',summary.weeklyRates,{kind:'rate',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.'});
-  card('이번 주 성장도 상위','trending-up',summary.weeklyGrowth,{kind:'increase',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.'});
-  card('오늘 레벨업','chevrons-up',summary.levelUps,{kind:'level',period:summary.today.slice(5).replace('-','/'),empty:source.levels?.[summary.today]?'오늘 확인된 레벨업이 없습니다.':'오늘 레벨 기록이 없습니다.'});
-  if(result.rankings.length)card('최근 2일 급상승','trending-up',result.rankings,{kind:'increase',period:''});
-  for(const milestone of result.milestones)card(milestone.threshold/10000+'만 돌파','trophy',milestone.members);
+  card('이번 주 성장률 상위','percent',summary.weeklyRates,{kind:'rate',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.',updatedDate:summary.to});
+  card('이번 주 성장도 상위','trending-up',summary.weeklyGrowth,{kind:'increase',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.',updatedDate:summary.to});
+  card('오늘 레벨업','chevrons-up',summary.levelUps,{kind:'level',period:summary.today.slice(5).replace('-','/'),empty:source.levels?.[summary.today]?'오늘 확인된 레벨업이 없습니다.':'오늘 레벨 기록이 없습니다.',updatedDate:source.levels?.[summary.today]?summary.today:''});
+  if(result.rankings.length){const latest=result.rankings.map(row=>row.to).sort().at(-1);card('최근 2일 급상승','trending-up',result.rankings,{kind:'increase',period:'',updatedDate:latest});}
+  for(const milestone of result.milestones)card(milestone.threshold/10000+'만 돌파','trophy',milestone.members,{updatedDate:milestone.members.map(row=>row.date).sort().at(-1)});
   host.hidden=!host.children.length;globalThis.lucide?.createIcons();
  }
  window.addEventListener('guild-members-data',event=>{source=event.detail;render();});
