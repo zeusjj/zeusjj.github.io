@@ -337,3 +337,4 @@ body{color:var(--ink)}
 .policy-schedule .content-schedule-times .content-schedule-time{margin:0}
 .policy-schedule .content-schedule-note{margin:5px 0 0;font-size:12px!important;line-height:1.7;color:var(--muted);word-break:keep-all;overflow-wrap:anywhere}
 .policy-schedule .content-schedule-group li{font-size:12px;line-height:1.8}
+.operation-copy .policy-chat:last-child{border-bottom:1px solid var(--line);padding-bottom:25px}

@@ -25,14 +25,22 @@ export function historyEndLabels(lines,top,bottom,x){
  for(let i=labels.length-1;i>=0;i--)labels[i].y=Math.min(labels[i].y,bottom,i<labels.length-1?labels[i+1].y-12:bottom);
  return labels;
 }
-if(typeof document!=='undefined'){
+export function resetHistoryAxisDOM(root=document){
+ for(const frame of root.querySelectorAll('.member-history-frame')){
+  const scroll=frame.querySelector('#member-history-scroll');
+  if(scroll)frame.replaceWith(scroll);else frame.remove();
+ }
+ root.querySelectorAll('#member-history-axis').forEach(axis=>axis.remove());
+}
+if(typeof document!=='undefined'&&document.documentElement.dataset.memberGrowthHistoryInitialized!=='true'){
+ document.documentElement.dataset.memberGrowthHistoryInitialized='true';
  const oldMode=document.getElementById('member-history-individual').closest('label'),modes=document.createElement('div');modes.className='member-history-modes';modes.setAttribute('role','radiogroup');modes.setAttribute('aria-label','성장 그래프 보기');
  for(const [value,text] of [['individual','개인'],['guild','길드']]){const label=document.createElement('label'),input=document.createElement('input'),caption=document.createElement('span');input.type='radio';input.name='member-history-mode';input.value=value;input.id='member-history-'+value;input.checked=value==='individual';caption.textContent=text;label.append(input,caption);modes.append(label);}oldMode.replaceWith(modes);
  const metricModes=document.createElement('div'),modeControls=document.createElement('div');metricModes.className='member-history-modes';metricModes.role='radiogroup';metricModes.setAttribute('aria-label','그래프 지표');modeControls.className='member-history-mode-controls';modes.before(modeControls);modeControls.append(metricModes,modes);
  for(const [value,text] of [['growth','성장도'],['level','Lv'],['participation','참여율']]){const label=document.createElement('label'),input=document.createElement('input'),caption=document.createElement('span');input.type='radio';input.name='member-history-metric';input.value=value;input.id='member-history-metric-'+value;input.checked=value==='growth';caption.textContent=text;label.append(input,caption);metricModes.append(label);}
  const growthMetric=document.getElementById('member-history-metric-growth'),levelMetric=document.getElementById('member-history-metric-level'),participationMetric=document.getElementById('member-history-metric-participation');
  const scroll=document.getElementById('member-history-scroll'),canvas=document.getElementById('member-history-canvas'),select=document.getElementById('member-growth-person'),status=document.getElementById('member-history-point'),classes=document.getElementById('member-history-class'),bands=document.getElementById('member-history-band'),individual=document.getElementById('member-history-individual');
- document.querySelectorAll('.member-history-frame').forEach(existing=>existing.replaceWith(...existing.childNodes));
+ resetHistoryAxisDOM(document);
  const frame=document.createElement('div'),axisCanvas=document.createElement('canvas');frame.className='member-history-frame';axisCanvas.id='member-history-axis';axisCanvas.setAttribute('aria-hidden','true');axisCanvas.width=72;axisCanvas.height=300;scroll.before(frame);frame.append(axisCanvas,scroll);
  const guild=document.getElementById('member-history-guild'),tooltip=document.createElement('div');tooltip.id='member-history-tooltip';tooltip.className='member-history-tooltip';tooltip.setAttribute('role','tooltip');tooltip.hidden=true;document.body.append(tooltip);
  const footer=document.createElement('div'),stepLabel=document.createElement('label'),step=document.createElement('select');footer.className='member-history-footer';step.id='member-history-step';step.setAttribute('aria-label','눈금 간격');for(const value of [100,500,1000,2500,5000])step.add(new Option(value.toLocaleString('ko-KR'),String(value)));step.value='500';stepLabel.append('눈금 간격 ',step);status.before(footer);footer.append(status,stepLabel);

@@ -23,6 +23,9 @@
 .proposal-event .proposal-option-top{color:var(--warning)}
 .proposal-event-condition{margin:10px 0 0;color:var(--warning);font-size:12px;line-height:1.8}
 .proposal-option-top svg{width:20px;height:20px;flex:none}
+.raid-card-edit{margin-left:auto;flex:none;width:30px;min-width:30px;height:30px;min-height:30px;padding:6px;color:var(--muted);border:1px solid var(--line);background:var(--surface)}
+.raid-card-edit svg{width:15px;height:15px}
+.raid-card-editor form{display:grid;gap:14px}.raid-card-editor-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.raid-card-editor-fields label{display:grid;gap:6px;min-width:0;font-size:13px;font-weight:600}.raid-card-editor-fields label[hidden]{display:none}.raid-card-editor-fields input,.raid-card-editor-fields textarea{width:100%;min-width:0;box-sizing:border-box;color:var(--ink);background:var(--surface);font:inherit;font-weight:400}.raid-card-editor-fields textarea{resize:vertical;line-height:1.7}.raid-card-editor .form-actions{display:flex;justify-content:flex-end;gap:8px}
 .proposal-option h3{margin:16px 0 12px;font-size:17px;line-height:1.6;overflow-wrap:anywhere}
 .proposal-method{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0;font-size:14px;line-height:1.7}
 .proposal-method span{color:var(--muted);font-size:12px}
@@ -58,4 +61,5 @@
 @media(max-width:1100px){.proposal-options{gap:10px}.proposal-option{padding:18px 14px}.proposal-option h3{font-size:16px}}
 @media(max-width:760px){.proposal-options{grid-template-columns:1fr;gap:16px}.proposal-option{padding:20px}.proposal-intro h2{font-size:20px}.proposal-price{margin-bottom:18px}.proposal-option dl{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.proposal-option dl>div:last-child{grid-column:1/-1}}
 @media(max-width:480px){.proposal-option dl{grid-template-columns:1fr}.proposal-option dd{word-break:keep-all}}
+@media(max-width:520px){.raid-card-editor-fields{grid-template-columns:1fr}}
 @media(max-width:760px){.raid-allocation-options>.proposal-event{grid-column:auto;grid-row:auto}.raid-bid-restrictions{grid-column:auto;grid-row:auto;padding:8px 0 0}}

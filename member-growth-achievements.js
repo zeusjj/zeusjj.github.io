@@ -1,4 +1,4 @@
-import {growthHistory,levelHistory} from './member-growth-history.js?v=20261102-season';
+import {growthHistory,levelHistory} from './member-growth-history.js?v=20261105-single-init';
 import {weeklyOverview,weekStart,koreaDay} from './guild-overview-model.js?v=20261104-members';
 
 export function growthAchievementSummary(data,today=koreaDay()){
