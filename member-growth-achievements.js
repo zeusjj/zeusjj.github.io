@@ -44,7 +44,7 @@ if(typeof document!=='undefined'){
    const time=parts?parts.month+'/'+parts.day+' '+parts.hour+':'+parts.minute+' 업데이트':date.slice(5).replace('-','/')+' 업데이트';
    return {text:time,title:stamp?new Date(stamp).toLocaleString('ko-KR',{timeZone:'Asia/Seoul'}):date};
   };
-  function card(title,icon,records,{kind='milestone',period='최근 7일',empty='',range='',updatedDate=''}={}){
+  function card(title,icon,records,{kind='milestone',period='최근 7일',empty=''}={}){
    const ranked=kind==='increase'||kind==='rate';
    const article=document.createElement('section'),heading=document.createElement('h3'),symbol=document.createElement('i'),caption=document.createElement('span'),list=document.createElement('ol');article.className='member-achievement'+(ranked?' member-achievement-ranked':'');symbol.dataset.lucide=icon;caption.textContent=title;heading.append(symbol,caption);article.append(heading,list);
    if(period){const caption=document.createElement('span');caption.className='member-achievement-period';caption.textContent=period;heading.append(caption);}
@@ -52,20 +52,20 @@ if(typeof document!=='undefined'){
     const item=document.createElement('li'),name=document.createElement('span'),value=document.createElement('span');name.className='member-achievement-name';name.textContent=record.name;value.className='member-achievement-value';
     const amount=record.increase??record.value;
     value.textContent=kind==='level'?'Lv.'+record.previousLevel+' → '+record.level:ranked?(amount>0?'+':'')+(kind==='rate'?decimal.format(amount)+'%':number.format(amount)):record.date.slice(5).replace('-','/');
-    if(ranked){const rank=document.createElement('span');rank.className='member-achievement-rank';rank.textContent=(record.rank??index+1);item.append(rank);item.title=(record.joint?'공동 '+record.rank+'위 · ':'')+record.from+' → '+record.to;}
+    if(ranked){const rank=document.createElement('span');rank.className='member-achievement-rank';rank.textContent=record.rank??index+1;item.append(rank);item.title=(record.joint?'공동 '+record.rank+'위 · ':'')+record.from+' → '+record.to;}
     else item.title=kind==='level'?record.previousDate+' → '+record.date:number.format(record.value);
     item.append(name,value);list.append(item);
    }
    if(!records.length&&empty){const note=document.createElement('p');note.className='member-achievement-empty';note.textContent=empty;article.append(note);}
-   const updated=updatedLabel(updatedDate);if(updated){const footer=document.createElement('footer');footer.className='member-achievement-updated';footer.textContent=updated.text;footer.title=updated.title;article.append(footer);}
    host.append(article);
   }
-  const range=summary.from&&summary.to?summary.from+' → '+summary.to+' · 개인별 비교 기록':'주간 비교 기록 없음';
-  card('이번 주 성장률 상위','percent',summary.weeklyRates,{kind:'rate',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.',updatedDate:summary.to});
-  card('이번 주 성장도 상위','trending-up',summary.weeklyGrowth,{kind:'increase',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.',updatedDate:summary.to});
-  card('오늘 레벨업','chevrons-up',summary.levelUps,{kind:'level',period:summary.today.slice(5).replace('-','/'),empty:source.levels?.[summary.today]?'오늘 확인된 레벨업이 없습니다.':'오늘 레벨 기록이 없습니다.',updatedDate:source.levels?.[summary.today]?summary.today:''});
-  if(result.rankings.length){const latest=result.rankings.map(row=>row.to).sort().at(-1);card('최근 2일 급상승','trending-up',result.rankings,{kind:'increase',period:'',updatedDate:latest});}
-  for(const milestone of result.milestones)card(milestone.threshold/10000+'만 돌파','trophy',milestone.members,{updatedDate:milestone.members.map(row=>row.date).sort().at(-1)});
+  card('이번 주 성장률 상위','percent',summary.weeklyRates,{kind:'rate',period:'7위까지',empty:'이번 주 비교 기록이 없습니다.'});
+  card('이번 주 성장도 상위','trending-up',summary.weeklyGrowth,{kind:'increase',period:'7위까지',empty:'이번 주 비교 기록이 없습니다.'});
+  card('오늘 레벨업','chevrons-up',summary.levelUps,{kind:'level',period:summary.today.slice(5).replace('-','/'),empty:source.levels?.[summary.today]?'오늘 확인된 레벨업이 없습니다.':'오늘 레벨 기록이 없습니다.'});
+  if(result.rankings.length)card('최근 2일 급상승','trending-up',result.rankings,{kind:'increase',period:''});
+  for(const milestone of result.milestones)card(milestone.threshold/10000+'만 돌파','trophy',milestone.members);
+  const latestUpdate=Object.keys(source.growthUpdatedAt||{}).filter(date=>date<=summary.today).sort().at(-1),updated=updatedLabel(latestUpdate);
+  if(updated){const footer=document.createElement('footer');footer.className='member-achievements-updated';footer.textContent=updated.text;footer.title=updated.title;host.append(footer);}
   host.hidden=!host.children.length;globalThis.lucide?.createIcons();
  }
  window.addEventListener('guild-members-data',event=>{source=event.detail;render();});
