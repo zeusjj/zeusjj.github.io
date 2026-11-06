@@ -4,8 +4,8 @@ import {ranked,weekStart,koreaDay} from './guild-overview-model.js?v=20261104-me
 export function growthAchievementSummary(data,today=koreaDay()){
  const start=weekStart(today),nameIndex=data.headers.indexOf('닉네임');
  const weeklyRows=data.members.flatMap(row=>{
-  const history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),current=history.findLast(point=>point.date>=start),previous=history.findLast(point=>point.date<start);
-  return current&&previous?[{name:row[nameIndex],value:current.value-previous.value,previous:previous.value,from:previous.date,to:current.date}]:[];
+  const history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),weekHistory=history.filter(point=>point.date>=start),current=weekHistory.at(-1),previous=history.findLast(point=>point.date<start)??weekHistory[0];
+  return current&&previous&&current.date!==previous.date?[{name:row[nameIndex],value:current.value-previous.value,previous:previous.value,from:previous.date,to:current.date}]:[];
  });
  const rankedGrowth=ranked(weeklyRows);
  const weeklyRates=ranked(rankedGrowth.filter(row=>row.previous>0).map(row=>({...row,value:row.value/row.previous*100})));
@@ -14,7 +14,7 @@ export function growthAchievementSummary(data,today=koreaDay()){
   const history=levelHistory({...data,members:[row]}).filter(point=>point.date<=today),current=history.findLast(point=>point.date===today),previous=history.findLast(point=>point.date<today);
   return current&&previous&&current.value>previous.value?[{name:row[nameIndex],date:today,previousDate:previous.date,previousLevel:previous.value,level:current.value}]:[];
  }).sort((a,b)=>(b.level-b.previousLevel)-(a.level-a.previousLevel)||b.level-a.level||a.name.localeCompare(b.name,'ko'));
- return {weeklyGrowth:rankedGrowth.filter(row=>row.rank<=7),weeklyRates:weeklyRates.filter(row=>row.rank<=7),levelUps,today,from:rankedGrowth.map(row=>row.from).sort().at(-1)??null,to:weeklyDates.at(-1)??null};
+ return {weeklyGrowth:rankedGrowth.filter(row=>row.rank<=7),weeklyRates:weeklyRates.filter(row=>row.rank<=7),levelUps,today,from:rankedGrowth.map(row=>row.from).sort()[0]??null,to:weeklyDates.at(-1)??null};
 }
 
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
@@ -52,7 +52,7 @@ if(typeof document!=='undefined'){
     const item=document.createElement('li'),name=document.createElement('span'),value=document.createElement('span');name.className='member-achievement-name';name.textContent=record.name;value.className='member-achievement-value';
     const amount=record.increase??record.value;
     value.textContent=kind==='level'?'Lv.'+record.previousLevel+' → '+record.level:ranked?(amount>0?'+':'')+(kind==='rate'?decimal.format(amount)+'%':number.format(amount)):record.date.slice(5).replace('-','/');
-    if(ranked){const rank=document.createElement('span');rank.className='member-achievement-rank';rank.textContent=record.rank??index+1;item.append(rank);item.title=(record.joint?'공동 '+record.rank+'위 · ':'')+(range||(record.from+' ~ '+record.to));}
+    if(ranked){const rank=document.createElement('span');rank.className='member-achievement-rank';rank.textContent=(record.rank??index+1);item.append(rank);item.title=(record.joint?'공동 '+record.rank+'위 · ':'')+record.from+' → '+record.to;}
     else item.title=kind==='level'?record.previousDate+' → '+record.date:number.format(record.value);
     item.append(name,value);list.append(item);
    }
@@ -60,7 +60,7 @@ if(typeof document!=='undefined'){
    const updated=updatedLabel(updatedDate);if(updated){const footer=document.createElement('footer');footer.className='member-achievement-updated';footer.textContent=updated.text;footer.title=updated.title;article.append(footer);}
    host.append(article);
   }
-  const range=summary.from&&summary.to?summary.from+' → '+summary.to+' · 주 시작 전 마지막 기록 대비':'주간 비교 기록 없음';
+  const range=summary.from&&summary.to?summary.from+' → '+summary.to+' · 개인별 비교 기록':'주간 비교 기록 없음';
   card('이번 주 성장률 상위','percent',summary.weeklyRates,{kind:'rate',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.',updatedDate:summary.to});
   card('이번 주 성장도 상위','trending-up',summary.weeklyGrowth,{kind:'increase',period:'7위까지',range,empty:'이번 주 비교 기록이 없습니다.',updatedDate:summary.to});
   card('오늘 레벨업','chevrons-up',summary.levelUps,{kind:'level',period:summary.today.slice(5).replace('-','/'),empty:source.levels?.[summary.today]?'오늘 확인된 레벨업이 없습니다.':'오늘 레벨 기록이 없습니다.',updatedDate:source.levels?.[summary.today]?summary.today:''});
