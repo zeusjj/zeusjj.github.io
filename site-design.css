@@ -47,7 +47,7 @@ body{background:var(--page)}
 .sidebar-foot{margin-top:auto;padding:18px 8px 0;gap:12px}
 .sidebar .official-home-link,.sidebar #suggest-tool{font-size:12px;box-shadow:none;min-height:40px}
 .workspace{margin-left:var(--sidebar-width);min-width:0}
-.workspace-bar{height:48px;padding:0 var(--space-page);background:#fff;border-color:var(--line)}
+.workspace-bar{position:sticky;top:0;z-index:20;height:48px;padding:0 var(--space-page);background:var(--surface);border-color:var(--line)}
 .workspace-bar>div{font-size:12px}
 main{padding:28px var(--space-page) 48px;max-width:1536px;min-width:0}
 .page-heading{margin-bottom:24px;gap:16px;align-items:center}
