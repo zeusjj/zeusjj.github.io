@@ -120,6 +120,13 @@ button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var
 .distribution-schedule{font-size:14px;font-weight:600;color:var(--accent);line-height:1.8;margin:0 0 18px}
 .workspace-bar #main-menu-share{width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:var(--accent)}
 .workspace-bar #main-menu-share svg{width:15px;height:15px;color:inherit}
+
+.site-announcement{display:flex;align-items:center;gap:8px;flex:1 1 0;min-width:0;max-width:min(560px,42vw)}
+.site-announcement-viewport{position:relative;flex:1 1 auto;min-width:0;height:32px;overflow:hidden}
+#site-announcement-message{position:absolute;top:50%;left:0;display:block;width:max-content;white-space:nowrap;transform:translate(var(--ticker-start,100vw),-50%);will-change:transform}
+@keyframes ticker-flow{from{transform:translate(var(--ticker-start),-50%)}to{transform:translate(var(--ticker-end),-50%)}}
+#site-announcement-pause{flex:0 0 30px;width:30px;height:30px;min-height:30px;padding:0}
+@media(max-width:700px){.site-announcement{max-width:none;gap:4px}.site-announcement-viewport{height:30px}#site-announcement-pause{flex-basis:26px;width:26px;height:26px;min-height:26px}}
 .record-count{font-size:12px}
 .distribution-group td,.distribution-group th{font-size:14px;line-height:1.8;padding:14px 16px}
 .distribution-group td:nth-child(2){font-weight:550}
