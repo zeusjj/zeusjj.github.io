@@ -86,8 +86,13 @@ export function overview(data,through=koreaDay()){
 export function weeklyOverview(data,start,through=koreaDay()){
   const end=shiftDay(start,6),until=end<through?end:through,base=shiftDay(start,-1);
   const report=overview(data,until),nameIndex=report.nameIndex;
-  const last=columns(data,h=>h==='성장도 기록',until).at(-1),previous=columns(data,h=>h==='성장도 기록',base).at(-1);
-  const growth=last&&last.date>=start&&previous?ranked(data.members.filter(row=>numeric(row[last.index])&&numeric(row[previous.index])).map(row=>({name:row[nameIndex],value:row[last.index]-row[previous.index],previous:row[previous.index]}))):[];
+  const last=columns(data,h=>h==='성장도 기록',until).at(-1);
+  const previous=columns(data,h=>h==='성장도 기록',base).at(-1);
+  const growth=last&&last.date>=start?ranked(data.members.flatMap(row=>{
+    const series=growthSeries(data,row,until),current=series.at(-1);
+    const previous=series.filter(entry=>entry.date<start).at(-1)||series.find(entry=>entry.date>=start);
+    return current&&previous&&current.date!==previous.date?[{name:row[nameIndex],value:current.value-previous.value,previous:previous.value}]:[];
+  })):[];
   const growthRates=ranked(growth.filter(row=>row.previous>0).map(row=>({name:row.name,value:row.value/row.previous*100})));
   const contribution=columns(data,h=>/공헌/.test(h),until).filter(c=>c.date>=start).at(-1);
   const contributionRanks=contribution?ranked(data.members.filter(row=>numeric(row[contribution.index])).map(row=>({name:row[nameIndex],value:row[contribution.index]}))):[];
