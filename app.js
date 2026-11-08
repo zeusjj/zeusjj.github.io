@@ -785,9 +785,8 @@ function renderMembers(data, query='') {
   }
   const table=document.getElementById('member-table');table.replaceChildren();
   const hiddenColumn=index=>hiddenMemberColumn(data,index);
-  const showExtra=document.getElementById('member-extra-toggle').checked,groupBar=table.parentElement.parentElement.querySelector('.member-group-bar');
-  groupBar.dataset.extraInfoVisible=String(showExtra);
-  groupBar.querySelectorAll('[data-member-extra]').forEach(span=>span.hidden=!showExtra);
+  const showExtra=document.getElementById('member-extra-toggle').checked,groupBar=table.closest('.member-grid')?.querySelector('.member-group-bar');
+  if(groupBar){groupBar.dataset.extraInfoVisible=String(showExtra);groupBar.querySelectorAll('[data-member-extra]').forEach(span=>span.hidden=!showExtra);}
   const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=participationIndex+1;
   renderSeasonBand(table,data,identityCount,hiddenColumn);
   const weekGroups=memberWeekGroups(data,identityCount,hiddenColumn);
