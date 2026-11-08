@@ -705,7 +705,7 @@ function isContributionColumn(data,index){
   return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율'].includes(data.headers[index]) && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
 }
 function hiddenMemberColumn(data,index){
-  return (!document.getElementById('member-growth-toggle').checked && data.headers[index]==='성장도 기록') || (!document.getElementById('member-contribution-toggle').checked && isContributionColumn(data,index)) || (!document.getElementById('member-role-toggle').checked && data.headers[index]==='직책');
+  return (!document.getElementById('member-growth-toggle').checked && data.headers[index]==='성장도 기록') || (!document.getElementById('member-contribution-toggle').checked && isContributionColumn(data,index)) || (!document.getElementById('member-extra-toggle').checked && ['직책','단톡','참여율'].includes(data.headers[index]));
 }
 function memberWeekGroups(data,identityCount,hiddenColumn){
   const weeks=data.headers.map((header,index)=>{
@@ -782,7 +782,10 @@ function renderMembers(data, query='') {
     });
   }
   const table=document.getElementById('member-table');table.replaceChildren();
-  const hiddenColumn=index=>index!==participationIndex&&hiddenMemberColumn(data,index);
+  const hiddenColumn=index=>hiddenMemberColumn(data,index);
+  const showExtra=document.getElementById('member-extra-toggle').checked,groupBar=table.parentElement.parentElement.querySelector('.member-group-bar');
+  groupBar.dataset.extraInfoVisible=String(showExtra);
+  groupBar.querySelectorAll('[data-member-extra]').forEach(span=>span.hidden=!showExtra);
   const classIndex=data.headers.indexOf('클래스'),chatIndex=data.headers.indexOf('단톡'),identityCount=participationIndex+1;
   renderSeasonBand(table,data,identityCount,hiddenColumn);
   const weekGroups=memberWeekGroups(data,identityCount,hiddenColumn);
@@ -845,7 +848,7 @@ window.addEventListener('guild-section-content-change',event=>{if(!publicMemberS
 window.addEventListener('guild-auth-change',()=>{if(publicMemberSource)renderRules(publicMemberSource.rules);});
 function acceptGuildSource(data){window.GuildSectionEditor?.setSource(data.rules);publicMemberSource={...data,rules:window.GuildSectionEditor?.rules(data.rules)??data.rules};memberArchive=null;joinedMemberArchive=null;renderRules(publicMemberSource.rules);renderMembers(currentMemberSource());renderDistribution(data.distribution);refreshMemberArchive();}
 window.addEventListener('guild-roster-updated',event=>acceptGuildSource(event.detail));
-window.GuildData.load().then(async data=>{await participationModel;acceptGuildSource(data);syncMemberAdministrator();document.getElementById('search').addEventListener('input',()=>renderMembers(currentMemberSource(),document.getElementById('search').value));for(const id of ['member-growth-toggle','member-contribution-toggle','member-role-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort&&hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
+window.GuildData.load().then(async data=>{await participationModel;acceptGuildSource(data);syncMemberAdministrator();document.getElementById('search').addEventListener('input',()=>renderMembers(currentMemberSource(),document.getElementById('search').value));for(const id of ['member-growth-toggle','member-contribution-toggle','member-extra-toggle'])document.getElementById(id).addEventListener('change',()=>{if(memberSort&&hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);});document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(()=>{document.getElementById('loading').textContent='길드 정보를 불러오지 못했습니다. 잠시 후 새로고침해주세요.';});
 loadNotices();
 try{const cache=JSON.parse(localStorage.getItem('guild-tips-cache-v1'));if(cache && Date.now()-cache.savedAt<86400000 && validTips(cache.tips)){renderTips(cache.tips.filter(tip=>!tip.members_only));tipsLoaded=true;}}catch{}
 loadTips();
