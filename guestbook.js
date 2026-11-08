@@ -18,7 +18,7 @@
   list.hidden=false;input.setAttribute('aria-expanded','true');input.removeAttribute('aria-activedescendant');
  }
  async function loadNames(){
-  if(!namesRequest)namesRequest=window.GuildData.load().then(data=>{const hidden=new Set(data.temporaryMembers??[]);names=[...new Set(data.members.map(row=>row[1]).filter(name=>typeof name==='string'&&!hidden.has(name)))];}).catch(()=>{}).finally(()=>namesRequest=null);
+  if(!namesRequest)namesRequest=window.GuildData.load().then(data=>{const hidden=new Set([...(data.temporaryMembers??[]),...(data.dormantMembers??[])]);names=[...new Set(data.members.map(row=>row[1]).filter(name=>typeof name==='string'&&!hidden.has(name)))];}).catch(()=>{}).finally(()=>namesRequest=null);
   await namesRequest;if(dialog.open && document.activeElement===input)suggest();
  }
  function open(reset=true){if(reset){form.reset();GuildNickname.fill(input);id=crypto.randomUUID();status.textContent='';}hide();syncIdentity();if(!dialog.open)dialog.showModal();(identity()?form.elements.memo:input).focus();if(!identity())loadNames();}

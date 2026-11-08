@@ -752,7 +752,9 @@ function renderSeasonBand(table,data,identityCount,isHidden){
 }
 function renderMembers(data, query='') {
   const hiddenTemporaryMembers=new Set(data.temporaryMembers??[]);
-  const source={...data,members:data.members.filter(row=>!hiddenTemporaryMembers.has(row[data.headers.indexOf('닉네임')]))};
+  const hiddenDormantMembers=new Set(data.dormantMembers??[]);
+  const hiddenMembers=new Set([...hiddenTemporaryMembers,...hiddenDormantMembers]);
+  const source={...data,members:data.members.filter(row=>!hiddenMembers.has(row[data.headers.indexOf('닉네임')]))};
   const archivedRows=query.trim()?window.GuildMemberArchive.rows(source):[];
   const displayedMembers=[...source.members,...archivedRows];
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];

@@ -22,14 +22,14 @@
   function render(){
     body.replaceChildren();if(!data)return;const rows=(filter.value==='departed'?data.departed:data.members).filter(row=>(row.nickname+' '+row.username).normalize('NFKC').toLocaleLowerCase('ko-KR').includes(search.value.normalize('NFKC').toLocaleLowerCase('ko-KR').trim()));
     count.textContent=`${rows.length} / ${(filter.value==='departed'?data.departed:data.members).length}명`;
-    for(const member of rows){const tr=el('tr');for(const value of [member.nickname,member.class,number(member.level),number(member.growth),member.joinedDay||'-',member.username,member.status==='active'?'활동':'탈퇴'])tr.append(el('td',value));
+    for(const member of rows){const tr=el('tr');for(const value of [member.nickname,member.class,number(member.level),number(member.growth),member.joinedDay||'-',member.username,member.memberType==='temporary'?'임시회원':member.memberType==='dormant'?'휴면회원':member.status==='active'?'활동':'탈퇴'])tr.append(el('td',value));
       const action=el('td');if(member.canDepart){const button=iconButton(member.nickname+' 탈퇴 처리','user-minus',()=>openDeparture(member));button.disabled=busy;action.append(button);}else action.textContent=member.status==='departed'?'로그인 차단':'관리자';tr.append(action);body.append(tr);
     }
     if(!rows.length){const row=el('tr'),cell=el('td','해당하는 회원이 없습니다.');cell.colSpan=8;row.append(cell);body.append(row);}icons();
   }
   async function load(){
     if(!admin())return;const current=++sequence;refresh.disabled=true;status.textContent='회원 명단을 불러오는 중입니다.';
-    try{const result=await request();if(current!==sequence||!admin())return;if(!Array.isArray(result.members)||!Array.isArray(result.departed)||typeof result.version!=='string')throw new Error('회원 명단을 확인하지 못했습니다.');data=result;render();status.textContent='';}
+    try{const [result,source]=await Promise.all([request(),window.GuildData.load()]);if(current!==sequence||!admin())return;if(!Array.isArray(result.members)||!Array.isArray(result.departed)||typeof result.version!=='string')throw new Error('회원 명단을 확인하지 못했습니다.');const temporary=new Set(source.temporaryMembers??[]),dormant=new Set(source.dormantMembers??[]);result.members.forEach(member=>{member.memberType=temporary.has(member.nickname)?'temporary':dormant.has(member.nickname)?'dormant':'regular';});data=result;render();status.textContent='';}
     catch(error){if(current===sequence&&admin())status.textContent=error.message;}finally{if(current===sequence)refresh.disabled=false;}
   }
   search.addEventListener('input',render);filter.addEventListener('change',render);
