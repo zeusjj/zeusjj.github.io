@@ -759,6 +759,9 @@ function renderMembers(data, query='') {
   const displayedMembers=[...data.members,...archivedRows];
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
   data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:displayedMembers.map(row=>order.map(index=>row[index]))};
+  const initialNameIndex=data.headers.indexOf('닉네임');
+  data.headers.splice(initialNameIndex+1,0,'직책');data.dates.splice(initialNameIndex+1,0,null);
+  data.members.forEach(row=>row.splice(initialNameIndex+1,0,source.guildRoles?.[row[initialNameIndex]]??'길드원'));
   const participationIndex=data.headers.indexOf('단톡')+1;
   const participationRecords=calculateParticipation(source).rows;
   const scores=new Map(participationRecords.map(record=>[record.name,record.score]));
@@ -787,8 +790,9 @@ function renderMembers(data, query='') {
   renderSeasonBand(table,data,identityCount,hiddenColumn);
   const weekGroups=memberWeekGroups(data,identityCount,hiddenColumn);
   const markWeek=(cell,index)=>{const group=weekGroups[index];if(!group)return;cell.dataset.week=group.week;cell.dataset.weekTone=group.tone;if(group.start)cell.dataset.weekStart='true';};
-  const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===chatIndex?'member-chat':index===participationIndex?'member-participation':undefined;
-  const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===chatIndex?'chat-column':index===participationIndex?'participation-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
+  const roleIndex=data.headers.indexOf('직책');
+  const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===roleIndex?'member-role':index===chatIndex?'member-chat':index===participationIndex?'member-participation':undefined;
+  const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===roleIndex?'role-column':index===chatIndex?'chat-column':index===participationIndex?'participation-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
   table.style.setProperty('--content-count',data.headers.filter((_,index)=>index>=identityCount && !hiddenColumn(index)).length);
   const head=element('thead'),titles=element('tr');
   const koreaDate=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());

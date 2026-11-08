@@ -97,3 +97,11 @@ input,select,textarea{color:var(--ink)}
 #calculator-share svg{width:15px;height:15px}
 #calculator-share-status{font-size:11px;color:var(--accent);align-self:center}
 @media(max-width:700px){.sidebar #suggest-tool{margin:0 0 8px}.sidebar #suggest-tool+.official-home-link{margin-top:0}}
+/* Keep the roster role visible beside the member identity. */
+.member-grid{--role-width:82px;--identity-width:calc(var(--number-width) + var(--name-width) + var(--class-width) + var(--role-width))}
+#member-table .role-column{width:var(--role-width)}
+#member-table .member-role{position:sticky;left:calc(var(--number-width) + var(--class-width) + var(--name-width));z-index:2;background:#fff;color:#697c72;font-size:11px}
+#member-table th.member-role{background:#f5f8f7;z-index:4}
+#member-table tbody tr:hover .member-role{background:#f7faf8}
+#member-table .member-role .column-title{font-size:11px}
+@media(max-width:700px){.member-grid{--role-width:66px}#member-table .member-role{font-size:10px}#member-table .member-role .column-title{font-size:10px}}
