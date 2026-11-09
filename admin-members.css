@@ -12,7 +12,9 @@
 #admin-member-management .admin-members-table th:nth-child(5){width:12%}
 #admin-member-management .admin-members-table th:nth-child(6){width:24%}
 #admin-member-management .admin-members-table th:nth-child(7){width:9%}
-#admin-member-management .admin-members-table th:nth-child(8){width:11%}
+#admin-member-management .admin-members-table th:nth-child(8){width:7%}
+#admin-member-management .admin-members-table th:nth-child(9){width:4%}
+#admin-member-management .admin-members-table select{min-height:36px;max-width:100%;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:4px;color:var(--ink);font:inherit}
 #admin-member-management .admin-members-table :is(th,td):first-child{text-align:left;font-weight:600;position:sticky;left:0;background:var(--page);z-index:1}
 .admin-members .icon-button,.admin-member-dialog .icon-button{width:40px;height:44px;min-height:44px}
 .admin-member-dialog{width:min(560px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;background:var(--page);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:24px}

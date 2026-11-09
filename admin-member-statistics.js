@@ -1,4 +1,5 @@
 (() => {
+  function element(tag,text){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node;}
   const host=document.createElement('section');host.id='admin-member-statistics';host.hidden=true;
   host.innerHTML='<div class="admin-period-heading"><h2>길드원 계정 통계</h2></div><p id="admin-member-status" role="status"></p><div id="admin-member-metrics" class="admin-member-metrics"></div><div class="admin-member-filters"><label>닉네임<input id="admin-member-search" type="search" placeholder="닉네임 검색" autocomplete="off"></label><label>로그인<select id="admin-member-login-filter"><option value="">전체</option><option value="1">로그인 이력 있음</option><option value="0">로그인 이력 없음</option></select></label><label>비밀번호<select id="admin-member-password-filter"><option value="">전체</option><option value="1">변경 완료</option><option value="0">초기 비밀번호</option></select></label><label>정렬<select id="admin-member-sort"><option value="visit_count">방문 횟수순</option><option value="login_count">로그인 횟수순</option><option value="last_login_at">최근 로그인순</option><option value="nickname">닉네임순</option></select></label></div><p id="admin-member-count" class="admin-period-note"></p><div class="admin-statistics-table"><table class="admin-member-table"><thead><tr><th>닉네임</th><th>방문 횟수</th><th>로그인 횟수</th><th>로그인 여부</th><th>비밀번호</th><th>최근 로그인</th><th>최근 방문</th><th>기록</th></tr></thead><tbody id="admin-member-rows"></tbody></table></div><p id="admin-member-note" class="admin-period-note"></p><details id="admin-member-history"><summary>최근 활동 기록</summary><label class="admin-member-history-filter">닉네임<select id="admin-member-history-name"><option value="">전체</option></select></label><div class="admin-statistics-table"><table><thead><tr><th>시각</th><th>닉네임</th><th>기록</th></tr></thead><tbody id="admin-member-history-rows"></tbody></table></div><p class="admin-period-note">선택한 계정의 최근 100건 · 비밀번호 값은 기록하지 않습니다.</p></details>';
   document.getElementById('admin-statistics-content').before(host);
@@ -6,7 +7,6 @@
   for(const label of ['직책','회원 구분']){const th=element('th',label);th.scope='col';accountHeader.insertBefore(th,accountHeader.children[1]);}
   const find=id=>host.querySelector('#'+id),rows=find('admin-member-rows'),historyRows=find('admin-member-history-rows'),status=find('admin-member-status'),metrics=find('admin-member-metrics'),historyName=find('admin-member-history-name');
   const integer=new Intl.NumberFormat('ko-KR'),date=value=>value?new Date(value).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',hour12:false}):'—';
-  const element=(tag,text)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node;};
   const active=()=>!document.getElementById('admin').hidden;
   let data=null,generation=0,controller,lastToken='',sortDirection='descending',memberMetadata=new Map();
   const sortSelect=find('admin-member-sort'),sortHeaders=[];
@@ -26,7 +26,7 @@
     rows.replaceChildren();
     for(const account of records){
       const row=element('tr'),name=element('th',account.nickname);name.scope='row';row.append(name);
-      const saved=memberMetadata.get(account.nickname)??{role:'길드원',memberType:'regular'},roleSelect=element('select'),typeSelect=element('select');
+      const saved=memberMetadata.get(account.nickname)??{role:'길드원',memberType:'regular',chatStatus:'X'},roleSelect=element('select'),typeSelect=element('select');
       roleSelect.setAttribute('aria-label',account.nickname+' 직책');typeSelect.setAttribute('aria-label',account.nickname+' 회원 구분');
       for(const value of ['길드원','길드장','부길드장','공격대장'])roleSelect.add(new Option(value,value));
       for(const [value,label]of [['regular','일반회원'],['temporary','임시회원'],['dormant','휴면회원']])typeSelect.add(new Option(label,value));
@@ -34,7 +34,7 @@
       const save=async()=>{
         const previous=memberMetadata.get(account.nickname)??saved;
         roleSelect.disabled=true;typeSelect.disabled=true;status.textContent=account.nickname+' 분류를 저장하는 중입니다.';
-        try{const response=await fetch(noticesApi.replace(/\/notices$/,'/admin/member-metadata'),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+noticeToken},body:JSON.stringify({nickname:account.nickname,role:roleSelect.value,memberType:typeSelect.value}),signal:AbortSignal.timeout(15000)}),result=await response.json();if(response.status===401){window.GuildAuth?.invalidate();throw new Error('관리자 로그인이 만료되었습니다.');}if(!response.ok)throw new Error(result.error||'분류를 저장하지 못했습니다.');memberMetadata.set(account.nickname,{role:result.role,memberType:result.memberType});status.textContent=account.nickname+' 분류를 저장했습니다.';}
+        try{const response=await fetch(noticesApi.replace(/\/notices$/,'/admin/member-metadata'),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+noticeToken},body:JSON.stringify({nickname:account.nickname,role:roleSelect.value,memberType:typeSelect.value,chatStatus:previous.chatStatus}),signal:AbortSignal.timeout(15000)}),result=await response.json();if(response.status===401){window.GuildAuth?.invalidate();throw new Error('관리자 로그인이 만료되었습니다.');}if(!response.ok)throw new Error(result.error||'분류를 저장하지 못했습니다.');memberMetadata.set(account.nickname,{role:result.role,memberType:result.memberType,chatStatus:result.chatStatus});status.textContent=account.nickname+' 분류를 저장했습니다.';}
         catch(error){roleSelect.value=previous.role;typeSelect.value=previous.memberType;status.textContent=error.message;}
         finally{roleSelect.disabled=false;typeSelect.disabled=false;}
       };
@@ -63,7 +63,7 @@
       if(id!==generation||token!==noticeToken||!noticeAdmin())return;
       if(response.status===401){noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);return;}
       const result=await response.json();if(id!==generation||token!==noticeToken||!noticeAdmin())return;if(!response.ok)throw new Error(result.error||'계정 통계를 불러오지 못했습니다.');if(!Array.isArray(result.accounts)||!Array.isArray(result.activity)||!result.totals)throw new Error('통계 응답을 확인해주세요.');
-      const metadata=await metadataResponse.json();if(!metadataResponse.ok||!Array.isArray(metadata.members))throw new Error(metadata.error||'회원 구분 정보를 불러오지 못했습니다.');memberMetadata=new Map(metadata.members.map(member=>[member.nickname,{role:member.role,memberType:member.memberType}]));data=result;render();status.textContent='';
+      const metadata=await metadataResponse.json();if(!metadataResponse.ok||!Array.isArray(metadata.members))throw new Error(metadata.error||'회원 구분 정보를 불러오지 못했습니다.');memberMetadata=new Map(metadata.members.map(member=>[member.nickname,{role:member.role,memberType:member.memberType,chatStatus:member.chatStatus}]));data=result;render();status.textContent='';
     }catch(error){if(id===generation&&error.name!=='AbortError')status.textContent='통계를 불러오지 못했습니다. 새로고침해주세요.';}
   }
   for(const id of ['admin-member-search','admin-member-login-filter','admin-member-password-filter'])find(id).addEventListener(id.endsWith('search')?'input':'change',renderRows);

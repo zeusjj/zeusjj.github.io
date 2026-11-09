@@ -1,5 +1,5 @@
 (() => {
-  const api='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/admin/members';
+  const api='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/admin/members',chatApi=api.replace(/\/members$/,'/member-chat-status');
   const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
   const admin=()=>window.GuildAuth?.user?.isAdmin&&window.GuildAuth.expiresAt>Date.now();
   const icons=()=>window.lucide?.createIcons();
@@ -11,7 +11,7 @@
   const filter=el('select');filter.setAttribute('aria-label','회원 상태');for(const [value,text]of [['active','현재 길드원'],['departed','탈퇴 기록']])filter.add(new Option(text,value));
   const count=el('span',undefined,'count-label');toolbar.append(searchLabel,filter,count);
   const status=el('p');status.setAttribute('role','status');const scroll=el('div',undefined,'admin-statistics-table'),table=el('table',undefined,'admin-members-table'),head=el('thead'),headRow=el('tr'),body=el('tbody');
-  for(const label of ['닉네임','클래스','Lv','성장도','가입일','아이디','상태','처리']){const th=el('th',label);th.scope='col';headRow.append(th);}head.append(headRow);table.append(head,body);scroll.append(table);host.append(heading,toolbar,status,scroll);document.getElementById('admin-login').after(host);
+  for(const label of ['닉네임','클래스','Lv','성장도','가입일','아이디','상태','단톡','처리']){const th=el('th',label);th.scope='col';headRow.append(th);}head.append(headRow);table.append(head,body);scroll.append(table);host.append(heading,toolbar,status,scroll);document.getElementById('admin-login').after(host);
   let data=null,sequence=0,busy=false,creating=false,selected=null;
   const number=value=>Number.isFinite(value)?value.toLocaleString('ko-KR'):'-';
   async function request(path='',options={}){
@@ -23,9 +23,10 @@
     body.replaceChildren();if(!data)return;const rows=(filter.value==='departed'?data.departed:data.members).filter(row=>(row.nickname+' '+row.username).normalize('NFKC').toLocaleLowerCase('ko-KR').includes(search.value.normalize('NFKC').toLocaleLowerCase('ko-KR').trim()));
     count.textContent=`${rows.length} / ${(filter.value==='departed'?data.departed:data.members).length}명`;
     for(const member of rows){const tr=el('tr');for(const value of [member.nickname,member.class,number(member.level),number(member.growth),member.joinedDay||'-',member.username,member.memberType==='temporary'?'임시회원':member.memberType==='dormant'?'휴면회원':member.status==='active'?'활동':'탈퇴'])tr.append(el('td',value));
+      const chatCell=el('td');if(member.status==='active'){const chat=el('select');chat.setAttribute('aria-label',member.nickname+' 단톡 참여');chat.add(new Option('참여','O'));chat.add(new Option('미참여','X'));chat.value=member.chatStatus==='O'?'O':'X';chat.disabled=busy;chat.addEventListener('change',async()=>{const previous=member.chatStatus;chat.disabled=true;status.textContent=member.nickname+' 단톡 참여 상태를 저장하는 중입니다.';try{const result=await fetch(chatApi,{method:'POST',headers:{'Content-Type':'application/json',...window.GuildAuth.headers()},body:JSON.stringify({nickname:member.nickname,chatStatus:chat.value}),cache:'no-store',signal:AbortSignal.timeout(20000)}).then(async response=>{const json=await response.json();if(response.status===401){window.GuildAuth.invalidate();throw new Error('관리자 로그인이 만료되었습니다. 다시 로그인해주세요.');}if(!response.ok)throw new Error(json.error||'단톡 참여 상태를 저장하지 못했습니다.');return json;});member.chatStatus=result.chatStatus;status.textContent=member.nickname+' 단톡 참여 상태를 저장했습니다.';await window.GuildData.refresh();}catch(error){chat.value=previous==='O'?'O':'X';status.textContent=error.message;}finally{chat.disabled=false;}});chatCell.append(chat);}else chatCell.textContent='-';tr.append(chatCell);
       const action=el('td');if(member.canDepart){const button=iconButton(member.nickname+' 탈퇴 처리','user-minus',()=>openDeparture(member));button.disabled=busy;action.append(button);}else action.textContent=member.status==='departed'?'로그인 차단':'관리자';tr.append(action);body.append(tr);
     }
-    if(!rows.length){const row=el('tr'),cell=el('td','해당하는 회원이 없습니다.');cell.colSpan=8;row.append(cell);body.append(row);}icons();
+    if(!rows.length){const row=el('tr'),cell=el('td','해당하는 회원이 없습니다.');cell.colSpan=9;row.append(cell);body.append(row);}icons();
   }
   async function load(){
     if(!admin())return;const current=++sequence;refresh.disabled=true;status.textContent='회원 명단을 불러오는 중입니다.';
