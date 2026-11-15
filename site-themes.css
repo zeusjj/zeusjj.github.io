@@ -75,7 +75,6 @@ input[type=range],input[type=checkbox],input[type=radio]{accent-color:var(--acce
 .chapter-heading svg,.sidebar nav button svg{color:var(--muted)}
 .sidebar-foot,.chapter-heading,.distribution-heading,.policy-system,.price-rates>div,.collection-price-input,.allocation-facts>div,.official-news,#official-news-list,.entry-body,.board-column-head,.board-entry,.member-group-bar,.member-group-bar>span+span,.collection-settings,.skill-settings{border-color:var(--line)}
 .board-entry[open] summary,.count-label,.server-label,.visitor-today-mark,.notice-tag,.notice-pagination button[aria-current=page],.collection-segments input:checked+span,.member-history-modes input:checked+span,.probability-navigation a[aria-current=page],#tools .calculator-tabs button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}
-:root:not([data-theme=graphite]) .notice-tag-guide{background:var(--notice-guide-bg);color:var(--notice-guide-ink)}
 .visitor-today-mark{box-shadow:none}
 .item-chips li{background:var(--surface-subtle);color:var(--ink);border-color:var(--line)}
 .armor-step:nth-child(n) .allocation-letter{background:var(--accent-soft);color:var(--accent)}
@@ -165,8 +164,24 @@ tbody tr:hover td{background:var(--hover)}
 .ql-snow .ql-stroke{stroke:var(--ink)}
 .ql-snow .ql-fill{fill:var(--ink)}
 .ql-snow .ql-picker{color:var(--ink)}
-:root[data-theme=graphite] :is(.official-news-tag,.notice-tag-guide,.allocation-letter,.tool-icon){background:var(--surface-subtle);color:var(--ink)}
+:root[data-theme=graphite] :is(.official-news-tag,.allocation-letter,.tool-icon){background:var(--surface-subtle);color:var(--ink)}
 :root[data-theme=graphite] :is(.menu-new,#tools .calculator-tabs button:not(.active) .menu-new){color:#efaaa4}
 #sinkwa-price-table .equipment-grade-normal,#fate-price-table th.fate-grade-normal{color:var(--grade-normal)}
 #sinkwa-price-table .equipment-grade-advanced,#fate-price-table th.fate-grade-advanced{color:var(--grade-advanced)}
 #sinkwa-price-table .equipment-grade-rare,#fate-price-table th.fate-grade-rare{color:var(--grade-rare)}
+:root{
+  --notice-category-announcement-bg:#eee8fa;--notice-category-announcement-ink:#654092;
+  --notice-category-operations-bg:#fff0ce;--notice-category-operations-ink:#805916;
+  --notice-category-chat-bg:#dff3eb;--notice-category-chat-ink:#256650;
+  --notice-category-guide-bg:#e3eef9;--notice-category-guide-ink:#315f91;
+}
+:root[data-theme=graphite]{
+  --notice-category-announcement-bg:#3f314e;--notice-category-announcement-ink:#e6caff;
+  --notice-category-operations-bg:#453b25;--notice-category-operations-ink:#f3d18c;
+  --notice-category-chat-bg:#233f36;--notice-category-chat-ink:#a5dfc8;
+  --notice-category-guide-bg:#293e54;--notice-category-guide-ink:#b6d7ff;
+}
+.notice-tag-announcement{background:var(--notice-category-announcement-bg);color:var(--notice-category-announcement-ink)}
+.notice-tag-operations{background:var(--notice-category-operations-bg);color:var(--notice-category-operations-ink)}
+.notice-tag-chat{background:var(--notice-category-chat-bg);color:var(--notice-category-chat-ink)}
+.notice-tag-guide{background:var(--notice-category-guide-bg);color:var(--notice-category-guide-ink)}

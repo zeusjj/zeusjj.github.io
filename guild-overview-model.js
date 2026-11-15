@@ -4,7 +4,7 @@ export const shiftDay=(day,offset)=>new Date(Date.parse(day+'T00:00:00Z')+offset
 export function weekStart(day){const date=new Date(day+'T00:00:00Z');return shiftDay(day,-date.getUTCDay());}
 const numeric=value=>typeof value==='number'&&Number.isFinite(value);
 const status=value=>{const text=String(value??'').toUpperCase();return ['O','ㅇ'].includes(text)?'yes':text==='X'?'no':null;};
-export const isGuildActivity=header=>/레이드|제전$|점령전|성물 방어전/.test(header)&&!/기여/.test(header);
+export const isGuildActivity=header=>/레이드|제전$|점령전|공성전|성물 방어전/.test(header)&&!/기여/.test(header);
 export const isRelicDefense=header=>/성물 방어전/.test(header);
 export function columns(data,match,through=koreaDay()){
   return data.headers.flatMap((header,index)=>{const date=data.dates?.[index]?.start;return match(header)&&/^\d{4}-\d{2}-\d{2}$/.test(date||'')&&date<=through&&data.members.some(row=>numeric(row[index]))?[{header,index,date,end:data.dates[index].end}]:[];}).sort((a,b)=>a.date.localeCompare(b.date)||a.index-b.index);

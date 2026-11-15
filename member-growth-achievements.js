@@ -1,5 +1,5 @@
 import {growthHistory,levelHistory} from './member-growth-history.js?v=20261105-single-init';
-import {ranked,weekStart,koreaDay} from './guild-overview-model.js?v=20261104-members';
+import {ranked,weekStart,koreaDay} from './guild-overview-model.js?v=20261115-siege';
 
 export function growthAchievementSummary(data,today=koreaDay()){
  const start=weekStart(today),nameIndex=data.headers.indexOf('닉네임');

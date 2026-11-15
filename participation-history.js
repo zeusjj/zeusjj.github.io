@@ -1,4 +1,4 @@
-import {events,participationPeriods,weightedParticipation,koreaDay,isRelicDefense} from './guild-overview-model.js?v=20261104-members';
+import {events,participationPeriods,weightedParticipation,koreaDay,isRelicDefense} from './guild-overview-model.js?v=20261115-siege';
 const known=value=>['O','ㅇ','X'].includes(String(value??'').trim().toUpperCase());
 
 export function personalParticipationHistory(data,whole=data,through=koreaDay()){

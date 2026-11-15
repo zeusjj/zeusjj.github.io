@@ -56,7 +56,7 @@ window.addEventListener('guild-auth-change',refreshMemberArchive);
 let memberSort=null;
 let memberDateTimer;
 let calculateParticipation;
-const participationModel=import('./guild-overview-model.js?v=20261104-members').then(model=>{calculateParticipation=model.weightedParticipation;}).catch(error=>{console.error('Participation model unavailable:',error);});
+const participationModel=import('./guild-overview-model.js?v=20261115-siege').then(model=>{calculateParticipation=model.weightedParticipation;}).catch(error=>{console.error('Participation model unavailable:',error);});
 const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 function updateChapterNavigation(){
   let current='guild-operations';
