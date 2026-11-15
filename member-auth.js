@@ -42,6 +42,7 @@ import {passwordKeys} from './password-keyboard.js?v=20261021-198';
       if(user){host.append(node('p',user.nickname+'으로 로그인되었습니다.'));const link=node('a','내 정보');link.href='#profile';host.append(link);return;}
       const form=node('form');form.className='member-login-form';
       const username=field(form,host.id+'-username','username','아이디','username'),password=field(form,host.id+'-password','password','비밀번호','current-password');
+      form.append(node('p','등록된 보조 아이디로도 같은 비밀번호를 사용할 수 있습니다.'));
       form.append(node('p','로그인 후 비밀번호를 변경해주세요.'));
       form.append(node('p','아이디 / 비번을 잊었다면 길마에게 문의해주세요.'));
       const status=node('p');status.setAttribute('role','status');const submit=node('button','로그인');submit.type='submit';form.append(status,submit);host.append(form);
