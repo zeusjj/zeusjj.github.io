@@ -1,6 +1,6 @@
 function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.hash))history.replaceState(null,'','#tools/probabilities'+location.hash.slice('#probabilities'.length));}
 normalizeProbabilityRoute();
-const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
+const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'siege-distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
 const novemberPlanPublic=true;
 const octoberArchiveDeadline=Date.parse('2026-10-29T00:00:00+09:00');
 let octoberArchiveTimer;
@@ -67,8 +67,9 @@ window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(tab) {
   tab=tab.split('/')[0];
   if (!tabs.includes(tab)) tab = 'rules';
-  if(location.hash==='#login/distribution'&&distributionSignedIn()){history.replaceState(null,'','#distribution');tab='distribution';}
-  if(tab==='distribution'&&!distributionSignedIn()){history.replaceState(null,'','#login/distribution');tab='login';}
+  const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution)$/)?.[1];
+  if(memberReturn&&distributionSignedIn()){history.replaceState(null,'','#'+memberReturn);tab=memberReturn;}
+  if(['distribution','siege-distribution'].includes(tab)&&!distributionSignedIn()){history.replaceState(null,'','#login/'+tab);tab='login';}
   if(tab==='november-plan'&&!canViewNovemberPlan())tab='rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
@@ -76,7 +77,7 @@ function switchTab(tab) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
   }
-  const label=tab==='login'?'로그인':tab==='admin'?'관리자':document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
+  const label=tab==='login'?'로그인':tab==='admin'?'관리자':tab==='siege-distribution'?'공성전 분배 예상':document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
   document.getElementById('current-view').textContent=label;
   document.title=`${label} | 절대중립`;
   window.scrollTo({top:0,behavior:'instant'});
@@ -88,6 +89,7 @@ function switchTab(tab) {
   if(tab==='members')requestAnimationFrame(centerMemberToday);
   if(tab==='alarms')window.dispatchEvent(new Event('guild-alarms-open'));
   if(tab==='admin')window.dispatchEvent(new Event('guild-admin-open'));
+  if(tab==='siege-distribution')window.dispatchEvent(new Event('guild-siege-distribution-open'));
   document.querySelectorAll(`#${tab} .board-entry[open]`).forEach(entry=>entry.dispatchEvent(new Event('guild-view')));
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
@@ -100,7 +102,7 @@ syncDistributionMenu();
 window.addEventListener('guild-auth-change',()=>{
   syncDistributionMenu();
   renderDistribution(publicMemberSource?.distribution??[]);
-  if(location.hash.split('/')[0]==='#distribution'||location.hash==='#login/distribution')switchTab(location.hash.slice(1));
+  if(['#distribution','#siege-distribution'].includes(location.hash.split('/')[0])||/^#login\/(distribution|siege-distribution)$/.test(location.hash))switchTab(location.hash.slice(1));
 });
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
