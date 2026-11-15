@@ -17,13 +17,13 @@
   <script src="guild-data.js?v=20261108-inline-fallback" defer></script>
   <link rel="stylesheet" href="section-editor.css?v=20261104-bid-restrictions">
   <script src="section-editor.js?v=20261105-extra-sections" defer></script>
-  <script type="module" src="member-auth.js?v=20261115-siege-return"></script>
+  <script type="module" src="member-auth.js?v=20261115-siege-split"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261103-login-help">
   <link rel="stylesheet" href="profile-preview.css?v=20261025-preview">
   <script src="profile-preview.js?v=20261025-preview" defer></script>
   <script src="raid-distribution.js?v=20261104-card-editor" defer></script>
   <script src="arcadia-seasons.js?v=20261102-season" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261105-tip-video" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261115-siege-page" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261105-tip-video" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261115-siege-split" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261105-single-init"></script>
   <script type="module" src="member-growth-achievements.js?v=20261106-single-update-time"></script>
   <script type="module" src="member-distributions.js?v=20261104-members"></script>
@@ -63,13 +63,13 @@
   <link rel="stylesheet" href="site-themes.css?v=20261106-announcement-theme">
   <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
-  <script src="main-menu-share.js?v=20261024-all-pages" defer></script>
+  <script src="main-menu-share.js?v=20261115-siege-split" defer></script>
   <link rel="stylesheet" href="guild-overviews.css?v=20261103-tip-ownership">
   <script type="module" src="guild-overviews.js?v=20261104-members"></script>
   <script type="module" src="community-page.js?v=20261021-196"></script>
   <link rel="stylesheet" href="dashboard-refinement.css?v=20261021-195">
-  <link rel="stylesheet" href="siege-distribution.css?v=20261115-3">
-  <script src="siege-distribution.js?v=20261115-3" defer></script>
+  <link rel="stylesheet" href="siege-distribution.css?v=20261115-4">
+  <script src="siege-distribution.js?v=20261115-4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -105,7 +105,7 @@
       <section id="login" hidden aria-labelledby="member-login-heading"><div class="page-heading"><h1 id="member-login-heading">로그인</h1></div><div id="member-login-page" class="member-login-mount"></div></section>
       <section id="november-plan" hidden aria-labelledby="november-plan-heading"><div class="page-heading"><div><h1 id="november-plan-heading">11월 길드레이드 아이템 분배 룰 제안</h1><p>검토 중인 제안</p></div></div><p class="overview-note">분배안을 불러오는 중입니다.</p></section>
       <section id="siege-distribution" class="siege-page" data-track="false" hidden aria-labelledby="siege-distribution-heading">
-        <div class="page-heading"><div><h1 id="siege-distribution-heading">공성전 분배 예상</h1><p>공성전 전원 참여 가정 · 회원 전용</p><p>성장도는 11/15 00:00 기준입니다.</p></div></div>
+        <div class="page-heading"><div><h1 id="siege-distribution-heading">공성전 분배표</h1><p>공성전 전원 참여 가정 · 회원 전용</p><p>성장도는 11/15 00:00 기준입니다.</p></div></div>
         <div id="siege-distribution-status" role="status" aria-live="polite"></div>
         <div id="siege-distribution-content"></div>
       </section>

@@ -28,5 +28,5 @@
       clearTimeout(timer);timer=setTimeout(update,2500);
     }catch{window.prompt(title+' 공유 링크',url);}
   });
-  window.addEventListener('hashchange',update);update();
+  window.addEventListener('hashchange',update);window.addEventListener('guild-siege-distribution-open',update);update();
 })();

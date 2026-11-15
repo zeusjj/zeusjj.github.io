@@ -7,6 +7,7 @@
   const nf=new Intl.NumberFormat('ko-KR'),number=n=>nf.format(n),el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
   let data=null,controller=null,generation=0,rank='second',query='',renderResults=null;
   const active=()=>location.hash.split('/')[0]==='#'+route;
+  const pageRoute=()=>route+'/'+(rank==='third'?'third':'second');
   const signedIn=()=>!!window.GuildAuth?.user&&window.GuildAuth.expiresAt>Date.now();
   const normalize=text=>String(text??'').normalize('NFKC').trim().toLocaleLowerCase('ko-KR');
   const rankLabel=()=>rank==='second'?'2등':'3등';
@@ -14,12 +15,14 @@
   function clear(){generation++;controller?.abort();controller=null;data=null;renderResults=null;query='';content.replaceChildren();status.replaceChildren();page.removeAttribute('data-siege-rank');}
   async function load(){
     if(!active())return;
-    if(!signedIn()){clear();location.hash='login/'+route;return;}
+    rank=location.hash.split('/')[1]==='third'?'third':'second';
+    document.getElementById('siege-distribution-heading').textContent=`공성전 ${rankLabel()} 분배표`;
+    if(!signedIn()){clear();location.hash='login/'+pageRoute();return;}
     if(data){renderResults?.();return;}if(controller)return;
     const version=++generation,current=new AbortController();controller=current;status.textContent='분배표를 불러오는 중입니다.';
     try{
       const response=await fetch(api,{headers:window.GuildAuth.headers(),cache:'no-store',signal:AbortSignal.any([current.signal,AbortSignal.timeout(15000)])});
-      if(response.status===401){if(version===generation){clear();window.GuildAuth.invalidate();location.hash='login/'+route;}return;}
+      if(response.status===401){if(version===generation){clear();window.GuildAuth.invalidate();location.hash='login/'+pageRoute();}return;}
       if(!response.ok)throw new Error('분배표를 불러오지 못했습니다.');
       const result=await response.json();
       if(!Array.isArray(result.members)||result.members.length!==31||!Array.isArray(result.categories)||result.categories.length!==7)throw new Error('분배표 형식을 확인하지 못했습니다.');
@@ -35,14 +38,10 @@
   function payoutWithMetric(tag,value,metricText){const cell=el(tag);cell.append(el('span',number(value),'siege-value'),el('span',`(${metricText})`,'siege-metric'));return cell;}
   function mount(){
     content.replaceChildren();
-    const controls=el('div',undefined,'siege-controls'),fieldset=el('fieldset',undefined,'siege-rank-choice');fieldset.append(el('legend','분배표 선택','visually-hidden'));
-    for(const [value,label] of [['second','2등 분배표'],['third','3등 분배표']]){
-      const choice=el('label',undefined,'siege-rank-option'),input=el('input');input.type='radio';input.name='siege-distribution-rank';input.value=value;input.checked=rank===value;
-      input.addEventListener('change',()=>{if(input.checked){rank=value;renderResults();}});choice.append(input,el('span',label));fieldset.append(choice);
-    }
+    const controls=el('div',undefined,'siege-controls');
     const searchGroup=el('div',undefined,'siege-search-controls'),searchLabel=el('label','닉네임 검색','siege-search-label'),input=el('input');input.type='search';input.placeholder='닉네임으로 찾기';input.id='siege-nickname-search';input.autocomplete='off';searchLabel.htmlFor=input.id;searchLabel.append(input);input.addEventListener('input',()=>{query=input.value;renderResults();});searchGroup.append(searchLabel);
-    const mine=el('button','내 분배금 보기','secondary-button');mine.type='button';mine.hidden=!data.members.some(m=>normalize(m.name)===normalize(window.GuildAuth.user?.nickname));mine.addEventListener('click',()=>{query=window.GuildAuth.user.nickname;input.value=query;renderResults();});searchGroup.append(mine);controls.append(fieldset,searchGroup);
-    const summary=el('section',undefined,'siege-summary');summary.setAttribute('aria-label','선택한 등수 분배 요약');
+    const mine=el('button','내 분배금 보기','secondary-button');mine.type='button';mine.hidden=!data.members.some(m=>normalize(m.name)===normalize(window.GuildAuth.user?.nickname));mine.addEventListener('click',()=>{query=window.GuildAuth.user.nickname;input.value=query;renderResults();});searchGroup.append(mine);controls.append(searchGroup);
+    const summary=el('section',undefined,'siege-summary');summary.setAttribute('aria-label','분배 요약');
     const selection=el('p',undefined,'siege-selection');selection.setAttribute('aria-live','polite');
     const hint=el('p','금액 아래 괄호는 성장도·참여점수·실제 입찰 주화 수입니다.','siege-explanation');
     const results=el('div');

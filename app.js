@@ -64,12 +64,17 @@ function updateChapterNavigation(){
   document.querySelectorAll('[data-scroll]').forEach(button=>{const active=button.dataset.scroll===current;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'location':'false');});
 }
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
-function switchTab(tab) {
-  tab=tab.split('/')[0];
+function switchTab(route) {
+  let tab=route.split('/')[0];
   if (!tabs.includes(tab)) tab = 'rules';
-  const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution)$/)?.[1];
-  if(memberReturn&&distributionSignedIn()){history.replaceState(null,'','#'+memberReturn);tab=memberReturn;}
-  if(['distribution','siege-distribution'].includes(tab)&&!distributionSignedIn()){history.replaceState(null,'','#login/'+tab);tab='login';}
+  const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/)?.[1];
+  if(memberReturn&&distributionSignedIn()){route=memberReturn;tab=route.split('/')[0];history.replaceState(null,'','#'+route);}
+  if(tab==='siege-distribution'){
+    route=/^siege-distribution\/(?:second|third)$/.test(route)?route:'siege-distribution/second';
+    const target=distributionSignedIn()?'#'+route:'#login/'+route;
+    if(location.hash!==target)history.replaceState(null,'',target);
+    if(!distributionSignedIn())tab='login';
+  }else if(tab==='distribution'&&!distributionSignedIn()){history.replaceState(null,'','#login/distribution');tab='login';}
   if(tab==='november-plan'&&!canViewNovemberPlan())tab='rules';
   for (const id of tabs) document.getElementById(id).hidden = id !== tab;
   for (const button of document.querySelectorAll('[data-tab]')) {
@@ -77,7 +82,7 @@ function switchTab(tab) {
     button.classList.toggle('active', active);
     button.setAttribute('aria-current', active ? 'page' : 'false');
   }
-  const label=tab==='login'?'로그인':tab==='admin'?'관리자':tab==='siege-distribution'?'공성전 분배 예상':document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
+  const label=tab==='login'?'로그인':tab==='admin'?'관리자':tab==='siege-distribution'?`공성전 ${route.endsWith('/third')?'3':'2'}등 분배표`:document.querySelector(`[data-tab="${tab}"] span`).firstChild.textContent.trim();
   document.getElementById('current-view').textContent=label;
   document.title=`${label} | 절대중립`;
   window.scrollTo({top:0,behavior:'instant'});
@@ -102,7 +107,7 @@ syncDistributionMenu();
 window.addEventListener('guild-auth-change',()=>{
   syncDistributionMenu();
   renderDistribution(publicMemberSource?.distribution??[]);
-  if(['#distribution','#siege-distribution'].includes(location.hash.split('/')[0])||/^#login\/(distribution|siege-distribution)$/.test(location.hash))switchTab(location.hash.slice(1));
+  if(['#distribution','#siege-distribution'].includes(location.hash.split('/')[0])||/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/.test(location.hash))switchTab(location.hash.slice(1));
 });
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
