@@ -71,11 +71,12 @@
       ['길드 공헌도','10%','G × 10% × 개인 시즌1·2 공헌도 합계 ÷ 대상자 시즌1·2 공헌도 합계'],
     ];
     const tbody=el('tbody');for(const [label,percent,formula] of rows){const row=el('tr'),term=el('th',label);term.scope='row';row.append(term,el('td',percent),el('td',formula));tbody.append(row);}table.append(tbody);notice.append(table);
-    notice.append(el('p','점령1·점령2·공성의 세 배정분은 각각 해당 참여자에게 균등 지급한 뒤 합산합니다. 참여 여부는 참여 1, 미참여 0입니다. 미기록(-)은 불참으로 확정하지 않고 현재 확인된 참여만 반영합니다. 현재 분배표는 대상자 전원의 공성 참여를 가정했습니다.'));
+    notice.append(el('p',`점령1·점령2·공성의 세 배정분은 각각 해당 참여자에게 균등 지급한 뒤 합산합니다. 참여 여부는 참여 1, 미참여 0입니다. 미기록(-)은 불참으로 확정하지 않고 현재 확인된 참여만 반영합니다. 공성 참여는 대상자 ${data.memberCount}명 중 확인된 ${data.siegeParticipantCount}명이며, 공성 참여 15%는 이 참여자들에게 균등 지급합니다.`));
     notice.append(el('h3','분배용 누적 참여점수와 공헌도'));
     notice.append(el('p','개인 참여점수 = Σ(3 × 해당 일요일 개인 참여 콘텐츠 수 ÷ 해당 일요일 전체 콘텐츠 수) + 성물 방어전 참여 주 수','siege-notice-formula'));
     notice.append(el('p','같은 일요일의 콘텐츠들이 총 3점을 나눠 가지므로, 콘텐츠가 많은 날은 개별 콘텐츠의 배점이 작아집니다. 성물 방어전은 월·화 중 한 번만 참여해도 그 주 1점이며, 두 번 참여해도 중복 가산하지 않습니다.'));
-    notice.append(el('p','참여점수는 9/13~11/10의 누적 참여기록을 반영합니다. 공헌도는 시즌1·2 중 10/7·10/14·10/21·10/28·11/4·11/11 주차의 확인된 기록을 합산했으며, 11/18 주차 중간값은 제외했습니다.'));
+    const participationPeriod=data.participationPeriod.map(date=>date.split('-').slice(1).map(Number).join('/')).join('~');
+    notice.append(el('p',`참여점수는 ${participationPeriod}의 누적 참여기록을 반영합니다. 공헌도는 시즌1·2 중 10/7·10/14·10/21·10/28·11/4·11/11 주차의 확인된 기록을 합산했으며, 11/18 주차 중간값은 제외했습니다.`));
     const notes=el('div',undefined,'siege-notice-footnote');notes.append(el('p',`위 금액은 전체 상금 기준입니다. 아래 ${data.memberCount}명의 분배 합계는 대상 외 ${number(outsideCoins)}주화에 해당하는 입찰기여금 ${number(outsideAmount)}다이아를 제외한 금액입니다.`));
     notes.append(el('p','개인 지급액은 배정 총액에 맞춰 1다이아 단위로 정산합니다. 항목별 금액의 반올림으로 개인 합계와 소액 차이가 있을 수 있습니다.'));notice.append(notes);
     return notice;
@@ -99,7 +100,7 @@
       const members=data.members.filter(member=>normalize(member.name).includes(normalize(query))).sort((a,b)=>Number(normalize(b.name)===myName)-Number(normalize(a.name)===myName));
       const total=data.members.reduce((sum,member)=>sum+member[rank].total,0);
       summary.replaceChildren();const overview=el('div');overview.append(el('span',`${rankLabel()} 시 · 31명 분배 합계`,'siege-summary-label'),el('strong',number(total)+' 다이아','siege-summary-amount'));
-      const context=el('div',undefined,'siege-context');context.append(el('span','길드공헌도 시즌1·2 합계'),el('span','공성 전원 참여 가정'));summary.append(overview,context);
+      const context=el('div',undefined,'siege-context');context.append(el('span','길드공헌도 시즌1·2 합계'),el('span',`공성 참여 ${data.siegeParticipantCount}명 반영`));summary.append(overview,context);
       selection.textContent=`${rankLabel()} 분배표 · 전체 31명 중 ${members.length}명 표시`;
       results.replaceChildren();
       if(!members.length){results.append(el('p','검색한 닉네임이 대상자 31명에 없습니다.','siege-empty'));return;}
