@@ -44,11 +44,12 @@
     const heading=el('h2','분배 안내');heading.id='siege-notice-heading';notice.append(heading);
     notice.append(el('p','공성전 입찰에 성공해 참가가 확정되어, 사전 공지한 분배안을 실제 산정 기준에 맞춰 안내드립니다. 길드의 성장을 위한 노력과 콘텐츠 참여, 점령·공성 참여, 길드 공헌을 함께 반영했습니다.'));
     if(rank==='second')notice.append(el('p','별도로 두었던 2등 기여분배는 종합분배에 통합하였습니다. 공성 참여는 아래 종합분배의 공성 참여 항목에 반영합니다.'));
-    const correction=el('div',undefined,'siege-notice-correction');correction.append(el('strong','사전 공지와 대조한 내용'));
-    const corrections=el('ul');
-    if(rank==='second')corrections.append(el('li','입찰기여 산식은 공성 2등 상금을 기준으로 차액의 60%를 적용했습니다. 공지의 80% 표기를 실제 적용값으로 바로잡았으며, 안내했던 배분 총액은 같습니다.'));
-    corrections.append(el('li','점령·공성 참여 30%의 세부 비율은 점령1 5%·점령2 10%·공성 15%입니다. 공지에 남아 있던 10%·10%·20% 표기를 실제 산정 기준으로 정리했습니다.'));
-    correction.append(corrections);notice.append(correction);
+    if(rank==='second'){
+      const correction=el('div',undefined,'siege-notice-correction');correction.append(el('strong','사전 공지와 대조한 내용'));
+      const corrections=el('ul');
+      corrections.append(el('li','입찰기여 산식은 공성 2등 상금을 기준으로 차액의 60%를 적용했습니다. 공지의 80% 표기를 실제 적용값으로 바로잡았으며, 안내했던 배분 총액은 같습니다.'));
+      correction.append(corrections);notice.append(correction);
+    }
     notice.append(el('h3',`공성 ${rankLabel()} 상금 배분`));
     const pools=el('dl',undefined,'siege-pool-grid');for(const [label,value] of [['입찰기여 분배금',bidPool],['종합분배금',generalPool],['전체 상금',prize]]){const item=el('div');item.append(el('dt',label),el('dd',number(value)+' 다이아'));pools.append(item);}notice.append(pools);
     notice.append(el('h3','입찰기여 분배식'));
