@@ -68,21 +68,21 @@
     const columns=el('colgroup');for(const [className,span] of [['siege-column-number',1],['siege-column-name',1],['siege-column-amount',data.categories.length+3]]){const column=el('col',undefined,className);column.span=span;columns.append(column);}table.append(columns);
     const head=el('thead'),header=el('tr');
     const labels=['번호','닉네임','입찰기여 분배금',...data.categories.map(c=>`${c.label} ${c.percent}%`),'종합분배금',`${rankLabel()} 최종 분배금`];
-    labels.forEach((label,i)=>{const th=el('th',label);th.scope='col';if(i===0)th.className='siege-sticky-number';if(i===1)th.className='siege-sticky-name';if(i===2)th.className='siege-bid';if(i===labels.length-1)th.className='siege-final';header.append(th);});head.append(header);table.append(head);
+    labels.forEach((label,i)=>{const th=el('th',label);th.scope='col';if(i===0)th.className='siege-sticky-number';if(i===1)th.className='siege-sticky-name';if(i===2)th.className='siege-bid';if(i===labels.length-2)th.className='siege-general';if(i===labels.length-1)th.className='siege-final';header.append(th);});head.append(header);table.append(head);
     const body=el('tbody');
     for(const member of members){
       const tr=el('tr');if(normalize(member.name)===normalize(window.GuildAuth.user?.nickname))tr.className='siege-my-row';
       tr.append(payoutCell(String(data.members.indexOf(member)+1),'siege-sticky-number'));const name=el('th',member.name,'siege-sticky-name');name.scope='row';tr.append(name);
       const bidCell=payoutWithMetric('td',member[rank].bid,number(member.coins)+'주화');bidCell.className='siege-bid';tr.append(bidCell);
       for(const category of data.categories)tr.append(payoutWithMetric('td',member[rank].components[category.key],metric(member,category)));
-      tr.append(payoutCell(number(member[rank].general)),payoutCell(number(member[rank].total),'siege-final'));body.append(tr);
+      tr.append(payoutCell(number(member[rank].general),'siege-general'),payoutCell(number(member[rank].total),'siege-final'));body.append(tr);
     }
     table.append(body);
     const foot=el('tfoot'),tr=el('tr');const label=el('th',`표시 ${members.length}명 합계`,'siege-sticky-total');label.colSpan=2;label.scope='row';tr.append(label);
     const sum=key=>members.reduce((s,m)=>s+m[rank][key],0),coins=members.reduce((s,m)=>s+m.coins,0);
     const bidTotal=payoutWithMetric('td',sum('bid'),number(coins)+'주화');bidTotal.className='siege-bid';tr.append(bidTotal);
     for(const category of data.categories){const amountSum=members.reduce((s,m)=>s+m[rank].components[category.key],0),metricSum=members.reduce((s,m)=>s+m.metrics[category.key],0);tr.append(payoutWithMetric('td',amountSum,number(metricSum)+category.unit));}
-    tr.append(payoutCell(number(sum('general'))),payoutCell(number(sum('total')),'siege-final'));foot.append(tr);table.append(foot);frame.append(table);return frame;
+    tr.append(payoutCell(number(sum('general')),'siege-general'),payoutCell(number(sum('total')),'siege-final'));foot.append(tr);table.append(foot);frame.append(table);return frame;
   }
   function buildCards(members){
     const list=el('div',undefined,'siege-mobile-list');
@@ -90,7 +90,7 @@
       const isMine=normalize(member.name)===normalize(window.GuildAuth.user?.nickname);
       const card=el('article',undefined,'siege-mobile-card'),heading=el('div',undefined,'siege-mobile-heading');heading.append(el('h2',member.name));if(isMine){card.classList.add('siege-my-card');heading.append(el('span','내 분배금'));}card.append(heading);
       const total=el('div',undefined,'siege-mobile-total');total.append(el('span',`${rankLabel()} 최종 분배금`),el('strong',number(member[rank].total)+' 다이아'));card.append(total);
-      const split=el('dl',undefined,'siege-mobile-split');for(const [label,value,isBid] of [['입찰기여금',number(member[rank].bid),true],['종합분배금',number(member[rank].general),false]]){const pair=el('div'),term=el('dt',label);if(isBid){pair.className='siege-mobile-bid';term.append(el('span',`(${number(member.coins)}주화 입찰)`,'siege-bid-coins'));}pair.append(term,el('dd',value));split.append(pair);}card.append(split);
+      const split=el('dl',undefined,'siege-mobile-split');for(const [label,value,isBid] of [['입찰기여금',number(member[rank].bid),true],['종합분배금',number(member[rank].general),false]]){const pair=el('div'),term=el('dt',label);pair.className=isBid?'siege-mobile-bid':'siege-mobile-general';if(isBid)term.append(el('span',`(${number(member.coins)}주화 입찰)`,'siege-bid-coins'));pair.append(term,el('dd',value));split.append(pair);}card.append(split);
       const details=el('details');details.open=isMine;details.append(el('summary','종합분배금 - 항목별 분배 보기'));const metrics=el('dl',undefined,'siege-mobile-breakdown');
       for(const category of data.categories){const pair=el('div');pair.append(el('dt',`${category.label} ${category.percent}%`),payoutWithMetric('dd',member[rank].components[category.key],metric(member,category)));metrics.append(pair);}
       details.append(metrics);card.append(details);list.append(card);

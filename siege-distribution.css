@@ -35,9 +35,9 @@
 .siege-page[data-siege-rank=second] .siege-table .siege-final{background:var(--siege-second-strong);color:#fff}
 .siege-table tfoot th,.siege-table tfoot td{background:var(--surface-subtle);font-weight:700;border-top:1px solid var(--line);border-bottom:0}
 .siege-table .siege-sticky-total{position:sticky;left:0;z-index:2;text-align:left;border-right:1px solid var(--line)}
-.siege-table .siege-bid{background:var(--siege-bid);font-weight:700}
+.siege-table :is(.siege-bid,.siege-general){background:var(--siege-bid);font-weight:700}
 .siege-table .siege-my-row>:is(th,td){background:var(--siege-own-row);border-top:1px solid var(--siege-own-line);border-bottom-color:var(--siege-own-line)}
-.siege-table .siege-my-row>.siege-bid{background:color-mix(in srgb,var(--accent) 14%,var(--siege-bid))}
+.siege-table .siege-my-row>:is(.siege-bid,.siege-general){background:color-mix(in srgb,var(--accent) 14%,var(--siege-bid))}
 .siege-table .siege-my-row>.siege-final{background:var(--siege-third)}
 .siege-table .siege-my-row .siege-sticky-name{box-shadow:inset 3px 0 var(--accent);color:var(--accent)}
 .siege-empty{padding:30px 18px;background:var(--surface);border:1px solid var(--line);border-radius:8px;color:var(--muted)}
@@ -53,7 +53,7 @@
  .siege-page[data-siege-rank=second] .siege-mobile-total{background:var(--siege-second);color:#fff}
  .siege-my-card{border-color:var(--accent);background:var(--siege-own-row)}
  .siege-mobile-split{display:grid;margin:16px 0 4px;gap:12px}.siege-mobile-split div{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.siege-mobile-split dt{font-size:12px;color:var(--muted)}.siege-bid-coins{display:block;margin-top:3px;font-size:11px}.siege-mobile-split dd{margin:0;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
- .siege-mobile-split .siege-mobile-bid{padding:10px;border-radius:6px;background:var(--siege-bid)}
+ .siege-mobile-split :is(.siege-mobile-bid,.siege-mobile-general){padding:10px;border-radius:6px;background:var(--siege-bid)}
  .siege-mobile-card details{border-top:1px solid var(--line);margin-top:12px}.siege-mobile-card summary{min-height:44px;padding:14px 0 8px;font-size:12px;font-weight:700;cursor:pointer;box-sizing:border-box}
  .siege-mobile-breakdown{display:grid;gap:10px;margin:8px 0 2px}.siege-mobile-breakdown div{display:flex;justify-content:space-between;gap:12px;font-size:12px;line-height:1.6}.siege-mobile-breakdown dt{color:var(--muted)}.siege-mobile-breakdown dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 }
