@@ -40,6 +40,7 @@
     const prize=rank==='second'?1966256:786502,bidPercent=rank==='second'?60:90,fortressPrize=235950;
     const bidPool=Math.floor((prize-fortressPrize)*bidPercent/100),generalPool=prize-bidPool;
     const outsideCoins=data.totalCoins-data.displayedCoins,outsideAmount=bidPool-data.members.reduce((sum,member)=>sum+member[rank].bid,0);
+    const bidDenominator=data.bidDenominators?.[rank]??data.totalCoins;
     const notice=el('section',undefined,'siege-notice');notice.setAttribute('aria-labelledby','siege-notice-heading');
     const heading=el('h2','분배 안내');heading.id='siege-notice-heading';notice.append(heading);
     notice.append(el('p','공성전 입찰에 성공해 참가가 확정되어, 사전 공지한 분배안을 실제 산정 기준에 맞춰 안내드립니다. 길드의 성장을 위한 노력과 콘텐츠 참여, 점령·공성 참여, 길드 공헌을 함께 반영했습니다.'));
@@ -55,8 +56,8 @@
     notice.append(el('h3','입찰기여 분배식'));
     notice.append(el('p',`입찰기여 총액 = (${number(prize)} − ${number(fortressPrize)}) × ${bidPercent}% → ${number(bidPool)} 다이아`,'siege-notice-formula'));
     notice.append(el('p','요새전 승리 상금 235,950다이아를 기준으로 추가 상금의 배분율을 적용합니다. 1다이아 미만은 버리고, 공성 상금에서 입찰기여 총액을 뺀 나머지를 종합분배금으로 배정합니다.'));
-    notice.append(el('p','개인 입찰기여금 = 입찰기여 총액 × 개인 합산 입찰 주화 수 ÷ 전체 입찰 주화 수','siege-notice-formula'));
-    notice.append(el('p',`입찰 비중의 분모는 실제 전체 입찰 ${number(data.totalCoins)}주화입니다. 입찰 주화 수에 비례해 지급하며, 원금을 별도로 더해 지급하지 않습니다.`));
+    notice.append(el('p',`개인 입찰기여금 = 입찰기여 총액 × 개인 합산 입찰 주화 수 ÷ ${rank==='third'?'분배 대상자의 합산':'전체'} 입찰 주화 수`,'siege-notice-formula'));
+    notice.append(el('p',`입찰 비중의 분모는 ${rank==='third'?`분배 대상자 ${data.memberCount}명의 합산 입찰`:'실제 전체 입찰'} ${number(bidDenominator)}주화입니다. 입찰 주화 수에 비례해 지급하며, 원금을 별도로 더해 지급하지 않습니다.`));
     notice.append(el('h3','종합분배 비율과 개인 산정식'));
     notice.append(el('p',`아래 비율은 전체 상금이 아닌 종합분배금 ${number(generalPool)}다이아(G)를 기준으로 합니다. 합계는 100%이며, 종합분배 대상자는 ${data.memberCount}명입니다.`));
     const table=el('table',undefined,'siege-notice-ratios'),caption=el('caption','종합분배 항목별 비율과 개인 산정식','visually-hidden');table.append(caption);
@@ -77,7 +78,7 @@
     notice.append(el('p','같은 일요일의 콘텐츠들이 총 3점을 나눠 가지므로, 콘텐츠가 많은 날은 개별 콘텐츠의 배점이 작아집니다. 성물 방어전은 월·화 중 한 번만 참여해도 그 주 1점이며, 두 번 참여해도 중복 가산하지 않습니다.'));
     const participationPeriod=data.participationPeriod.map(date=>date.split('-').slice(1).map(Number).join('/')).join('~');
     notice.append(el('p',`참여점수는 ${participationPeriod}의 누적 참여기록을 반영합니다. 공헌도는 시즌1·2 중 10/7·10/14·10/21·10/28·11/4·11/11 주차의 확인된 기록을 합산했으며, 11/18 주차 중간값은 제외했습니다.`));
-    const notes=el('div',undefined,'siege-notice-footnote');notes.append(el('p',`위 금액은 전체 상금 기준입니다. 아래 ${data.memberCount}명의 분배 합계는 대상 외 ${number(outsideCoins)}주화에 해당하는 입찰기여금 ${number(outsideAmount)}다이아를 제외한 금액입니다.`));
+    const notes=el('div',undefined,'siege-notice-footnote');notes.append(el('p',outsideAmount===0?`아래 ${data.memberCount}명의 분배 합계는 전체 상금 ${number(prize)}다이아와 같으며, 남는 금액 없이 전액 지급합니다.`:`위 금액은 전체 상금 기준입니다. 아래 ${data.memberCount}명의 분배 합계는 대상 외 ${number(outsideCoins)}주화에 해당하는 입찰기여금 ${number(outsideAmount)}다이아를 제외한 금액입니다.`));
     notes.append(el('p','개인 지급액은 배정 총액에 맞춰 1다이아 단위로 정산합니다. 항목별 금액의 반올림으로 개인 합계와 소액 차이가 있을 수 있습니다.'));notice.append(notes);
     return notice;
   }
