@@ -2,6 +2,14 @@
 :root[data-theme=graphite] .siege-page{--siege-third:#30424e;--siege-third-ink:#edf4fa}
 .siege-page .page-heading{margin-bottom:20px}
 .siege-page .page-heading p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.siege-notice{padding:24px;margin-bottom:24px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14px;line-height:1.8;overflow-wrap:anywhere}
+.siege-notice h2{margin:0 0 12px;font-size:21px;line-height:1.4}.siege-notice h3{margin:24px 0 10px;font-size:16px;line-height:1.5}.siege-notice p{margin:10px 0}
+.siege-notice-correction{margin:16px 0;padding:14px 16px;border-left:3px solid var(--accent);border-radius:0 6px 6px 0;background:var(--surface-subtle);font-size:13px}.siege-notice-correction ul{margin:7px 0 0;padding-left:20px}.siege-notice-correction li+li{margin-top:5px}
+.siege-pool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 18px}.siege-pool-grid>div{min-width:0;padding:14px;border:1px solid var(--line);border-radius:7px;background:var(--siege-bid)}.siege-pool-grid dt{font-size:12px;color:var(--muted)}.siege-pool-grid dd{margin:6px 0 0;font-size:20px;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap}.siege-pool-grid>div:last-child{background:var(--siege-third);color:var(--siege-third-ink)}
+.siege-page[data-siege-rank=second] .siege-pool-grid>div:last-child{background:var(--siege-second-strong);color:#fff}.siege-page[data-siege-rank=second] .siege-pool-grid>div:last-child dt{color:inherit}
+.siege-notice .siege-notice-formula{padding:12px 14px;border-radius:6px;background:var(--surface-subtle);font-size:13px;font-weight:600}
+.siege-notice-ratios{width:100%;table-layout:fixed;border-collapse:collapse;font-size:13px;line-height:1.7}.siege-notice-ratios th,.siege-notice-ratios td{padding:11px 12px;border:1px solid var(--line);text-align:left;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}.siege-notice-ratios thead th{background:var(--surface-subtle);font-weight:700}.siege-notice-ratios th:first-child{width:22%}.siege-notice-ratios th:nth-child(2){width:10%;text-align:center}.siege-notice-ratios td:nth-child(2){text-align:center;font-weight:700;white-space:nowrap}
+.siege-notice-footnote{margin-top:18px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
 .siege-controls{display:flex;align-items:end;justify-content:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
 .siege-search-controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
 .siege-search-label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);margin:0}
@@ -36,7 +44,9 @@
 .siege-empty{padding:30px 18px;background:var(--surface);border:1px solid var(--line);border-radius:8px;color:var(--muted)}
 .siege-mobile-list{display:none}
 .siege-page :is(button,input,summary,.siege-table-frame):focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:1000px){.siege-pool-grid{grid-template-columns:1fr;gap:8px}.siege-pool-grid>div{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.siege-pool-grid dd{margin:0;font-size:18px}}
 @media(max-width:700px){
+ .siege-notice{padding:18px;font-size:13px}.siege-notice h2{font-size:19px}.siege-notice h3{font-size:15px}.siege-notice-correction{padding:12px;font-size:12px}.siege-pool-grid{grid-template-columns:1fr;gap:8px}.siege-pool-grid>div{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px}.siege-pool-grid dd{margin:0;font-size:18px}.siege-notice-ratios{font-size:12px}.siege-notice-ratios th,.siege-notice-ratios td{padding:9px 7px}.siege-notice-ratios th:first-child{width:24%}.siege-notice-ratios th:nth-child(2){width:12%}.siege-notice .siege-notice-formula{font-size:12px;padding:10px 12px}
  .siege-controls{gap:14px;align-items:stretch}
  .siege-search-controls{width:100%;align-items:end;flex-wrap:nowrap}.siege-search-label{min-width:0;flex:1}.siege-search-label input{width:100%;box-sizing:border-box;font-size:16px}.siege-search-controls button{padding:10px 12px;font-size:12px;white-space:nowrap}
  .siege-summary{padding:20px;align-items:start;flex-direction:column;gap:14px}.siege-summary-amount{font-size:27px}.siege-context{flex-direction:row;flex-wrap:wrap;text-align:left;gap:4px 14px;font-size:11px}
