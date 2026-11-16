@@ -1,0 +1,9 @@
+.guild-history-line.has-delete-controls{grid-template-columns:74px minmax(0,1fr) auto 32px 32px 32px}
+.guild-history-toolbar{display:flex;gap:4px;align-items:center;width:100%}
+.guild-history-toolbar button{min-width:42px;height:30px;padding:3px 8px;border:1px solid var(--line);border-radius:3px;background:#fff;color:#334650;font-size:12px}
+.guild-history-toolbar button:hover{background:#edf3f4}
+.guild-history-editor{flex:1;min-width:180px;min-height:38px;padding:8px 9px;border:1px solid var(--line);border-radius:4px;background:#fff;outline:none}
+.guild-history-editor:empty::before{content:attr(data-placeholder);color:#849198}
+.guild-history-editor:focus{border-color:var(--accent);box-shadow:0 0 0 2px #52736c22}
+.guild-history-content u,.guild-history-dialog u{text-underline-offset:2px}
+@media(max-width:700px){.guild-history-line.has-delete-controls{grid-template-columns:52px minmax(0,1fr) auto 30px 30px 30px}.guild-history-toolbar button{min-width:36px;padding:3px 6px}}
