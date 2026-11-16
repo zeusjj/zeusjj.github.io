@@ -95,6 +95,7 @@ function switchTab(route) {
   if(tab==='alarms')window.dispatchEvent(new Event('guild-alarms-open'));
   if(tab==='admin')window.dispatchEvent(new Event('guild-admin-open'));
   if(tab==='siege-distribution')window.dispatchEvent(new Event('guild-siege-distribution-open'));
+  if(tab==='distribution')window.dispatchEvent(new Event('guild-distribution-open'));
   document.querySelectorAll(`#${tab} .board-entry[open]`).forEach(entry=>entry.dispatchEvent(new Event('guild-view')));
 }
 document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {location.hash = button.dataset.tab;}));
@@ -709,7 +710,7 @@ function centerMemberToday(){
   const rect=target.getBoundingClientRect();scroll.scrollLeft+=rect.left+rect.width/2-(box.left+fixed+(scroll.clientWidth-fixed)/2);memberCentered=true;
 }
 function isContributionColumn(data,index){
-  return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율'].includes(data.headers[index]) && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
+  return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율','입찰주화'].includes(data.headers[index]) && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
 }
 function hiddenMemberColumn(data,index){
   return (!document.getElementById('member-growth-toggle').checked && data.headers[index]==='성장도 기록') || (!document.getElementById('member-contribution-toggle').checked && isContributionColumn(data,index)) || (!document.getElementById('member-extra-toggle').checked && ['직책','단톡','참여율'].includes(data.headers[index]));
@@ -851,7 +852,14 @@ function renderDistribution(groups) {
     if(group.schedule)section.append(element('p',group.schedule,'distribution-schedule'));
     if(!group.records.length){if(!group.schedule)section.append(element('p','등록된 분배 기록이 없습니다.','empty'));}
     else{const table=element('table');const head=element('thead');const headings=element('tr');['닉네임','아이템','낙찰 금액','입찰방식'].forEach(label=>{const th=element('th',label);th.scope='col';headings.append(th);});head.append(headings);table.append(head);const body=element('tbody');for(const record of group.records){const row=element('tr');[record.name,record.item,record.amount===null?'미정':record.amount.toLocaleString('ko-KR'),record.bidding || '-'].forEach((value,index)=>row.append(element('td',value,record.amount===null&&index===2?'distribution-pending':undefined)));body.append(row);}table.append(body);section.append(table);}target.append(section);
+    if(group.title==='길드레이드 10차'){
+      const siege=element('section',undefined,'distribution-group distribution-siege siege-page');siege.dataset.siegeRank='third';
+      const siegeHeading=element('div',undefined,'distribution-heading');siegeHeading.append(element('h2','공성전 분배'),element('span','11/15 · 3등','record-count'));
+      const full=element('a','전체 분배표 보기','distribution-siege-link');full.href='#siege-distribution/third';siegeHeading.append(full);
+      const host=element('div');host.dataset.siegeEmbedded='';host.setAttribute('aria-live','polite');siege.append(siegeHeading,host);target.append(siege);
+    }
   }
+  window.dispatchEvent(new Event('guild-distribution-rendered'));
 }
 window.addEventListener('guild-section-content-change',event=>{if(!publicMemberSource)return;publicMemberSource={...publicMemberSource,rules:event.detail.rules};joinedMemberArchive=null;renderFeature('Rules',()=>renderRules(publicMemberSource.rules));renderFeature('Members',()=>renderMembers(currentMemberSource(),document.getElementById('search').value));});
 window.addEventListener('guild-auth-change',()=>{if(publicMemberSource)renderFeature('Rules',()=>renderRules(publicMemberSource.rules));});

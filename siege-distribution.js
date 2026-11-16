@@ -109,7 +109,8 @@
     };
     renderResults();
   }
-  function buildTable(members){
+  function buildTable(members,{tableData=data,tableRank=rank}={}){
+    const data=tableData,rank=tableRank,rankLabel=()=>rank==='third'?'3등':'2등';
     const frame=el('div',undefined,'siege-table-frame');frame.tabIndex=0;frame.setAttribute('role','region');frame.setAttribute('aria-label',`${rankLabel()} 항목별 분배표. 좌우로 스크롤할 수 있습니다.`);
     const table=el('table',undefined,'siege-table'),caption=el('caption',`${rankLabel()} 분배표. 금액 단위는 다이아입니다.`,'visually-hidden');table.append(caption);
     const columns=el('colgroup');for(const [className,span] of [['siege-column-number',1],['siege-column-name',1],['siege-column-amount',data.categories.length+3]]){const column=el('col',undefined,className);column.span=span;columns.append(column);}table.append(columns);
@@ -144,8 +145,34 @@
     }
     return list;
   }
+  let embeddedController=null,embeddedGeneration=0;
+  async function loadEmbedded(){
+    const host=document.querySelector('[data-siege-embedded]');
+    if(location.hash!=='#distribution'||!host||!signedIn())return;
+    const version=++embeddedGeneration;embeddedController?.abort();const current=new AbortController();embeddedController=current;
+    host.replaceChildren(el('p','공성전 분배표를 불러오는 중입니다.','distribution-siege-status'));
+    try{
+      const response=await fetch(api,{headers:window.GuildAuth.headers(),cache:'no-store',signal:AbortSignal.any([current.signal,AbortSignal.timeout(15000)])});
+      if(response.status===401){window.GuildAuth.invalidate();return;}
+      if(!response.ok)throw new Error('공성전 분배표를 불러오지 못했습니다.');
+      const result=await response.json();
+      if(!Array.isArray(result.members)||result.members.length!==31||!Array.isArray(result.categories)||result.categories.length!==7)throw new Error('분배표 형식을 확인하지 못했습니다.');
+      if(version!==embeddedGeneration||!host.isConnected||!signedIn())return;
+      const mine=normalize(window.GuildAuth.user.nickname),members=[...result.members].sort((a,b)=>Number(normalize(b.name)===mine)-Number(normalize(a.name)===mine));
+      const frame=buildTable(members,{tableData:result,tableRank:'third'});frame.setAttribute('aria-label','공성전 3등 분배표. 다섯 행 높이이며 상하좌우로 스크롤할 수 있습니다.');
+      host.replaceChildren(frame);
+    }catch(error){
+      if(version!==embeddedGeneration||current.signal.aborted||!host.isConnected||!signedIn())return;
+      const message=el('p',error.name==='TimeoutError'?'응답 시간이 초과됐습니다. 다시 시도해주세요.':error.message,'distribution-siege-status');
+      const retry=el('button','다시 불러오기','secondary-button');retry.type='button';retry.addEventListener('click',loadEmbedded);host.replaceChildren(message,retry);
+    }finally{if(embeddedController===current)embeddedController=null;}
+  }
+  window.addEventListener('guild-distribution-open',loadEmbedded);
+  window.addEventListener('guild-distribution-rendered',loadEmbedded);
+  window.addEventListener('guild-auth-change',()=>{if(!signedIn()){embeddedGeneration++;embeddedController?.abort();document.querySelector('[data-siege-embedded]')?.replaceChildren();}});
   window.addEventListener('guild-siege-distribution-open',load);
   window.addEventListener('hashchange',()=>{if(active())load();});
   window.addEventListener('guild-auth-change',()=>{clear();if(active())load();});
   if(active())load();
+  loadEmbedded();
 })();

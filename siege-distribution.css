@@ -43,6 +43,16 @@
 .siege-table .siege-my-row .siege-sticky-name{box-shadow:inset 3px 0 var(--accent);color:var(--accent)}
 .siege-empty{padding:30px 18px;background:var(--surface);border:1px solid var(--line);border-radius:8px;color:var(--muted)}
 .siege-mobile-list{display:none}
+.distribution-siege .distribution-heading{flex-wrap:wrap}
+.distribution-siege-link{margin-left:auto;min-height:44px;display:inline-flex;align-items:center;font-size:13px;color:var(--accent)}
+.distribution-siege .siege-table-frame{display:block;height:345px;max-height:345px;scroll-padding-top:58px;overscroll-behavior:contain}
+.distribution-siege .siege-table{overflow:visible}
+.distribution-siege .siege-table th{width:auto}
+.distribution-siege .siege-table th,.distribution-siege .siege-table td{padding:9px 6px;font-size:13px;line-height:1.4}
+.distribution-siege .siege-table tbody tr{height:54px}
+.distribution-siege .siege-table thead th{height:58px;font-size:12px;line-height:1.6}
+.distribution-siege-status{color:var(--muted);font-size:14px}
+.distribution-siege :is(a,button):focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .siege-page :is(button,input,summary,.siege-table-frame):focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media(max-width:1000px){.siege-pool-grid{grid-template-columns:1fr;gap:8px}.siege-pool-grid>div{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.siege-pool-grid dd{margin:0;font-size:18px}}
 @media(max-width:700px){
