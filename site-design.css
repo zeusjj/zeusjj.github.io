@@ -45,6 +45,18 @@ body{background:var(--page)}
 .sidebar nav button.active{border-left-color:var(--accent);box-shadow:none;color:var(--accent);background:#fff}
 .sidebar nav button svg{color:#758b81}
 .sidebar-foot{margin-top:auto;padding:18px 8px 0;gap:12px}
+.guild-achievements{flex-shrink:0;margin-top:auto;padding:12px 8px 16px}
+.guild-achievements+.sidebar-foot{margin-top:0}
+.guild-achievement-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.guild-achievement{position:relative;display:grid;place-items:center;aspect-ratio:1;border:1px solid #cbd5d0;border-radius:5px;background:var(--surface);color:#718983;cursor:help;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.guild-achievement svg{width:18px;height:18px;stroke-width:1.9}
+.guild-achievement--siege{border-color:#c49a4f;background:linear-gradient(145deg,#fffdf6,#f2e5c5);color:#956817;box-shadow:inset 0 0 0 1px #dfc583,0 2px 5px #65502320}
+.guild-achievement--occupation{background:#edf2f0;color:#718983}
+.guild-achievement:hover,.guild-achievement:focus-visible{z-index:2;transform:translateY(-2px);box-shadow:0 4px 10px #14231e22}
+.guild-achievement--siege:hover,.guild-achievement--siege:focus-visible{border-color:#9a6a17;box-shadow:inset 0 0 0 1px #d6b15e,0 5px 12px #81622235}
+.guild-achievement--occupation:hover,.guild-achievement--occupation:focus-visible{border-color:#819892;color:#506f68}
+.guild-achievement:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.guild-achievement{transition:none}}
 .sidebar .official-home-link,.sidebar #suggest-tool{font-size:12px;box-shadow:none;min-height:40px}
 .workspace{margin-left:var(--sidebar-width);min-width:0}
 .workspace-bar{position:sticky;top:0;z-index:20;height:48px;padding:0 var(--space-page);background:var(--surface);border-color:var(--line)}
