@@ -175,10 +175,11 @@ function renderRules(text) {
             if(!line.trim())continue;
             const match=line.match(/^-\s*(메인|서브):\s*(\S+)\s+(\d+:\d+(?:\s*~\s*\d+:\d+)?)(.*)$/);
             if(match){
+              if(title==='성물 방어전'&&match[1]==='서브')continue;
               const row=element('div'),value=element('dd'),time=element('div',undefined,'content-schedule-time');
               time.append(element('span',match[2]),element('strong',match[3]));value.append(time);
               const detail=match[4].replace(/^[\s,]+/,'');if(detail)value.append(element('p',detail,'content-schedule-note'));
-              row.append(element('dt',match[1]),value);times.append(row);
+              row.append(value);times.append(row);
             }else activity.append(element('p',line.replace(/^-\s*/,''),'content-schedule-note'));
           }
           activity.insertBefore(times,activity.children[1]??null);weekday.append(activity);
