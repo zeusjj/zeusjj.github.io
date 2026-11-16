@@ -1,6 +1,6 @@
 (() => {
-  const titles={rules:'운영 방식',notices:'공지사항',members:'길드원 참여 현황',distribution:'분배 기록',tips:'팁 공유',tools:'편의 기능',probabilities:'확률표',alarms:'공유 알람',profile:'내 정보',weekly:'한 주 요약',community:'디시글 모아보기',login:'로그인',admin:'관리자','november-plan':'11월 길드레이드 아이템 분배 룰 제안'};
-  const previews=new Set(['rules','notices','members','distribution','tips','tools','probabilities','alarms','profile','weekly','community','login','november-plan']);
+  const titles={rules:'운영 방식',notices:'공지사항',members:'길드원 참여 현황',distribution:'분배 기록',tips:'팁 공유',tools:'편의 기능',probabilities:'확률표',history:'길드 연혁',profile:'내 정보',weekly:'한 주 요약',community:'디시글 모아보기',login:'로그인',admin:'관리자','november-plan':'11월 길드레이드 아이템 분배 룰 제안'};
+  const previews=new Set(['rules','notices','members','distribution','tips','tools','probabilities','history','profile','weekly','community','login','november-plan']);
   const button=document.getElementById('main-menu-share'),status=document.getElementById('main-menu-share-status');
   let timer;
   function selected(){

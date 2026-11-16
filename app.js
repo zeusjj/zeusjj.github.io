@@ -1,6 +1,6 @@
 function normalizeProbabilityRoute(){if(/^#probabilities(?:\/|$)/.test(location.hash))history.replaceState(null,'','#tools/probabilities'+location.hash.slice('#probabilities'.length));}
 normalizeProbabilityRoute();
-const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'siege-distribution', 'tips', 'tools', 'alarms', 'admin', 'profile', 'weekly', 'community', 'login'];
+const tabs = ['rules', 'november-plan', 'notices', 'members', 'distribution', 'siege-distribution', 'tips', 'tools', 'history', 'admin', 'profile', 'weekly', 'community', 'login'];
 const novemberPlanPublic=true;
 const octoberArchiveDeadline=Date.parse('2026-10-29T00:00:00+09:00');
 let octoberArchiveTimer;
@@ -66,7 +66,7 @@ function updateChapterNavigation(){
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(route) {
   let tab=route.split('/')[0];
-  if (!tabs.includes(tab)) tab = 'rules';
+  if (!tabs.includes(tab) || tab === 'alarms') tab = 'rules';
   const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/)?.[1];
   if(memberReturn&&distributionSignedIn()){route=memberReturn;tab=route.split('/')[0];history.replaceState(null,'','#'+route);}
   if(tab==='siege-distribution'){
@@ -92,7 +92,7 @@ function switchTab(route) {
   if(tab==='notices' && !noticesLoaded) loadNotices();
   else if(tab==='notices')openSharedNotice();
   if(tab==='members')requestAnimationFrame(centerMemberToday);
-  if(tab==='alarms')window.dispatchEvent(new Event('guild-alarms-open'));
+  if(tab==='history')window.dispatchEvent(new Event('guild-history-open'));
   if(tab==='admin')window.dispatchEvent(new Event('guild-admin-open'));
   if(tab==='siege-distribution')window.dispatchEvent(new Event('guild-siege-distribution-open'));
   if(tab==='distribution')window.dispatchEvent(new Event('guild-distribution-open'));
