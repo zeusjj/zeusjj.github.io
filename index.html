@@ -11,12 +11,12 @@
   <script type="module" src="official-news.js?v=20261019-181"></script>
   <link rel="stylesheet" href="probabilities.css?v=20261012-89">
   <script type="module" src="probabilities.js?v=20261020-187"></script>
-  <link rel="stylesheet" href="guild-history.css?v=20261117-inline-format"><link rel="stylesheet" href="guild-history-format.css?v=20261117-inline-format">
+  <link rel="stylesheet" href="guild-history.css?v=20261117-inline-format"><link rel="stylesheet" href="guild-history-format.css?v=20261117-order-description">
   <script src="browser-nickname.js?v=20261020-186" defer></script>
   <script src="member-archives.js?v=20261022-archive" defer></script>
   <script src="guild-data.js?v=20261108-inline-fallback" defer></script>
   <link rel="stylesheet" href="section-editor.css?v=20261104-bid-restrictions">
-  <script src="section-editor.js?v=20261105-extra-sections" defer></script>
+  <script src="section-editor.js?v=20261117-history-description" defer></script>
   <script type="module" src="member-auth.js?v=20261115-alias"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261103-login-help">
   <link rel="stylesheet" href="profile-preview.css?v=20261025-preview">
@@ -56,7 +56,7 @@
   <script src="header-announcements.js?v=20261105-announcement-queue" defer></script>
   <script src="guestbook.js?v=20261108-member-types" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
-  <script src="guild-history.js?v=20261117-inline-format" defer></script>
+  <script src="guild-history.js?v=20261117-history-description" defer></script>
   <link rel="stylesheet" href="site-design.css?v=20261116-discard-trophies">
   <link rel="stylesheet" href="november-plan.css?v=20261104-card-editor">
   <script src="november-plan.js?v=20261104-card-editor" defer></script>
@@ -118,7 +118,7 @@
         <div id="weekly-content"></div>
       </section>
       <section id="history" class="guild-history-page" hidden aria-labelledby="history-heading">
-        <div class="page-heading"><div><h1 id="history-heading">길드 연혁</h1><p>2026년 8월 26일부터 쌓아가는 길드의 기록</p></div></div>
+        <div class="page-heading"><div><h1 id="history-heading">길드 연혁</h1><p id="guild-history-description"><span data-section-description-text>2026년 8월 26일부터 쌓아가는 길드의 기록</span></p></div></div>
         <p id="guild-history-status" role="status" class="guild-history-status"></p>
         <div id="guild-history-weeks" class="guild-history-weeks"></div>
       </section>
