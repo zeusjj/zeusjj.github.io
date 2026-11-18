@@ -131,7 +131,7 @@ function render() {
       button.type = 'button';
       button.className = 'epic-choice';
       button.classList.add(`grade-${choice.gradeClass}`);
-      button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><span class="epic-choice-icon" aria-hidden="true"></span><strong>${choice.stat}</strong>`;
+      button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.stat}</strong><span class="epic-choice-probability" title="공식 능력치 확률이 아닌, 연습 모델의 12종 균등 추첨 확률입니다. 카드 1장 기준이며 등급은 제외합니다.">연습 확률 ${(100 / STAT_OPTIONS.length).toFixed(2)}%</span>`;
       button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
       button.addEventListener('click', () => applyChoice(choice));
       choicesBox.append(button);
