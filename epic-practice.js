@@ -2,6 +2,13 @@ const STAT_OPTIONS = [
   '공격력', '방어력', '명중', '치명', '극대화', '막기 관통',
   '무기 증폭', '피해 증가', '피해 감소', '생명력 재생', '마나 재생', '막기'
 ];
+const GRADE_OPTIONS = [
+  { name: '일반', weight: 40, className: 'normal' },
+  { name: '고급', weight: 30, className: 'advanced' },
+  { name: '희귀', weight: 20, className: 'rare' },
+  { name: '영웅', weight: 7, className: 'hero' },
+  { name: '전설', weight: 3, className: 'legend' }
+];
 const MAX_STRINGS = 12;
 const MAX_PERFORMANCES = 24;
 const RESET_COST = 250;
@@ -10,21 +17,33 @@ const stringsList = document.getElementById('epic-strings');
 const choicesBox = document.getElementById('epic-choices');
 const playButton = document.getElementById('epic-play');
 const rerollButton = document.getElementById('epic-reroll');
-const applyButton = document.getElementById('epic-apply');
 const newActButton = document.getElementById('epic-new-act');
 const resetButton = document.getElementById('epic-reset');
+const resetDialog = document.getElementById('epic-reset-dialog');
+const resetDetail = document.getElementById('epic-reset-detail');
+const resetCostLabel = document.getElementById('epic-reset-cost');
 const advice = document.getElementById('epic-advice');
+const feedback = document.getElementById('epic-feedback');
 
 let notes = [];
 let choices = null;
-let selected = -1;
 let performances = 0;
 let rerollsUsed = 0;
 
 function drawChoices() {
-  const result = [];
-  while (result.length < 3) result.push(STAT_OPTIONS[Math.floor(Math.random() * STAT_OPTIONS.length)]);
-  return result;
+  return Array.from({ length: 3 }, () => {
+    const roll = Math.random() * 100;
+    let cumulative = 0;
+    const grade = GRADE_OPTIONS.find((option) => {
+      cumulative += option.weight;
+      return roll < cumulative;
+    }) ?? GRADE_OPTIONS[0];
+    return {
+      stat: STAT_OPTIONS[Math.floor(Math.random() * STAT_OPTIONS.length)],
+      grade: grade.name,
+      gradeClass: grade.className
+    };
+  });
 }
 
 function longestRun(values = notes) {
@@ -32,8 +51,8 @@ function longestRun(values = notes) {
   let run = 0;
   let previous = null;
   for (const note of values) {
-    run = note === previous ? run + 1 : 1;
-    previous = note;
+    run = note.stat === previous ? run + 1 : 1;
+    previous = note.stat;
     best = Math.max(best, run);
   }
   return best;
@@ -43,6 +62,13 @@ function resetCost() {
   const remainingStrings = MAX_STRINGS - notes.length;
   const remainingPerformances = MAX_PERFORMANCES - performances;
   return notes.length === MAX_STRINGS || remainingStrings === remainingPerformances ? 0 : RESET_COST;
+}
+
+function availableRerolls() {
+  const performancesLeft = MAX_PERFORMANCES - performances;
+  const futureStrings = MAX_STRINGS - notes.length - (choices ? 1 : 0);
+  const reservedPerformances = Math.max(0, futureStrings);
+  return Math.max(0, Math.min(12 - rerollsUsed, performancesLeft - reservedPerformances));
 }
 
 function renderAdvice() {
@@ -72,9 +98,10 @@ function render() {
     item.className = 'epic-string';
     if (notes[index]) {
       item.classList.add('is-filled');
-      if (index > 0 && notes[index] === notes[index - 1]) item.classList.add('is-linked');
-      item.textContent = notes[index];
-      item.setAttribute('aria-label', `${index + 1}번 현, ${notes[index]}`);
+      if (index > 0 && notes[index].stat === notes[index - 1].stat) item.classList.add('is-linked');
+      item.classList.add(`grade-${notes[index].gradeClass}`);
+      item.textContent = notes[index].stat;
+      item.setAttribute('aria-label', `${index + 1}번 현, ${notes[index].grade} ${notes[index].stat}`);
     } else {
       item.textContent = String(index + 1);
       item.setAttribute('aria-label', `${index + 1}번 현, 비어 있음`);
@@ -84,7 +111,7 @@ function render() {
   }
 
   document.getElementById('epic-attempts').textContent = String(performances);
-  document.getElementById('epic-rerolls-used').textContent = String(rerollsUsed);
+  document.getElementById('epic-masthead-progress').textContent = `${notes.length} / ${MAX_STRINGS}`;
   document.getElementById('epic-longest').textContent = String(longestRun());
   const done = notes.length === MAX_STRINGS;
   const hasChoices = choices !== null;
@@ -93,21 +120,20 @@ function render() {
   document.getElementById('epic-current-label').textContent = done ? '완성된 악장' : hasChoices ? '현재 연주 중' : '다음 현';
   document.getElementById('epic-current-value').textContent = done ? `${longestRun()}현 연속` : `${next}번 현`;
   playButton.hidden = hasChoices || done;
-  playButton.disabled = performances >= MAX_PERFORMANCES;
+  playButton.disabled = performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
   rerollButton.hidden = !hasChoices || done;
-  rerollButton.disabled = performances >= MAX_PERFORMANCES || rerollsUsed >= 12;
-  applyButton.hidden = !hasChoices || done;
-  applyButton.disabled = selected < 0;
+  rerollButton.disabled = availableRerolls() <= 0;
   newActButton.hidden = !done;
   choicesBox.replaceChildren();
   if (hasChoices && !done) {
-    choices.forEach((stat, index) => {
+    choices.forEach((choice) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'epic-choice';
-      button.setAttribute('aria-pressed', String(selected === index));
-      button.textContent = stat;
-      button.addEventListener('click', () => { selected = index; render(); });
+      button.classList.add(`grade-${choice.gradeClass}`);
+      button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><span class="epic-choice-icon" aria-hidden="true"></span><strong>${choice.stat}</strong>`;
+      button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
+      button.addEventListener('click', () => applyChoice(choice));
       choicesBox.append(button);
     });
   }
@@ -116,12 +142,27 @@ function render() {
   renderAdvice();
 }
 
+function applyChoice(choice) {
+  if (!choices || !choice || !choices.includes(choice)) return;
+  const originalIndex = GRADE_OPTIONS.findIndex((grade) => grade.name === choice.grade);
+  const upgraded = originalIndex < GRADE_OPTIONS.length - 1 && Math.random() < 0.03;
+  const finalGrade = GRADE_OPTIONS[originalIndex + Number(upgraded)];
+  notes.push({ stat: choice.stat, grade: finalGrade.name, gradeClass: finalGrade.className });
+  feedback.textContent = upgraded ? `등급 상승 · ${choice.grade} → ${finalGrade.name}` : '';
+  feedback.classList.toggle('is-upgraded', upgraded);
+  choices = null;
+  render();
+}
+
 function startPerformance(isReroll = false) {
-  if (performances >= MAX_PERFORMANCES || notes.length >= MAX_STRINGS || (isReroll && rerollsUsed >= 12)) return;
+  if (performances >= MAX_PERFORMANCES || notes.length >= MAX_STRINGS) return;
+  if (isReroll && availableRerolls() <= 0) return;
+  if (!isReroll && MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length) return;
   performances += 1;
   if (isReroll) rerollsUsed += 1;
   choices = drawChoices();
-  selected = -1;
+  feedback.textContent = '';
+  feedback.classList.remove('is-upgraded');
   document.getElementById('epic-current-label').textContent = isReroll ? '새 선택지' : '선택지를 고르세요';
   render();
   if (window.lucide) window.lucide.createIcons();
@@ -129,23 +170,23 @@ function startPerformance(isReroll = false) {
 
 playButton.addEventListener('click', () => startPerformance());
 rerollButton.addEventListener('click', () => startPerformance(true));
-applyButton.addEventListener('click', () => {
-  if (!choices || selected < 0) return;
-  notes.push(choices[selected]);
-  choices = null;
-  selected = -1;
-  render();
-});
 
 resetButton.addEventListener('click', () => {
   const cost = resetCost();
-  const prompt = cost
-    ? `현재 악장을 초기화할까요? ${cost}다이아를 사용하고, 선택한 능력치와 연주 횟수가 초기화됩니다.`
-    : '현재 악장을 무료로 초기화할까요? 선택한 능력치와 연주 횟수가 초기화됩니다.';
-  if (!window.confirm(prompt)) return;
+  resetDetail.textContent = notes.length || choices
+    ? `${notes.length}개 현에 확정한 능력치와 현재 연주 상태, 사용 횟수가 모두 사라집니다.`
+    : '새 악장을 시작합니다.';
+  resetCostLabel.textContent = cost ? `${cost} 다이아` : '무료';
+  resetDialog.showModal();
+});
+
+document.getElementById('epic-reset-cancel').addEventListener('click', () => resetDialog.close());
+document.getElementById('epic-reset-confirm').addEventListener('click', () => {
+  resetDialog.close();
   notes = [];
   choices = null;
-  selected = -1;
+  feedback.textContent = '';
+  feedback.classList.remove('is-upgraded');
   performances = 0;
   rerollsUsed = 0;
   render();
@@ -154,7 +195,8 @@ resetButton.addEventListener('click', () => {
 newActButton.addEventListener('click', () => {
   notes = [];
   choices = null;
-  selected = -1;
+  feedback.textContent = '';
+  feedback.classList.remove('is-upgraded');
   performances = 0;
   rerollsUsed = 0;
   render();

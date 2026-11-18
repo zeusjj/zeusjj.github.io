@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261118-1">
-  <script type="module" src="epic-practice.js?v=20261118-1"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261118-3">
+  <script type="module" src="epic-practice.js?v=20261118-3"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -333,15 +333,17 @@
         </div>
         <div id="epic-panel" class="calculator-panel" role="tabpanel" aria-labelledby="epic-heading" hidden>
           <section class="epic-practice" aria-labelledby="epic-practice-title">
-            <div class="epic-practice-header">
-              <div><h2 id="epic-practice-title">서사시 연습</h2><p>12현 악장에서 같은 종류의 능력치를 이어 배치해 보세요.</p></div>
-              <button id="epic-reset" class="secondary-button" type="button"><i data-lucide="rotate-ccw"></i><span>악장 초기화</span></button>
+            <div class="epic-masthead">
+              <div class="epic-masthead-title"><span>서사시 · 연습실</span><h2 id="epic-practice-title">한 악장을 완성하세요</h2><p>12개 현을 채우고 같은 능력치를 이어 배치해 보세요.</p></div>
+              <div class="epic-masthead-tools">
+                <div class="epic-masthead-stat"><span>현 진행</span><strong id="epic-masthead-progress">0 / 12</strong></div>
+                <div class="epic-masthead-stat"><span>연주 횟수</span><strong><b id="epic-attempts">0</b> / 24</strong></div>
+                <button id="epic-reset" class="epic-reset-button" type="button"><i data-lucide="rotate-ccw"></i><span>악장 초기화 · 250 다이아</span></button>
+              </div>
             </div>
-            <p class="epic-model-note">연습용 단순화 모델 · 능력치는 균등 확률로 생성 · 등급과 실제 확률, 이음표 효과는 미반영</p>
+            <p class="epic-model-note">등급 확률 · 일반 40% / 고급 30% / 희귀 20% / 영웅 7% / 전설 3% · 전설 외 카드 선택 시 3% 확률로 한 등급 상승 · <a href="https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth13?lang=ko" target="_blank" rel="noopener noreferrer">공식 확률표</a></p>
             <div class="epic-statusline" aria-live="polite">
               <span id="epic-progress-label">1번 현부터 시작</span>
-              <span><b id="epic-attempts">0</b><span> / 24 연주 횟수</span></span>
-              <span><b id="epic-rerolls-used">0</b><span> / 12 다시 연주</span></span>
               <span><b id="epic-longest">0</b><span>현 연속 최고</span></span>
             </div>
             <div class="epic-board-wrap">
@@ -357,20 +359,27 @@
               <div class="epic-controls">
                 <button id="epic-play" class="primary-button" type="button"><i data-lucide="music-2"></i><span>연주</span></button>
                 <button id="epic-reroll" class="secondary-button" type="button" hidden><i data-lucide="repeat-2"></i><span>다시 연주</span></button>
-                <button id="epic-apply" class="primary-button" type="button" hidden disabled><span>적용하기</span></button>
                 <button id="epic-new-act" class="primary-button" type="button" hidden><i data-lucide="skip-forward"></i><span>새 악장 연습</span></button>
               </div>
+              <p id="epic-feedback" class="epic-feedback" role="status" aria-live="polite"></p>
               <p id="epic-advice" class="epic-advice" role="status">1~6번 현을 채우는 동안 같은 능력치가 이어지기 전에는 다시 연주를 아껴보세요.</p>
             </div>
             <details class="epic-rules">
               <summary>연습 규칙</summary>
-              <p>연주하거나 다시 연주할 때마다 연주 횟수 1회를 사용합니다. 한 악장은 12현을 순서대로 채우며, 연주 횟수는 최대 24회입니다. 선택지는 적용하기 전까지 바꿀 수 있지만, 현에 적용한 능력치는 되돌릴 수 없습니다.</p>
+              <p>연주하거나 다시 연주할 때마다 연주 횟수 1회를 사용합니다. 한 악장은 12현을 순서대로 채우며, 연주 횟수는 최대 24회입니다. 카드 하나를 누르면 해당 현에 즉시 확정되며 되돌릴 수 없습니다.</p>
               <p>악장 초기화는 공식 가이드 기준으로 보통 250다이아를 사용합니다. 연습 화면에서는 모든 현을 채웠거나 남은 현 수와 남은 연주 횟수가 같을 때 무료로 처리합니다.</p>
             </details>
           </section>
         </div>
       </section>
     </main>
+    <dialog id="epic-reset-dialog" class="epic-reset-dialog" aria-labelledby="epic-reset-title">
+      <div class="epic-dialog-mark" aria-hidden="true"><i data-lucide="rotate-ccw"></i></div>
+      <h2 id="epic-reset-title">이 악장을 초기화할까요?</h2>
+      <p id="epic-reset-detail">지금까지 확정한 능력치와 사용 횟수가 사라집니다.</p>
+      <div class="epic-reset-cost"><span>초기화 비용</span><strong id="epic-reset-cost">250 다이아</strong></div>
+      <div class="epic-reset-actions"><button id="epic-reset-cancel" class="secondary-button" type="button">계속 연주</button><button id="epic-reset-confirm" class="primary-button" type="button">초기화</button></div>
+    </dialog>
     <dialog id="alarm-filter-dialog" aria-labelledby="alarm-filter-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-filter-title">알람 수신 설정</h2><div class="alarm-filter-all"><span>전체 수신</span><button id="alarm-filter-all" type="button" class="alarm-filter-toggle" role="switch" aria-label="전체 알람 수신" aria-checked="true">On</button></div><div id="alarm-filter-list"></div><p id="alarm-filter-status" role="status"></p><div class="form-actions"><form method="dialog"><button class="primary-button">완료</button></form></div></dialog>
     <dialog id="alarm-preferences-dialog" aria-labelledby="alarm-preferences-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-preferences-title">내 알람 소리</h2><div class="alarm-sound-fields"><label for="alarm-tone">알람음</label><select id="alarm-tone"><option value="chime">차임</option><option value="bell">벨</option><option value="electronic">전자음</option></select><label for="alarm-volume">소리 크기</label><div class="alarm-volume-control"><input id="alarm-volume" type="range" min="0" max="100" step="1" value="70"><output id="alarm-volume-value" for="alarm-volume">70%</output></div></div><p id="alarm-preferences-status" role="status"></p><div class="form-actions"><button id="alarm-sound-preview" type="button" class="secondary-button"><i data-lucide="volume-2"></i>미리듣기</button><button id="alarm-sound-reset" type="button" class="icon-button" title="소리 설정 초기화" aria-label="소리 설정 초기화"><i data-lucide="rotate-ccw"></i></button><form method="dialog"><button class="primary-button">완료</button></form></div></dialog>
     <dialog id="alarm-preview" aria-labelledby="alarm-preview-title"><button id="alarm-preview-close" type="button" class="icon-button alarm-preview-close" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button><h2 id="alarm-preview-title">클립보드 미리보기</h2><p id="alarm-preview-time"></p><div class="alarm-preview-stage"><img id="alarm-preview-image" alt="등록할 보스 현황판 스크린샷" hidden></div><p id="alarm-preview-status" role="status" aria-live="polite"></p><div class="form-actions"><button id="alarm-preview-refresh" type="button" class="secondary-button"><i data-lucide="refresh-cw"></i>현재 스크린샷으로 갱신</button><button id="alarm-preview-confirm" type="button" class="primary-button" disabled>확인</button></div></dialog>
