@@ -44,6 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261118-1">
+  <script type="module" src="epic-practice.js?v=20261118-1"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -207,6 +209,7 @@
           <button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-11-02T00:00:00+09:00" data-new-until="2026-11-09T00:00:00+09:00" hidden>New</small></button>
           <button id="sinkwa-heading" type="button" role="tab" data-calculator="sinkwa" aria-selected="false" aria-controls="sinkwa-panel" tabindex="-1"><i data-lucide="gem"></i><span>신과 재료 가격표</span><small id="sinkwa-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button>
           <button id="astrology-heading" type="button" role="tab" data-calculator="astrology" aria-selected="false" aria-controls="astrology-panel" tabindex="-1"><i data-lucide="sparkles"></i><span>점성술 계산기</span><small id="astrology-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button>
+          <button id="epic-heading" type="button" role="tab" data-calculator="epic" aria-selected="false" aria-controls="epic-panel" tabindex="-1"><i data-lucide="music-2"></i><span>서사시 연습</span></button>
           <button id="probabilities-heading" type="button" role="tab" data-calculator="probabilities" aria-selected="false" aria-controls="probabilities" tabindex="-1"><i data-lucide="list-ordered"></i><span>확률표</span></button>
         </div></div>
         <div class="page-heading"><div class="calculator-title"><h2 id="calculator-heading">컬렉션 기대값 계산기</h2><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
@@ -327,6 +330,44 @@
             <p>개수별 달성·완성 효과는 제공된 게임 화면 기준입니다. 다음 단계 예산은 중앙 별이 최소 1개 더 일치할 때까지, 활성화 완료 예산은 중앙 별 전체가 일치할 때까지의 추가 비용입니다. ‘운 보통’ 비용이면 약 절반이 달성하고, ‘운 나쁨’ 비용이면 100명 중 약 90명이 달성하는 추정입니다. 아주 운이 나쁘면 표시된 비용을 넘길 수 있습니다. 개별 슬롯의 능력치는 달성 효과와 별개이며 스탯 추천에서는 제외합니다.</p>
             <p>공식 확률표: <a href="https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth07?lang=ko" target="_blank" rel="noopener noreferrer">양자리</a> · <a href="https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth08?lang=ko" target="_blank" rel="noopener noreferrer">게자리</a> · <a href="https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth09?lang=ko" target="_blank" rel="noopener noreferrer">천칭자리</a> · <a href="https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth10?lang=ko" target="_blank" rel="noopener noreferrer">황소자리</a></p>
           </details>
+        </div>
+        <div id="epic-panel" class="calculator-panel" role="tabpanel" aria-labelledby="epic-heading" hidden>
+          <section class="epic-practice" aria-labelledby="epic-practice-title">
+            <div class="epic-practice-header">
+              <div><h2 id="epic-practice-title">서사시 연습</h2><p>12현 악장에서 같은 종류의 능력치를 이어 배치해 보세요.</p></div>
+              <button id="epic-reset" class="secondary-button" type="button"><i data-lucide="rotate-ccw"></i><span>악장 초기화</span></button>
+            </div>
+            <p class="epic-model-note">연습용 단순화 모델 · 능력치는 균등 확률로 생성 · 등급과 실제 확률, 이음표 효과는 미반영</p>
+            <div class="epic-statusline" aria-live="polite">
+              <span id="epic-progress-label">1번 현부터 시작</span>
+              <span><b id="epic-attempts">0</b><span> / 24 연주 횟수</span></span>
+              <span><b id="epic-rerolls-used">0</b><span> / 12 다시 연주</span></span>
+              <span><b id="epic-longest">0</b><span>현 연속 최고</span></span>
+            </div>
+            <div class="epic-board-wrap">
+              <svg class="epic-lyre" viewBox="0 0 720 84" role="img" aria-label="12개 현을 순서대로 연주하는 악장">
+                <path d="M25 17 C15 63 46 77 80 77 H640 C674 77 705 63 695 17 M25 17 C47 22 62 25 80 25 H640 C658 25 673 22 695 17" />
+                <path d="M80 25V77 M131 25V77 M182 25V77 M233 25V77 M284 25V77 M335 25V77 M386 25V77 M437 25V77 M488 25V77 M539 25V77 M590 25V77 M640 25V77" />
+              </svg>
+              <ol id="epic-strings" class="epic-strings" aria-label="현 배치"></ol>
+            </div>
+            <div class="epic-play-area">
+              <div class="epic-current"><span id="epic-current-label">다음 현</span><strong id="epic-current-value">1번 현</strong></div>
+              <div id="epic-choices" class="epic-choices" role="group" aria-label="연주 선택지"></div>
+              <div class="epic-controls">
+                <button id="epic-play" class="primary-button" type="button"><i data-lucide="music-2"></i><span>연주</span></button>
+                <button id="epic-reroll" class="secondary-button" type="button" hidden><i data-lucide="repeat-2"></i><span>다시 연주</span></button>
+                <button id="epic-apply" class="primary-button" type="button" hidden disabled><span>적용하기</span></button>
+                <button id="epic-new-act" class="primary-button" type="button" hidden><i data-lucide="skip-forward"></i><span>새 악장 연습</span></button>
+              </div>
+              <p id="epic-advice" class="epic-advice" role="status">1~6번 현을 채우는 동안 같은 능력치가 이어지기 전에는 다시 연주를 아껴보세요.</p>
+            </div>
+            <details class="epic-rules">
+              <summary>연습 규칙</summary>
+              <p>연주하거나 다시 연주할 때마다 연주 횟수 1회를 사용합니다. 한 악장은 12현을 순서대로 채우며, 연주 횟수는 최대 24회입니다. 선택지는 적용하기 전까지 바꿀 수 있지만, 현에 적용한 능력치는 되돌릴 수 없습니다.</p>
+              <p>악장 초기화는 공식 가이드 기준으로 보통 250다이아를 사용합니다. 연습 화면에서는 모든 현을 채웠거나 남은 현 수와 남은 연주 횟수가 같을 때 무료로 처리합니다.</p>
+            </details>
+          </section>
         </div>
       </section>
     </main>
