@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261118-5">
-  <script type="module" src="epic-practice.js?v=20261118-4"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261118-7">
+  <script type="module" src="epic-practice.js?v=20261118-7"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -333,6 +333,11 @@
         </div>
         <div id="epic-panel" class="calculator-panel" role="tabpanel" aria-labelledby="epic-heading" hidden>
           <section class="epic-practice" aria-labelledby="epic-practice-title">
+            <div class="epic-spending" aria-label="누적 소모 재화">
+              <div><span>누적 소모 선율</span><strong id="epic-total-melodies">0</strong></div>
+              <div><span>누적 소모 다이아</span><strong id="epic-total-diamonds">0</strong></div>
+              <button id="epic-clear-spending" type="button" title="누적 사용값 초기화" aria-label="누적 사용값 초기화"><i data-lucide="rotate-ccw"></i></button>
+            </div>
             <div class="epic-masthead">
               <div class="epic-masthead-title"><span>서사시 · 연습실</span><h2 id="epic-practice-title">한 악장을 완성하세요</h2><p>12개 현을 채우고 같은 능력치를 이어 배치해 보세요.</p></div>
               <div class="epic-masthead-tools">
@@ -342,6 +347,7 @@
             </div>
             <p class="epic-model-note">등급 확률 · 일반 40% / 고급 30% / 희귀 20% / 영웅 7% / 전설 3% · 전설 외 카드 선택 시 3% 확률로 한 등급 상승 · <a href="https://lim.com2us.com/0ff0ef099ecb754b08b36053f2a8327f0d5b470cc3656c9fd043b9d1a2d719f5/growth13?lang=ko" target="_blank" rel="noopener noreferrer">공식 확률표</a></p>
             <div class="epic-statusline" aria-live="polite">
+              <select id="epic-song" aria-label="서사시 선택" disabled><option>확률 불러오는 중</option></select>
               <span id="epic-progress-label">1번 현부터 시작</span>
               <span><b id="epic-longest">0</b><span>현 연속 최고</span></span>
             </div>
@@ -364,6 +370,10 @@
               <p id="epic-feedback" class="epic-feedback" role="status" aria-live="polite"></p>
               <p id="epic-advice" class="epic-advice" role="status">1~6번 현을 채우는 동안 같은 능력치가 이어지기 전에는 다시 연주를 아껴보세요.</p>
             </div>
+            <section class="epic-probability-section" aria-labelledby="epic-probability-title">
+              <h3 id="epic-probability-title">능력치별 노출 확률</h3>
+              <table class="epic-probability-table"><thead><tr><th scope="col">확률</th><th scope="col">옵션</th></tr></thead><tbody id="epic-probability-rows"></tbody></table>
+            </section>
             <details class="epic-rules">
               <summary>연습 규칙</summary>
               <p>연주하거나 다시 연주할 때마다 연주 횟수 1회를 사용합니다. 한 악장은 12현을 순서대로 채우며, 연주 횟수는 최대 24회입니다. 카드 하나를 누르면 해당 현에 즉시 확정되며 되돌릴 수 없습니다.</p>

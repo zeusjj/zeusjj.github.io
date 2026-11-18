@@ -1,7 +1,7 @@
-const STAT_OPTIONS = [
-  '공격력', '방어력', '명중', '치명', '극대화', '막기 관통',
-  '무기 증폭', '피해 증가', '피해 감소', '생명력 재생', '마나 재생', '막기'
-];
+import { parseOptions, drawOption, groupOptions } from './epic-probability-model.js?v=20261118-1';
+let optionSets = [];
+let activeOptions = [];
+const songSelect = document.getElementById('epic-song');
 const GRADE_OPTIONS = [
   { name: '일반', weight: 40, className: 'normal' },
   { name: '고급', weight: 30, className: 'advanced' },
@@ -29,22 +29,56 @@ let notes = [];
 let choices = null;
 let performances = 0;
 let rerollsUsed = 0;
+const SPENDING_KEY = 'epic-practice-spending-v1';
+let spending = { melodies: 0, diamonds: 0 };
+try {
+  const saved = JSON.parse(localStorage.getItem(SPENDING_KEY));
+  if (saved && ['melodies', 'diamonds'].every((key) => Number.isSafeInteger(saved[key]) && saved[key] >= 0)) {
+    spending = { melodies: saved.melodies, diamonds: saved.diamonds };
+  }
+} catch {}
+
+function renderSpending() {
+  document.getElementById('epic-total-melodies').textContent = spending.melodies.toLocaleString('ko-KR');
+  document.getElementById('epic-total-diamonds').textContent = spending.diamonds.toLocaleString('ko-KR');
+  try { localStorage.setItem(SPENDING_KEY, JSON.stringify(spending)); } catch {}
+}
+
+document.getElementById('epic-clear-spending').addEventListener('click', () => {
+  spending = { melodies: 0, diamonds: 0 };
+  renderSpending();
+});
 
 function drawChoices() {
-  return Array.from({ length: 3 }, () => {
-    const roll = Math.random() * 100;
-    let cumulative = 0;
-    const grade = GRADE_OPTIONS.find((option) => {
-      cumulative += option.weight;
-      return roll < cumulative;
-    }) ?? GRADE_OPTIONS[0];
-    return {
-      stat: STAT_OPTIONS[Math.floor(Math.random() * STAT_OPTIONS.length)],
-      grade: grade.name,
-      gradeClass: grade.className
-    };
-  });
+  return Array.from({ length: 3 }, () => drawOption(activeOptions));
 }
+
+function renderProbabilities() {
+  const body = document.getElementById('epic-probability-rows');
+  body.replaceChildren();
+  for (const [probability, options] of groupOptions(activeOptions)) {
+    const row = document.createElement('tr');
+    const chance = document.createElement('th');
+    chance.scope = 'row';
+    chance.textContent = probability;
+    const labels = document.createElement('td');
+    options.forEach((option, index) => {
+      if (index) labels.append(', ');
+      const label = document.createElement('span');
+      label.className = `grade-${option.gradeClass}`;
+      label.textContent = `${option.grade} ${option.label}`;
+      labels.append(label);
+    });
+    row.append(chance, labels);
+    body.append(row);
+  }
+}
+
+songSelect.addEventListener('change', () => {
+  if (notes.length || choices) return;
+  activeOptions = optionSets[Number(songSelect.value)].options;
+  renderProbabilities();
+});
 
 function longestRun(values = notes) {
   let best = 0;
@@ -92,6 +126,7 @@ function renderAdvice() {
 }
 
 function render() {
+  renderSpending();
   stringsList.replaceChildren();
   for (let index = 0; index < MAX_STRINGS; index += 1) {
     const item = document.createElement('li');
@@ -100,7 +135,7 @@ function render() {
       item.classList.add('is-filled');
       if (index > 0 && notes[index].stat === notes[index - 1].stat) item.classList.add('is-linked');
       item.classList.add(`grade-${notes[index].gradeClass}`);
-      item.textContent = notes[index].stat;
+      item.textContent = notes[index].label;
       item.setAttribute('aria-label', `${index + 1}번 현, ${notes[index].grade} ${notes[index].stat}`);
     } else {
       item.textContent = String(index + 1);
@@ -120,7 +155,8 @@ function render() {
   document.getElementById('epic-current-label').textContent = done ? '완성된 악장' : hasChoices ? '현재 연주 중' : '다음 현';
   document.getElementById('epic-current-value').textContent = done ? `${longestRun()}현 연속` : `${next}번 현`;
   playButton.hidden = hasChoices || done;
-  playButton.disabled = performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
+  playButton.disabled = !activeOptions.length || performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
+  songSelect.disabled = !activeOptions.length || notes.length > 0 || hasChoices;
   rerollButton.hidden = !hasChoices || done;
   rerollButton.disabled = availableRerolls() <= 0;
   newActButton.hidden = !done;
@@ -131,7 +167,7 @@ function render() {
       button.type = 'button';
       button.className = 'epic-choice';
       button.classList.add(`grade-${choice.gradeClass}`);
-      button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.stat}</strong><span class="epic-choice-probability" title="공식 능력치 확률이 아닌, 연습 모델의 12종 균등 추첨 확률입니다. 카드 1장 기준이며 등급은 제외합니다.">연습 확률 ${(100 / STAT_OPTIONS.length).toFixed(2)}%</span>`;
+      button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.label}</strong><span class="epic-choice-probability" title="공식 등급별 옵션 노출 확률 · 선택 시 등급 상승 전">${choice.probability}</span>`;
       button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
       button.addEventListener('click', () => applyChoice(choice));
       choicesBox.append(button);
@@ -147,7 +183,8 @@ function applyChoice(choice) {
   const originalIndex = GRADE_OPTIONS.findIndex((grade) => grade.name === choice.grade);
   const upgraded = originalIndex < GRADE_OPTIONS.length - 1 && Math.random() < 0.03;
   const finalGrade = GRADE_OPTIONS[originalIndex + Number(upgraded)];
-  notes.push({ stat: choice.stat, grade: finalGrade.name, gradeClass: finalGrade.className });
+  const finalOption = activeOptions.find(option => option.grade === finalGrade.name && option.stat === choice.stat);
+  notes.push({ ...finalOption });
   feedback.textContent = upgraded ? `등급 상승 · ${choice.grade} → ${finalGrade.name}` : '';
   feedback.classList.toggle('is-upgraded', upgraded);
   choices = null;
@@ -155,10 +192,12 @@ function applyChoice(choice) {
 }
 
 function startPerformance(isReroll = false) {
+  if (!activeOptions.length || (!isReroll && choices) || (isReroll && !choices)) return;
   if (performances >= MAX_PERFORMANCES || notes.length >= MAX_STRINGS) return;
   if (isReroll && availableRerolls() <= 0) return;
   if (!isReroll && MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length) return;
   performances += 1;
+  spending.melodies += 1;
   if (isReroll) rerollsUsed += 1;
   choices = drawChoices();
   feedback.textContent = '';
@@ -182,6 +221,8 @@ resetButton.addEventListener('click', () => {
 
 document.getElementById('epic-reset-cancel').addEventListener('click', () => resetDialog.close());
 document.getElementById('epic-reset-confirm').addEventListener('click', () => {
+  if (!resetDialog.open) return;
+  spending.diamonds += resetCost();
   resetDialog.close();
   notes = [];
   choices = null;
@@ -203,3 +244,21 @@ newActButton.addEventListener('click', () => {
 });
 
 render();
+fetch(new URL('./epic-probabilities.json?v=20261118-1', import.meta.url))
+  .then(response => {
+    if (!response.ok) throw new Error('Probability data unavailable');
+    return response.json();
+  })
+  .then(data => {
+    optionSets = data.tables.slice(2).map(table => ({ title: table.title.replace(' 등급 별 옵션 확률', ''), options: parseOptions(table.rows) }));
+    if (optionSets.length !== 2 || optionSets.some(set => set.options.length !== 80)) throw new Error('Incomplete probability data');
+    songSelect.replaceChildren(...optionSets.map((set, index) => new Option(set.title, String(index))));
+    activeOptions = optionSets[0].options;
+    renderProbabilities();
+    render();
+  })
+  .catch(() => {
+    activeOptions = [];
+    render();
+    feedback.textContent = '공식 확률 데이터를 불러오지 못했습니다. 새로고침해 주세요.';
+  });
