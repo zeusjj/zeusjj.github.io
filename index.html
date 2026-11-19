@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261120-ai-decision">
-  <script type="module" src="epic-practice.js?v=20261120-ai-decision"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261120-epic-manual-5">
+  <script type="module" src="epic-practice.js?v=20261120-epic-manual-5"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -373,13 +373,16 @@
           </section>
           <aside id="epic-ai-panel" class="epic-ai-panel" aria-labelledby="epic-ai-title">
             <div class="epic-ai-heading"><div><h3 id="epic-ai-title">AI 도우미</h3><p>공식 확률 기반 추천</p></div><label class="epic-ai-toggle"><input id="epic-ai-mode" type="checkbox" checked><span>AI 모드</span></label></div>
+            <div class="epic-ai-recommendation"><span>추천 행동</span><strong id="epic-ai-recommended-action">연주</strong></div>
             <label class="epic-ai-target-label" for="epic-ai-target">목표 연속</label>
-            <select id="epic-ai-target" class="epic-ai-target"><option value="2">2연속</option><option value="3">3연속</option><option value="4">4연속</option><option value="5" selected>5연속</option></select>
+            <select id="epic-ai-target" class="epic-ai-target"><option value="2">2연속</option><option value="3">3연속</option><option value="4">4연속</option><option value="5" selected>5연속</option><option value="6">6연속</option><option value="7">7연속</option><option value="8">8연속</option><option value="9">9연속</option><option value="10">10연속</option><option value="11">11연속</option><option value="12">12연속</option></select>
             <p id="epic-ai-state" class="epic-ai-state">현재 악장 · 0/12현 · 연주 0/24</p>
             <div class="epic-ai-dialogue"><p id="epic-ai-message" role="status" aria-live="polite">연주를 누르면 세 장의 선택지를 보고 다음 수를 같이 고를게요.</p></div>
             <dl class="epic-ai-chances"><div><dt>추천 행동 달성 예상</dt><dd id="epic-ai-current-chance">계산 중</dd></div><div id="epic-ai-reset-row" hidden><dt>새 악장 예상</dt><dd id="epic-ai-reset-chance">-</dd></div></dl>
             <p class="epic-ai-note">공식 옵션 노출 확률을 적용한 전략 시뮬레이션 추정치예요.</p>
             <div class="epic-cat-portrait" aria-hidden="true"><img src="assets/epic-cat-ai.png" alt=""><span class="epic-cat-eye epic-cat-eye-left"></span><span class="epic-cat-eye epic-cat-eye-right"></span></div>
+            <button id="epic-manual-open" class="epic-manual-button" type="button">수동 세팅해서 질문하기</button>
+            <button id="epic-manual-return" class="epic-manual-return" type="button" hidden>실제 연습으로 돌아가기</button>
           </aside>
           </div>
           <section class="epic-probability-section" aria-labelledby="epic-probability-title">
@@ -395,6 +398,17 @@
       <p id="epic-reset-detail">지금까지 확정한 능력치와 사용 횟수가 사라집니다.</p>
       <div class="epic-reset-cost"><span>초기화 비용</span><strong id="epic-reset-cost">250 다이아</strong></div>
       <div class="epic-reset-actions"><button id="epic-reset-cancel" class="secondary-button" type="button">계속 연주</button><button id="epic-reset-confirm" class="primary-button" type="button">초기화</button></div>
+    </dialog>
+    <dialog id="epic-manual-dialog" class="epic-manual-dialog" aria-labelledby="epic-manual-title">
+      <form id="epic-manual-form">
+        <h2 id="epic-manual-title">현재 상황을 설정해 주세요</h2>
+        <label for="epic-manual-step">현재 몇 번째 현을 연주 중인가요?</label>
+        <select id="epic-manual-step" name="step" required></select>
+        <label for="epic-manual-chain">현재까지 몇 개 현이 연속 연결됐나요?</label>
+        <select id="epic-manual-chain" name="chain" required></select>
+        <p>진행 중인 현은 아직 선택 전인 상태로 계산해요. 세부 카드 정보가 없으므로 다음 연주와 초기화 확률을 비교합니다.</p>
+        <div class="epic-reset-actions"><button id="epic-manual-cancel" class="secondary-button" type="button">취소</button><button class="primary-button" type="submit">확인</button></div>
+      </form>
     </dialog>
     <dialog id="alarm-filter-dialog" aria-labelledby="alarm-filter-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-filter-title">알람 수신 설정</h2><div class="alarm-filter-all"><span>전체 수신</span><button id="alarm-filter-all" type="button" class="alarm-filter-toggle" role="switch" aria-label="전체 알람 수신" aria-checked="true">On</button></div><div id="alarm-filter-list"></div><p id="alarm-filter-status" role="status"></p><div class="form-actions"><form method="dialog"><button class="primary-button">완료</button></form></div></dialog>
     <dialog id="alarm-preferences-dialog" aria-labelledby="alarm-preferences-title"><form method="dialog" class="alarm-dialog-close"><button class="icon-button" aria-label="닫기" title="닫기"><i data-lucide="x"></i></button></form><h2 id="alarm-preferences-title">내 알람 소리</h2><div class="alarm-sound-fields"><label for="alarm-tone">알람음</label><select id="alarm-tone"><option value="chime">차임</option><option value="bell">벨</option><option value="electronic">전자음</option></select><label for="alarm-volume">소리 크기</label><div class="alarm-volume-control"><input id="alarm-volume" type="range" min="0" max="100" step="1" value="70"><output id="alarm-volume-value" for="alarm-volume">70%</output></div></div><p id="alarm-preferences-status" role="status"></p><div class="form-actions"><button id="alarm-sound-preview" type="button" class="secondary-button"><i data-lucide="volume-2"></i>미리듣기</button><button id="alarm-sound-reset" type="button" class="icon-button" title="소리 설정 초기화" aria-label="소리 설정 초기화"><i data-lucide="rotate-ccw"></i></button><form method="dialog"><button class="primary-button">완료</button></form></div></dialog>

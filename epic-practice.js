@@ -28,9 +28,16 @@ const aiMode = document.getElementById('epic-ai-mode');
 const aiTarget = document.getElementById('epic-ai-target');
 const aiMessage = document.getElementById('epic-ai-message');
 const aiCurrentChance = document.getElementById('epic-ai-current-chance');
+const aiRecommendedAction = document.getElementById('epic-ai-recommended-action');
 const aiResetRow = document.getElementById('epic-ai-reset-row');
 const aiResetChance = document.getElementById('epic-ai-reset-chance');
 const aiState = document.getElementById('epic-ai-state');
+const manualOpen = document.getElementById('epic-manual-open');
+const manualReturn = document.getElementById('epic-manual-return');
+const manualDialog = document.getElementById('epic-manual-dialog');
+const manualForm = document.getElementById('epic-manual-form');
+const manualStep = document.getElementById('epic-manual-step');
+const manualChain = document.getElementById('epic-manual-chain');
 const statsEndpoint = 'https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/epic-practice/stats';
 
 let notes = [];
@@ -38,6 +45,30 @@ let choices = null;
 let performances = 0;
 let rerollsUsed = 0;
 let globalStats = null;
+let manualSession = null;
+
+for (let step = 1; step <= MAX_STRINGS; step += 1) {
+  const option = document.createElement('option');
+  option.value = String(step);
+  option.textContent = `${step}번째 현`;
+  manualStep.append(option);
+}
+
+function refreshManualChainOptions() {
+  const maxChain = Number(manualStep.value) - 1;
+  const previous = Math.min(Number(manualChain.value) || 0, maxChain);
+  manualChain.replaceChildren();
+  for (let count = 0; count <= maxChain; count += 1) {
+    const option = document.createElement('option');
+    option.value = String(count);
+    option.textContent = `${count}현 연속`;
+    manualChain.append(option);
+  }
+  manualChain.value = String(previous);
+}
+
+refreshManualChainOptions();
+manualStep.addEventListener('change', refreshManualChainOptions);
 
 function renderGlobalStats() {
   document.getElementById('epic-total-performances').textContent = globalStats?.performances.toLocaleString('ko-KR') ?? '불러오는 중';
@@ -132,9 +163,7 @@ function longestRun(values = notes) {
 }
 
 function resetCost() {
-  const remainingStrings = MAX_STRINGS - notes.length;
-  const remainingPerformances = MAX_PERFORMANCES - performances;
-  return notes.length === MAX_STRINGS || remainingStrings === remainingPerformances ? 0 : RESET_COST;
+  return notes.length === MAX_STRINGS || availableRerolls() === 0 ? 0 : RESET_COST;
 }
 
 function availableRerolls() {
@@ -187,7 +216,7 @@ function seededRandom(seed, iteration) {
   };
 }
 
-function simulateSuccess(state, target, seed, iterations = 4000) {
+function simulateSuccess(state, target, seed, iterations = 12000) {
   const odds = statOdds();
   const total = [...odds.values()].reduce((sum, value) => sum + value, 0);
   const drawStat = random => {
@@ -237,7 +266,9 @@ function simulateSuccess(state, target, seed, iterations = 4000) {
       }
       const previous = filled.at(-1);
       const matching = previous && hand.includes(previous);
-      if (!matching && trailingRun(filled) >= 2 && canReroll(usedPerformances, usedRerolls, filled.length, true)) {
+      const run = trailingRun(filled);
+      const canStillReachTarget = run < target && run + (MAX_STRINGS - filled.length) >= target;
+      if (previous && !matching && canStillReachTarget && canReroll(usedPerformances, usedRerolls, filled.length, true)) {
         usedPerformances += 1;
         usedRerolls += 1;
         hand = drawHand(random);
@@ -258,7 +289,23 @@ function estimatedChance(state, target, label) {
 }
 
 function estimateSelectionChance(state, target) {
-  return estimatedChance({ ...state, chooseFirst: true }, target, 'select-card');
+  const candidateStats = [...new Set(state.choices || [])];
+  if (!candidateStats.length) return null;
+  return candidateStats.reduce((best, stat, index) => {
+    const chance = estimatedChance({ ...state, choices: null, preselectedStat: stat }, target, `select-card-${index}-${stat}`);
+    return !best || chance > best.chance ? { chance, stat } : best;
+  }, null);
+}
+
+function formatChance(chance) {
+  return chance > 0 && chance < 0.0005 ? '<0.1%' : `${(chance * 100).toFixed(1)}%`;
+}
+
+function renderAiMessage(beforeAction, action, afterAction) {
+  aiMessage.replaceChildren(document.createTextNode(beforeAction));
+  const strong = document.createElement('strong');
+  strong.textContent = action;
+  aiMessage.append(strong, document.createTextNode(afterAction));
 }
 
 const freshChanceCache = new Map();
@@ -268,15 +315,19 @@ function renderAi() {
   const stats = notes.map(note => note.stat);
   const chain = maximumRun(stats);
   const remaining = MAX_PERFORMANCES - performances;
-  aiState.textContent = `현재 악장 · ${notes.length}/12현 · 최고 ${chain}연속 · 남은 연주 ${remaining}회`;
+  aiState.textContent = manualSession
+    ? `수동 예시 · ${manualSession.step}번째 현 진행 전 · ${manualSession.chain}현 연속 · 남은 연주 ${remaining}회`
+    : `현재 악장 · ${notes.length}/12현 · 최고 ${chain}연속 · 남은 연주 ${remaining}회`;
   choicesBox.classList.toggle('epic-ai-mode-off', !aiMode.checked);
   if (!aiMode.checked) {
+    aiRecommendedAction.textContent = '-';
     aiCurrentChance.textContent = '-';
     aiResetRow.hidden = true;
     aiMessage.textContent = 'AI 모드를 껐어요. 연주판은 그대로 직접 진행할 수 있어요.';
     return null;
   }
   if (!activeOptions.length) {
+    aiRecommendedAction.textContent = '-';
     aiCurrentChance.textContent = '-';
     aiResetRow.hidden = true;
     aiMessage.textContent = '공식 옵션 확률을 불러오지 못해 추천을 잠시 멈췄어요.';
@@ -285,31 +336,35 @@ function renderAi() {
 
   const targetMet = chain >= target;
   const currentState = { notes: stats, performances, rerollsUsed, choices: choices?.map(choice => choice.stat) ?? null };
+  const selectionEstimate = choices ? estimateSelectionChance(currentState, target) : null;
   const currentChance = choices
-    ? estimateSelectionChance(currentState, target)
+    ? selectionEstimate?.chance ?? 0
     : estimatedChance(currentState, target, 'continue');
   const freshKey = `${songSelect.value}|${target}`;
   if (!freshChanceCache.has(freshKey)) {
     freshChanceCache.set(freshKey, estimatedChance({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh'));
   }
   const freshChance = freshChanceCache.get(freshKey);
-  aiCurrentChance.textContent = `${(currentChance * 100).toFixed(1)}%`;
+  aiCurrentChance.textContent = formatChance(currentChance);
   aiResetRow.hidden = !notes.length && !choices;
   aiResetChance.textContent = `${(freshChance * 100).toFixed(1)}% · ${resetCost() ? '250 다이아' : '무료'}`;
 
   if (targetMet) {
     const matching = choices?.find(choice => choice.stat === notes.at(-1)?.stat);
+    aiRecommendedAction.textContent = matching ? '카드 선택' : '목표 달성';
     aiCurrentChance.textContent = '100%';
-    aiMessage.textContent = matching
-      ? `목표 ${target}연속을 달성했어요. 더 이어가려면 연결된 ${matching.stat}을 선택하세요.`
-      : `목표 ${target}연속을 달성했어요. 더 연주하려면 원하는 능력치를 선택하세요.`;
+    renderAiMessage(
+      matching ? `목표 ${target}연속을 달성했어요. 더 이어가려면 연결된 ${matching.stat} ` : `목표 ${target}연속을 달성했어요. 더 연주하려면 `,
+      matching ? '선택' : '원하는 스탯을 선택',
+      '하세요.'
+    );
     return matching ? { action: 'select', stat: matching.stat } : null;
   }
 
   const actions = [];
   if (choices) {
     const matching = notes.length ? choices.find(choice => choice.stat === notes.at(-1).stat) : null;
-    actions.push({ action: 'select', stat: matching?.stat, chance: estimateSelectionChance(currentState, target) });
+    actions.push({ action: 'select', stat: selectionEstimate?.stat ?? matching?.stat, chance: selectionEstimate?.chance ?? 0 });
     if (availableRerolls() > 0) actions.push({ action: 'reroll', chance: estimatedChance({ ...currentState, rerollFirst: true }, target, 'reroll') });
   } else if (notes.length < MAX_STRINGS && MAX_PERFORMANCES - performances >= MAX_STRINGS - notes.length) {
     actions.push({ action: 'play', chance: currentChance });
@@ -319,21 +374,33 @@ function renderAi() {
   const labels = { play: '연주', select: '카드 선택', reroll: '다시 연주', reset: `초기화${resetCost() ? ' · 250 다이아' : ' · 무료'}` };
   const recommendation = actions.sort((a, b) => b.chance - a.chance)[0];
   if (!recommendation) {
+    aiRecommendedAction.textContent = '판단 보류';
     aiMessage.textContent = '이 악장에서는 더 진행할 수 없어요. 악장을 초기화하거나 새 악장을 시작하세요.';
     return null;
   }
-  aiCurrentChance.textContent = `${(recommendation.chance * 100).toFixed(1)}%`;
-  const comparisons = actions.map(action => `${labels[action.action]} ${(action.chance * 100).toFixed(1)}%`).join(' · ');
+  aiCurrentChance.textContent = formatChance(recommendation.chance);
+  const comparisons = actions.map(action => `${labels[action.action]} ${formatChance(action.chance)}`).join(' · ');
   const context = `${notes.length}/12현 · 최근 ${trailingRun(stats)}연속 · 남은 연주 ${remaining}회`;
+  if (actions.every(action => action.chance === 0)) {
+    aiRecommendedAction.textContent = '판단 보류';
+    aiMessage.textContent = `${context} 상태예요. 현재 시뮬레이션 표본에서는 성공 경로가 관측되지 않아 행동 간 우위를 계산하지 못했어요. 0%를 최적 행동으로 오해하지 않도록 버튼 추천은 표시하지 않습니다. 행동별 목표 ${target}연속 달성 예상: ${comparisons}.`;
+    return null;
+  }
   const advice = {
-    play: `현재 ${context} 상태에서는 세 카드를 펼쳐보는 연주가 가장 나아요.`,
+    play: `현재 ${context} 상태에서는 `,
     select: choices && notes.length && choices.some(choice => choice.stat === notes.at(-1).stat)
-      ? `${context} 상태예요. 연결을 확정하는 카드를 선택하세요.`
-      : `${context} 상태예요. 세 카드 중 특별히 유리한 능력치는 없으니 원하는 스탯을 고르세요.`,
-    reroll: `${context} 상태에서 목표 달성 예상이 가장 높아요. 현재 세 장 대신 다시 연주하세요.`,
-    reset: `${context} 상태에서는 새 악장으로 초기화하는 편이 목표 달성 확률이 가장 높아요. ${labels.reset}이 필요해요.`
+      ? `${context} 상태예요. 연결을 확정하는 `
+      : `${context} 상태예요. 세 카드 중 확률상 우위는 없으니 `,
+    reroll: `${context} 상태에서 목표 달성 예상이 가장 높아요. `,
+    reset: `${context} 상태에서는 새 악장으로 초기화하는 편이 목표 달성 확률이 가장 높아요. `
   }[recommendation.action];
-  aiMessage.textContent = `${advice} 행동별 목표 ${target}연속 달성 예상: ${comparisons}.`;
+  const actionText = recommendation.action === 'select' ? '원하는 스탯을 선택' : labels[recommendation.action];
+  aiRecommendedAction.textContent = labels[recommendation.action].replace(/ · .*/, '');
+  const after = recommendation.action === 'play' ? '해서 선택지를 확인하세요.'
+    : recommendation.action === 'select' ? '하는 거예요.'
+      : recommendation.action === 'reroll' ? '하는 거예요. 현재 세 장을 바꿉니다.'
+        : `하는 거예요. ${labels.reset}이 필요해요.`;
+  renderAiMessage(`${advice}추천 행동은 `, actionText, `${after} 행동별 목표 ${target}연속 달성 예상: ${comparisons}.`);
   return recommendation;
 }
 
@@ -368,15 +435,16 @@ function render() {
   document.getElementById('epic-progress-label').textContent = done ? '악장 완성' : `${notes.length} / ${MAX_STRINGS}현 완성`;
   document.getElementById('epic-current-label').textContent = done ? '완성된 악장' : hasChoices ? '현재 연주 중' : '다음 현';
   document.getElementById('epic-current-value').textContent = done ? `${longestRun()}현 연속` : `${next}번 현`;
-  playButton.hidden = hasChoices || done;
-  playButton.disabled = !activeOptions.length || performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
+  playButton.hidden = hasChoices || done || Boolean(manualSession);
+  playButton.disabled = Boolean(manualSession) || !activeOptions.length || performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
   songSelect.disabled = !activeOptions.length || notes.length > 0 || hasChoices;
-  rerollButton.hidden = !hasChoices || done;
-  rerollButton.disabled = availableRerolls() <= 0;
-  newActButton.hidden = !done;
-  playButton.classList.toggle('is-recommended', aiMode.checked && recommendation?.action === 'play');
-  rerollButton.classList.toggle('is-recommended', aiMode.checked && recommendation?.action === 'reroll');
-  resetButton.classList.toggle('is-recommended', aiMode.checked && recommendation?.action === 'reset');
+  rerollButton.hidden = !hasChoices || done || Boolean(manualSession);
+  rerollButton.disabled = Boolean(manualSession) || availableRerolls() <= 0;
+  newActButton.hidden = !done || Boolean(manualSession);
+  resetButton.hidden = Boolean(manualSession);
+  playButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'play');
+  rerollButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'reroll');
+  resetButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'reset');
   choicesBox.replaceChildren();
   if (hasChoices && !done) {
     choices.forEach((choice) => {
@@ -384,7 +452,8 @@ function render() {
       button.type = 'button';
       button.className = 'epic-choice';
       button.classList.add(`grade-${choice.gradeClass}`);
-      if (aiMode.checked && recommendation?.action === 'select' && recommendation.stat === choice.stat) button.classList.add('is-recommended');
+      const sameStatCount = choices.filter(candidate => candidate.stat === choice.stat).length;
+      if (sameStatCount > 1 || (notes.length && choice.stat === notes.at(-1).stat)) button.classList.add('is-linked');
       button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.label}</strong><span class="epic-choice-probability" title="공식 등급별 옵션 노출 확률 · 선택 시 등급 상승 전">${choice.probability}</span>`;
       button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
       button.addEventListener('click', () => applyChoice(choice));
@@ -399,9 +468,56 @@ function render() {
       choicesBox.append(placeholder);
     }
   }
-  resetButton.disabled = !notes.length && !hasChoices;
+  resetButton.disabled = Boolean(manualSession) || (!notes.length && !hasChoices);
   resetButton.querySelector('span').textContent = resetCost() ? `악장 초기화 · ${RESET_COST} 다이아` : '악장 초기화 · 무료';
+  manualOpen.textContent = manualSession ? '수동 세팅 수정' : '수동 세팅해서 질문하기';
+  manualReturn.hidden = !manualSession;
 }
+
+manualOpen.addEventListener('click', () => {
+  const step = manualSession?.step ?? Math.min(notes.length + 1, MAX_STRINGS);
+  manualStep.value = String(step);
+  refreshManualChainOptions();
+  manualChain.value = String(manualSession?.chain ?? Math.min(trailingRun(notes.map(note => note.stat)), step - 1));
+  manualDialog.showModal();
+});
+
+document.getElementById('epic-manual-cancel').addEventListener('click', () => manualDialog.close());
+
+manualForm.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!activeOptions.length) return;
+  const step = Number(manualStep.value);
+  const chain = Number(manualChain.value);
+  const backup = manualSession?.backup ?? { notes, choices, performances, rerollsUsed, feedback: feedback.textContent, upgraded: feedback.classList.contains('is-upgraded') };
+  const statNames = [...statOdds().keys()];
+  const runStat = statNames.at(-1);
+  const prefixLength = step - 1 - chain;
+  const prefixStats = [];
+  for (let index = 0; index < prefixLength; index += 1) {
+    const candidates = statNames.filter(stat => stat !== prefixStats.at(-1) && (!chain || stat !== runStat));
+    prefixStats.push(candidates[index % candidates.length]);
+  }
+  const exampleStats = [...prefixStats, ...Array.from({ length: chain }, () => runStat)];
+  notes = exampleStats.map(stat => ({ stat, label: stat, grade: '수동 예시', gradeClass: 'manual' }));
+  choices = null;
+  performances = step - 1;
+  rerollsUsed = 0;
+  manualSession = { step, chain, backup };
+  feedback.textContent = '수동 예시 상태예요. 실제 연습 기록에는 반영되지 않습니다.';
+  feedback.classList.remove('is-upgraded');
+  manualDialog.close();
+  render();
+});
+
+manualReturn.addEventListener('click', () => {
+  if (!manualSession) return;
+  ({ notes, choices, performances, rerollsUsed } = manualSession.backup);
+  feedback.textContent = manualSession.backup.feedback;
+  feedback.classList.toggle('is-upgraded', manualSession.backup.upgraded);
+  manualSession = null;
+  render();
+});
 
 function applyChoice(choice) {
   if (!choices || !choice || !choices.includes(choice)) return;
