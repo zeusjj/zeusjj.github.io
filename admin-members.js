@@ -53,7 +53,7 @@
   async function syncAfterChange(message){const results=await Promise.allSettled([load(),window.GuildData.refresh()]);if(admin())status.textContent=results.some(r=>r.status==='rejected')?message+' 현황을 불러오지 못했습니다. 새로고침해주세요.':message;window.dispatchEvent(new Event('guild-member-management-changed'));}
   form.addEventListener('submit',async event=>{
     event.preventDefault();if(busy||!admin())return;creating=true;const values={nickname:nickname.value,class:klass.value,growth:Number(growth.value),level:level.value?Number(level.value):null,joinedDay:joined.value};setBusy(true);formStatus.textContent='등록 중입니다.';
-    try{const result=await request('',{method:'POST',body:JSON.stringify(values)});if(!admin())return;registration.close();form.reset();credentialName.textContent=result.nickname+' · 초기 비밀번호는 닉네임과 같습니다.';credentialId.value=result.username;credentialPassword.value=result.initialPassword;credentials.showModal();copy.focus();await syncAfterChange('회원과 로그인 계정을 등록했습니다.');}
+    try{const result=await request('',{method:'POST',body:JSON.stringify(values)});if(!admin())return;registration.close();form.reset();credentialName.textContent=result.nickname+' · 초기 비밀번호';credentialId.value=result.username;credentialPassword.value=result.initialPassword;credentials.showModal();copy.focus();await syncAfterChange(result.rejoined?'탈퇴 기록을 보존하고 회원 계정을 다시 활성화했습니다.':'회원과 로그인 계정을 등록했습니다.');}
     catch(error){formStatus.textContent=['TimeoutError','AbortError'].includes(error.name)?'응답을 확인하지 못했습니다. 명단을 새로고침해 등록 여부를 먼저 확인해주세요.':error.message;}
     finally{creating=false;setBusy(false);}
   });
