@@ -36,7 +36,7 @@ export function memberDistribution(data){
  }
  const levelBins=populatedLevelBins(levelMembers);
  const bins=[];
- if(values.length){const first=Math.floor(Math.min(...values)/5000)*5000,last=Math.floor(Math.max(...values)/5000)*5000;for(let start=first;start<=last;start+=5000)bins.push({start,end:start+4999,count:0,names:[]});for(const member of growthMembers){const bin=bins[(Math.floor(member.value/5000)*5000-first)/5000];bin.count++;bin.names.push(member.name);}}
+ if(values.length){const first=Math.floor(Math.min(...values)/5000)*5000,last=Math.floor(Math.max(...values)/5000)*5000;for(let start=first;start<=last;start+=5000)bins.push({start,end:start+4999,count:0,names:[]});for(const member of growthMembers){const bin=bins[(Math.floor(member.value/5000)*5000-first)/5000];bin.count++;bin.names.push(member.name);}const compact=[];for(const bin of bins){const previous=compact.at(-1);if(bin.count===0&&previous?.count===0&&bin.start===previous.end+1)previous.end=bin.end;else compact.push({...bin});}bins.splice(0,bins.length,...compact);}
  for(const bin of [...bins,...levelBins])bin.names.sort((a,b)=>a.localeCompare(b,'ko'));
  return {classes,bins,levelBins,levelRecorded,total:data.members.length,recorded:values.length,missing};
 }
