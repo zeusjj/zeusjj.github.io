@@ -72,7 +72,7 @@ manualStep.addEventListener('change', refreshManualChainOptions);
 
 function renderGlobalStats() {
   document.getElementById('epic-total-performances').textContent = globalStats?.performances.toLocaleString('ko-KR') ?? '불러오는 중';
-  document.getElementById('epic-total-diamonds').textContent = globalStats?.resetDiamonds.toLocaleString('ko-KR') ?? '불러오는 중';
+  document.getElementById('epic-total-paid-resets').textContent = globalStats?.paidResets.toLocaleString('ko-KR') ?? '불러오는 중';
 }
 
 async function refreshGlobalStats() {
@@ -80,13 +80,13 @@ async function refreshGlobalStats() {
     const response = await fetch(statsEndpoint, { cache: 'no-store' });
     if (!response.ok) throw new Error('Stats unavailable');
     const stats = await response.json();
-    if (!Number.isSafeInteger(stats.performances) || !Number.isSafeInteger(stats.resetDiamonds)) throw new Error('Invalid stats');
-    globalStats = { performances: stats.performances, resetDiamonds: stats.resetDiamonds };
+    if (!Number.isSafeInteger(stats.performances) || !Number.isSafeInteger(stats.paidResets)) throw new Error('Invalid stats');
+    globalStats = { performances: stats.performances, paidResets: stats.paidResets };
     renderGlobalStats();
   } catch {
     if (!globalStats) {
       document.getElementById('epic-total-performances').textContent = '잠시 후';
-      document.getElementById('epic-total-diamonds').textContent = '잠시 후';
+      document.getElementById('epic-total-paid-resets').textContent = '잠시 후';
     }
   }
 }
@@ -100,8 +100,8 @@ async function recordGlobalAction(action, amount = 0) {
     });
     if (!response.ok) throw new Error('Stats update failed');
     const stats = await response.json();
-    if (Number.isSafeInteger(stats.performances) && Number.isSafeInteger(stats.resetDiamonds)) {
-      globalStats = { performances: stats.performances, resetDiamonds: stats.resetDiamonds };
+    if (Number.isSafeInteger(stats.performances) && Number.isSafeInteger(stats.paidResets)) {
+      globalStats = { performances: stats.performances, paidResets: stats.paidResets };
       renderGlobalStats();
     }
   } catch {
@@ -391,7 +391,7 @@ function renderAi() {
   }
   const freshOutcome = freshOutcomeCache.get(freshKey);
   aiCurrentChance.textContent = formatChance(currentOutcome.chance);
-  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(currentOutcome));
+  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(freshOutcome));
 
   if (targetMet) {
     const matching = choices?.find(choice => choice.stat === notes.at(-1)?.stat);
@@ -412,7 +412,6 @@ function renderAi() {
   if (notes.length && maxReachableRun < target) {
     aiRecommendedAction.textContent = '초기화';
     aiCurrentChance.textContent = formatChance(freshOutcome.chance);
-    aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(freshOutcome, resetCost()));
     renderAiMessage(
       `현재 상태에서 남은 현을 모두 이어도 최대 ${maxReachableRun}연속이라 목표 ${target}연속은 수학적으로 불가능해요. `,
       '악장 초기화',
@@ -439,7 +438,6 @@ function renderAi() {
   })[0];
   if (!recommendation) {
     aiRecommendedAction.textContent = '판단 보류';
-    aiCostPerSuccess.textContent = '달성 표본 없음';
     aiMessage.textContent = '이 악장에서는 더 진행할 수 없어요. 악장을 초기화하거나 새 악장을 시작하세요.';
     return null;
   }
@@ -447,13 +445,11 @@ function renderAi() {
   const context = `${notes.length}/12현 · 최근 ${trailingRun(stats)}연속 · 남은 연주 ${remaining}회`;
   if (actions.every(action => action.chance === 0)) {
     aiRecommendedAction.textContent = '판단 보류';
-    aiCostPerSuccess.textContent = '달성 표본 없음';
     aiMessage.textContent = `${context} 상태예요. 시뮬레이션에서 목표 달성 경로가 관측되지 않아 추천을 보류해요.`;
     return null;
   }
   const actionText = recommendation.action === 'select' ? '원하는 스탯을 선택' : labels[recommendation.action];
   aiRecommendedAction.textContent = labels[recommendation.action].replace(/ · .*/, '');
-  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(recommendation, recommendation.resetFee || 0));
   const alternative = actions.find(action => action !== recommendation && action.chance > 0);
   const probabilityGap = alternative ? Math.abs(recommendation.chance - alternative.chance) / Math.max(recommendation.chance, alternative.chance) : Infinity;
   if (alternative && probabilityGap <= 0.1) {
