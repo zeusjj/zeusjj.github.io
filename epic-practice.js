@@ -24,30 +24,63 @@ const resetDetail = document.getElementById('epic-reset-detail');
 const resetCostLabel = document.getElementById('epic-reset-cost');
 const advice = document.getElementById('epic-advice');
 const feedback = document.getElementById('epic-feedback');
+const headerStats = document.getElementById('epic-header-stats');
+const statsEndpoint = 'https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/epic-practice/stats';
 
 let notes = [];
 let choices = null;
 let performances = 0;
 let rerollsUsed = 0;
-const SPENDING_KEY = 'epic-practice-spending-v1';
-let spending = { melodies: 0, diamonds: 0 };
-try {
-  const saved = JSON.parse(localStorage.getItem(SPENDING_KEY));
-  if (saved && ['melodies', 'diamonds'].every((key) => Number.isSafeInteger(saved[key]) && saved[key] >= 0)) {
-    spending = { melodies: saved.melodies, diamonds: saved.diamonds };
-  }
-} catch {}
+let globalStats = null;
 
-function renderSpending() {
-  document.getElementById('epic-total-melodies').textContent = spending.melodies.toLocaleString('ko-KR');
-  document.getElementById('epic-total-diamonds').textContent = spending.diamonds.toLocaleString('ko-KR');
-  try { localStorage.setItem(SPENDING_KEY, JSON.stringify(spending)); } catch {}
+function renderGlobalStats() {
+  document.getElementById('epic-total-performances').textContent = globalStats?.performances.toLocaleString('ko-KR') ?? '불러오는 중';
+  document.getElementById('epic-total-diamonds').textContent = globalStats?.resetDiamonds.toLocaleString('ko-KR') ?? '불러오는 중';
 }
 
-document.getElementById('epic-clear-spending').addEventListener('click', () => {
-  spending = { melodies: 0, diamonds: 0 };
-  renderSpending();
-});
+async function refreshGlobalStats() {
+  try {
+    const response = await fetch(statsEndpoint, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Stats unavailable');
+    const stats = await response.json();
+    if (!Number.isSafeInteger(stats.performances) || !Number.isSafeInteger(stats.resetDiamonds)) throw new Error('Invalid stats');
+    globalStats = { performances: stats.performances, resetDiamonds: stats.resetDiamonds };
+    renderGlobalStats();
+  } catch {
+    if (!globalStats) {
+      document.getElementById('epic-total-performances').textContent = '잠시 후';
+      document.getElementById('epic-total-diamonds').textContent = '잠시 후';
+    }
+  }
+}
+
+async function recordGlobalAction(action, amount = 0) {
+  try {
+    const response = await fetch(statsEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: crypto.randomUUID(), action, amount })
+    });
+    if (!response.ok) throw new Error('Stats update failed');
+    const stats = await response.json();
+    if (Number.isSafeInteger(stats.performances) && Number.isSafeInteger(stats.resetDiamonds)) {
+      globalStats = { performances: stats.performances, resetDiamonds: stats.resetDiamonds };
+      renderGlobalStats();
+    }
+  } catch {
+    refreshGlobalStats();
+  }
+}
+
+function syncHeaderStats() {
+  headerStats.hidden = document.getElementById('epic-heading').getAttribute('aria-selected') !== 'true';
+}
+
+syncHeaderStats();
+window.addEventListener('guild-calculator-change', syncHeaderStats);
+refreshGlobalStats();
+window.setInterval(refreshGlobalStats, 15000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshGlobalStats(); });
 
 function drawChoices() {
   return Array.from({ length: 3 }, () => drawOption(activeOptions));
@@ -126,7 +159,7 @@ function renderAdvice() {
 }
 
 function render() {
-  renderSpending();
+  renderGlobalStats();
   stringsList.replaceChildren();
   for (let index = 0; index < MAX_STRINGS; index += 1) {
     const item = document.createElement('li');
@@ -197,7 +230,7 @@ function startPerformance(isReroll = false) {
   if (isReroll && availableRerolls() <= 0) return;
   if (!isReroll && MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length) return;
   performances += 1;
-  spending.melodies += 1;
+  recordGlobalAction('performance');
   if (isReroll) rerollsUsed += 1;
   choices = drawChoices();
   feedback.textContent = '';
@@ -222,7 +255,7 @@ resetButton.addEventListener('click', () => {
 document.getElementById('epic-reset-cancel').addEventListener('click', () => resetDialog.close());
 document.getElementById('epic-reset-confirm').addEventListener('click', () => {
   if (!resetDialog.open) return;
-  spending.diamonds += resetCost();
+  recordGlobalAction('reset', resetCost());
   resetDialog.close();
   notes = [];
   choices = null;
