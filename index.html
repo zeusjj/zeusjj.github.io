@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261120-epic-manual-5">
-  <script type="module" src="epic-practice.js?v=20261120-epic-manual-5"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261120-epic-cost-aware-2">
+  <script type="module" src="epic-practice.js?v=20261120-epic-cost-aware-2"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -370,25 +370,38 @@
               <p>연주하거나 다시 연주할 때마다 연주 횟수 1회를 사용합니다. 한 악장은 12현을 순서대로 채우며, 연주 횟수는 최대 24회입니다. 카드 하나를 누르면 해당 현에 즉시 확정되며 되돌릴 수 없습니다.</p>
               <p>악장 초기화는 공식 가이드 기준으로 보통 250다이아를 사용합니다. 연습 화면에서는 모든 현을 채웠거나 남은 현 수와 남은 연주 횟수가 같을 때 무료로 처리합니다.</p>
             </details>
+            <details class="epic-math">
+              <summary>AI 수학적 판단 근거</summary>
+              <p><b>능력치 확률:</b> 능력치 s의 1회 출현확률 qₛ = (s에 해당하는 공식 옵션 확률의 합) / (전체 공식 옵션 확률의 합). 세 장 독립 추첨일 때 1장 이상 출현할 확률은 1 − (1 − qₛ)³입니다.</p>
+              <p><b>목표 달성확률:</b> 행동 a마다 현재 확정 현·선택지·남은 연주/리롤을 반영해 N = 12,000회 전략 시뮬레이션합니다. p̂ₐ = 목표 달성 표본 수 Wₐ / N.</p>
+              <p><b>예상 소모:</b> 선율 단가 c ∈ {0, 33, 100}, 추가 연주·리롤 횟수 Kₐ의 표본 평균을 Ê[Kₐ]라 할 때, 예상 다이아 Ĉₐ = c · Ê[Kₐ] + 초기화 행동이면 초기화 비용 Rₐ(250 또는 무료)입니다. 이미 쓴 비용은 매몰비용으로 제외합니다.</p>
+              <p><b>행동 선택:</b> 성공 표본이 있는 행동의 성공당 예상 비용 Jₐ = Ĉₐ / p̂ₐ를 계산하고 Jₐ가 최소인 행동을 추천합니다. 동률이면 p̂ₐ가 큰 행동을 선택합니다. Wₐ = 0이면 Jₐ = ∞로 취급하며, 성공 경로가 관측되지 않은 행동은 최선으로 단정하지 않습니다.</p>
+              <p>이는 공식 확률에 기반한 유한 횟수 몬테카를로 추정치이며, 실제 게임 결과나 최적 전략을 보장하지 않습니다. 표본 오차와 시뮬레이션 전략 가정이 존재합니다.</p>
+            </details>
           </section>
           <aside id="epic-ai-panel" class="epic-ai-panel" aria-labelledby="epic-ai-title">
             <div class="epic-ai-heading"><div><h3 id="epic-ai-title">AI 도우미</h3><p>공식 확률 기반 추천</p></div><label class="epic-ai-toggle"><input id="epic-ai-mode" type="checkbox" checked><span>AI 모드</span></label></div>
             <div class="epic-ai-recommendation"><span>추천 행동</span><strong id="epic-ai-recommended-action">연주</strong></div>
             <label class="epic-ai-target-label" for="epic-ai-target">목표 연속</label>
             <select id="epic-ai-target" class="epic-ai-target"><option value="2">2연속</option><option value="3">3연속</option><option value="4">4연속</option><option value="5" selected>5연속</option><option value="6">6연속</option><option value="7">7연속</option><option value="8">8연속</option><option value="9">9연속</option><option value="10">10연속</option><option value="11">11연속</option><option value="12">12연속</option></select>
+            <label class="epic-ai-target-label" for="epic-melody-cost">선율 1회 비용</label>
+            <select id="epic-melody-cost" class="epic-ai-target"><option value="0">무료 선율</option><option value="33">33 다이아 (패키지 선율)</option><option value="100">100 다이아</option></select>
             <p id="epic-ai-state" class="epic-ai-state">현재 악장 · 0/12현 · 연주 0/24</p>
             <div class="epic-ai-dialogue"><p id="epic-ai-message" role="status" aria-live="polite">연주를 누르면 세 장의 선택지를 보고 다음 수를 같이 고를게요.</p></div>
-            <dl class="epic-ai-chances"><div><dt>추천 행동 달성 예상</dt><dd id="epic-ai-current-chance">계산 중</dd></div><div id="epic-ai-reset-row" hidden><dt>새 악장 예상</dt><dd id="epic-ai-reset-chance">-</dd></div></dl>
+            <dl class="epic-ai-chances"><div><dt>추천 행동 시 목표 달성 예상</dt><dd id="epic-ai-current-chance">계산 중</dd></div><div><dt>목표 성공당 예상 비용</dt><dd id="epic-ai-cost-per-success">계산 중</dd></div></dl>
             <p class="epic-ai-note">공식 옵션 노출 확률을 적용한 전략 시뮬레이션 추정치예요.</p>
             <div class="epic-cat-portrait" aria-hidden="true"><img src="assets/epic-cat-ai.png" alt=""><span class="epic-cat-eye epic-cat-eye-left"></span><span class="epic-cat-eye epic-cat-eye-right"></span></div>
             <button id="epic-manual-open" class="epic-manual-button" type="button">수동 세팅해서 질문하기</button>
             <button id="epic-manual-return" class="epic-manual-return" type="button" hidden>실제 연습으로 돌아가기</button>
           </aside>
           </div>
-          <section class="epic-probability-section" aria-labelledby="epic-probability-title">
-            <h3 id="epic-probability-title">능력치별 노출 확률</h3>
+          <details id="epic-probability-details" class="epic-probability-section epic-probability-details">
+            <summary id="epic-probability-title">능력치별 노출 확률</summary>
+            <h3>등급별 확률 합계</h3>
+            <table class="epic-stat-summary"><thead><tr><th scope="col">능력치</th><th scope="col">확률 합</th><th scope="col">능력치</th><th scope="col">확률 합</th><th scope="col">능력치</th><th scope="col">확률 합</th></tr></thead><tbody id="epic-stat-total-rows"></tbody></table>
+            <h3>등급별 옵션 확률 상세</h3>
             <table class="epic-probability-table"><thead><tr><th scope="col">확률</th><th scope="col">옵션</th></tr></thead><tbody id="epic-probability-rows"></tbody></table>
-          </section>
+          </details>
         </div>
       </section>
     </main>

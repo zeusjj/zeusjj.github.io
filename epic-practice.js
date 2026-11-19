@@ -26,11 +26,11 @@ const feedback = document.getElementById('epic-feedback');
 const headerStats = document.getElementById('epic-header-stats');
 const aiMode = document.getElementById('epic-ai-mode');
 const aiTarget = document.getElementById('epic-ai-target');
+const melodyCostSelect = document.getElementById('epic-melody-cost');
 const aiMessage = document.getElementById('epic-ai-message');
 const aiCurrentChance = document.getElementById('epic-ai-current-chance');
+const aiCostPerSuccess = document.getElementById('epic-ai-cost-per-success');
 const aiRecommendedAction = document.getElementById('epic-ai-recommended-action');
-const aiResetRow = document.getElementById('epic-ai-reset-row');
-const aiResetChance = document.getElementById('epic-ai-reset-chance');
 const aiState = document.getElementById('epic-ai-state');
 const manualOpen = document.getElementById('epic-manual-open');
 const manualReturn = document.getElementById('epic-manual-return');
@@ -124,8 +124,35 @@ function drawChoices() {
 }
 
 function renderProbabilities() {
+  const statsBody = document.getElementById('epic-stat-total-rows');
   const body = document.getElementById('epic-probability-rows');
+  statsBody.replaceChildren();
   body.replaceChildren();
+  const statWeights = new Map();
+  let totalWeight = 0;
+  for (const option of activeOptions) {
+    statWeights.set(option.stat, (statWeights.get(option.stat) || 0) + option.weight);
+    totalWeight += option.weight;
+  }
+  const rankedStats = [...statWeights].sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0], 'ko'));
+  const rowsPerGroup = Math.ceil(rankedStats.length / 3);
+  for (let rowIndex = 0; rowIndex < rowsPerGroup; rowIndex += 1) {
+    const row = document.createElement('tr');
+    for (let groupIndex = 0; groupIndex < 3; groupIndex += 1) {
+      const entry = rankedStats[groupIndex * rowsPerGroup + rowIndex];
+      const stat = document.createElement(entry ? 'th' : 'td');
+      if (entry) {
+        stat.scope = 'row';
+        stat.textContent = entry[0];
+        const probability = document.createElement('td');
+        probability.textContent = `${(entry[1] / totalWeight * 100).toFixed(4)}%`;
+        row.append(stat, probability);
+      } else {
+        row.append(stat, document.createElement('td'));
+      }
+    }
+    statsBody.append(row);
+  }
   for (const [probability, options] of groupOptions(activeOptions)) {
     const row = document.createElement('tr');
     const chance = document.createElement('th');
@@ -216,7 +243,7 @@ function seededRandom(seed, iteration) {
   };
 }
 
-function simulateSuccess(state, target, seed, iterations = 12000) {
+function simulateOutcomes(state, target, seed, iterations = 12000) {
   const odds = statOdds();
   const total = [...odds.values()].reduce((sum, value) => sum + value, 0);
   const drawStat = random => {
@@ -233,12 +260,14 @@ function simulateSuccess(state, target, seed, iterations = 12000) {
     return Math.min(12 - usedRerolls, MAX_PERFORMANCES - usedPerformances - futureStrings) > 0;
   };
   let wins = 0;
+  let totalAdditionalPerformances = 0;
 
   for (let iteration = 0; iteration < iterations; iteration += 1) {
     const random = seededRandom(seed, iteration);
     const filled = [...state.notes];
     let usedPerformances = state.performances;
     let usedRerolls = state.rerollsUsed;
+    let additionalPerformances = 0;
     let hand = state.choices ? [...state.choices] : null;
     if (state.preselectedStat) {
       filled.push(state.preselectedStat);
@@ -255,6 +284,7 @@ function simulateSuccess(state, target, seed, iterations = 12000) {
       if (!hand || !canReroll(usedPerformances, usedRerolls, filled.length, true)) continue;
       usedPerformances += 1;
       usedRerolls += 1;
+      additionalPerformances += 1;
       hand = drawHand(random);
     }
 
@@ -262,6 +292,7 @@ function simulateSuccess(state, target, seed, iterations = 12000) {
       if (!hand) {
         if (usedPerformances >= MAX_PERFORMANCES || MAX_PERFORMANCES - usedPerformances < MAX_STRINGS - filled.length) break;
         usedPerformances += 1;
+        additionalPerformances += 1;
         hand = drawHand(random);
       }
       const previous = filled.at(-1);
@@ -270,6 +301,7 @@ function simulateSuccess(state, target, seed, iterations = 12000) {
       const canStillReachTarget = run < target && run + (MAX_STRINGS - filled.length) >= target;
       if (previous && !matching && canStillReachTarget && canReroll(usedPerformances, usedRerolls, filled.length, true)) {
         usedPerformances += 1;
+        additionalPerformances += 1;
         usedRerolls += 1;
         hand = drawHand(random);
         continue;
@@ -279,21 +311,34 @@ function simulateSuccess(state, target, seed, iterations = 12000) {
       hand = null;
       if (maximumRun(filled) >= target) { wins += 1; break; }
     }
+    totalAdditionalPerformances += additionalPerformances;
   }
-  return wins / iterations;
+  return { chance: wins / iterations, expectedPerformances: totalAdditionalPerformances / iterations };
 }
 
-function estimatedChance(state, target, label) {
+function estimatedOutcome(state, target, label) {
   const fingerprint = `${target}|${state.notes.join(',')}|${state.performances}|${state.rerollsUsed}|${state.choices?.join(',') || ''}|${state.preselectedStat || ''}|${label}`;
-  return simulateSuccess(state, target, seedFrom(fingerprint));
+  return simulateOutcomes(state, target, seedFrom(fingerprint));
 }
 
-function estimateSelectionChance(state, target) {
+function expectedDiamondCost(outcome, resetFee = 0) {
+  return resetFee + outcome.expectedPerformances * Number(melodyCostSelect.value);
+}
+
+function costPerSuccess(outcome, resetFee = 0) {
+  return outcome.chance > 0 ? expectedDiamondCost(outcome, resetFee) / outcome.chance : Infinity;
+}
+
+function estimateSelectionOutcome(state, target) {
   const candidateStats = [...new Set(state.choices || [])];
   if (!candidateStats.length) return null;
   return candidateStats.reduce((best, stat, index) => {
-    const chance = estimatedChance({ ...state, choices: null, preselectedStat: stat }, target, `select-card-${index}-${stat}`);
-    return !best || chance > best.chance ? { chance, stat } : best;
+    const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: stat }, target, `select-card-${index}-${stat}`);
+    const candidate = { ...outcome, stat };
+    if (!best) return candidate;
+    const score = costPerSuccess(candidate);
+    const bestScore = costPerSuccess(best);
+    return score < bestScore || (score === bestScore && candidate.chance > best.chance) ? candidate : best;
   }, null);
 }
 
@@ -308,7 +353,7 @@ function renderAiMessage(beforeAction, action, afterAction) {
   aiMessage.append(strong, document.createTextNode(afterAction));
 }
 
-const freshChanceCache = new Map();
+const freshOutcomeCache = new Map();
 
 function renderAi() {
   const target = Number(aiTarget.value);
@@ -322,32 +367,31 @@ function renderAi() {
   if (!aiMode.checked) {
     aiRecommendedAction.textContent = '-';
     aiCurrentChance.textContent = '-';
-    aiResetRow.hidden = true;
+    aiCostPerSuccess.textContent = '-';
     aiMessage.textContent = 'AI 모드를 껐어요. 연주판은 그대로 직접 진행할 수 있어요.';
     return null;
   }
   if (!activeOptions.length) {
     aiRecommendedAction.textContent = '-';
     aiCurrentChance.textContent = '-';
-    aiResetRow.hidden = true;
+    aiCostPerSuccess.textContent = '-';
     aiMessage.textContent = '공식 옵션 확률을 불러오지 못해 추천을 잠시 멈췄어요.';
     return null;
   }
 
   const targetMet = chain >= target;
   const currentState = { notes: stats, performances, rerollsUsed, choices: choices?.map(choice => choice.stat) ?? null };
-  const selectionEstimate = choices ? estimateSelectionChance(currentState, target) : null;
-  const currentChance = choices
-    ? selectionEstimate?.chance ?? 0
-    : estimatedChance(currentState, target, 'continue');
+  const selectionEstimate = choices ? estimateSelectionOutcome(currentState, target) : null;
+  const currentOutcome = choices
+    ? selectionEstimate ?? { chance: 0, expectedPerformances: 0 }
+    : estimatedOutcome(currentState, target, 'continue');
   const freshKey = `${songSelect.value}|${target}`;
-  if (!freshChanceCache.has(freshKey)) {
-    freshChanceCache.set(freshKey, estimatedChance({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh'));
+  if (!freshOutcomeCache.has(freshKey)) {
+    freshOutcomeCache.set(freshKey, estimatedOutcome({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh'));
   }
-  const freshChance = freshChanceCache.get(freshKey);
-  aiCurrentChance.textContent = formatChance(currentChance);
-  aiResetRow.hidden = !notes.length && !choices;
-  aiResetChance.textContent = `${(freshChance * 100).toFixed(1)}% · ${resetCost() ? '250 다이아' : '무료'}`;
+  const freshOutcome = freshOutcomeCache.get(freshKey);
+  aiCurrentChance.textContent = formatChance(currentOutcome.chance);
+  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(currentOutcome));
 
   if (targetMet) {
     const matching = choices?.find(choice => choice.stat === notes.at(-1)?.stat);
@@ -361,47 +405,75 @@ function renderAi() {
     return matching ? { action: 'select', stat: matching.stat } : null;
   }
 
+  const currentUnselected = choices ? 1 : 0;
+  const futureStrings = MAX_STRINGS - notes.length - currentUnselected;
+  const completableStrings = currentUnselected + Math.min(futureStrings, MAX_PERFORMANCES - performances);
+  const maxReachableRun = Math.max(longestRun(stats), trailingRun(stats) + completableStrings);
+  if (notes.length && maxReachableRun < target) {
+    aiRecommendedAction.textContent = '초기화';
+    aiCurrentChance.textContent = formatChance(freshOutcome.chance);
+    aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(freshOutcome, resetCost()));
+    renderAiMessage(
+      `현재 상태에서 남은 현을 모두 이어도 최대 ${maxReachableRun}연속이라 목표 ${target}연속은 수학적으로 불가능해요. `,
+      '악장 초기화',
+      '를 추천해요.'
+    );
+    return { action: 'reset', chance: freshOutcome.chance, expectedPerformances: freshOutcome.expectedPerformances, resetFee: resetCost() };
+  }
+
   const actions = [];
   if (choices) {
     const matching = notes.length ? choices.find(choice => choice.stat === notes.at(-1).stat) : null;
-    actions.push({ action: 'select', stat: selectionEstimate?.stat ?? matching?.stat, chance: selectionEstimate?.chance ?? 0 });
-    if (availableRerolls() > 0) actions.push({ action: 'reroll', chance: estimatedChance({ ...currentState, rerollFirst: true }, target, 'reroll') });
+    actions.push({ action: 'select', stat: selectionEstimate?.stat ?? matching?.stat, ...currentOutcome });
+    if (availableRerolls() > 0) actions.push({ action: 'reroll', ...estimatedOutcome({ ...currentState, rerollFirst: true }, target, 'reroll') });
   } else if (notes.length < MAX_STRINGS && MAX_PERFORMANCES - performances >= MAX_STRINGS - notes.length) {
-    actions.push({ action: 'play', chance: currentChance });
+    actions.push({ action: 'play', ...currentOutcome });
   }
-  if (notes.length) actions.push({ action: 'reset', chance: freshChance });
+  if (notes.length) actions.push({ action: 'reset', ...freshOutcome, resetFee: resetCost() });
 
   const labels = { play: '연주', select: '카드 선택', reroll: '다시 연주', reset: `초기화${resetCost() ? ' · 250 다이아' : ' · 무료'}` };
-  const recommendation = actions.sort((a, b) => b.chance - a.chance)[0];
+  const recommendation = actions.sort((a, b) => {
+    const scoreA = costPerSuccess(a, a.resetFee || 0);
+    const scoreB = costPerSuccess(b, b.resetFee || 0);
+    return scoreA - scoreB || b.chance - a.chance;
+  })[0];
   if (!recommendation) {
     aiRecommendedAction.textContent = '판단 보류';
+    aiCostPerSuccess.textContent = '달성 표본 없음';
     aiMessage.textContent = '이 악장에서는 더 진행할 수 없어요. 악장을 초기화하거나 새 악장을 시작하세요.';
     return null;
   }
   aiCurrentChance.textContent = formatChance(recommendation.chance);
-  const comparisons = actions.map(action => `${labels[action.action]} ${formatChance(action.chance)}`).join(' · ');
   const context = `${notes.length}/12현 · 최근 ${trailingRun(stats)}연속 · 남은 연주 ${remaining}회`;
   if (actions.every(action => action.chance === 0)) {
     aiRecommendedAction.textContent = '판단 보류';
-    aiMessage.textContent = `${context} 상태예요. 현재 시뮬레이션 표본에서는 성공 경로가 관측되지 않아 행동 간 우위를 계산하지 못했어요. 0%를 최적 행동으로 오해하지 않도록 버튼 추천은 표시하지 않습니다. 행동별 목표 ${target}연속 달성 예상: ${comparisons}.`;
+    aiCostPerSuccess.textContent = '달성 표본 없음';
+    aiMessage.textContent = `${context} 상태예요. 시뮬레이션에서 목표 달성 경로가 관측되지 않아 추천을 보류해요.`;
     return null;
   }
-  const advice = {
-    play: `현재 ${context} 상태에서는 `,
-    select: choices && notes.length && choices.some(choice => choice.stat === notes.at(-1).stat)
-      ? `${context} 상태예요. 연결을 확정하는 `
-      : `${context} 상태예요. 세 카드 중 확률상 우위는 없으니 `,
-    reroll: `${context} 상태에서 목표 달성 예상이 가장 높아요. `,
-    reset: `${context} 상태에서는 새 악장으로 초기화하는 편이 목표 달성 확률이 가장 높아요. `
-  }[recommendation.action];
   const actionText = recommendation.action === 'select' ? '원하는 스탯을 선택' : labels[recommendation.action];
   aiRecommendedAction.textContent = labels[recommendation.action].replace(/ · .*/, '');
-  const after = recommendation.action === 'play' ? '해서 선택지를 확인하세요.'
-    : recommendation.action === 'select' ? '하는 거예요.'
-      : recommendation.action === 'reroll' ? '하는 거예요. 현재 세 장을 바꿉니다.'
-        : `하는 거예요. ${labels.reset}이 필요해요.`;
-  renderAiMessage(`${advice}추천 행동은 `, actionText, `${after} 행동별 목표 ${target}연속 달성 예상: ${comparisons}.`);
+  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(recommendation, recommendation.resetFee || 0));
+  const alternative = actions.find(action => action !== recommendation && action.chance > 0);
+  const probabilityGap = alternative ? Math.abs(recommendation.chance - alternative.chance) / Math.max(recommendation.chance, alternative.chance) : Infinity;
+  if (alternative && probabilityGap <= 0.1) {
+    renderAiMessage(
+      `목표 달성 확률이 비슷해요. 비용 효율 기준으로 `,
+      actionText,
+      `를 추천해요 (${formatChance(recommendation.chance)}, 성공당 ${formatExpectedCost(costPerSuccess(recommendation, recommendation.resetFee || 0))}). 다른 선택은 ${formatChance(alternative.chance)}예요. 차이가 크지 않으니 비용과 선호에 따라 골라도 괜찮아요.`
+    );
+  } else {
+    renderAiMessage(
+      `목표 달성까지의 예상 다이아 효율이 가장 좋아 `,
+      actionText,
+      `를 추천해요. 목표 달성 예상 ${formatChance(recommendation.chance)}.`
+    );
+  }
   return recommendation;
+}
+
+function formatExpectedCost(cost) {
+  return Number.isFinite(cost) ? `${cost.toFixed(1)} 다이아` : '달성 표본 없음';
 }
 
 function render() {
@@ -440,6 +512,7 @@ function render() {
   songSelect.disabled = !activeOptions.length || notes.length > 0 || hasChoices;
   rerollButton.hidden = !hasChoices || done || Boolean(manualSession);
   rerollButton.disabled = Boolean(manualSession) || availableRerolls() <= 0;
+  rerollButton.querySelector('span').textContent = `다시 연주 (${availableRerolls()}회 남음)`;
   newActButton.hidden = !done || Boolean(manualSession);
   resetButton.hidden = Boolean(manualSession);
   playButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'play');
@@ -452,8 +525,11 @@ function render() {
       button.type = 'button';
       button.className = 'epic-choice';
       button.classList.add(`grade-${choice.gradeClass}`);
-      const sameStatCount = choices.filter(candidate => candidate.stat === choice.stat).length;
-      if (sameStatCount > 1 || (notes.length && choice.stat === notes.at(-1).stat)) button.classList.add('is-linked');
+      button.dataset.stat = choice.stat;
+      const labelLength = choice.label.length;
+      button.style.setProperty('--choice-font-desktop', `${labelLength > 10 ? 12 : labelLength > 7 ? 14 : 16}px`);
+      button.style.setProperty('--choice-font-mobile', `${labelLength > 10 ? 9 : labelLength > 7 ? 11 : 13}px`);
+      if (notes.length && choice.stat === notes.at(-1).stat) button.classList.add('is-linked');
       button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.label}</strong><span class="epic-choice-probability" title="공식 등급별 옵션 노출 확률 · 선택 시 등급 상승 전">${choice.probability}</span>`;
       button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
       button.addEventListener('click', () => applyChoice(choice));
@@ -552,6 +628,7 @@ playButton.addEventListener('click', () => startPerformance());
 rerollButton.addEventListener('click', () => startPerformance(true));
 aiMode.addEventListener('change', render);
 aiTarget.addEventListener('change', render);
+melodyCostSelect.addEventListener('change', render);
 
 resetButton.addEventListener('click', () => {
   const cost = resetCost();
