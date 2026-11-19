@@ -16,7 +16,7 @@
   <script src="member-archives.js?v=20261022-archive" defer></script>
   <script src="guild-data.js?v=20261108-inline-fallback" defer></script>
   <link rel="stylesheet" href="section-editor.css?v=20261104-bid-restrictions">
-  <script src="section-editor.js?v=20261117-history-description" defer></script>
+  <script src="section-editor.js?v=20261120-history-editor-open" defer></script>
   <script type="module" src="member-auth.js?v=20261115-alias"></script>
   <link rel="stylesheet" href="member-auth.css?v=20261103-login-help">
   <link rel="stylesheet" href="profile-preview.css?v=20261025-preview">
@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261119-1">
-  <script type="module" src="epic-practice.js?v=20261119-1"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261120-ai-helper">
+  <script type="module" src="epic-practice.js?v=20261120-ai-helper"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -212,7 +212,7 @@
           <button id="astrology-heading" type="button" role="tab" data-calculator="astrology" aria-selected="false" aria-controls="astrology-panel" tabindex="-1"><i data-lucide="sparkles"></i><span>점성술 계산기</span><small id="astrology-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-10-18T00:00:00+09:00" data-new-until="2026-10-25T00:00:00+09:00" hidden>New</small></button>
           <button id="probabilities-heading" type="button" role="tab" data-calculator="probabilities" aria-selected="false" aria-controls="probabilities" tabindex="-1"><i data-lucide="list-ordered"></i><span>확률표</span></button>
         </div></div>
-        <div class="page-heading"><div class="calculator-title"><h2 id="calculator-heading">컬렉션 기대값 계산기</h2><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><div id="epic-header-stats" class="epic-header-stats" aria-label="길드원 누적 서사시 연습 기록" hidden><span>초기화 다이아 <strong id="epic-total-diamonds">불러오는 중</strong></span><span>누적 연주 <strong id="epic-total-performances">불러오는 중</strong></span></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
+        <div class="page-heading"><div class="calculator-title"><h2 id="calculator-heading">컬렉션 기대값 계산기</h2><button id="calculator-share" class="icon-button" type="button" title="링크 복사" aria-label="컬렉션 기대값 계산기 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button></div><div id="epic-header-stats" class="epic-header-stats" aria-label="길드원 누적 서사시 연습 기록" hidden><span class="epic-stats-caption">길드원들의 누적 시뮬 기록:</span><span>초기화 다이아 <strong id="epic-total-diamonds">불러오는 중</strong></span><span>누적 연주 <strong id="epic-total-performances">불러오는 중</strong></span></div><span id="calculator-share-status" role="status" aria-live="polite"></span></div>
         <div id="probabilities" class="calculator-panel" role="tabpanel" aria-labelledby="probabilities-heading" hidden>
           <div class="probability-toolbar"><a id="probability-original" class="secondary-button" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>공식 원문</a></div>
           <div class="probability-layout">
@@ -332,6 +332,7 @@
           </details>
         </div>
         <div id="epic-panel" class="calculator-panel" role="tabpanel" aria-labelledby="epic-heading" hidden>
+          <div class="epic-experience-grid">
           <section class="epic-practice" aria-labelledby="epic-practice-title">
             <div class="epic-masthead">
               <div class="epic-masthead-title"><span>서사시 · 연습실</span><h2 id="epic-practice-title">한 악장을 완성하세요</h2><p>12개 현을 채우고 같은 능력치를 이어 배치해 보세요.</p></div>
@@ -363,7 +364,6 @@
                 <button id="epic-new-act" class="primary-button" type="button" hidden><i data-lucide="skip-forward"></i><span>새 악장 연습</span></button>
               </div>
               <p id="epic-feedback" class="epic-feedback" role="status" aria-live="polite"></p>
-              <p id="epic-advice" class="epic-advice" role="status">1~6번 현을 채우는 동안 같은 능력치가 이어지기 전에는 다시 연주를 아껴보세요.</p>
             </div>
             <details class="epic-rules">
               <summary>연습 규칙</summary>
@@ -371,6 +371,17 @@
               <p>악장 초기화는 공식 가이드 기준으로 보통 250다이아를 사용합니다. 연습 화면에서는 모든 현을 채웠거나 남은 현 수와 남은 연주 횟수가 같을 때 무료로 처리합니다.</p>
             </details>
           </section>
+          <aside id="epic-ai-panel" class="epic-ai-panel" aria-labelledby="epic-ai-title">
+            <div class="epic-ai-heading"><div><h3 id="epic-ai-title">AI 도우미</h3><p>공식 확률 기반 추천</p></div><label class="epic-ai-toggle"><input id="epic-ai-mode" type="checkbox" checked><span>AI 모드</span></label></div>
+            <label class="epic-ai-target-label" for="epic-ai-target">목표 연속</label>
+            <select id="epic-ai-target" class="epic-ai-target"><option value="2">2연속</option><option value="3">3연속</option><option value="4">4연속</option><option value="5" selected>5연속</option></select>
+            <p id="epic-ai-state" class="epic-ai-state">현재 악장 · 0/12현 · 연주 0/24</p>
+            <div class="epic-ai-dialogue"><p id="epic-ai-message" role="status" aria-live="polite">연주를 누르면 세 장의 선택지를 보고 다음 수를 같이 고를게요.</p></div>
+            <dl class="epic-ai-chances"><div><dt>현재 달성 예상</dt><dd id="epic-ai-current-chance">계산 중</dd></div><div id="epic-ai-reset-row" hidden><dt>새 악장 예상</dt><dd id="epic-ai-reset-chance">-</dd></div></dl>
+            <p class="epic-ai-note">공식 옵션 노출 확률을 적용한 전략 시뮬레이션 추정치예요.</p>
+            <div class="epic-cat-portrait" aria-hidden="true"><img src="assets/epic-cat-ai.png" alt=""><span class="epic-cat-eye epic-cat-eye-left"></span><span class="epic-cat-eye epic-cat-eye-right"></span></div>
+          </aside>
+          </div>
           <section class="epic-probability-section" aria-labelledby="epic-probability-title">
             <h3 id="epic-probability-title">능력치별 노출 확률</h3>
             <table class="epic-probability-table"><thead><tr><th scope="col">확률</th><th scope="col">옵션</th></tr></thead><tbody id="epic-probability-rows"></tbody></table>

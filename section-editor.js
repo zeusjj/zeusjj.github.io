@@ -18,6 +18,7 @@
  form.append(tabs,fields,previewPane,historyPane,status,actions);dialog.append(heading,form);document.body.append(dialog);
  let revisions=[];const descriptions=new Map();
  function setBusy(value){busy=value;for(const button of dialog.querySelectorAll('button'))button.disabled=value;title.disabled=value;body.disabled=value;historySelect.disabled=value;}
+ function setOpening(value){for(const button of dialog.querySelectorAll('button'))if(button!==close)button.disabled=value;title.disabled=value;body.disabled=value;historySelect.disabled=value;}
  function mode(value){fields.hidden=value!=='edit';previewPane.hidden=value!=='preview';historyPane.hidden=value!=='history';for(const [button,name]of [[edit,'edit'],[preview,'preview'],[history,'history']])button.setAttribute('aria-pressed',String(value===name));if(value==='preview'){previewPane.replaceChildren(node('h3',title.value),node('p',body.value));}}
  async function request(suffix='',options={}){
   const response=await fetch(api+suffix,{...options,headers:{...(options.method?{'Content-Type':'application/json'}:{}),...(options.auth?window.GuildAuth?.headers():{}),...options.headers},cache:'no-store',signal:AbortSignal.timeout(options.auth?10000:3000)});
@@ -27,7 +28,7 @@
   if(pending)return pending;
   pending=(async()=>{try{const value=await request();if(!value.sections||Array.isArray(value.sections)||typeof value.sections!=='object')throw Error('Invalid section data');const next={...value.sections};for(const [key,record]of Object.entries(overrides))if(record.version>(next[key]?.version??0))next[key]=record;const changed=JSON.stringify(next)!==JSON.stringify(overrides);overrides=next;loaded=true;for(const key of descriptions.keys())applyDescription(key);if(changed&&base)announce();return true;}catch{loaded=false;return false;}finally{pending=null;}})();return pending;
  }
- function setSource(text){base=text;original.clear();for(const part of text.split(/\r?\n(?=\[)/)){const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);if(m)original.set(m[1],{title:m[1]==='시간'?'콘텐츠 시간':m[1].replace(/^\d+\.\s*/,''),body:m[2].trim()});}}
+ function setSource(text){base=text;const descriptionDefaults=[...descriptions].map(([key,item])=>[key,{title:key,body:item.bodyText}]);original.clear();for(const part of text.split(/\r?\n(?=\[)/)){const m=part.match(/^\[([^\]]+)\]\s*([\s\S]*)$/);if(m)original.set(m[1],{title:m[1]==='시간'?'콘텐츠 시간':m[1].replace(/^\d+\.\s*/,''),body:m[2].trim()});}for(const [key,value] of descriptionDefaults)original.set(key,value);}
  function decorateStandalone(section,key,bodyText,titleText=key){if(!original.has(key))original.set(key,{title:titleText,body:bodyText});decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');icons();}
  function decorateDescription(element,key,bodyText){if(!original.has(key))original.set(key,{title:key,body:bodyText});descriptions.set(key,{element,bodyText});element.dataset.sectionDescription=key;applyDescription(key);}
  function applyDescription(key){const item=descriptions.get(key);if(!item)return;let text=item.element.querySelector('[data-section-description-text]');if(!text){text=node('span',undefined);text.dataset.sectionDescriptionText='';item.element.replaceChildren(text);}text.textContent=getBody(key,item.bodyText);item.element.querySelector('.section-description-edit')?.remove();if(admin()){const button=iconButton('안내 수정','pencil',()=>open(key));button.classList.add('section-description-edit');item.element.append(button);}icons();}
@@ -48,12 +49,18 @@
  function sync(){for(const section of document.querySelectorAll('[data-section-key]')){const heading=section.querySelector(':scope>h2,:scope>h3');heading?.querySelector('.section-edit-trigger')?.remove();heading?.classList.remove('section-editable-heading');if(admin()&&heading){const button=iconButton('섹션 편집: '+section.dataset.sectionKey,'pencil',()=>open(section.dataset.sectionKey));button.classList.add('section-edit-trigger');heading.classList.add('section-editable-heading');heading.append(button);}}for(const key of descriptions.keys())applyDescription(key);icons();}
  async function open(key){
   if(!admin()||!original.has(key))return;
-  if(!loaded&&!await load()){alert('편집 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');return;}
-  if(!admin())return;active={key,version:overrides[key]?.version??0};fill();dialog.showModal();title.focus();
+  active={key,version:overrides[key]?.version??0};fill();dialog.showModal();
+  if(loaded){title.focus();return;}
+  status.textContent='저장된 안내를 확인하고 있습니다.';setOpening(true);
+  const success=await load();
+  if(!dialog.open||!active||active.key!==key)return;
+  if(success&&admin()){active.version=overrides[key]?.version??0;fill();}
+  else status.textContent='저장된 안내를 불러오지 못했습니다. 연결을 확인하고 다시 시도해주세요.';
+  setOpening(false);title.focus();
  }
  function fill(){const saved=overrides[active.key],fallback=original.get(active.key),legacy=splitLegacyAuction(overrides['분배 시간']?.body);titleLabel.hidden=descriptions.has(active.key);title.value=saved?.title??fallback.title;body.value=saved?.body??(active.key==='분배 시간'&&legacy?legacy.distribution:active.key==='경매 시작가'&&legacy?legacy.auction:fallback.body);restoredFrom=null;reset=false;dirty=false;status.textContent='';mode('edit');icons();}
  function cancel(){if(busy)return;if(dirty&&!confirm('수정한 내용을 저장하지 않고 닫을까요?'))return;dialog.close();}
- dialog.addEventListener('cancel',event=>{event.preventDefault();cancel();});dialog.addEventListener('close',()=>{active=null;dirty=false;body.value='';title.value='';revisions=[];historySelect.replaceChildren();});
+ dialog.addEventListener('cancel',event=>{event.preventDefault();cancel();});dialog.addEventListener('close',()=>{setOpening(false);active=null;dirty=false;body.value='';title.value='';revisions=[];historySelect.replaceChildren();});
  for(const input of [title,body])input.addEventListener('input',()=>{dirty=true;reset=false;restoredFrom=null;});
  function useSource(){const value=original.get(active.key);title.value=value.title;body.value=value.body;reset=true;restoredFrom=0;dirty=true;status.textContent='기본 원문을 불러왔습니다. 저장하면 반영됩니다.';mode('edit');}
  async function reloadDraft(){if(dirty&&!confirm('입력 내용을 버리고 최신 내용을 불러올까요?'))return;setBusy(true);try{if(!await load())throw Error('최신 내용을 불러오지 못했습니다.');active.version=overrides[active.key]?.version??0;fill();}catch(error){status.textContent=error.message;}finally{setBusy(false);}}
