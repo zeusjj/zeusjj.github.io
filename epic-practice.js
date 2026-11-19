@@ -310,28 +310,19 @@ function renderAi() {
     return { action: 'select', stat: matching.stat };
   }
 
-  const optionStats = [...new Set(choices.map(choice => choice.stat))];
-  const scored = optionStats.map(stat => ({
-    stat,
-    chance: estimatedChance({ ...currentState, choices: choices.map(choice => choice.stat), preselectedStat: stat }, target, `choose-${stat}`)
-  })).sort((a, b) => b.chance - a.chance);
-  let best = scored[0];
-
   if (trailingRun(stats) >= 2 && availableRerolls() > 0) {
     const rerollChance = estimatedChance({ ...currentState, rerollFirst: true }, target, 'reroll');
     const matchProbability = (1 - (1 - (odds.get(notes.at(-1).stat) || 0)) ** 3) * 100;
-    if (rerollChance > best.chance) {
+    if (rerollChance > currentChance) {
       aiMessage.textContent = `현재 연결은 ${trailingRun(stats)}연속인데 이어줄 카드가 없어요. 다시 연주하면 같은 능력치가 새 세 장에 나올 확률은 약 ${matchProbability.toFixed(1)}%, 목표 달성 예상은 ${(rerollChance * 100).toFixed(1)}%예요. 연주권을 남길 수 있으니 다시 연주를 권해요.`;
       return { action: 'reroll' };
     }
-    best = { ...best, rerollChance };
+    aiMessage.textContent = `이어줄 카드가 없지만, 다시 연주보다 지금 원하는 능력치를 고르는 편을 권해요. 현재 목표 달성 예상은 ${(currentChance * 100).toFixed(1)}%이고 다시 연주하면 ${(rerollChance * 100).toFixed(1)}%예요.`;
+    return null;
   }
 
-  const chance = best?.chance ?? currentChance;
-  aiMessage.textContent = best
-    ? `${best.stat}을 고르는 편이 가장 유리해요. 이 선택을 기준으로 목표 달성 예상은 ${(chance * 100).toFixed(1)}%예요.${best.rerollChance !== undefined ? ` 다시 연주 예상 ${(best.rerollChance * 100).toFixed(1)}%보다 높아요.` : ' 아직 6현 전이라면 리롤은 아껴요.'}`
-    : '현재 선택지를 확인하고 있어요.';
-  return { action: 'select', stat: best?.stat };
+  aiMessage.textContent = `세 카드 중 특별히 유리한 능력치는 없어요. 원하는 능력치를 골라요.${notes.length < 6 ? ' 6현 전까지는 다시 연주를 아껴두세요.' : ''} 현재 목표 달성 예상은 ${(currentChance * 100).toFixed(1)}%예요.`;
+  return null;
 }
 
 function render() {
