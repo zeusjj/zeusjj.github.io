@@ -50,3 +50,4 @@
 @media(max-width:900px){.epic-experience-grid{grid-template-columns:minmax(0,1fr) 220px;gap:12px}.epic-ai-panel{padding-inline:12px}.epic-cat-portrait{width:128px;height:148px}}
 @media(max-width:760px){.epic-experience-grid{grid-template-columns:minmax(0,1fr);gap:12px}.epic-ai-panel{min-height:0;padding:14px 14px 0}.epic-ai-target-label{margin-top:12px}.epic-cat-portrait{width:112px;height:130px;margin-top:8px}.epic-choice-placeholder{min-height:76px;font-size:10px}}
 @media(prefers-reduced-motion:reduce){.epic-cat-portrait img,.epic-cat-eye{animation:none}.epic-cat-eye{display:none}}
+.epic-string.is-linked{position:relative;z-index:1;outline:1px solid #7ed5bc;outline-offset:1px;box-shadow:0 0 11px #70d6b777,inset 0 0 10px #a8f5d522}

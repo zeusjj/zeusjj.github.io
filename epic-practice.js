@@ -187,7 +187,7 @@ function seededRandom(seed, iteration) {
   };
 }
 
-function simulateSuccess(state, target, seed, iterations = 1200) {
+function simulateSuccess(state, target, seed, iterations = 4000) {
   const odds = statOdds();
   const total = [...odds.values()].reduce((sum, value) => sum + value, 0);
   const drawStat = random => {
@@ -216,6 +216,12 @@ function simulateSuccess(state, target, seed, iterations = 1200) {
       if (maximumRun(filled) >= target) { wins += 1; continue; }
       hand = null;
     }
+    if (state.chooseFirst && hand) {
+      const matching = filled.length ? hand.find(stat => stat === filled.at(-1)) : null;
+      filled.push(matching ?? hand[Math.floor(random() * hand.length)]);
+      hand = null;
+      if (maximumRun(filled) >= target) { wins += 1; continue; }
+    }
     if (state.rerollFirst) {
       if (!hand || !canReroll(usedPerformances, usedRerolls, filled.length, true)) continue;
       usedPerformances += 1;
@@ -237,7 +243,7 @@ function simulateSuccess(state, target, seed, iterations = 1200) {
         hand = drawHand(random);
         continue;
       }
-      const selected = matching ? previous : hand.reduce((best, stat) => (odds.get(stat) || 0) > (odds.get(best) || 0) ? stat : best);
+      const selected = matching ? previous : hand[Math.floor(random() * hand.length)];
       filled.push(selected);
       hand = null;
       if (maximumRun(filled) >= target) { wins += 1; break; }
@@ -250,6 +256,12 @@ function estimatedChance(state, target, label) {
   const fingerprint = `${target}|${state.notes.join(',')}|${state.performances}|${state.rerollsUsed}|${state.choices?.join(',') || ''}|${state.preselectedStat || ''}|${label}`;
   return simulateSuccess(state, target, seedFrom(fingerprint));
 }
+
+function estimateSelectionChance(state, target) {
+  return estimatedChance({ ...state, chooseFirst: true }, target, 'select-card');
+}
+
+const freshChanceCache = new Map();
 
 function renderAi() {
   const target = Number(aiTarget.value);
@@ -273,56 +285,56 @@ function renderAi() {
 
   const targetMet = chain >= target;
   const currentState = { notes: stats, performances, rerollsUsed, choices: choices?.map(choice => choice.stat) ?? null };
-  const currentChance = estimatedChance(currentState, target, 'current');
-  const freshChance = estimatedChance({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh');
+  const currentChance = choices
+    ? estimateSelectionChance(currentState, target)
+    : estimatedChance(currentState, target, 'continue');
+  const freshKey = `${songSelect.value}|${target}`;
+  if (!freshChanceCache.has(freshKey)) {
+    freshChanceCache.set(freshKey, estimatedChance({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh'));
+  }
+  const freshChance = freshChanceCache.get(freshKey);
   aiCurrentChance.textContent = `${(currentChance * 100).toFixed(1)}%`;
-  aiResetRow.hidden = !(notes.length >= 6 && chain < 2 && !targetMet);
+  aiResetRow.hidden = !notes.length && !choices;
   aiResetChance.textContent = `${(freshChance * 100).toFixed(1)}% · ${resetCost() ? '250 다이아' : '무료'}`;
 
   if (targetMet) {
-    aiMessage.textContent = `목표 ${target}연속을 이미 만들었어요. 더 이어가고 싶다면 현재 연결 능력치가 있는 카드를 골라요.`;
-    return { action: 'select', stat: choices?.find(choice => choice.stat === notes.at(-1)?.stat)?.stat };
+    const matching = choices?.find(choice => choice.stat === notes.at(-1)?.stat);
+    aiCurrentChance.textContent = '100%';
+    aiMessage.textContent = matching
+      ? `목표 ${target}연속을 달성했어요. 더 이어가려면 연결된 ${matching.stat}을 선택하세요.`
+      : `목표 ${target}연속을 달성했어요. 더 연주하려면 원하는 능력치를 선택하세요.`;
+    return matching ? { action: 'select', stat: matching.stat } : null;
   }
 
-  if (notes.length >= 6 && chain < 2) {
-    const benefit = freshChance - currentChance;
-    if (resetCost() === 0 || benefit >= 0.04) {
-      aiMessage.textContent = `6현까지 연결이 없어요. 지금 이어갈 예상은 ${(currentChance * 100).toFixed(1)}%, 새 악장은 ${(freshChance * 100).toFixed(1)}%예요. ${resetCost() ? '250 다이아를 쓰고' : '무료로'} 초기화하는 편이 나아요.`;
-      return { action: 'reset' };
-    }
-    aiMessage.textContent = `아직 초기화할 정도로 차이가 크지 않아요. 계속하면 ${(currentChance * 100).toFixed(1)}%, 새 악장은 ${(freshChance * 100).toFixed(1)}%예요. 다이아를 아끼며 이어가는 쪽을 권해요.`;
+  const actions = [];
+  if (choices) {
+    const matching = notes.length ? choices.find(choice => choice.stat === notes.at(-1).stat) : null;
+    actions.push({ action: 'select', stat: matching?.stat, chance: estimateSelectionChance(currentState, target) });
+    if (availableRerolls() > 0) actions.push({ action: 'reroll', chance: estimatedChance({ ...currentState, rerollFirst: true }, target, 'reroll') });
+  } else if (notes.length < MAX_STRINGS && MAX_PERFORMANCES - performances >= MAX_STRINGS - notes.length) {
+    actions.push({ action: 'play', chance: currentChance });
+  }
+  if (notes.length) actions.push({ action: 'reset', chance: freshChance });
+
+  const labels = { play: '연주', select: '카드 선택', reroll: '다시 연주', reset: `초기화${resetCost() ? ' · 250 다이아' : ' · 무료'}` };
+  const recommendation = actions.sort((a, b) => b.chance - a.chance)[0];
+  if (!recommendation) {
+    aiMessage.textContent = '이 악장에서는 더 진행할 수 없어요. 악장을 초기화하거나 새 악장을 시작하세요.';
     return null;
   }
-
-  if (!choices) {
-    aiMessage.textContent = notes.length
-      ? `다음 현은 ${notes.length + 1}번 현이에요. 연주를 눌러 세 장을 펼쳐봐요. 현재 ${chain}연속은 연결되기 전까지 리롤을 아껴둘게요.`
-      : `먼저 연주를 눌러 세 장을 펼쳐봐요. 6현까지 같은 능력치가 붙기 전에는 리롤을 아껴 연주권을 남길게요.`;
-    return { action: 'play' };
-  }
-
-  const odds = statOdds();
-  const matching = notes.length ? choices.find(choice => choice.stat === notes.at(-1).stat) : null;
-  if (matching) {
-    const nextLinkChance = (1 - (1 - (odds.get(matching.stat) || 0)) ** 3) * 100;
-    const nextRun = trailingRun(stats) + 1;
-    aiMessage.textContent = `여기 ${matching.stat} 카드가 있어요. 고르면 ${nextRun}연속이 확정돼요. 다음 세 장에 같은 능력치가 뜰 확률은 약 ${nextLinkChance.toFixed(1)}%예요. 다시 연주하지 말고 이 카드를 골라요.`;
-    return { action: 'select', stat: matching.stat };
-  }
-
-  if (trailingRun(stats) >= 2 && availableRerolls() > 0) {
-    const rerollChance = estimatedChance({ ...currentState, rerollFirst: true }, target, 'reroll');
-    const matchProbability = (1 - (1 - (odds.get(notes.at(-1).stat) || 0)) ** 3) * 100;
-    if (rerollChance > currentChance) {
-      aiMessage.textContent = `현재 연결은 ${trailingRun(stats)}연속인데 이어줄 카드가 없어요. 다시 연주하면 같은 능력치가 새 세 장에 나올 확률은 약 ${matchProbability.toFixed(1)}%, 목표 달성 예상은 ${(rerollChance * 100).toFixed(1)}%예요. 연주권을 남길 수 있으니 다시 연주를 권해요.`;
-      return { action: 'reroll' };
-    }
-    aiMessage.textContent = `이어줄 카드가 없지만, 다시 연주보다 지금 원하는 능력치를 고르는 편을 권해요. 현재 목표 달성 예상은 ${(currentChance * 100).toFixed(1)}%이고 다시 연주하면 ${(rerollChance * 100).toFixed(1)}%예요.`;
-    return null;
-  }
-
-  aiMessage.textContent = `세 카드 중 특별히 유리한 능력치는 없어요. 원하는 능력치를 골라요.${notes.length < 6 ? ' 6현 전까지는 다시 연주를 아껴두세요.' : ''} 현재 목표 달성 예상은 ${(currentChance * 100).toFixed(1)}%예요.`;
-  return null;
+  aiCurrentChance.textContent = `${(recommendation.chance * 100).toFixed(1)}%`;
+  const comparisons = actions.map(action => `${labels[action.action]} ${(action.chance * 100).toFixed(1)}%`).join(' · ');
+  const context = `${notes.length}/12현 · 최근 ${trailingRun(stats)}연속 · 남은 연주 ${remaining}회`;
+  const advice = {
+    play: `현재 ${context} 상태에서는 세 카드를 펼쳐보는 연주가 가장 나아요.`,
+    select: choices && notes.length && choices.some(choice => choice.stat === notes.at(-1).stat)
+      ? `${context} 상태예요. 연결을 확정하는 카드를 선택하세요.`
+      : `${context} 상태예요. 세 카드 중 특별히 유리한 능력치는 없으니 원하는 스탯을 고르세요.`,
+    reroll: `${context} 상태에서 목표 달성 예상이 가장 높아요. 현재 세 장 대신 다시 연주하세요.`,
+    reset: `${context} 상태에서는 새 악장으로 초기화하는 편이 목표 달성 확률이 가장 높아요. ${labels.reset}이 필요해요.`
+  }[recommendation.action];
+  aiMessage.textContent = `${advice} 행동별 목표 ${target}연속 달성 예상: ${comparisons}.`;
+  return recommendation;
 }
 
 function render() {
@@ -334,7 +346,8 @@ function render() {
     item.className = 'epic-string';
     if (notes[index]) {
       item.classList.add('is-filled');
-      if (index > 0 && notes[index].stat === notes[index - 1].stat) item.classList.add('is-linked');
+      if ((index > 0 && notes[index].stat === notes[index - 1].stat)
+        || (index < notes.length - 1 && notes[index].stat === notes[index + 1].stat)) item.classList.add('is-linked');
       item.classList.add(`grade-${notes[index].gradeClass}`);
       item.textContent = notes[index].label;
       item.setAttribute('aria-label', `${index + 1}번 현, ${notes[index].grade} ${notes[index].stat}`);
