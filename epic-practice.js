@@ -39,6 +39,8 @@ const manualForm = document.getElementById('epic-manual-form');
 const manualStep = document.getElementById('epic-manual-step');
 const manualChain = document.getElementById('epic-manual-chain');
 const statsEndpoint = 'https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/epic-practice/stats';
+const catPortrait = document.querySelector('.epic-cat-portrait');
+const catMotionClasses = ['cat-tilt-left', 'cat-tilt-right', 'cat-nod', 'cat-peek-left', 'cat-peek-right', 'cat-bob'];
 
 let notes = [];
 let choices = null;
@@ -117,7 +119,31 @@ syncHeaderStats();
 window.addEventListener('guild-calculator-change', syncHeaderStats);
 refreshGlobalStats();
 window.setInterval(refreshGlobalStats, 15000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshGlobalStats(); });
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    refreshGlobalStats();
+    scheduleCatMotion();
+  }
+});
+
+function scheduleCatMotion() {
+  if (!catPortrait || document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  window.setTimeout(() => {
+    const blink = Math.random() < 0.28;
+    if (blink) {
+      catPortrait.classList.add('is-blinking');
+      window.setTimeout(() => catPortrait.classList.remove('is-blinking'), 260);
+    } else {
+      const motion = catMotionClasses[Math.floor(Math.random() * catMotionClasses.length)];
+      catPortrait.classList.remove(...catMotionClasses);
+      catPortrait.classList.add(motion);
+      window.setTimeout(() => catPortrait.classList.remove(motion), 1050);
+    }
+    scheduleCatMotion();
+  }, 3000 + Math.random() * 3000);
+}
+
+scheduleCatMotion();
 
 function drawChoices() {
   return Array.from({ length: 3 }, () => drawOption(activeOptions));
@@ -430,7 +456,7 @@ function renderAi() {
   }
   if (notes.length) actions.push({ action: 'reset', ...freshOutcome, resetFee: resetCost() });
 
-  const labels = { play: '연주', select: '카드 선택', reroll: '다시 연주', reset: `초기화${resetCost() ? ' · 250 다이아' : ' · 무료'}` };
+  const labels = { play: '연주', select: '원하는 스탯을 선택', reroll: '다시 연주', reset: '초기화' };
   const recommendation = actions.sort((a, b) => {
     const scoreA = costPerSuccess(a, a.resetFee || 0);
     const scoreB = costPerSuccess(b, b.resetFee || 0);
@@ -448,28 +474,84 @@ function renderAi() {
     aiMessage.textContent = `${context} 상태예요. 시뮬레이션에서 목표 달성 경로가 관측되지 않아 추천을 보류해요.`;
     return null;
   }
-  const actionText = recommendation.action === 'select' ? '원하는 스탯을 선택' : labels[recommendation.action];
+  const actionText = labels[recommendation.action];
   aiRecommendedAction.textContent = labels[recommendation.action].replace(/ · .*/, '');
-  const alternative = actions.find(action => action !== recommendation && action.chance > 0);
-  const probabilityGap = alternative ? Math.abs(recommendation.chance - alternative.chance) / Math.max(recommendation.chance, alternative.chance) : Infinity;
-  if (alternative && probabilityGap <= 0.1) {
-    renderAiMessage(
-      `목표 달성 확률이 비슷해요. 비용 효율 기준으로 `,
-      actionText,
-      `를 추천해요 (${formatChance(recommendation.chance)}, 성공당 ${formatExpectedCost(costPerSuccess(recommendation, recommendation.resetFee || 0))}). 다른 선택은 ${formatChance(alternative.chance)}예요. 차이가 크지 않으니 비용과 선호에 따라 골라도 괜찮아요.`
-    );
-  } else {
-    renderAiMessage(
-      `목표 달성까지의 예상 다이아 효율이 가장 좋아 `,
-      actionText,
-      `를 추천해요. 목표 달성 예상 ${formatChance(recommendation.chance)}.`
-    );
-  }
+  const alternative = actions.filter(action => action !== recommendation)
+    .sort((a, b) => costPerSuccess(a, a.resetFee || 0) - costPerSuccess(b, b.resetFee || 0) || b.chance - a.chance)[0];
+  const comparison = alternative
+    ? `${actionRouteName(recommendation.action)} 경로의 목표 달성 예상은 ${formatChance(recommendation.chance)}, ${actionRouteName(alternative.action)} 경로는 ${formatChance(alternative.chance)}예요. ${compareActionCosts(recommendation, alternative)} `
+    : `현재 비교할 수 있는 다른 행동이 없어요. 목표 달성 예상은 ${formatChance(recommendation.chance)}예요. `;
+  const reason = explainRecommendedAction(recommendation, target, remaining);
+  renderAiMessage(comparison + reason + ' ', actionText, recommendation.action === 'select' ? '을 추천해요.' : '를 추천해요.');
   return recommendation;
 }
 
 function formatExpectedCost(cost) {
   return Number.isFinite(cost) ? `${cost.toFixed(1)} 다이아` : '달성 표본 없음';
+}
+
+function actionRouteName(action) {
+  return ({ play: '현재 악장 계속', select: '현재 카드 선택', reroll: '카드 다시 연주', reset: '새 악장 시작' })[action] || action;
+}
+
+function explainRecommendedAction(action, target, remaining) {
+  const lastStat = notes.at(-1)?.stat;
+  const run = trailingRun(notes.map(note => note.stat));
+  const runNeeded = Math.max(0, target - Math.max(1, run));
+  const stringsLeft = MAX_STRINGS - notes.length;
+  const rerollsLeft = availableRerolls();
+
+  if (action.action === 'select') {
+    if (lastStat && action.stat === lastStat) {
+      return `현재 손패에 직전 현과 같은 ${lastStat}가 있어요. 이 카드를 고르면 이미 만든 연속을 지키면서 다음 현으로 넘어가요. 리롤로 새 카드 세 장을 다시 뽑는 비용과 기회를 쓰지 않는 것도 이 선택의 이점이에요.`;
+    }
+    return `현재 세 카드 중 ${action.stat}을 고르는 경로가 남은 현에서 목표 연속을 만들 가능성이 가장 높아요. 새 손패를 노리기보다 지금 가진 선택지로 한 현을 확정해 연주 기회를 목표 달성에 쓸 수 있어요.`;
+  }
+
+  if (action.action === 'reroll') {
+    if (lastStat && !choices?.some(choice => choice.stat === lastStat)) {
+      return `지금 세 카드에는 직전 ${lastStat}가 없어 하나를 확정하면 ${run}연속이 끊겨요. 다시 연주하면 카드 세 장을 새로 받아 연결 기회를 되살릴 수 있고, 남은 리롤 ${rerollsLeft}회 중 한 번을 쓰는 상황이에요.`;
+    }
+    return `현재 손패에도 연결 카드는 있지만, 그 카드를 확정하는 것보다 새 손패를 받아 이후 현에서 목표로 이어질 선택지를 다시 얻는 편이 성공당 예상 비용을 낮춰요. 리롤 한 번을 쓰는 대신 더 나은 연결 경로를 노리는 판단이에요.`;
+  }
+
+  if (action.action === 'play') {
+    if (!notes.length) return `아직 확정한 현이 없고 남은 연주 ${remaining}회로 12현을 시작할 수 있어요. 지금 악장을 유지하면 새 카드 세 장에서 첫 능력치를 고르고 목표 연속을 쌓아갈 기회가 생겨요.`;
+    const recovery = remaining <= stringsLeft
+      ? `남은 연주가 채워야 할 현 수와 같아 손패를 다시 뽑을 여유가 없어요. 이번 손패에서 연결을 만드는 게 중요해요.`
+      : `남은 ${stringsLeft}현을 채울 연주 여유가 있고, 다음 세 카드에서 직전 능력치를 찾으면 현재 연속을 이어갈 수 있어요.`;
+    return `현재 ${notes.length}/12현, 최근 ${run}연속에서 목표까지 ${runNeeded}번 더 이어야 해요. ${recovery}`;
+  }
+
+  if (action.action === 'reset') {
+    const tightRun = runNeeded >= Math.max(1, stringsLeft - 1);
+    const scarceRerolls = rerollsLeft <= 2 || remaining <= stringsLeft;
+    const pressure = tightRun
+      ? `목표까지 ${runNeeded}번 더 이어야 하는데 남은 현은 ${stringsLeft}개뿐이라, 다음 선택을 거의 연달아 맞혀야 해요.`
+      : `현재 ${notes.length}/12현, 최근 ${run}연속이라 남은 현에서 목표까지 가는 경로가 좁아졌어요.`;
+    const retries = scarceRerolls
+      ? `남은 연주 ${remaining}회와 리롤 ${rerollsLeft}회로는 빗나간 손패를 만회하기 어려워, 낮은 성공 가능성에 추가 비용을 쓰기보다 판을 새로 여는 편이 나아요.`
+      : `리롤은 카드만 바꾸고 이미 확정한 현과 끊긴 연속은 되돌리지 못해요. 남은 리롤을 현재 판에 더 써도 회복 폭이 제한적이라 새 악장에 기회를 쓰는 편이 유리해요.`;
+    return `${pressure} ${retries}`;
+  }
+
+  return '';
+}
+
+function compareActionCosts(recommendation, alternative) {
+  const cost = action => costPerSuccess(action, action.action === 'reset' ? action.resetFee || 0 : 0);
+  const recommendedCost = cost(recommendation);
+  const alternativeCost = cost(alternative);
+  if (!Number.isFinite(recommendedCost)) return '';
+  if (!Number.isFinite(alternativeCost)) return `이번 시뮬레이션에서는 ${actionRouteName(alternative.action)} 경로로 목표를 달성한 표본이 없어요.`;
+  if (Math.abs(recommendedCost - alternativeCost) < 0.05) {
+    return `성공당 예상 비용은 두 경로가 비슷해 ${actionRouteName(recommendation.action)} 쪽의 확률과 현재 연결 상태를 우선했어요.`;
+  }
+  const relativeDifference = (1 - recommendedCost / alternativeCost) * 100;
+  if (relativeDifference < 1) {
+    return `성공당 예상 비용은 ${formatExpectedCost(recommendedCost)}와 ${formatExpectedCost(alternativeCost)}로 사실상 비슷해요. 비용 우위가 뚜렷하지 않으니 성공률과 현재 연결을 보고 추천했어요.`;
+  }
+  return `목표 한 번 달성당 예상 비용은 ${formatExpectedCost(recommendedCost)}로, ${actionRouteName(alternative.action)} 경로의 ${formatExpectedCost(alternativeCost)}보다 약 ${relativeDifference.toFixed(1)}% 낮아요.`;
 }
 
 function render() {

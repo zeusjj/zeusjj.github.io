@@ -79,3 +79,20 @@
 @media(max-width:760px){.epic-stat-summary{font-size:10px}.epic-stat-summary th,.epic-stat-summary td{padding:7px 4px}.epic-stat-summary th{width:15%}.epic-stat-summary td{width:18%}.epic-probability-details{padding:14px 10px}}
 @media(prefers-reduced-motion:reduce){.epic-cat-portrait img,.epic-cat-eye{animation:none}.epic-cat-eye{display:none}}
 .epic-string.is-linked{position:relative;z-index:1;outline:1px solid #7ed5bc;outline-offset:1px;box-shadow:0 0 11px #70d6b777,inset 0 0 10px #a8f5d522}
+.epic-cat-portrait img{animation:none;rotate:0deg}
+.epic-cat-portrait.cat-tilt-left img{animation:epic-cat-tilt-left .9s ease-in-out both}
+.epic-cat-portrait.cat-tilt-right img{animation:epic-cat-tilt-right .9s ease-in-out both}
+.epic-cat-portrait.cat-nod img{animation:epic-cat-nod .82s ease-in-out both}
+.epic-cat-portrait.cat-peek-left img{animation:epic-cat-peek-left .95s ease-in-out both}
+.epic-cat-portrait.cat-peek-right img{animation:epic-cat-peek-right .95s ease-in-out both}
+.epic-cat-portrait.cat-bob img{animation:epic-cat-bob .78s ease-in-out both}
+.epic-cat-portrait.is-blinking .epic-cat-eye{animation:epic-cat-blink-once .19s ease-in-out 1 both}
+.epic-cat-portrait.is-blinking .epic-cat-eye-right{animation-delay:.035s}
+@keyframes epic-cat-tilt-left{0%,100%{transform:rotate(0)}38%{transform:rotate(-5deg) translateY(-2px)}72%{transform:rotate(-2deg)}}
+@keyframes epic-cat-tilt-right{0%,100%{transform:rotate(0)}38%{transform:rotate(5deg) translateY(-2px)}72%{transform:rotate(2deg)}}
+@keyframes epic-cat-nod{0%,100%{transform:rotate(0) translateY(0)}35%{transform:rotateX(5deg) translateY(3px)}68%{transform:rotateX(-2deg) translateY(-1px)}}
+@keyframes epic-cat-peek-left{0%,100%{transform:translateX(0) rotate(0)}42%{transform:translateX(-3px) rotate(-2deg)}76%{transform:translateX(-1px) rotate(-1deg)}}
+@keyframes epic-cat-peek-right{0%,100%{transform:translateX(0) rotate(0)}42%{transform:translateX(3px) rotate(2deg)}76%{transform:translateX(1px) rotate(1deg)}}
+@keyframes epic-cat-bob{0%,100%{transform:translateY(0) scale(1)}38%{transform:translateY(-4px) scale(1.015)}74%{transform:translateY(1px) scale(.998)}}
+@keyframes epic-cat-blink-once{0%,100%{transform:scaleY(0)}45%,72%{transform:scaleY(1)}}
+@media(prefers-reduced-motion:reduce){.epic-cat-portrait img,.epic-cat-portrait.is-blinking .epic-cat-eye{animation:none!important}.epic-cat-portrait.is-blinking .epic-cat-eye{display:none}}

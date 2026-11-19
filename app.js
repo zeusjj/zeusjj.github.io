@@ -69,6 +69,11 @@ function switchTab(route) {
   if (!tabs.includes(tab) || tab === 'alarms') tab = 'rules';
   const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/)?.[1];
   if(memberReturn&&distributionSignedIn()){route=memberReturn;tab=route.split('/')[0];history.replaceState(null,'','#'+route);}
+  if(tab==='history'&&!distributionSignedIn()){
+    route='login/history';
+    tab='login';
+    history.replaceState(null,'','#'+route);
+  }
   if(tab==='siege-distribution'){
     route=/^siege-distribution\/(?:second|third)$/.test(route)?route:'siege-distribution/second';
     const target=distributionSignedIn()?'#'+route:'#login/'+route;
@@ -108,6 +113,7 @@ syncDistributionMenu();
 window.addEventListener('guild-auth-change',()=>{
   syncDistributionMenu();
   renderDistribution(publicMemberSource?.distribution??[]);
+  if(location.hash.split('/')[0]==='#history'&&!distributionSignedIn())switchTab('history');
   if(['#distribution','#siege-distribution'].includes(location.hash.split('/')[0])||/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/.test(location.hash))switchTab(location.hash.slice(1));
 });
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
