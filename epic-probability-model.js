@@ -29,3 +29,15 @@ export function groupOptions(options) {
   }
   return [...groups].sort((a, b) => parseFloat(b[0]) - parseFloat(a[0]));
 }
+
+export function statOdds(options) {
+  const total = options.reduce((sum, option) => sum + option.weight, 0), weights = new Map();
+  for (const option of options) weights.set(option.stat, (weights.get(option.stat) || 0) + option.weight);
+  return new Map([...weights].map(([stat, weight]) => [stat, weight / total]));
+}
+
+export function lowestFrequencyStats(options) {
+  const odds = statOdds(options), values = [...odds.values()], minimum = Math.min(...values), maximum = Math.max(...values);
+  if (maximum - minimum <= maximum * 0.0001) return new Map();
+  return new Map([...odds].filter(([, chance]) => Math.abs(chance - minimum) <= minimum * 0.0001));
+}

@@ -1,4 +1,4 @@
-import { parseOptions, drawOption, groupOptions } from './epic-probability-model.js?v=20261118-1';
+import { parseOptions, drawOption, groupOptions, statOdds as calculateStatOdds, lowestFrequencyStats } from './epic-probability-model.js?v=20261120-dynamic-rare';
 let optionSets = [];
 let activeOptions = [];
 const songSelect = document.getElementById('epic-song');
@@ -38,6 +38,7 @@ const manualDialog = document.getElementById('epic-manual-dialog');
 const manualForm = document.getElementById('epic-manual-form');
 const manualStep = document.getElementById('epic-manual-step');
 const manualChain = document.getElementById('epic-manual-chain');
+const manualRemaining = document.getElementById('epic-manual-remaining');
 const statsEndpoint = 'https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/epic-practice/stats';
 const catPortrait = document.querySelector('.epic-cat-portrait');
 const catMotionClasses = ['cat-tilt-left', 'cat-tilt-right', 'cat-nod', 'cat-peek-left', 'cat-peek-right', 'cat-bob'];
@@ -67,6 +68,16 @@ function refreshManualChainOptions() {
     manualChain.append(option);
   }
   manualChain.value = String(previous);
+  const step = Number(manualStep.value), minRemaining = MAX_STRINGS - step + 1, maxRemaining = MAX_PERFORMANCES - step + 1;
+  const previousRemaining = Number(manualRemaining.value) || maxRemaining;
+  manualRemaining.replaceChildren();
+  for (let count = minRemaining; count <= maxRemaining; count += 1) {
+    const option = document.createElement('option');
+    option.value = String(count);
+    option.textContent = `${count}회`;
+    manualRemaining.append(option);
+  }
+  manualRemaining.value = String(Math.max(minRemaining, Math.min(maxRemaining, previousRemaining)));
 }
 
 refreshManualChainOptions();
@@ -97,7 +108,7 @@ async function recordGlobalAction(action, amount = 0) {
   try {
     const response = await fetch(statsEndpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...window.GuildAuth?.headers() },
       body: JSON.stringify({ id: crypto.randomUUID(), action, amount })
     });
     if (!response.ok) throw new Error('Stats update failed');
@@ -227,10 +238,7 @@ function availableRerolls() {
 }
 
 function statOdds() {
-  const total = activeOptions.reduce((sum, option) => sum + option.weight, 0);
-  const weights = new Map();
-  for (const option of activeOptions) weights.set(option.stat, (weights.get(option.stat) || 0) + option.weight);
-  return new Map([...weights].map(([stat, weight]) => [stat, weight / total]));
+  return calculateStatOdds(activeOptions);
 }
 
 function maximumRun(values) {
@@ -358,6 +366,26 @@ function costPerSuccess(outcome, resetFee = 0) {
 function estimateSelectionOutcome(state, target) {
   const candidateStats = [...new Set(state.choices || [])];
   if (!candidateStats.length) return null;
+  if (!state.notes.length) {
+    const odds = statOdds(), rareOdds = lowestFrequencyStats(activeOptions);
+    const rareCandidates = candidateStats.filter(stat => rareOdds.has(stat));
+    if (rareCandidates.length) {
+      return rareCandidates.reduce((best, stat, index) => {
+        const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: stat }, target, `first-select-rare-${index}-${stat}`);
+        const candidate = { ...outcome, stat, lowFrequencyStat: true, statChance: odds.get(stat) };
+        return !best || costPerSuccess(candidate) < costPerSuccess(best) ? candidate : best;
+      }, null);
+    }
+    const bestOdds = Math.max(...candidateStats.map(stat => odds.get(stat) || 0));
+    const commonCandidates = candidateStats.filter(stat => Math.abs((odds.get(stat) || 0) - bestOdds) <= bestOdds * 0.0001);
+    if (commonCandidates.length > 1) {
+      const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: commonCandidates[0] }, target, 'first-select-equal-frequency');
+      return { ...outcome, stat: null, equalFirstStats: commonCandidates, statChance: bestOdds };
+    }
+    const commonStat = commonCandidates[0];
+    const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: commonStat }, target, 'first-select-most-common');
+    return { ...outcome, stat: commonStat, statChance: bestOdds };
+  }
   return candidateStats.reduce((best, stat, index) => {
     const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: stat }, target, `select-card-${index}-${stat}`);
     const candidate = { ...outcome, stat };
@@ -491,7 +519,7 @@ function formatExpectedCost(cost) {
 }
 
 function actionRouteName(action) {
-  return ({ play: '현재 악장 계속', select: '현재 카드 선택', reroll: '카드 다시 연주', reset: '새 악장 시작' })[action] || action;
+  return ({ play: '현재 악장 계속', select: '현재 카드 선택', reroll: '다시 연주', reset: '악장 초기화' })[action] || action;
 }
 
 function explainRecommendedAction(action, target, remaining) {
@@ -502,23 +530,26 @@ function explainRecommendedAction(action, target, remaining) {
   const rerollsLeft = availableRerolls();
 
   if (action.action === 'select') {
+    if (action.equalFirstStats) return `첫 현은 앞서 연결할 능력치가 없어요. ${action.equalFirstStats.join(', ')}의 출현 확률은 각각 ${(action.statChance * 100).toFixed(2)}%로 같아서 어느 카드를 골라도 확률 차이가 없어요.`;
+    if (!notes.length && action.lowFrequencyStat) return `첫 현이라 연결 확률의 이점은 아직 없어요. ${action.stat}은 공식 확률표에서 전체 출현 확률이 ${(action.statChance * 100).toFixed(2)}%로 가장 낮은 희귀 능력치예요. 이 능력치의 효과를 노릴 수 있지만, 다시 나와 연속으로 완성될 가능성도 일반 능력치보다 낮아져요. 낮은 완성 확률을 감수하고 희귀 효과를 노리는 선택이에요.`;
+    if (!notes.length && action.statChance) return `첫 현은 앞서 연결할 능력치가 없어요. ${action.stat}의 출현 확률은 ${(action.statChance * 100).toFixed(2)}%로 현재 선택지 중 가장 높아, 목표 연속을 완성하는 확률을 우선할 때 유리해요.`;
     if (lastStat && action.stat === lastStat) {
-      return `현재 손패에 직전 현과 같은 ${lastStat}가 있어요. 이 카드를 고르면 이미 만든 연속을 지키면서 다음 현으로 넘어가요. 리롤로 새 카드 세 장을 다시 뽑는 비용과 기회를 쓰지 않는 것도 이 선택의 이점이에요.`;
+      return `현재 카드 중 직전 현과 같은 ${lastStat}가 있어요. 이 카드를 고르면 이미 만든 연속을 지키면서 다음 현으로 넘어가요. 다시 연주 비용과 기회를 쓰지 않는 것도 이 선택의 이점이에요.`;
     }
-    return `현재 세 카드 중 ${action.stat}을 고르는 경로가 남은 현에서 목표 연속을 만들 가능성이 가장 높아요. 새 손패를 노리기보다 지금 가진 선택지로 한 현을 확정해 연주 기회를 목표 달성에 쓸 수 있어요.`;
+    return `현재 세 카드 중 ${action.stat}을 고르는 경로가 남은 현에서 목표 연속을 만들 가능성이 가장 높아요. 지금 선택지로 한 현을 확정해 연주 기회를 목표 달성에 쓸 수 있어요.`;
   }
 
   if (action.action === 'reroll') {
     if (lastStat && !choices?.some(choice => choice.stat === lastStat)) {
-      return `지금 세 카드에는 직전 ${lastStat}가 없어 하나를 확정하면 ${run}연속이 끊겨요. 다시 연주하면 카드 세 장을 새로 받아 연결 기회를 되살릴 수 있고, 남은 리롤 ${rerollsLeft}회 중 한 번을 쓰는 상황이에요.`;
+      return `지금 세 카드에는 직전 ${lastStat}가 없어 하나를 확정하면 ${run}연속이 끊겨요. 다시 연주하면 카드 세 장을 새로 뽑아 연결을 다시 노릴 수 있고, 남은 다시 연주 ${rerollsLeft}회 중 한 번을 쓰게 돼요.`;
     }
-    return `현재 손패에도 연결 카드는 있지만, 그 카드를 확정하는 것보다 새 손패를 받아 이후 현에서 목표로 이어질 선택지를 다시 얻는 편이 성공당 예상 비용을 낮춰요. 리롤 한 번을 쓰는 대신 더 나은 연결 경로를 노리는 판단이에요.`;
+    return `현재 카드 중 연결되는 카드가 있지만, 그 카드를 확정하는 것보다 다시 연주해 다음 현에서 목표로 이어질 선택지를 다시 얻는 편이 성공당 예상 비용을 낮춰요. 다시 연주 기회를 써 더 나은 연결을 노리는 판단이에요.`;
   }
 
   if (action.action === 'play') {
     if (!notes.length) return `아직 확정한 현이 없고 남은 연주 ${remaining}회로 12현을 시작할 수 있어요. 지금 악장을 유지하면 새 카드 세 장에서 첫 능력치를 고르고 목표 연속을 쌓아갈 기회가 생겨요.`;
     const recovery = remaining <= stringsLeft
-      ? `남은 연주가 채워야 할 현 수와 같아 손패를 다시 뽑을 여유가 없어요. 이번 손패에서 연결을 만드는 게 중요해요.`
+      ? `남은 연주가 채워야 할 현 수와 같아 다시 연주할 여유가 없어요. 지금 카드에서 연결을 만드는 게 중요해요.`
       : `남은 ${stringsLeft}현을 채울 연주 여유가 있고, 다음 세 카드에서 직전 능력치를 찾으면 현재 연속을 이어갈 수 있어요.`;
     return `현재 ${notes.length}/12현, 최근 ${run}연속에서 목표까지 ${runNeeded}번 더 이어야 해요. ${recovery}`;
   }
@@ -530,8 +561,8 @@ function explainRecommendedAction(action, target, remaining) {
       ? `목표까지 ${runNeeded}번 더 이어야 하는데 남은 현은 ${stringsLeft}개뿐이라, 다음 선택을 거의 연달아 맞혀야 해요.`
       : `현재 ${notes.length}/12현, 최근 ${run}연속이라 남은 현에서 목표까지 가는 경로가 좁아졌어요.`;
     const retries = scarceRerolls
-      ? `남은 연주 ${remaining}회와 리롤 ${rerollsLeft}회로는 빗나간 손패를 만회하기 어려워, 낮은 성공 가능성에 추가 비용을 쓰기보다 판을 새로 여는 편이 나아요.`
-      : `리롤은 카드만 바꾸고 이미 확정한 현과 끊긴 연속은 되돌리지 못해요. 남은 리롤을 현재 판에 더 써도 회복 폭이 제한적이라 새 악장에 기회를 쓰는 편이 유리해요.`;
+      ? `남은 연주 ${remaining}회와 다시 연주 ${rerollsLeft}회로는 빗나간 카드를 만회하기 어려워, 낮은 성공 가능성에 추가 비용을 쓰기보다 악장을 초기화하는 편이 나아요.`
+      : `다시 연주해도 이미 확정한 현과 끊긴 연속은 되돌아오지 않아요. 남은 다시 연주를 현재 악장에 더 써도 회복 폭이 제한적이라 악장을 초기화하고 새로 시작하는 편이 유리해요.`;
     return `${pressure} ${retries}`;
   }
 
@@ -643,6 +674,7 @@ manualForm.addEventListener('submit', event => {
   if (!activeOptions.length) return;
   const step = Number(manualStep.value);
   const chain = Number(manualChain.value);
+  const remaining = Number(manualRemaining.value);
   const backup = manualSession?.backup ?? { notes, choices, performances, rerollsUsed, feedback: feedback.textContent, upgraded: feedback.classList.contains('is-upgraded') };
   const statNames = [...statOdds().keys()];
   const runStat = statNames.at(-1);
@@ -655,9 +687,9 @@ manualForm.addEventListener('submit', event => {
   const exampleStats = [...prefixStats, ...Array.from({ length: chain }, () => runStat)];
   notes = exampleStats.map(stat => ({ stat, label: stat, grade: '수동 예시', gradeClass: 'manual' }));
   choices = null;
-  performances = step - 1;
-  rerollsUsed = 0;
-  manualSession = { step, chain, backup };
+  performances = MAX_PERFORMANCES - remaining;
+  rerollsUsed = Math.min(MAX_STRINGS, Math.max(0, performances - (step - 1)));
+  manualSession = { step, chain, remaining, backup };
   feedback.textContent = '수동 예시 상태예요. 실제 연습 기록에는 반영되지 않습니다.';
   feedback.classList.remove('is-upgraded');
   manualDialog.close();
@@ -697,7 +729,7 @@ function startPerformance(isReroll = false) {
   choices = drawChoices();
   feedback.textContent = '';
   feedback.classList.remove('is-upgraded');
-  document.getElementById('epic-current-label').textContent = isReroll ? '새 선택지' : '선택지를 고르세요';
+  document.getElementById('epic-current-label').textContent = isReroll ? '다시 연주 결과' : '선택지를 고르세요';
   render();
   if (window.lucide) window.lucide.createIcons();
 }

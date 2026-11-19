@@ -1,0 +1,19 @@
+(() => {
+  const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/admin/epic-practice';
+  const host=document.createElement('section');host.id='admin-epic-practice';host.hidden=true;
+  host.innerHTML='<div class="admin-period-heading"><h2>서사시 기록</h2><button id="admin-epic-refresh" class="icon-button" type="button" title="서사시 기록 새로고침" aria-label="서사시 기록 새로고침"><i data-lucide="refresh-cw"></i></button></div><p id="admin-epic-status" role="status"></p><p id="admin-epic-summary" class="admin-period-note"></p><div class="admin-statistics-table"><table><thead><tr><th scope="col">아이디</th><th scope="col">연주 횟수</th><th scope="col">유료 초기화 횟수</th></tr></thead><tbody id="admin-epic-rows"></tbody></table></div><p id="admin-epic-unlinked" class="admin-period-note"></p>';
+  document.getElementById('admin-member-management').after(host);
+  const status=host.querySelector('#admin-epic-status'),rows=host.querySelector('#admin-epic-rows'),summary=host.querySelector('#admin-epic-summary'),unlinked=host.querySelector('#admin-epic-unlinked'),refresh=host.querySelector('#admin-epic-refresh');
+  const number=new Intl.NumberFormat('ko-KR'),active=()=>!document.getElementById('admin').hidden,authorized=()=>!!window.GuildAuth?.user?.isAdmin&&window.GuildAuth.expiresAt>Date.now();let sequence=0;
+  function clear(){sequence++;host.hidden=true;rows.replaceChildren();summary.textContent='';unlinked.textContent='';status.textContent='';refresh.disabled=false;}
+  async function load(){
+    if(!active()||!authorized()){clear();return;}const id=++sequence;host.hidden=false;refresh.disabled=true;status.textContent='서사시 기록을 불러오는 중입니다.';
+    try{const response=await fetch(endpoint,{headers:window.GuildAuth.headers(),cache:'no-store',signal:AbortSignal.timeout(15000)}),data=await response.json();if(id!==sequence||!authorized())return;if(response.status===401){window.GuildAuth.invalidate();return;}if(!response.ok)throw new Error(data.error||'서사시 기록을 불러오지 못했습니다.');if(!Array.isArray(data.accounts)||!data.unlinked)throw new Error('응답 형식이 올바르지 않습니다.');
+      rows.replaceChildren();for(const account of data.accounts){const row=document.createElement('tr'),idCell=document.createElement('th');idCell.scope='row';idCell.textContent=account.username;row.append(idCell);for(const value of [account.performances,account.paidResets]){const cell=document.createElement('td');cell.textContent=number.format(value);row.append(cell);}rows.append(row);}
+      if(!data.accounts.length){const row=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=3;cell.textContent='등록된 계정이 없습니다.';row.append(cell);rows.append(row);}
+      const totals=data.accounts.reduce((sum,row)=>({performances:sum.performances+row.performances,paidResets:sum.paidResets+row.paidResets}),{performances:0,paidResets:0});summary.textContent=`계정 ${number.format(data.accounts.length)}개 · 연주 ${number.format(totals.performances)}회 · 유료 초기화 ${number.format(totals.paidResets)}회 · 연주 횟수 높은 순`;
+      unlinked.textContent=`아이디 미연결 기록 ${number.format(data.unlinked.events)}건 (연주 ${number.format(data.unlinked.performances)}회 · 유료 초기화 ${number.format(data.unlinked.paidResets)}회). 로그인 전 기록과 기존 익명 기록은 계정별 집계에 포함되지 않습니다.`;status.textContent='';window.lucide?.createIcons();
+    }catch(error){if(id===sequence)status.textContent=error.name==='TimeoutError'?'응답이 지연되고 있습니다. 새로고침해주세요.':error.message;}finally{if(id===sequence)refresh.disabled=false;}
+  }
+  refresh.addEventListener('click',load);window.addEventListener('guild-admin-open',load);window.addEventListener('guild-member-management-changed',load);window.addEventListener('guild-admin-auth',()=>authorized()?load():clear());document.getElementById('admin-logout').addEventListener('click',clear);if(active()&&authorized())load();
+})();

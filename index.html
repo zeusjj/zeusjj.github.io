@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261120-ai-dialogue-auth">
-  <script type="module" src="epic-practice.js?v=20261120-ai-dialogue-auth"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261120-account-records">
+  <script type="module" src="epic-practice.js?v=20261120-account-records"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -55,6 +55,8 @@
   <link rel="stylesheet" href="admin-member-statistics.css?v=20261108-member-metadata">
   <script src="admin-members.js?v=20261119-password-reset" defer></script>
   <link rel="stylesheet" href="admin-members.css?v=20261119-password-reset">
+  <script src="admin-epic-practice.js?v=20261120-1" defer></script>
+  <link rel="stylesheet" href="admin-epic-practice.css?v=20261120-1">
   <script src="header-announcements.js?v=20261105-announcement-queue" defer></script>
   <script src="guestbook.js?v=20261108-member-types" defer></script>
   <script src="admin-guestbook.js?v=20261009-66" defer></script>
@@ -417,6 +419,8 @@
         <select id="epic-manual-step" name="step" required></select>
         <label for="epic-manual-chain">현재까지 몇 개 현이 연속 연결됐나요?</label>
         <select id="epic-manual-chain" name="chain" required></select>
+        <label for="epic-manual-remaining">남은 연주 횟수는 몇 번인가요?</label>
+        <select id="epic-manual-remaining" name="remaining" required></select>
         <p>진행 중인 현은 아직 선택 전인 상태로 계산해요. 세부 카드 정보가 없으므로 다음 연주와 초기화 확률을 비교합니다.</p>
         <div class="epic-reset-actions"><button id="epic-manual-cancel" class="secondary-button" type="button">취소</button><button class="primary-button" type="submit">확인</button></div>
       </form>

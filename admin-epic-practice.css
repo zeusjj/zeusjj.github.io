@@ -1,0 +1,5 @@
+#admin-epic-practice{padding:24px 0;border-bottom:1px solid var(--line);margin-bottom:24px}
+#admin-epic-practice .admin-period-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+#admin-epic-practice table{min-width:440px}
+#admin-epic-practice td:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}
+#admin-epic-practice .admin-period-note{margin:10px 0;color:var(--muted);font-size:12px}
