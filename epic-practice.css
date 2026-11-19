@@ -63,6 +63,8 @@
 .epic-ai-dialogue strong{font-weight:800;color:#253e34}
 .epic-math{margin-top:8px;padding:10px 0 0;border-top:1px solid #38515a;color:var(--epic-muted);font-size:11px}.epic-math summary{width:max-content;cursor:pointer;color:#d7c48d}.epic-math p{max-width:900px;margin:9px 0 0;line-height:1.7}.epic-math b{color:#e6d5a4}
 .epic-probability-details>summary{cursor:pointer;color:#e0e7e3;font-size:16px;font-weight:700}.epic-probability-details h3{margin:16px 0 8px;color:#b4c5bf;font-size:12px}.epic-stat-summary{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;line-height:1.5;color:#d6dcd9}.epic-stat-summary th,.epic-stat-summary td{padding:8px 7px;text-align:left;border-bottom:1px solid #45565a;overflow-wrap:anywhere}.epic-stat-summary th{width:14%;color:#e0e7e3;font-weight:600}.epic-stat-summary td{width:19%;color:#e6d5a4;font-variant-numeric:tabular-nums}
+#epic-panel .epic-stat-summary tbody th{background:#263a3d;color:#e0e7e3}
+#epic-panel .epic-stat-summary thead th{background:#263a3d;color:#b4c5bf}
 @media(max-width:760px){.epic-stat-summary{font-size:10px}.epic-stat-summary th,.epic-stat-summary td{padding:7px 4px}.epic-stat-summary th{width:15%}.epic-stat-summary td{width:18%}.epic-probability-details{padding:14px 10px}}
 @media(prefers-reduced-motion:reduce){.epic-cat-portrait img,.epic-cat-eye{animation:none}.epic-cat-eye{display:none}}
 .epic-string.is-linked{position:relative;z-index:1;outline:1px solid #7ed5bc;outline-offset:1px;box-shadow:0 0 11px #70d6b777,inset 0 0 10px #a8f5d522}
