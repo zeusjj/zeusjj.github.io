@@ -2,6 +2,7 @@
   const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/visitors';
   const count=document.getElementById('visitor-count');
   const storageKey='guild-visitor-id-v1';
+  const trackingEnabled=location.origin==='https://zeusjj.github.io' && navigator.webdriver!==true && !/HeadlessChrome|Playwright/i.test(navigator.userAgent||'');
   let visitorId,currentDay='',currentCount=0,busy=false,resetTimer;
   async function identity() {
     const readOrCreate=()=>{
@@ -12,6 +13,7 @@
     return navigator.locks?navigator.locks.request(storageKey,readOrCreate):readOrCreate();
   }
   async function request(register) {
+    register=register&&trackingEnabled;
     const response=await fetch(endpoint,{method:register?'POST':'GET',cache:'no-store',signal:AbortSignal.timeout(10000),...(register?{headers:{'Content-Type':'application/json'},body:JSON.stringify({visitorId})}:{})});
     if(!response.ok)throw new Error('Visitors unavailable');
     const data=await response.json();
@@ -40,6 +42,7 @@
     recordMenu(menu);
   });
   async function recordMenu(menu){
+    if(!trackingEnabled)return;
     if(!window.GuildMenuRegistry.has(menu))return;
     const nickname=window.GuildAuth?.user?.nickname||'익명';
     const id=crypto.randomUUID();
