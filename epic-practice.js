@@ -566,7 +566,7 @@ function explainRecommendedAction(action, target, remaining) {
       const bonusKind = /피해|증폭|감소|저항|관통/.test(lastStat) ? 'rate' : 'main';
       const bonus = gradeBonusIncrease(action.grade, sameGradeCount, bonusKind);
       const bonusText = bonus > 0
-        ? `동일 등급 보너스도 ${bonusKind === 'rate' ? `+${bonus}%p` : `+${bonus}`} 늘어요.`
+        ? `동일 등급 보너스도 ${bonusKind === 'rate' ? `+${bonus}%` : `+${bonus}`} 늘어요.`
         : '이 등급을 더 연결하면 등급별 누적 보너스도 계산에 반영돼요.';
       return `직전 현과 같은 ${lastStat}를 이으면 현재 ${run}연속이 유지돼요. 손패 중 ${action.grade} ${lastStat}를 선택하면 연결 그룹의 ${action.grade} 등급이 ${sameGradeCount}개에서 ${sameGradeCount + 1}개가 되고, ${bonusText} 다음 현에서 연결이 끊기면 목표 연속도 끊기므로 이 연결 카드를 고르세요.`;
     }
