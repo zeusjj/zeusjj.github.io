@@ -1,4 +1,4 @@
-import { parseOptions, drawOption, groupOptions, statOdds as calculateStatOdds, lowestFrequencyStats } from './epic-probability-model.js?v=20261120-dynamic-rare';
+import { parseOptions, drawOption, groupOptions, statOdds as calculateStatOdds, lowestFrequencyStats, gradeBonusIncrease } from './epic-probability-model.js?v=20261121-connected-grade';
 let optionSets = [];
 let activeOptions = [];
 const songSelect = document.getElementById('epic-song');
@@ -364,7 +364,7 @@ function costPerSuccess(outcome, resetFee = 0) {
 }
 
 function estimateSelectionOutcome(state, target) {
-  const candidateStats = [...new Set(state.choices || [])];
+  const candidateStats = [...new Set((state.choices || []).map(choice => typeof choice === 'string' ? choice : choice.stat))];
   if (!candidateStats.length) return null;
   if (!state.notes.length) {
     const odds = statOdds(), rareOdds = lowestFrequencyStats(activeOptions);
@@ -378,13 +378,8 @@ function estimateSelectionOutcome(state, target) {
     }
     const bestOdds = Math.max(...candidateStats.map(stat => odds.get(stat) || 0));
     const commonCandidates = candidateStats.filter(stat => Math.abs((odds.get(stat) || 0) - bestOdds) <= bestOdds * 0.0001);
-    if (commonCandidates.length > 1) {
-      const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: commonCandidates[0] }, target, 'first-select-equal-frequency');
-      return { ...outcome, stat: null, equalFirstStats: commonCandidates, statChance: bestOdds };
-    }
-    const commonStat = commonCandidates[0];
-    const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: commonStat }, target, 'first-select-most-common');
-    return { ...outcome, stat: commonStat, statChance: bestOdds };
+    const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: commonCandidates[0] }, target, 'first-select-equal-frequency');
+    return { ...outcome, stat: null, equalFirstStats: commonCandidates, statChance: bestOdds };
   }
   return candidateStats.reduce((best, stat, index) => {
     const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: stat }, target, `select-card-${index}-${stat}`);
@@ -394,6 +389,24 @@ function estimateSelectionOutcome(state, target) {
     const bestScore = costPerSuccess(best);
     return score < bestScore || (score === bestScore && candidate.chance > best.chance) ? candidate : best;
   }, null);
+}
+
+function recommendedChoice(stat) {
+  const candidates = choices?.filter(choice => choice.stat === stat) ?? [];
+  if (!candidates.length) return null;
+  const group = [];
+  for (let index = notes.length - 1; index >= 0 && notes[index].stat === stat; index -= 1) group.push(notes[index]);
+  const gradeCounts = new Map();
+  for (const note of group) gradeCounts.set(note.grade, (gradeCounts.get(note.grade) || 0) + 1);
+  const gradeRank = new Map(GRADE_OPTIONS.map((grade, index) => [grade.name, index]));
+  const bonusKind = /피해|증폭|감소|저항|관통/.test(stat) ? 'rate' : 'main';
+  return candidates.sort((a, b) => {
+    const countA = gradeCounts.get(a.grade) || 0;
+    const countB = gradeCounts.get(b.grade) || 0;
+    const bonusA = gradeBonusIncrease(a.grade, countA, bonusKind);
+    const bonusB = gradeBonusIncrease(b.grade, countB, bonusKind);
+    return bonusB - bonusA || countB - countA || gradeRank.get(b.grade) - gradeRank.get(a.grade);
+  })[0];
 }
 
 function formatChance(chance) {
@@ -451,12 +464,13 @@ function renderAi() {
     const matching = choices?.find(choice => choice.stat === notes.at(-1)?.stat);
     aiRecommendedAction.textContent = matching ? '카드 선택' : '목표 달성';
     aiCurrentChance.textContent = '100%';
+    const exactChoice = matching ? recommendedChoice(matching.stat) : null;
     renderAiMessage(
-      matching ? `목표 ${target}연속을 달성했어요. 더 이어가려면 연결된 ${matching.stat} ` : `목표 ${target}연속을 달성했어요. 더 연주하려면 `,
-      matching ? '선택' : '원하는 스탯을 선택',
+      matching ? `목표 ${target}연속을 달성했어요. 더 이어가려면 직전 현과 연결되는 ` : `목표 ${target}연속을 달성했어요. 더 연주하려면 `,
+      matching ? `${exactChoice.grade} ${matching.stat} 선택` : '원하는 스탯 선택',
       '하세요.'
     );
-    return matching ? { action: 'select', stat: matching.stat } : null;
+    return matching ? { action: 'select', stat: matching.stat, grade: exactChoice.grade } : null;
   }
 
   const currentUnselected = choices ? 1 : 0;
@@ -477,14 +491,16 @@ function renderAi() {
   const actions = [];
   if (choices) {
     const matching = notes.length ? choices.find(choice => choice.stat === notes.at(-1).stat) : null;
-    actions.push({ action: 'select', stat: selectionEstimate?.stat ?? matching?.stat, ...currentOutcome });
+    const selectedStat = selectionEstimate?.stat ?? matching?.stat;
+    const exactChoice = selectedStat ? recommendedChoice(selectedStat) : null;
+    actions.push({ ...currentOutcome, ...selectionEstimate, action: 'select', stat: selectedStat, grade: exactChoice?.grade });
     if (availableRerolls() > 0) actions.push({ action: 'reroll', ...estimatedOutcome({ ...currentState, rerollFirst: true }, target, 'reroll') });
   } else if (notes.length < MAX_STRINGS && MAX_PERFORMANCES - performances >= MAX_STRINGS - notes.length) {
     actions.push({ action: 'play', ...currentOutcome });
   }
   if (notes.length) actions.push({ action: 'reset', ...freshOutcome, resetFee: resetCost() });
 
-  const labels = { play: '연주', select: '원하는 스탯을 선택', reroll: '다시 연주', reset: '초기화' };
+  const labels = { play: '연주', select: recommendationLabelForSelect(choices ? selectionEstimate : null), reroll: '다시 연주', reset: '초기화' };
   const recommendation = actions.sort((a, b) => {
     const scoreA = costPerSuccess(a, a.resetFee || 0);
     const scoreB = costPerSuccess(b, b.resetFee || 0);
@@ -502,7 +518,9 @@ function renderAi() {
     aiMessage.textContent = `${context} 상태예요. 시뮬레이션에서 목표 달성 경로가 관측되지 않아 추천을 보류해요.`;
     return null;
   }
-  const actionText = labels[recommendation.action];
+  const actionText = recommendation.action === 'select'
+    ? (recommendation.stat ? `${recommendation.grade} ${recommendation.stat} 선택` : '원하는 스탯 선택')
+    : labels[recommendation.action];
   aiRecommendedAction.textContent = labels[recommendation.action].replace(/ · .*/, '');
   const alternative = actions.filter(action => action !== recommendation)
     .sort((a, b) => costPerSuccess(a, a.resetFee || 0) - costPerSuccess(b, b.resetFee || 0) || b.chance - a.chance)[0];
@@ -512,6 +530,14 @@ function renderAi() {
   const reason = explainRecommendedAction(recommendation, target, remaining);
   renderAiMessage(comparison + reason + ' ', actionText, recommendation.action === 'select' ? '을 추천해요.' : '를 추천해요.');
   return recommendation;
+}
+
+function recommendationLabelForSelect(estimate) {
+  if (estimate?.stat) {
+    const choice = recommendedChoice(estimate.stat);
+    return choice ? `${choice.grade} ${choice.stat} 선택` : `${estimate.stat} 선택`;
+  }
+  return '원하는 스탯 선택';
 }
 
 function formatExpectedCost(cost) {
@@ -530,11 +556,19 @@ function explainRecommendedAction(action, target, remaining) {
   const rerollsLeft = availableRerolls();
 
   if (action.action === 'select') {
-    if (action.equalFirstStats) return `첫 현은 앞서 연결할 능력치가 없어요. ${action.equalFirstStats.join(', ')}의 출현 확률은 각각 ${(action.statChance * 100).toFixed(2)}%로 같아서 어느 카드를 골라도 확률 차이가 없어요.`;
+    if (action.equalFirstStats) return `첫 현은 연결할 능력치가 아직 없고, 지금 손패에는 공식 확률이 같은 일반 능력치만 있어요. 막기를 포함한 선택지의 기본 출현 확률이 같으므로 막기 하나를 더 유리하다고 추천할 근거는 없어요. 원하는 스탯을 선택하세요.`;
     if (!notes.length && action.lowFrequencyStat) return `첫 현이라 연결 확률의 이점은 아직 없어요. ${action.stat}은 공식 확률표에서 전체 출현 확률이 ${(action.statChance * 100).toFixed(2)}%로 가장 낮은 희귀 능력치예요. 이 능력치의 효과를 노릴 수 있지만, 다시 나와 연속으로 완성될 가능성도 일반 능력치보다 낮아져요. 낮은 완성 확률을 감수하고 희귀 효과를 노리는 선택이에요.`;
     if (!notes.length && action.statChance) return `첫 현은 앞서 연결할 능력치가 없어요. ${action.stat}의 출현 확률은 ${(action.statChance * 100).toFixed(2)}%로 현재 선택지 중 가장 높아, 목표 연속을 완성하는 확률을 우선할 때 유리해요.`;
     if (lastStat && action.stat === lastStat) {
-      return `현재 카드 중 직전 현과 같은 ${lastStat}가 있어요. 이 카드를 고르면 이미 만든 연속을 지키면서 다음 현으로 넘어가요. 다시 연주 비용과 기회를 쓰지 않는 것도 이 선택의 이점이에요.`;
+      const group = [];
+      for (let index = notes.length - 1; index >= 0 && notes[index].stat === lastStat; index -= 1) group.push(notes[index]);
+      const sameGradeCount = group.filter(note => note.grade === action.grade).length;
+      const bonusKind = /피해|증폭|감소|저항|관통/.test(lastStat) ? 'rate' : 'main';
+      const bonus = gradeBonusIncrease(action.grade, sameGradeCount, bonusKind);
+      const bonusText = bonus > 0
+        ? `동일 등급 보너스도 ${bonusKind === 'rate' ? `+${bonus}%p` : `+${bonus}`} 늘어요.`
+        : '이 등급을 더 연결하면 등급별 누적 보너스도 계산에 반영돼요.';
+      return `직전 현과 같은 ${lastStat}를 이으면 현재 ${run}연속이 유지돼요. 손패 중 ${action.grade} ${lastStat}를 선택하면 연결 그룹의 ${action.grade} 등급이 ${sameGradeCount}개에서 ${sameGradeCount + 1}개가 되고, ${bonusText} 다음 현에서 연결이 끊기면 목표 연속도 끊기므로 이 연결 카드를 고르세요.`;
     }
     return `현재 세 카드 중 ${action.stat}을 고르는 경로가 남은 현에서 목표 연속을 만들 가능성이 가장 높아요. 지금 선택지로 한 현을 확정해 연주 기회를 목표 달성에 쓸 수 있어요.`;
   }
@@ -627,6 +661,7 @@ function render() {
   playButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'play');
   rerollButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'reroll');
   resetButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'reset');
+  choicesBox.querySelectorAll('.epic-choice').forEach(button => button.classList.remove('is-recommended'));
   choicesBox.replaceChildren();
   if (hasChoices && !done) {
     choices.forEach((choice) => {
@@ -635,10 +670,12 @@ function render() {
       button.className = 'epic-choice';
       button.classList.add(`grade-${choice.gradeClass}`);
       button.dataset.stat = choice.stat;
+      button.dataset.grade = choice.grade;
       const labelLength = choice.label.length;
       button.style.setProperty('--choice-font-desktop', `${labelLength > 10 ? 12 : labelLength > 7 ? 14 : 16}px`);
       button.style.setProperty('--choice-font-mobile', `${labelLength > 10 ? 9 : labelLength > 7 ? 11 : 13}px`);
       if (notes.length && choice.stat === notes.at(-1).stat) button.classList.add('is-linked');
+      if (!manualSession && aiMode.checked && recommendation?.action === 'select' && recommendation.stat === choice.stat && recommendation.grade === choice.grade) button.classList.add('is-recommended');
       button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.label}</strong><span class="epic-choice-probability" title="공식 등급별 옵션 노출 확률 · 선택 시 등급 상승 전">${choice.probability}</span>`;
       button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
       button.addEventListener('click', () => applyChoice(choice));

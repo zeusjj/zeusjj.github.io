@@ -66,6 +66,12 @@
 #epic-panel .epic-stat-summary tbody th{background:#263a3d;color:#e0e7e3}
 #epic-panel .epic-stat-summary thead th{background:#263a3d;color:#b4c5bf}
 .epic-controls #epic-reroll:disabled:hover{background:#283a40;border-color:#58696e;color:#dce6e5}
+.epic-practice .secondary-button:hover,.epic-practice .icon-button:hover,.epic-reset-actions .secondary-button:hover{background:#35494d;border-color:#74878a;color:#f0eee7}
+.epic-practice .epic-controls .primary-button:hover,.epic-reset-actions .primary-button:hover{background:#ad8650;border-color:#d5ad69;color:#fff5df}
+#epic-panel .epic-controls #epic-play:hover,#epic-panel .epic-controls #epic-new-act:hover{background:#ad8650;border-color:#d5ad69;color:#fff5df}
+.epic-practice .epic-reset-button:hover{background:#514735;border-color:#d5ad69;color:#f3e8cd}
+.epic-practice .epic-manual-button:hover,.epic-practice .epic-manual-return:hover{background:#d8e6de;border-color:#799d87;color:#29483c}
+.epic-practice .epic-choice:hover{filter:brightness(1.12)}
 .epic-ai-recommendation{position:relative;gap:10px;margin:12px 0 9px;padding:11px 13px;border:1px solid #c49349;border-left:4px solid #efad35;background:#352b3c;color:#e7d4a8;box-shadow:inset 0 0 0 1px #8b61a055,0 0 12px #9d6bc333}
 .epic-ai-recommendation>span{font-size:12px;font-weight:700;color:#dbc48e}
 .epic-ai-recommendation strong{font-size:16px;color:#ffd36e;text-shadow:0 0 10px #d6a34855}
