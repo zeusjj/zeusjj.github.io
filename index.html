@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f6f8"><title>절대중립 | 길드</title>
-  <script src="site-themes.js?v=20261019-180"></script>
+  <script src="site-themes.js?v=20261122-unified"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7270'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='23' fill='white'%3E중%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="vendor/quill.snow.css">
   <link rel="stylesheet" href="style.css?v=20261106-single-update-box">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="guild-history.css?v=20261117-guild-history-label"><link rel="stylesheet" href="quick-link.css?v=20261117-guild-history-label"><link rel="stylesheet" href="guild-history-format.css?v=20261117-order-description">
   <script src="browser-nickname.js?v=20261020-186" defer></script>
   <script src="member-archives.js?v=20261120-active-archive" defer></script>
-  <script src="guild-data.js?v=20261108-inline-fallback" defer></script>
+  <script src="guild-data.js?v=20261122-season3" defer></script>
   <link rel="stylesheet" href="section-editor.css?v=20261104-bid-restrictions">
   <script src="section-editor.js?v=20261120-history-editor-open" defer></script>
   <script type="module" src="member-auth.js?v=20261115-alias"></script>
@@ -22,12 +22,12 @@
   <link rel="stylesheet" href="profile-preview.css?v=20261025-preview">
   <script src="profile-preview.js?v=20261025-preview" defer></script>
   <script src="raid-distribution.js?v=20261104-card-editor" defer></script>
-  <script src="arcadia-seasons.js?v=20261102-season" defer></script>
-  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261105-tip-video" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261120-history-login-gate" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
+  <script src="arcadia-seasons.js?v=20261122-filter" defer></script>
+  <script src="guild-schedule.js?v=20261122-weekdays" defer></script>
+  <script src="vendor/lucide.min.js" defer></script><script src="vendor/quill.js" defer></script><script src="rich-editor.js?v=20261105-tip-video" defer></script><script src="nickname-search.js?v=20261018-169" defer></script><script src="app.js?v=20261122-season3-weekdays" defer></script><script src="tool-suggestions.js?v=20261018-156" defer></script><script src="admin-suggestions.js?v=20261014-114" defer></script>
   <script type="module" src="member-growth-history.js?v=20261119-growth-axis-break-spacing"></script>
   <script type="module" src="member-growth-achievements.js?v=20261115-siege"></script>
   <script type="module" src="member-distributions.js?v=20261119-empty-growth-bins"></script>
-  <link rel="stylesheet" href="arcadia-seasons.css?v=20261030">
   <script src="member-table-scroll.js?v=20261009-79" defer></script>
   <script src="member-mobile.js?v=20261018-170" defer></script>
   <script src="admin-statistics.js?v=20261021-201" defer></script>
@@ -64,7 +64,6 @@
   <link rel="stylesheet" href="site-design.css?v=20261116-discard-trophies">
   <link rel="stylesheet" href="november-plan.css?v=20261104-card-editor">
   <script src="november-plan.js?v=20261104-card-editor" defer></script>
-  <link rel="stylesheet" href="site-themes.css?v=20261115-notice-categories">
   <link rel="stylesheet" href="member-mobile.css?v=20261020-189">
   <script src="site-design.js?v=20261018-166" defer></script>
   <script src="main-menu-share.js?v=20261115-siege-split" defer></script>
@@ -72,8 +71,10 @@
   <script type="module" src="guild-overviews.js?v=20261115-siege"></script>
   <script type="module" src="community-page.js?v=20261021-196"></script>
   <link rel="stylesheet" href="dashboard-refinement.css?v=20261021-195">
+  <link rel="stylesheet" href="arcadia-seasons.css?v=20261122-filter">
   <link rel="stylesheet" href="siege-distribution.css?v=20261116-embed">
   <script src="siege-distribution.js?v=20261116-embed" defer></script>
+  <link rel="stylesheet" href="site-themes.css?v=20261122-unified">
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 이동</a>
@@ -101,7 +102,7 @@
     </div>
   </aside>
   <div class="workspace">
-    <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="site-announcement" class="site-announcement" role="region" aria-label="길드 공지" hidden><div class="site-announcement-viewport"><span id="site-announcement-message"></span></div><button id="site-announcement-pause" class="icon-button" type="button" aria-label="공지 흐름 멈추기" aria-pressed="false" title="공지 흐름 멈추기"><i data-lucide="pause"></i></button></div><div id="header-nickname" class="nickname-picker"></div><label class="theme-picker" for="site-theme"><i data-lucide="palette" aria-hidden="true"></i><span>테마</span><select id="site-theme"><option value="mono">모노</option><option value="blue">클래식 블루</option><option value="rose">로즈</option><option value="graphite">다크 그래파이트</option></select></label></header>
+    <header class="workspace-bar"><div class="workspace-crumb"><span>길드</span><i data-lucide="chevron-right"></i><strong id="current-view">운영 방식</strong><button id="main-menu-share" class="icon-button" type="button" title="운영 방식 링크 복사" aria-label="운영 방식 링크 복사"><i data-lucide="link" aria-hidden="true"></i></button><span id="main-menu-share-status" class="visually-hidden" role="status" aria-live="polite"></span></div><div id="site-announcement" class="site-announcement" role="region" aria-label="길드 공지" hidden><div class="site-announcement-viewport"><span id="site-announcement-message"></span></div><button id="site-announcement-pause" class="icon-button" type="button" aria-label="공지 흐름 멈추기" aria-pressed="false" title="공지 흐름 멈추기"><i data-lucide="pause"></i></button></div><div id="header-nickname" class="nickname-picker"></div></header>
     <main id="main-content" tabindex="-1">
       <p id="loading" role="status">길드 정보를 불러오는 중입니다.</p>
       <section id="login" hidden aria-labelledby="member-login-heading"><div class="page-heading"><h1 id="member-login-heading">로그인</h1></div><div id="member-login-page" class="member-login-mount"></div></section>
@@ -169,7 +170,7 @@
       </section>
       <section id="members" hidden>
         <div class="page-heading member-page-heading"><div class="member-page-title"><h1>길드원 참여 현황</h1><span id="member-count" class="count-label"></span></div></div>
-        <div class="toolbar member-toolbar"><div class="member-visibility-controls"><label class="member-growth-control"><span>성장도 보기</span><input id="member-growth-toggle" type="checkbox" role="switch"><span class="member-switch" aria-hidden="true"></span></label><label class="member-growth-control"><span>기여도 보기</span><input id="member-contribution-toggle" type="checkbox" role="switch" checked><span class="member-switch" aria-hidden="true"></span></label><label class="member-growth-control"><span>부가정보 보기</span><input id="member-extra-toggle" type="checkbox" role="switch"><span class="member-switch" aria-hidden="true"></span></label></div><label class="search-field member-nickname-search"><i data-lucide="search"></i><input id="search" type="search" placeholder="닉네임 검색" aria-label="닉네임 검색"></label><span class="legend"><b class="yes">ㅇ 참여</b><b class="no">x 미참여</b><b class="pending">- 가입 전 / 미기록</b></span></div>
+        <div class="toolbar member-toolbar"><div class="member-visibility-controls"><label class="member-growth-control"><span>성장도 보기</span><input id="member-growth-toggle" type="checkbox" role="switch"><span class="member-switch" aria-hidden="true"></span></label><label class="member-growth-control"><span>기여도 보기</span><input id="member-contribution-toggle" type="checkbox" role="switch" checked><span class="member-switch" aria-hidden="true"></span></label><label class="member-growth-control"><span>부가정보 보기</span><input id="member-extra-toggle" type="checkbox" role="switch"><span class="member-switch" aria-hidden="true"></span></label></div><label class="search-field member-nickname-search"><i data-lucide="search"></i><input id="search" type="search" placeholder="닉네임 검색" aria-label="닉네임 검색"></label><div class="member-record-filters"><select id="member-class-filter" aria-label="클래스 필터"><option value="all">전체 클래스</option></select><select id="member-season-filter" aria-label="시즌 필터"><option value="all">전체</option></select></div><span class="legend"><b class="yes">ㅇ 참여</b><b class="no">x 미참여</b><b class="pending">- 가입 전 / 미기록</b></span></div>
         <div class="member-grid"><div class="member-group-bar"><span>길드원</span><span data-member-extra="chat">단톡</span><span data-member-extra="participation" title="최근 4주 길드컨텐츠참여율">참여율</span><span>길드 컨텐츠</span></div><div class="table-scroll"><table id="member-table"></table></div></div><p id="empty-search" hidden>검색 결과가 없습니다.</p>
         <div class="member-distributions"><section class="member-distribution"><div class="member-distribution-heading"><h2>클래스 분포</h2><span id="member-class-total"></span></div><div class="member-class-distribution"><div class="member-pie-frame"><canvas id="member-class-chart" role="img" aria-label="클래스 분포"></canvas></div><ul id="member-class-legend"></ul></div></section><section class="member-distribution"><div class="member-distribution-heading"><h2>성장도 분포</h2><span id="member-growth-total"></span></div><div id="member-growth-chart"></div></section><section class="member-distribution"><div class="member-distribution-heading"><h2>레벨 분포</h2><span id="member-level-total"></span></div><div id="member-level-chart"></div></section></div>
         <section class="member-growth-history"><div class="member-distribution-heading"><h2>성장 그래프</h2><span id="member-history-count"></span></div><div class="member-history-filters"><label>클래스<select id="member-history-class"><option value="">전체</option></select></label><label>성장도 구간<select id="member-history-band"><option value="">전체</option></select></label><label class="member-history-individual"><input id="member-history-individual" type="checkbox">개인 성장도 보기</label><div class="member-history-search"><label for="member-growth-person">내 성장도 검색</label><div class="member-history-combo"><input id="member-growth-person" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="member-history-names" placeholder="닉네임 검색" autocomplete="off"><button id="member-history-open" type="button" aria-label="길드원 목록 펼치기" title="길드원 목록 펼치기"><i data-lucide="chevron-down"></i></button><div id="member-history-names" role="listbox" aria-label="추천 닉네임" hidden></div></div></div></div><div id="member-history-scroll" tabindex="0" role="region" aria-label="날짜별 성장 그래프"><canvas id="member-history-canvas" role="img" aria-label="성장 기록"></canvas></div><p id="member-history-point" aria-live="polite"></p><table class="visually-hidden" id="member-history-values"><caption>날짜별 성장도</caption><thead><tr><th>날짜</th><th>성장도</th><th>기록 인원</th></tr></thead><tbody></tbody></table></section>

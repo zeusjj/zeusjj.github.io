@@ -11,6 +11,10 @@
   const event=festivalEventIndex(data,index),season=seasonFor(data.dates?.[event>=0?event:index]?.start);
   return data.headers.findLastIndex((h,c)=>{if(c>=index||h!=='1차 제전 기여')return false;const first=festivalEventIndex(data,c);return seasonFor(data.dates?.[first>=0?first:c]?.start)?.number===season?.number;});
  }
+ function columnSeason(data,index){
+  const event=festivalEventIndex(data,index);
+  return seasonFor(data.dates?.[event>=0?event:index]?.start);
+ }
  function groups(data,identityCount,isHidden){
   const result=[];
   for(let index=identityCount;index<data.headers.length;index++){
@@ -21,5 +25,5 @@
   }
   return result;
  }
- globalThis.GuildArcadiaSeasons={seasonFor,groups,festivalEventIndex,firstFestivalContribution};
+ globalThis.GuildArcadiaSeasons={seasonFor,columnSeason,groups,festivalEventIndex,firstFestivalContribution};
 })();

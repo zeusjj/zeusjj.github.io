@@ -7,4 +7,15 @@
 .member-season-label{position:sticky;left:var(--season-identity);display:inline-flex;align-items:center;gap:10px;padding:0 12px;max-width:calc(100vw - var(--season-identity) - 48px);white-space:nowrap;box-sizing:border-box}
 .member-season-label strong{font-size:11px;font-weight:650;letter-spacing:0}.member-season-label small{font-size:10px;opacity:.85}
 #members #member-table th{top:var(--season-height)}
+.member-record-filters{display:flex;gap:8px;flex-wrap:wrap}
+.member-record-filters select{min-height:36px;max-width:100%;padding:7px 30px 7px 10px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px}
+.member-record-filters select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#members .member-toolbar{grid-template-columns:minmax(180px,280px) auto minmax(0,1fr)}
+#members .member-toolbar .member-visibility-controls{grid-column:1/-1;grid-row:1}
+#members .member-toolbar .member-nickname-search{grid-column:1;grid-row:2;justify-self:stretch}
+#members .member-toolbar .member-record-filters{grid-column:2;grid-row:2}
+#members .member-toolbar .legend{grid-column:3;grid-row:2}
+@media(max-width:1050px){#members .member-toolbar{grid-template-columns:minmax(0,1fr) auto}#members .member-toolbar .legend{grid-column:1/-1;grid-row:3;justify-self:start}}
+@media(max-width:700px){#members .member-record-filters{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.member-record-filters select{width:100%;min-width:0}}
+@media(max-width:700px){#members .member-toolbar{grid-template-columns:minmax(0,1fr)}#members .member-toolbar .member-nickname-search{grid-column:1;grid-row:2;max-width:none}#members .member-toolbar .member-record-filters{grid-column:1;grid-row:3}#members .member-toolbar .legend{grid-column:1;grid-row:4}}
 @media(max-width:700px){.member-grid{--season-height:44px}.member-season-band{line-height:1.4}.member-season-label{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;height:43px;padding:0 8px}.member-season-label strong{font-size:10px}.member-season-label small{font-size:9px}.member-season-corner{display:flex;align-items:center;justify-content:center;font-size:10px}}
