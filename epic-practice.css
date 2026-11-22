@@ -73,12 +73,10 @@
 #epic-ai-message{font-size:17px;font-weight:650;line-height:1.7;color:#f3e8cd}
 #epic-ai-message strong{font-size:20px;font-weight:800;color:#f2d38d}
 #epic-ai-reason{margin-top:14px;color:#b6afc7;font-size:13px;line-height:1.85}
-.epic-action-area{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:0 24px;min-width:0;margin-top:14px;padding:12px 18px;background:#24252c;border:1px solid #45454f;border-radius:4px}
-.epic-controls{grid-column:1;grid-row:1/3;display:grid;grid-template-columns:180px minmax(180px,280px);grid-template-rows:46px;justify-content:center;align-items:center;gap:12px}
+.epic-action-area{min-width:0;margin-top:14px;padding:16px 18px;background:#24252c;border:1px solid #45454f;border-radius:4px}
+.epic-controls{display:grid;grid-template-columns:180px minmax(180px,280px);grid-template-rows:46px;justify-content:center;align-items:center;gap:12px}
 .epic-main-action{grid-column:2;grid-row:1}
 #epic-panel .epic-controls .epic-reset-button{grid-column:1;grid-row:1;height:46px}
-.epic-action-area>.epic-manual-button{grid-column:2;grid-row:1}
-.epic-action-area>.epic-return-slot{grid-column:2;grid-row:2}
 .epic-main-action{min-width:0;height:46px}
 #epic-panel .epic-controls button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:36px;min-width:0;padding:0 10px;border:1px solid #666370;border-radius:4px;background:#2b2b35;color:#eae8f1;font:inherit;font-size:12px;line-height:1.3;white-space:normal;cursor:pointer}
 #epic-panel .epic-main-action button{height:46px;background:#8d713c;border-color:#c09b57;color:#fff1cb;font-size:13px;font-weight:700}
@@ -93,6 +91,10 @@
 #epic-panel .epic-manual-button,#epic-panel .epic-manual-return{display:block;width:100%;height:32px;margin:6px 0 0;padding:0 5px;border:0;border-radius:3px;background:transparent;color:#b4adbf;font:inherit;font-size:11px;cursor:pointer;line-height:1.4}
 #epic-panel .epic-manual-button:hover,#epic-panel .epic-manual-return:hover{background:#34313d;color:#ede4f6}
 .epic-return-slot{height:30px}
+.epic-cat-assistant{display:grid;grid-template-rows:auto 44px 40px;justify-items:center;gap:6px;min-width:0;width:160px}
+#epic-panel .epic-cat-assistant .epic-manual-button{height:44px;margin:0;padding:4px 6px;border:1px solid #655b75;background:#312c3b;color:#ded2ee;white-space:normal}
+.epic-cat-assistant .epic-return-slot{height:40px;width:100%}
+#epic-panel .epic-cat-assistant .epic-manual-return{height:40px;font-size:10px;white-space:normal}
 #epic-panel .epic-manual-return{margin:0;height:28px;color:#e1c286}
 #epic-panel [hidden]{display:none!important}
 .epic-feedback{height:24px;margin:6px 0 0;overflow:auto;color:#b8b3c3;font-size:11px;line-height:1.6}
@@ -138,10 +140,7 @@
   #epic-panel .epic-practice{padding:22px}
   .epic-settings{gap:12px;padding:14px}
   .epic-ai-panel{grid-template-columns:160px minmax(0,1fr) 160px;gap:18px;padding:18px}
-  .epic-action-area{grid-template-columns:minmax(0,1fr);gap:4px;padding:12px 16px}
-  .epic-controls{grid-row:1;grid-column:1}
-  .epic-action-area>.epic-manual-button{grid-column:1;grid-row:2}
-  .epic-action-area>.epic-return-slot{grid-column:1;grid-row:3}
+  .epic-action-area{padding:14px 16px}
   .epic-ai-copy,.epic-ai-dialogue,.epic-ai-summary{height:218px}
   .epic-ai-recommendation strong{font-size:18px}
   .epic-choice,.epic-choice-placeholder{padding:16px;height:164px;min-height:164px}
@@ -179,6 +178,7 @@
   .epic-choice.is-recommended:after{right:5px;top:-9px;bottom:auto;font-size:9px;padding:3px 6px}
   .epic-ai-panel{grid-template-columns:112px minmax(0,1fr);gap:14px 12px;margin-top:18px;padding:14px}
   .epic-cat-portrait{width:112px;height:131px;align-self:center;margin:0}
+  .epic-cat-assistant{width:112px}
   .epic-ai-copy,.epic-ai-dialogue{height:260px}
   .epic-ai-summary{grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:108px;gap:14px;padding:14px 0 0;border:0;border-top:1px solid #4a4353;align-items:center}
   .epic-ai-recommendation strong{font-size:17px}
@@ -205,6 +205,8 @@
   #epic-panel .epic-practice{padding:14px}
   .epic-ai-panel{grid-template-columns:84px minmax(0,1fr);padding:12px;gap:12px 8px}
   .epic-cat-portrait{width:84px;height:98px}
+  .epic-cat-assistant{width:84px}
+  #epic-panel .epic-cat-assistant .epic-manual-button{font-size:10px;padding:3px}
   .epic-choice,.epic-choice-placeholder{padding:10px 5px}
   .epic-choice.is-recommended{padding:9px 4px}
   .epic-choice strong{font-size:13px}
