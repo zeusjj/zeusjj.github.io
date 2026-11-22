@@ -1,8 +1,8 @@
 import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent,target} from './guild-overview-model.js?v=20261115-siege';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
-import {mountWeeklyNews} from './weekly-news.js?v=20261122-home-news';
+import {mountWeeklyNews} from './weekly-news.js?v=20261122-seven-days';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
-import {renderHome} from './home-overview.js?v=20261122-schedule';
+import {renderHome} from './home-overview.js?v=20261122-approved';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -154,7 +154,7 @@ function renderWeeklyStats(){
   const temporary=new Set(source.temporaryMembers??[]),memberCount=source.members.filter(row=>!temporary.has(row[report.nameIndex])).length;
   document.getElementById('weekly-caption').textContent=short(summary.start)+' ~ '+short(summary.end)+' · '+short(summary.until)+' 기준 · 현재 길드원 '+memberCount+'명';
   let goalLine=document.getElementById('weekly-growth-goal');
-  if(!goalLine){goalLine=el('p',undefined,'weekly-growth-goal');goalLine.id='weekly-growth-goal';document.getElementById('weekly-caption').after(goalLine);}
+  if(!goalLine){goalLine=el('p',undefined,'weekly-growth-goal');goalLine.id='weekly-growth-goal';document.querySelector('#weekly>.page-heading').append(goalLine);}
   const savedGoal=target({...source,rules:window.GuildSectionEditor?.rules(source.rules)??source.rules}),goalText=[savedGoal.level?'Lv.'+savedGoal.level:'',savedGoal.growth?'성장도 '+format(savedGoal.growth):''].filter(Boolean).join(' · ');
   goalLine.replaceChildren(el('strong','이번 주 성장 목표'),el('span',goalText?goalText+(savedGoal.deadline?' (~'+savedGoal.deadline.trim()+')':''):'등록된 목표가 없습니다.'));
   metrics(weekly,[['평균 성장도',format(mean),summary.last?short(summary.last.date)+' · '+latestRows.length+'명':'기록 없음'],['이번 주 평균 성장량',signed(average),growth.length?(summary.previous?short(summary.previous.date):'주 첫 기록')+' → '+short(summary.last?.date)+' · 비교 가능 '+growth.length+'명':'비교 기록 없음'],['콘텐츠 참여율',summary.eligible?decimal.format(summary.attended/summary.eligible*100)+'%':'—',summary.eligible?summary.attended+' / '+summary.eligible+'건':'집계된 콘텐츠 없음'],['현재 목표 달성',summary.goalRows?summary.achieved+' / '+summary.goalRows+'명':'—','Lv.'+(summary.goal.level||'—')+' · 성장도 '+format(summary.goal.growth)+(summary.goal.deadline?' · ~'+summary.goal.deadline:'')]]);

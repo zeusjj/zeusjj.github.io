@@ -28,10 +28,12 @@ export function mountRecentNews(host){
   load().then(feeds=>{
     if(!host.isConnected)return;
     const homeFeeds=feeds.filter(feed=>feed.kind!=='community');
-    const records=homeFeeds.flatMap(feed=>feed.items).sort((a,b)=>b.time-a.time).slice(0,6);
+    const firstDay=new Date(Date.now()+9*3600000-6*86400000).toISOString().slice(0,10);
+    const records=homeFeeds.flatMap(feed=>feed.items).filter(record=>record.date>=firstDay).sort((a,b)=>b.time-a.time);
+    list.tabIndex=0;list.setAttribute('aria-label','최근 7일 소식');
     status.textContent=records.length?'':homeFeeds.every(feed=>feed.error)?'소식을 불러오지 못했습니다.':'등록된 소식이 없습니다.';
     status.hidden=!!records.length;
-    for(const record of records){const item=node('li'),anchor=node('a'),tag=node('span',sources.find(([kind])=>kind===record.kind)?.[1]??'소식','home-news-tag'),title=node('span',record.title),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));anchor.href=record.href;if(!record.href.startsWith('#')){anchor.target='_blank';anchor.rel='noopener noreferrer';}time.dateTime=record.date;anchor.append(tag,title,time);item.append(anchor);list.append(item);}
+    for(const record of records){const item=node('li'),anchor=node('a'),tag=node('span',sources.find(([kind])=>kind===record.kind)?.[1]??'소식','home-news-tag'),title=node('span',record.title),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));tag.dataset.kind=record.kind;anchor.href=record.href;if(!record.href.startsWith('#')){anchor.target='_blank';anchor.rel='noopener noreferrer';}time.dateTime=record.date;anchor.append(tag,title,time);item.append(anchor);list.append(item);}
   }).catch(()=>{status.textContent='소식을 불러오지 못했습니다.';});
 }
 async function load(communityOnly=false,force=false){
