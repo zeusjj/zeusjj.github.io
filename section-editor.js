@@ -80,6 +80,6 @@
  });
  window.addEventListener('guild-auth-change',()=>{if(!admin()&&dialog.open)dialog.close();sync();});
  window.addEventListener('pageshow',()=>{if(base)load();});
- window.GuildSectionEditor={ready:load(),setSource,rules,getBody,getVersion:key=>overrides[key]?.version??0,getAdditionalSections,refresh:load,decorateStandalone,decorateDescription,decorate:(section,key)=>{decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');},get loaded(){return loaded;}};
+ window.GuildSectionEditor={ready:load(),setSource,rules,getBody,getSourceBody:key=>original.get(key)?.body,getVersion:key=>overrides[key]?.version??0,getAdditionalSections,refresh:load,decorateStandalone,decorateDescription,decorate:(section,key)=>{decorate(section,key);section.querySelector(':scope>h2 button,:scope>h3 button')?.classList.add('section-edit-trigger');},get loaded(){return loaded;}};
  setInterval(()=>{if(!document.hidden&&base)load();},60000);
 })();
