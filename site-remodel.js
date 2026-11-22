@@ -8,17 +8,12 @@
   const nav=make('nav',undefined,'mobile-navigation');nav.setAttribute('aria-label','주요 메뉴');
   for(const [route,label,icon]of [['weekly','이번 주','calendar-days'],['members','참여 현황','users-round'],['tools','편의 기능','sliders-horizontal'],['profile','내 정보','user-round']]){const a=make('a');a.href='#'+route;a.dataset.route=route;const mark=make('i');mark.dataset.lucide=icon;a.append(mark,make('span',label));nav.append(a);}
   document.body.append(nav);
-  const announcement=document.getElementById('site-announcement');main.prepend(announcement);
   const updateLocation=()=>{
     const route=location.hash.slice(1).split('/')[0]||'weekly';
     nav.querySelectorAll('a').forEach(a=>{a.setAttribute('aria-current',a.dataset.route===route?'page':'false');});
-    const current=[...main.children].find(section=>section.tagName==='SECTION'&&!section.hidden),heading=current?.querySelector('.page-heading');
-    if(heading&&announcement.previousElementSibling!==heading)heading.after(announcement);
   };
   window.addEventListener('hashchange',updateLocation);
-  new MutationObserver(updateLocation).observe(main,{subtree:false,attributes:true,childList:true});
-  for(const panel of main.querySelectorAll(':scope>section'))new MutationObserver(updateLocation).observe(panel,{attributes:true,attributeFilter:['hidden']});
-  const updates=document.getElementById('site-updates'),updateDetails=make('details',undefined,'home-updates');updateDetails.id='home-updates';updateDetails.append(make('summary','홈페이지 업데이트'),updates);document.getElementById('weekly').append(updateDetails);
+  const updates=document.getElementById('site-updates');document.querySelector('#weekly>.page-heading').after(updates);
   const members=document.getElementById('members'),toolbar=members.querySelector('.member-toolbar'),modes=make('div',undefined,'member-view-tabs');modes.setAttribute('role','tablist');modes.setAttribute('aria-label','참여 기록 보기');
   const controls=members.querySelector('.member-visibility-controls'),options=make('details',undefined,'member-options'),summary=make('summary'),icon=make('i');icon.dataset.lucide='list-filter';summary.append(icon);summary.title='표 설정';summary.setAttribute('aria-label','표 설정');options.append(summary,controls);toolbar.append(options);
   for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).closest('label').hidden=true;
@@ -34,18 +29,9 @@
   }
   for(const [view,label]of [['participation','참여'],['contribution','기여'],['growth','성장']]){const button=make('button',label);button.type='button';button.dataset.view=view;button.setAttribute('role','tab');button.setAttribute('aria-controls','member-table');button.addEventListener('click',()=>selectView(view));button.addEventListener('keydown',event=>{const buttons=[...modes.children],i=buttons.indexOf(button);let next;if(event.key==='ArrowRight')next=(i+1)%3;if(event.key==='ArrowLeft')next=(i+2)%3;if(event.key==='Home')next=0;if(event.key==='End')next=2;if(next!==undefined){event.preventDefault();selectView(buttons[next].dataset.view,true);}});modes.append(button);}
   selectView('participation');
-  const distributions=members.querySelector('.member-distributions'),growthHistory=members.querySelector('.member-growth-history'),distributionDetails=make('details',undefined,'member-distribution-disclosure');distributionDetails.append(make('summary','길드 전체 분포'),distributions);growthHistory.before(distributionDetails);
-  const growthDetails=make('details',undefined,'member-distribution-disclosure');growthHistory.before(growthDetails);growthDetails.append(make('summary','성장·참여 추이'),growthHistory);growthDetails.addEventListener('toggle',()=>{if(growthDetails.open)window.dispatchEvent(new Event('resize'));});
-  const moveAchievements=()=>{const achievements=document.getElementById('member-growth-achievements');if(achievements&&achievements.parentElement===members)distributionDetails.append(achievements);};moveAchievements();new MutationObserver(moveAchievements).observe(members,{childList:true});
-  distributionDetails.addEventListener('toggle',()=>{if(distributionDetails.open)window.dispatchEvent(new Event('resize'));});
-  const detail=make('section',undefined,'member-selected-detail'),detailHeading=make('h2','길드원 상세'),detailBody=make('div');detail.append(detailHeading,detailBody);distributionDetails.before(detail);
-  detailBody.append(make('p','선택된 길드원이 없습니다.','empty'));
   window.addEventListener('guild-member-detail',event=>{
-    const {name,score}=event.detail;detailBody.replaceChildren(make('strong',name));
-    detailBody.append(make('p',typeof score==='number'?'최근 4주 참여율 '+new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(score)+'%':'참여율 산정 확인 필요'));
-    const action=make('button',window.GuildAuth?.user?'성장·참여 기록 보기':'로그인 후 상세 보기','secondary-button');action.type='button';action.addEventListener('click',()=>{if(window.GuildAuth?.user)window.dispatchEvent(new CustomEvent('guild-profile-view',{detail:{name}}));else location.hash='login';});detailBody.append(action);detail.scrollIntoView({block:'nearest',behavior:'instant'});
+    if(window.GuildAuth?.user)window.dispatchEvent(new CustomEvent('guild-profile-view',{detail:{name:event.detail.name,popup:true}}));else location.hash='login';
   });
-  window.addEventListener('guild-auth-change',()=>detailBody.replaceChildren(make('p','선택된 길드원이 없습니다.','empty')));
   function distributionSelector(){
     const host=document.getElementById('distribution-content');host.querySelector('.distribution-filter')?.remove();const groups=[...host.querySelectorAll(':scope>.distribution-group')];if(!groups.length)return;
     const label=make('label','회차 ', 'distribution-filter'),select=make('select');select.setAttribute('aria-label','분배 회차');select.append(new Option('전체 회차','all'));groups.forEach((group,i)=>select.append(new Option(group.querySelector('h2').textContent,String(i))));

@@ -12,12 +12,15 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
 .sidebar .game-brand img{max-width:132px;height:auto}
 .mobile-navigation{display:none}
 .workspace .workspace-bar{height:64px;min-height:64px}
-#main-content .site-announcement{display:block;position:static;width:100%;max-width:none;margin:0 0 24px;padding:14px 18px;border:1px solid var(--gold-line);border-left:3px solid #9b772a;border-radius:3px;background:#fcfaf3;box-sizing:border-box}
-#main-content .site-announcement[hidden]{display:none}
-#main-content .site-announcement-viewport{width:auto;overflow:visible;min-height:0;height:auto}
-#main-content #site-announcement-message{display:grid;gap:6px;position:static;width:auto;max-width:100%;min-width:0;white-space:normal;transform:none;animation:none!important;color:#5b4b2c;font-size:14px;line-height:1.65;font-weight:500;text-shadow:none}
-#main-content #site-announcement-message>span{overflow-wrap:anywhere}
-#site-announcement-pause{display:none}
+.workspace-bar .site-announcement{box-sizing:border-box}
+#site-announcement-message{text-shadow:none}
+#weekly>.site-updates{margin:0 0 24px}
+.member-record-dialog{width:min(1050px,calc(100vw - 32px));max-width:1050px;max-height:calc(100dvh - 32px);box-sizing:border-box;border:1px solid var(--line);border-radius:6px;padding:24px;background:var(--surface);color:var(--ink);overflow:auto}
+.member-record-dialog::backdrop{background:#111a22a6}
+.member-record-dialog>header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+.member-record-dialog>header h2{margin:0;font-size:20px;overflow-wrap:anywhere}
+.member-record-dialog #profile-content{min-width:0}
+.member-record-dialog .overview-section{position:relative}
 .home-section{padding:24px 0;border-bottom:1px solid var(--line);min-width:0}
 .home-section>h2{margin:0 0 18px;font-size:20px;line-height:1.4}
 .home-event{display:grid;grid-template-columns:100px minmax(0,1fr) 130px 90px;gap:20px;align-items:center;min-height:60px;padding:12px 0;border-top:1px solid var(--line);font-size:14px}
@@ -81,12 +84,10 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
 #members #member-table .column-title{font-size:13px;line-height:1.5}
 #members #member-table .content-date{font-size:12px;line-height:1.4}
 #members #member-table td{height:44px;font-size:13px}
-#members #member-table tbody .status{background:none;border:0;padding:0;min-width:0;font-size:13px}
-#members #member-table tbody .status.yes{color:#21675a}
-#members #member-table tbody .status.no{color:#ac434b}
-#members #member-table tbody .status.pending{color:#747f87}
-#members #member-table :is(th,td)[data-week-tone]{background:var(--surface)}
-#members #member-table th[data-week-tone]{background:#f0f3f4}
+#members #member-table tbody .status{font-size:13px}
+#members #member-table tbody .status.yes{background:#e7f3ed;color:#216047;font-weight:700}
+#members #member-table tbody .status.no{background:#f9e9e5;color:#943f39;font-weight:700}
+#members #member-table tbody .status.pending{background:#faf1d9;color:#766127}
 #members #member-table tbody tr:hover>td{background:var(--hover)}
 .member-name-label[role=button]{cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px}
 .member-name-label[role=button]:hover{text-decoration-color:var(--accent);color:var(--accent)}
@@ -125,6 +126,7 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
 .policy-quick-navigation button{border:0;border-bottom:1px solid transparent;background:none;color:var(--ink);min-height:40px;font-size:14px;padding:6px 0;cursor:pointer}
 .policy-quick-navigation button:hover{color:var(--accent);border-bottom-color:var(--accent)}
 @media(max-width:1050px){
+ .workspace .workspace-bar,.workspace:has(#members:not([hidden])) .workspace-bar{height:auto}
  .home-event{grid-template-columns:80px minmax(0,1fr) 100px 74px;gap:12px}
  .home-columns{grid-template-columns:minmax(0,1.6fr) minmax(190px,1fr);gap:24px}
  .home-tool-list{grid-template-columns:repeat(2,minmax(0,1fr))}.home-tool-list a:nth-child(2){border-right:0}.home-tool-list a:nth-child(3){padding-left:0}
@@ -141,7 +143,6 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
  .mobile-navigation a svg{width:22px;height:22px}.mobile-navigation a[aria-current=page]{background:var(--accent-soft);color:var(--accent)}
  .mobile-navigation a:hover{background:var(--hover);color:var(--accent)}
  .workspace .workspace-bar,.workspace:has(#members:not([hidden])) .workspace-bar{min-height:62px}
- #main-content .site-announcement{padding:12px;margin-bottom:20px}
  .home-section{padding:20px 0}.home-section>h2{font-size:18px}
  .home-event{grid-template-columns:58px minmax(0,1fr) 66px;gap:8px;position:relative;padding:14px 0;min-height:64px}
  .home-event>time{font-size:13px;gap:4px;flex-wrap:wrap}.home-event>strong{font-size:14px}

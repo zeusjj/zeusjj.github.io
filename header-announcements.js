@@ -2,7 +2,7 @@
  const endpoint='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/site-sections',key='상단 공지';
  const banner=document.getElementById('site-announcement'),viewport=banner.querySelector('.site-announcement-viewport'),message=document.getElementById('site-announcement-message'),pauseButton=document.getElementById('site-announcement-pause');
  const adminPanel=document.getElementById('header-announcements-admin'),list=document.getElementById('header-announcement-list'),status=document.getElementById('header-announcement-status');
- let messages=[],draft=[],version=0,animationTimer=null,index=0,manuallyPaused=false,saving=false;
+ let messages=[],draft=[],version=0,animationTimer=null,index=0,manuallyPaused=false,saving=false,waitingForNext=false;
  const isAdmin=()=>!!window.GuildAuth?.user?.isAdmin&&window.GuildAuth.expiresAt>Date.now();
  const icon=(name)=>{const node=document.createElement('i');node.dataset.lucide=name;return node;};
  const refreshIcons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
@@ -10,10 +10,21 @@
   try{const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error();const data=await response.json(),record=data.sections?.[key];version=record?.version??0;const parsed=record?.body?JSON.parse(record.body):{messages:[]};messages=Array.isArray(parsed.messages)?parsed.messages.filter(text=>typeof text==='string'&&text.trim()).map(text=>text.trim()):[];if(index>=messages.length)index=0;play();if(isAdmin()&&!list.dataset.dirty){draft=[...messages];renderEditor();}}
   catch{if(!animationTimer&&messages.length)play();}
  }
- function play(){clearTimeout(animationTimer);banner.hidden=!messages.length;pauseButton.hidden=true;message.style.animation='none';message.replaceChildren(...messages.map(text=>{const line=document.createElement('span');line.textContent=text;return line;}));}
+ function scheduleNext(){clearTimeout(animationTimer);animationTimer=null;if(document.hidden||manuallyPaused||!messages.length)return;animationTimer=setTimeout(()=>{index=(index+1)%messages.length;play();},850);}
+ function syncPlayback(){message.style.animationPlayState=document.hidden||manuallyPaused?'paused':'running';if(document.hidden||manuallyPaused){clearTimeout(animationTimer);animationTimer=null;}else if(waitingForNext)scheduleNext();}
+ function play(){
+  clearTimeout(animationTimer);animationTimer=null;waitingForNext=false;banner.hidden=!messages.length;pauseButton.hidden=false;
+  if(!messages.length){message.textContent='';return;}
+  index%=messages.length;message.textContent=messages[index];message.style.animation='none';
+  message.getBoundingClientRect();
+  const width=viewport.clientWidth,textWidth=message.scrollWidth,duration=Math.max(8,(width+textWidth)/58);
+  message.style.setProperty('--ticker-start',`${width}px`);message.style.setProperty('--ticker-end',`${-textWidth}px`);
+  message.style.animation=`ticker-flow ${duration}s linear forwards`;syncPlayback();
+ }
  pauseButton.addEventListener('click',()=>{manuallyPaused=!manuallyPaused;pauseButton.setAttribute('aria-pressed',String(manuallyPaused));pauseButton.setAttribute('aria-label',manuallyPaused?'공지 흐름 재개':'공지 흐름 멈추기');pauseButton.title=manuallyPaused?'공지 흐름 재개':'공지 흐름 멈추기';pauseButton.replaceChildren(icon(manuallyPaused?'play':'pause'));message.style.animationPlayState=manuallyPaused?'paused':'running';refreshIcons();});
- message.addEventListener('animationend',()=>{clearTimeout(animationTimer);animationTimer=setTimeout(()=>{index=(index+1)%messages.length;play();},850);});
- document.addEventListener('visibilitychange',()=>{message.style.animationPlayState=document.hidden||manuallyPaused?'paused':'running';});
+ message.addEventListener('animationend',event=>{if(event.animationName!=='ticker-flow')return;waitingForNext=true;scheduleNext();});
+ pauseButton.addEventListener('click',syncPlayback);
+ document.addEventListener('visibilitychange',syncPlayback);
  window.addEventListener('resize',()=>{if(!banner.hidden)play();});
  function markDirty(){list.dataset.dirty='true';status.textContent='저장되지 않은 변경 사항이 있습니다.';}
  function renderEditor(){

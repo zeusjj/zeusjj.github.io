@@ -13,6 +13,9 @@ const link=(text,hash)=>{const node=el('a',text,'overview-link');node.href=hash;
 const icons=()=>window.lucide?.createIcons({attrs:{'aria-hidden':'true','stroke-width':1.7}});
 let source,report,chartSeries=[],guildSeries=[],neighborSeries=[],viewingName='',today=koreaDay();
 const profile=document.getElementById('profile-content'),weekly=document.getElementById('weekly-content'),week=document.getElementById('overview-week');
+const profileAnchor=document.createComment('profile-content'),profileDialog=el('dialog',undefined,'member-record-dialog'),dialogHeading=el('header'),dialogTitle=el('h2','개인기록'),dialogClose=el('button',undefined,'icon-button');
+profile.before(profileAnchor);profileDialog.id='member-record-dialog';dialogTitle.id='member-record-dialog-title';profileDialog.setAttribute('aria-labelledby',dialogTitle.id);dialogClose.type='button';dialogClose.setAttribute('aria-label','개인기록 닫기');dialogClose.title='닫기';const closeIcon=el('i');closeIcon.dataset.lucide='x';dialogClose.append(closeIcon);dialogHeading.append(dialogTitle,dialogClose);profileDialog.append(dialogHeading);document.body.append(profileDialog);
+dialogClose.addEventListener('click',()=>profileDialog.close());profileDialog.addEventListener('close',()=>{profileAnchor.after(profile);viewingName='';viewerPicker.sync();renderProfile();});
 const names=()=>source?window.GuildMemberArchive.all(source).map(row=>row[report.nameIndex]):[];
 const viewerPicker=nicknamePicker(document.getElementById('profile-viewer'),{names,get:()=>viewingName,choose:name=>{viewingName=name;viewerPicker.sync();renderProfile();},label:'다른 사람 정보 보기'});
 viewerPicker.input.placeholder='다른 사람 정보 보기';viewerPicker.sync();
@@ -118,7 +121,7 @@ function renderProfile(){
   requestAnimationFrame(drawChart);icons();
 }
 function drawChart(){
-  const canvas=document.getElementById('profile-growth-chart');if(!canvas||!chartSeries.length||document.getElementById('profile').hidden)return;
+  const canvas=document.getElementById('profile-growth-chart');if(!canvas||!chartSeries.length||document.getElementById('profile').hidden&&!profileDialog.open)return;
   const width=canvas.clientWidth;if(!width)return;const height=190,dpr=window.devicePixelRatio||1;canvas.width=Math.round(width*dpr);canvas.height=height*dpr;
   const context=canvas.getContext('2d');context.scale(dpr,dpr);
   const style=getComputedStyle(document.documentElement),color=key=>style.getPropertyValue(key).trim();
@@ -202,8 +205,9 @@ function syncWeekButtons(){document.getElementById('overview-week-previous').dis
 for(const [id,offset]of [['overview-week-previous',1],['overview-week-next',-1]])document.getElementById(id).addEventListener('click',()=>{const index=week.selectedIndex+offset;if(index<0||index>=week.options.length)return;week.selectedIndex=index;week.dispatchEvent(new Event('change'));});
 week.addEventListener('change',()=>{renderWeekly();syncWeekButtons();icons();});
 window.addEventListener('guild-members-data',event=>accept(event.detail));
-window.addEventListener('guild-auth-change',()=>{viewingName='';viewerPicker.sync();renderProfile();if(location.hash==='#weekly')renderWeekly();icons();});
-window.addEventListener('guild-profile-view',event=>{if(!window.GuildAuth?.user)return;viewingName=event.detail.name;viewerPicker.sync();renderProfile();location.hash='profile';});
+window.addEventListener('guild-auth-change',()=>{if(profileDialog.open)profileDialog.close();viewingName='';viewerPicker.sync();renderProfile();if(location.hash==='#weekly')renderWeekly();icons();});
+window.addEventListener('guild-profile-view',event=>{if(!window.GuildAuth?.user)return;viewingName=event.detail.name;viewerPicker.sync();renderProfile();if(event.detail.popup){dialogTitle.textContent=viewingName+' · 개인기록';profileDialog.append(profile);profileDialog.showModal();requestAnimationFrame(drawChart);}else location.hash='profile';});
+window.addEventListener('hashchange',()=>{if(profileDialog.open)profileDialog.close();});
 window.addEventListener('guild-section-content-change',()=>{if(source)renderWeekly();});
 window.addEventListener('hashchange',()=>{viewerPicker.hide();if(location.hash==='#weekly')renderWeekly();if(location.hash==='#profile')requestAnimationFrame(drawChart);});
 window.addEventListener('guild-theme-change',()=>requestAnimationFrame(drawChart));

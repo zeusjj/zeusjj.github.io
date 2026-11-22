@@ -873,11 +873,11 @@ function renderMembers(data, query='') {
     if(window.GuildMemberArchive.has(source,name)){tr.dataset.departed='true';const cell=tr.querySelector('.member-name');cell.title=name+' · 탈퇴';cell.append(element('small','탈퇴','member-departed-label'));}
     tr.querySelector('.member-participation').dataset.state=record?.score===null||record?.incomplete?'incomplete':record?.score>=75-1e-9?'qualified':'below';
     const label=tr.querySelector('.member-name-label');label.tabIndex=0;label.setAttribute('role','button');label.setAttribute('aria-label',name+' 상세 보기');
-    const detail=()=>window.dispatchEvent(new CustomEvent('guild-member-detail',{detail:{name,score:record?.score??null}}));label.addEventListener('click',detail);label.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)){event.preventDefault();detail();}});
+    const detail=()=>window.dispatchEvent(new CustomEvent('guild-member-detail',{detail:{name,score:record?.score??null}}));label.addEventListener('dblclick',detail);label.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)){event.preventDefault();detail();}});
   });
   refreshMenuNew();
   document.getElementById('empty-search').hidden=rows.length>0;
-  for(const status of body.querySelectorAll('.status.yes,.status.no')){const yes=status.classList.contains('yes');status.textContent=yes?'✓':'×';status.setAttribute('aria-label',yes?'참여':'미참여');}
+  for(const status of body.querySelectorAll('.status.yes,.status.no')){const yes=status.classList.contains('yes');status.textContent=yes?'O':'X';status.setAttribute('aria-label',yes?'참여':'미참여');}
   window.dispatchEvent(new CustomEvent('guild-members-data',{detail:fullSource}));
   refreshIcons();
   requestAnimationFrame(centerMemberToday);
