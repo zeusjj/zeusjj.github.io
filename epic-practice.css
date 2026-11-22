@@ -92,7 +92,7 @@
 #epic-panel .epic-manual-button:hover,#epic-panel .epic-manual-return:hover{background:#34313d;color:#ede4f6}
 .epic-return-slot{height:30px}
 .epic-cat-assistant{display:grid;grid-template-rows:auto 44px 40px;justify-items:center;gap:6px;min-width:0;width:160px}
-#epic-panel .epic-cat-assistant .epic-manual-button{height:44px;margin:0;padding:4px 6px;border:1px solid #655b75;background:#312c3b;color:#ded2ee;white-space:normal}
+#epic-panel .epic-cat-assistant .epic-manual-button{height:44px;margin:0;padding:4px 6px;border:1px solid #655b75;background:#312c3b;color:#ded2ee;white-space:normal;word-break:keep-all}
 .epic-cat-assistant .epic-return-slot{height:40px;width:100%}
 #epic-panel .epic-cat-assistant .epic-manual-return{height:40px;font-size:10px;white-space:normal}
 #epic-panel .epic-manual-return{margin:0;height:28px;color:#e1c286}
