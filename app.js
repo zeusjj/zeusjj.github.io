@@ -66,8 +66,8 @@ function updateChapterNavigation(){
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(route) {
   let tab=route.split('/')[0];
-  if (!tabs.includes(tab) || tab === 'alarms') tab = 'weekly';
-  const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/)?.[1];
+  if (!tabs.includes(tab) || tab === 'alarms') tab = distributionSignedIn()?'weekly':'rules';
+  const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?|history)$/)?.[1];
   if(memberReturn&&distributionSignedIn()){route=memberReturn;tab=route.split('/')[0];history.replaceState(null,'','#'+route);}
   if(tab==='history'&&!distributionSignedIn()){
     route='login/history';
@@ -112,9 +112,10 @@ function syncDistributionMenu(){document.querySelector('[data-tab="distribution"
 syncDistributionMenu();
 window.addEventListener('guild-auth-change',()=>{
   syncDistributionMenu();
+  if(!location.hash)switchTab('');
   renderDistribution(publicMemberSource?.distribution??[]);
   if(location.hash.split('/')[0]==='#history'&&!distributionSignedIn())switchTab('history');
-  if(['#distribution','#siege-distribution'].includes(location.hash.split('/')[0])||/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/.test(location.hash))switchTab(location.hash.slice(1));
+  if(['#distribution','#siege-distribution'].includes(location.hash.split('/')[0])||/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?|history)$/.test(location.hash))switchTab(location.hash.slice(1));
 });
 const element = (tag, text, className) => {const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 function renderRules(text) {
@@ -779,17 +780,28 @@ function memberFestivalTotal(data,row,index){
 function renderSeasonBand(table,data,identityCount,isHidden){
   table.parentElement.querySelector('.member-season-band')?.remove();
   if(!window.GuildArcadiaSeasons)return;
-  const band=element('div',undefined,'member-season-band');band.setAttribute('role','group');band.setAttribute('aria-label','아카디아 시즌별 일정');
+  const band=element('div',undefined,'member-season-band');band.dataset.identityCount=identityCount;band.setAttribute('role','group');band.setAttribute('aria-label','아카디아 시즌별 일정');
   band.append(element('span','시즌','member-season-corner'));
   const short=value=>value.slice(5).split('-').map(Number).join('/');
   for(const group of GuildArcadiaSeasons.groups(data,identityCount,isHidden)){
-    const cell=element('div',undefined,'member-season-segment');cell.style.setProperty('--season-columns',group.count);cell.dataset.tone=group.key?(group.key%2?'a':'b'):'none';
+    const cell=element('div',undefined,'member-season-segment');cell.dataset.columns=group.count;cell.style.setProperty('--season-columns',group.count);cell.dataset.tone=group.key?(group.key%2?'a':'b'):'none';
     const label=element('span',undefined,'member-season-label');label.append(element('strong',group.season?'아카디아 시즌 '+group.key:'프리시즌'));
     if(group.season)label.append(element('small',short(group.season.start)+' ~ '+short(group.season.end)));
     cell.append(label);band.append(cell);
   }
   table.before(band);
 }
+function syncMemberSeasonBand(){
+  const table=document.getElementById('member-table'),band=table.parentElement.querySelector('.member-season-band');
+  if(!band||!table.getBoundingClientRect().width)return;
+  const cells=[...table.querySelectorAll('thead th')],identityCount=Number(band.dataset.identityCount),width=cell=>cell.getBoundingClientRect().width;
+  band.style.setProperty('--season-identity',cells.slice(0,identityCount).filter(cell=>!cell.hidden).reduce((sum,cell)=>sum+width(cell),0)+'px');
+  band.style.width=table.getBoundingClientRect().width+'px';
+  const content=cells.slice(identityCount).filter(cell=>!cell.hidden);let index=0;
+  for(const segment of band.querySelectorAll('.member-season-segment')){const count=Number(segment.dataset.columns),size=content.slice(index,index+count).reduce((sum,cell)=>sum+width(cell),0);segment.style.flexBasis=size+'px';segment.style.width=size+'px';index+=count;}
+}
+new ResizeObserver(syncMemberSeasonBand).observe(document.getElementById('member-table'));
+window.addEventListener('resize',syncMemberSeasonBand);
 function renderMembers(data, query='') {
   const fullSource=data;
   syncMemberFilters(data);
@@ -882,6 +894,7 @@ function renderMembers(data, query='') {
   window.dispatchEvent(new CustomEvent('guild-members-data',{detail:fullSource}));
   refreshIcons();
   requestAnimationFrame(centerMemberToday);
+  requestAnimationFrame(syncMemberSeasonBand);
 }
 window.addEventListener('guild-nickname-change',()=>document.querySelectorAll('#member-table tbody tr').forEach(row=>row.classList.toggle('member-is-me',row.dataset.memberName===window.GuildNickname?.get())));
 function renderDistribution(groups) {

@@ -2,7 +2,7 @@ import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowt
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261122-home-news';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
-import {renderHome} from './home-overview.js?v=20261122-home-news';
+import {renderHome} from './home-overview.js?v=20261122-schedule';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -210,7 +210,7 @@ function syncWeekButtons(){document.getElementById('overview-week-previous').dis
 for(const [id,offset]of [['overview-week-previous',1],['overview-week-next',-1]])document.getElementById(id).addEventListener('click',()=>{const index=week.selectedIndex+offset;if(index<0||index>=week.options.length)return;week.selectedIndex=index;week.dispatchEvent(new Event('change'));});
 week.addEventListener('change',()=>{renderWeekly();syncWeekButtons();icons();});
 window.addEventListener('guild-members-data',event=>accept(event.detail));
-window.addEventListener('guild-auth-change',()=>{if(profileDialog.open)profileDialog.close();viewingName='';viewerPicker.sync();renderProfile();if(location.hash==='#weekly')renderWeekly();icons();});
+window.addEventListener('guild-auth-change',()=>{if(profileDialog.open)profileDialog.close();viewingName='';viewerPicker.sync();renderProfile();if(!location.hash||location.hash==='#weekly')renderWeekly();icons();});
 window.addEventListener('guild-profile-view',event=>{if(!window.GuildAuth?.user)return;viewingName=event.detail.name;viewerPicker.sync();renderProfile();if(event.detail.popup){dialogTitle.textContent=viewingName+' · 개인기록';profileDialog.append(profile);profileDialog.showModal();requestAnimationFrame(drawChart);}else location.hash='profile';});
 window.addEventListener('hashchange',()=>{if(profileDialog.open)profileDialog.close();});
 window.addEventListener('guild-section-content-change',()=>{if(source)renderWeekly();});

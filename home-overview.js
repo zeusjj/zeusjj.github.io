@@ -10,7 +10,7 @@ export function homeSchedule(data,start,today){
   const sundayTime=timing.match(/일요일\s*(\d{1,2}:\d{2})/)?.[1]??null;
   const events=data.headers.flatMap((header,index)=>{
     const period=data.dates?.[index];
-    if(!period?.start||period.start<start||period.start>end||(!isGuildActivity(header)&&header!=='주간공헌도'))return [];
+    if(!period?.start||period.start<start||period.start>end||!isGuildActivity(header))return [];
     const recorded=data.members.some(row=>['O','X','ㅇ'].includes(String(row[index]).toUpperCase())||typeof row[index]==='number');
     const date=period.start;
     return [{date,end:/성물 방어전/.test(header)&&date>=today?null:period.end,header,time:new Date(date+'T00:00:00Z').getUTCDay()===0?sundayTime:null,status:recorded?(date>today?'중간 기록':'기록 반영'):date>=today?'예정':'미기록',recorded}];
@@ -20,7 +20,7 @@ export function homeSchedule(data,start,today){
     const date=shiftDay(start,weekday),block=timing.match(new RegExp(label+'\\s*\\n([\\s\\S]*?)(?=\\n[월화수목금토일]요일|$)'))?.[1];
     if(!block)continue;
     const time=block.match(/\b(\d{1,2}:\d{2})\b/)?.[1]??null;
-    for(const title of ['침공','성물 방어전','항아리 모임'])if(block.includes(title)&&!events.some(event=>event.date===date&&event.header.includes(title)))events.push({date,header:title,time,status:date>=today?'예정':'기록 없음',recorded:false});
+    for(const title of ['침공','성물 방어전','항아리 모임'])if(block.includes(title)&&!events.some(event=>event.date===date&&event.header.includes(title)))events.push({date,header:title,time:title==='침공'?'21:00':time,status:date>=today?'예정':'기록 없음',recorded:false});
   }
   const order=header=>['침공','점령전','레이드','제전','성물 방어전','항아리 모임','주간공헌도'].findIndex(keyword=>header.includes(keyword));
   return events.sort((a,b)=>a.date.localeCompare(b.date)||order(a.header)-order(b.header));
@@ -31,7 +31,7 @@ export function renderHome(host,{source,report,start,today}){
   const events=[];
   for(const item of homeSchedule(source,start,today)){
     const previous=events.at(-1);
-    if(previous?.date===item.date){previous.header+=' → '+item.header;if(previous.status!==item.status)previous.status='일부 기록';previous.recorded=previous.recorded&&item.recorded;if(previous.time!==item.time)previous.time=null;}
+    if(previous?.date===item.date){previous.header+=' → '+item.header;if(previous.status!==item.status)previous.status='일부 기록';previous.recorded=previous.recorded&&item.recorded;previous.time??=item.time;}
     else events.push({...item});
   }
   for(const event of events){

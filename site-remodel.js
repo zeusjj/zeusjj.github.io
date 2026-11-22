@@ -9,10 +9,11 @@
   for(const [route,label,icon]of [['weekly','이번 주','calendar-days'],['members','참여 현황','users-round'],['tools','편의 기능','sliders-horizontal'],['profile','내 정보','user-round']]){const a=make('a');a.href='#'+route;a.dataset.route=route;const mark=make('i');mark.dataset.lucide=icon;a.append(mark,make('span',label));nav.append(a);}
   document.body.append(nav);
   const updateLocation=()=>{
-    const route=location.hash.slice(1).split('/')[0]||'weekly';
+    const route=location.hash.slice(1).split('/')[0]||(window.GuildAuth?.user&&window.GuildAuth.expiresAt>Date.now()?'weekly':'rules');
     nav.querySelectorAll('a').forEach(a=>{a.setAttribute('aria-current',a.dataset.route===route?'page':'false');});
   };
   window.addEventListener('hashchange',updateLocation);
+  window.addEventListener('guild-auth-change',updateLocation);
   const updates=document.getElementById('site-updates');document.querySelector('#weekly>.page-heading').before(updates);
   const members=document.getElementById('members'),toolbar=members.querySelector('.member-toolbar'),modes=make('div',undefined,'member-view-tabs');modes.setAttribute('role','tablist');modes.setAttribute('aria-label','참여 기록 보기');
   const controls=members.querySelector('.member-visibility-controls'),options=make('details',undefined,'member-options'),summary=make('summary'),icon=make('i');icon.dataset.lucide='list-filter';summary.append(icon);summary.title='표 설정';summary.setAttribute('aria-label','표 설정');options.append(summary,controls);toolbar.append(options);
