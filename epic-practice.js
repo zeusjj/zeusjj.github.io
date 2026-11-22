@@ -1,5 +1,5 @@
 import { parseOptions, drawOption, groupOptions, statOdds as calculateStatOdds, lowestFrequencyStats, gradeBonusIncrease } from './epic-probability-model.js?v=20261121-connected-grade';
-import { explainEpicSituation } from './epic-advice.js?v=20261122-scenarios';
+import { explainEpicSituation } from './epic-advice.js?v=20261122-reason-first';
 let optionSets = [];
 let activeOptions = [];
 const songSelect = document.getElementById('epic-song');
@@ -29,6 +29,7 @@ const aiMode = document.getElementById('epic-ai-mode');
 const aiTarget = document.getElementById('epic-ai-target');
 const melodyCostSelect = document.getElementById('epic-melody-cost');
 const aiMessage = document.getElementById('epic-ai-message');
+const aiReason = document.getElementById('epic-ai-reason');
 const aiCurrentChance = document.getElementById('epic-ai-current-chance');
 const aiCostPerSuccess = document.getElementById('epic-ai-cost-per-success');
 const aiRecommendedAction = document.getElementById('epic-ai-recommended-action');
@@ -401,9 +402,14 @@ function formatChance(chance) {
   return chance > 0 && chance < 0.0005 ? '<0.1%' : `${(chance * 100).toFixed(1)}%`;
 }
 
-function renderAiMessage(beforeAction, action, afterAction) {
-  aiMessage.replaceChildren(document.createTextNode(beforeAction));
-  if (!action) return;
+function renderAiMessage(beforeAction, action, afterAction, reason) {
+  aiMessage.replaceChildren();
+  aiReason.textContent = reason ? beforeAction + reason : beforeAction;
+  if (!action) {
+    aiMessage.textContent = beforeAction;
+    aiReason.textContent = '';
+    return;
+  }
   const strong = document.createElement('strong');
   strong.textContent = action;
   aiMessage.append(strong, document.createTextNode(afterAction));
@@ -421,6 +427,7 @@ function renderAi() {
     : `현재 악장 · ${notes.length}/12현 · 최고 ${bestRun}연속 · 남은 연주 ${remaining}회`;
   choicesBox.classList.toggle('epic-ai-mode-off', !aiMode.checked);
   delete aiMessage.dataset.scenario;
+  aiReason.textContent = '';
   if (!aiMode.checked || !activeOptions.length) {
     aiRecommendedAction.textContent = aiCurrentChance.textContent = aiCostPerSuccess.textContent = '-';
     aiMessage.textContent = !aiMode.checked ? 'AI 모드를 껐어요. 연주판은 그대로 직접 진행할 수 있어요.' : '공식 옵션 확률을 불러오지 못해 추천을 잠시 멈췄어요.';
@@ -462,12 +469,13 @@ function renderAi() {
     target, run, bestRun, maxReachable, filled: notes.length, stringsLeft: MAX_STRINGS - notes.length,
     rerolls: availableRerolls(), matchingCount: matching.length, selected, alternative,
     hasChoices: Boolean(choices), resetFee: resetCost(), lastStat: stats.at(-1), manual: Boolean(manualSession),
+    rerollOutcome: actions.find(action => action.action === 'reroll'),
     rareStats: [...new Set((choices || []).filter(choice => rare.has(choice.stat)).map(choice => choice.stat))],
     equivalentCards: matching.length > 1 && matching.every(choice => choice.grade === matching[0].grade),
     gradeAdvantage: matchingBonuses.length > 1 && Math.max(...matchingBonuses) > Math.min(...matchingBonuses),
   });
   aiMessage.dataset.scenario = String(advice.scenario);
-  renderAiMessage(advice.before, advice.action, advice.after);
+  renderAiMessage(advice.before, advice.action, advice.after, advice.reason);
   aiRecommendedAction.textContent = advice.scenario === 1 ? '목표 달성' : advice.scenario === 18 ? '판단 보류' : advice.action;
   aiCurrentChance.textContent = advice.scenario === 1 ? '100%' : selected?.chance > 0 ? formatChance(selected.chance) : '달성 표본 없음';
   return advice.scenario === 18 ? null : selected;
@@ -535,7 +543,13 @@ function render() {
       button.style.setProperty('--choice-font-desktop', `${labelLength > 10 ? 18 : 22}px`);
       button.style.setProperty('--choice-font-mobile', `${labelLength > 10 ? 13 : 15}px`);
       if (notes.length && choice.stat === notes.at(-1).stat) button.classList.add('is-linked');
-      if (!manualSession && aiMode.checked && recommendation?.action === 'select' && recommendation.stat === choice.stat && recommendation.grade === choice.grade) button.classList.add('is-recommended');
+      const recommended = !manualSession && aiMode.checked && recommendation?.action === 'select'
+        && ((recommendation.stat === choice.stat && recommendation.grade === choice.grade)
+          || recommendation.equalFirstStats?.includes(choice.stat));
+      if (recommended) {
+        button.classList.add('is-recommended');
+        button.setAttribute('aria-describedby', 'epic-ai-message epic-ai-reason');
+      }
       button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.label}</strong><span class="epic-choice-probability" title="공식 등급별 옵션 노출 확률 · 선택 시 등급 상승 전">${choice.probability}</span>`;
       button.setAttribute('aria-label', `${choice.grade} ${choice.stat} 선택`);
       button.addEventListener('click', () => applyChoice(choice));

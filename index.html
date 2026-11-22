@@ -44,8 +44,8 @@
   <script type="module" src="menu-new.js?v=20261017-122"></script>
   <link rel="stylesheet" href="astrology-calculator.css?v=20261021-199">
   <script type="module" src="astrology-calculator.js?v=20261027-six-stars"></script>
-  <link rel="stylesheet" href="epic-practice.css?v=20261122-action-bar">
-  <script type="module" src="epic-practice.js?v=20261122-action-bar"></script>
+  <link rel="stylesheet" href="epic-practice.css?v=20261122-reason-first">
+  <script type="module" src="epic-practice.js?v=20261122-reason-first"></script>
   <link rel="stylesheet" href="site-updates.css?v=20261017-120">
   <script type="module" src="site-updates.js?v=20261017-119"></script>
   <script src="menu-registry.js?v=20261024-auto-menus" defer></script>
@@ -372,11 +372,12 @@
                 <div class="epic-cat-portrait" aria-hidden="true"><img src="assets/epic-cat-ai.png" alt=""><span class="epic-cat-eye epic-cat-eye-left"></span><span class="epic-cat-eye epic-cat-eye-right"></span></div>
                 <div class="epic-ai-copy">
                   <p id="epic-ai-state" class="visually-hidden">현재 악장 · 0/12현 · 연주 0/24</p>
-                  <div class="epic-ai-recommendation"><span>추천 행동</span><strong id="epic-ai-recommended-action">연주</strong></div>
-                  <dl class="epic-ai-chances epic-ai-goal-chance"><div><dt>추천 행동 시 목표 달성 예상</dt><dd id="epic-ai-current-chance">계산 중</dd></div></dl>
-                  <div class="epic-ai-dialogue" tabindex="0" aria-label="AI 추천 설명"><p id="epic-ai-message" role="status" aria-live="polite">연주를 누르면 세 장의 선택지를 확인할 수 있어요.</p></div>
+                  <div class="epic-ai-dialogue" tabindex="0" aria-label="AI 추천 설명"><p id="epic-ai-message" role="status" aria-live="polite">연주를 누르면 세 장의 선택지를 확인할 수 있어요.</p><p id="epic-ai-reason"></p></div>
                 </div>
-
+                <div class="epic-ai-summary">
+                  <div class="epic-ai-recommendation"><span>추천 행동</span><strong id="epic-ai-recommended-action">연주</strong></div>
+                  <dl class="epic-ai-chances epic-ai-goal-chance"><div><dt>목표 달성 예상</dt><dd id="epic-ai-current-chance">계산 중</dd></div></dl>
+                </div>
               </aside>
               <p id="epic-feedback" class="epic-feedback" role="status" aria-live="polite"></p>
               <p class="epic-ai-note">공식 옵션 노출 확률을 적용한 전략 시뮬레이션 추정치예요.</p>

@@ -57,18 +57,22 @@
 #epic-panel .epic-choice.grade-legend:hover{background:#55462e;border-color:#f7ce7a}
 .epic-choice.is-linked{box-shadow:inset 0 -3px #7bd6bf;outline:0}
 .epic-choice.is-recommended{border:2px solid #e7be67;padding:17px 19px;outline:0}
-.epic-choice.is-recommended:after{content:"추천";position:absolute;right:15px;top:21px;color:#f1cc79;font-size:11px;font-weight:700}
+.epic-choice.is-recommended:after,#epic-panel .epic-controls .is-recommended:after{content:"AI 추천";position:absolute;right:8px;top:-9px;padding:3px 8px;background:#e7c271;color:#30271b;border-radius:2px;font-size:10px;font-weight:750;line-height:1.4;pointer-events:none}
 .epic-choice-placeholder{display:flex;align-items:center;justify-content:center;background:#22232a;border:1px dashed #4b4d58;color:#848793;font-size:12px;text-align:center}
-.epic-ai-panel{display:grid;grid-template-columns:160px minmax(0,1fr);align-items:center;gap:26px;min-width:0;margin-top:18px;padding:20px;background:#24242c;border:1px solid #4a4353;border-left:3px solid #d6b165;border-radius:4px;overflow:hidden;color:#e4e2eb}
-.epic-ai-copy{display:grid;grid-template-rows:76px 32px 88px;min-width:0}
+.epic-ai-panel{display:grid;grid-template-columns:160px minmax(0,1fr) 210px;align-items:center;gap:26px;min-width:0;margin-top:18px;padding:20px;background:#24242c;border:1px solid #4a4353;border-left:3px solid #d6b165;border-radius:4px;overflow:hidden;color:#e4e2eb}
+.epic-ai-copy{min-width:0;height:196px}
+.epic-ai-summary{display:grid;align-content:center;gap:22px;min-width:0;height:196px;padding-left:20px;border-left:1px solid #4a4353}
 .epic-ai-recommendation{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:5px;min-width:0;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
 .epic-ai-recommendation>span{font-size:11px;color:#d9b972;font-weight:600}
 .epic-ai-recommendation strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:19px;line-height:1.25;font-weight:750;color:#f2cd78;text-shadow:none;word-break:keep-all;overflow-wrap:anywhere}
-.epic-ai-goal-chance>div{height:32px;justify-content:space-between;gap:8px}
-.epic-ai-goal-chance dd{font-size:17px;white-space:nowrap}
-.epic-ai-dialogue{min-width:0;height:88px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#666070 transparent;padding:8px 8px 0 0;border:0;background:transparent;color:#c9c7d2}
+.epic-ai-goal-chance>div{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.epic-ai-goal-chance dd{font-size:24px;white-space:nowrap}
+.epic-ai-dialogue{min-width:0;height:196px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#666070 transparent;padding:8px 8px 0 0;border:0;background:transparent;color:#c9c7d2}
 .epic-ai-dialogue p{margin:0;font-size:13px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere}
 .epic-ai-dialogue strong{color:#f0e6c8;font-weight:700}
+#epic-ai-message{font-size:17px;font-weight:650;line-height:1.7;color:#f3e8cd}
+#epic-ai-message strong{font-size:20px;font-weight:800;color:#f2d38d}
+#epic-ai-reason{margin-top:14px;color:#b6afc7;font-size:13px;line-height:1.85}
 .epic-action-area{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:0 24px;min-width:0;margin-top:14px;padding:12px 18px;background:#24252c;border:1px solid #45454f;border-radius:4px}
 .epic-controls{grid-column:1;grid-row:1/3;display:grid;grid-template-columns:180px minmax(180px,280px);grid-template-rows:46px;justify-content:center;align-items:center;gap:12px}
 .epic-main-action{grid-column:2;grid-row:1}
@@ -84,7 +88,7 @@
 #epic-panel .epic-main-action #epic-reroll:hover{background:#4b4058;border-color:#bca0cf;color:#fff}
 #epic-panel .epic-controls button:disabled{opacity:.45;cursor:not-allowed}
 #epic-panel .epic-controls button:disabled:hover{background:#2b2b35;border-color:#666370;color:#eae8f1}
-#epic-panel .epic-controls .is-recommended{outline:2px solid #e3bf73;outline-offset:2px}
+#epic-panel .epic-controls .is-recommended{position:relative;outline:2px solid #e3bf73;outline-offset:2px}
 .epic-controls svg{width:16px;height:16px;flex-shrink:0}
 #epic-panel .epic-manual-button,#epic-panel .epic-manual-return{display:block;width:100%;height:32px;margin:6px 0 0;padding:0 5px;border:0;border-radius:3px;background:transparent;color:#b4adbf;font:inherit;font-size:11px;cursor:pointer;line-height:1.4}
 #epic-panel .epic-manual-button:hover,#epic-panel .epic-manual-return:hover{background:#34313d;color:#ede4f6}
@@ -133,13 +137,12 @@
 @container(max-width:900px){
   #epic-panel .epic-practice{padding:22px}
   .epic-settings{gap:12px;padding:14px}
-  .epic-ai-panel{grid-template-columns:160px minmax(0,1fr);gap:20px;padding:18px}
+  .epic-ai-panel{grid-template-columns:160px minmax(0,1fr) 160px;gap:18px;padding:18px}
   .epic-action-area{grid-template-columns:minmax(0,1fr);gap:4px;padding:12px 16px}
   .epic-controls{grid-row:1;grid-column:1}
   .epic-action-area>.epic-manual-button{grid-column:1;grid-row:2}
   .epic-action-area>.epic-return-slot{grid-column:1;grid-row:3}
-  .epic-ai-copy{grid-template-rows:72px 38px 100px}
-  .epic-ai-dialogue{height:100px}
+  .epic-ai-copy,.epic-ai-dialogue,.epic-ai-summary{height:218px}
   .epic-ai-recommendation strong{font-size:18px}
   .epic-choice,.epic-choice-placeholder{padding:16px;height:164px;min-height:164px}
   .epic-choice.is-recommended{padding:15px}
@@ -173,15 +176,19 @@
   .epic-choice-grade{padding:0 6px;font-size:10px;height:22px}
   .epic-choice-probability{font-size:10px}
   .epic-choice-probability:before{content:""}
-  .epic-choice.is-recommended:after{right:6px;top:auto;bottom:13px;font-size:9px}
+  .epic-choice.is-recommended:after{right:5px;top:-9px;bottom:auto;font-size:9px;padding:3px 6px}
   .epic-ai-panel{grid-template-columns:112px minmax(0,1fr);gap:14px 12px;margin-top:18px;padding:14px}
   .epic-cat-portrait{width:112px;height:131px;align-self:center;margin:0}
-  .epic-ai-copy{grid-template-rows:68px 44px 112px}
+  .epic-ai-copy,.epic-ai-dialogue{height:260px}
+  .epic-ai-summary{grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:108px;gap:14px;padding:14px 0 0;border:0;border-top:1px solid #4a4353;align-items:center}
   .epic-ai-recommendation strong{font-size:17px}
-  .epic-ai-goal-chance>div{height:44px;align-items:flex-start;flex-direction:column;justify-content:center;gap:2px}
+  .epic-ai-goal-chance>div{align-items:flex-start;flex-direction:column;justify-content:center;gap:5px}
   .epic-ai-chances dt{font-size:10px}
-  .epic-ai-dialogue{height:112px;padding-top:6px}
+  .epic-ai-dialogue{padding-top:6px}
   .epic-ai-dialogue p{font-size:12px;line-height:1.75}
+  #epic-ai-message{font-size:14px}
+  #epic-ai-message strong{font-size:16px}
+  #epic-ai-reason{font-size:12px;margin-top:12px}
   .epic-action-area{width:100%;padding:12px}
   .epic-controls{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-rows:46px;gap:10px}
   .epic-main-action{grid-column:2;grid-row:1}
@@ -201,7 +208,7 @@
   .epic-choice,.epic-choice-placeholder{padding:10px 5px}
   .epic-choice.is-recommended{padding:9px 4px}
   .epic-choice strong{font-size:13px}
-  .epic-choice.is-recommended:after{content:"";width:5px;height:5px;border-radius:50%;background:#edc66d;bottom:auto;top:8px;right:6px}
+  .epic-choice.is-recommended:after{right:3px;font-size:9px}
 }
 @media(max-width:700px){
   .epic-header-stats{justify-content:flex-start;gap:6px}
