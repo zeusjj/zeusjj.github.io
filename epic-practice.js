@@ -1,4 +1,5 @@
 import { parseOptions, drawOption, groupOptions, statOdds as calculateStatOdds, lowestFrequencyStats, gradeBonusIncrease } from './epic-probability-model.js?v=20261121-connected-grade';
+import { explainEpicSituation } from './epic-advice.js?v=20261122-scenarios';
 let optionSets = [];
 let activeOptions = [];
 const songSelect = document.getElementById('epic-song');
@@ -366,22 +367,16 @@ function costPerSuccess(outcome, resetFee = 0) {
 function estimateSelectionOutcome(state, target) {
   const candidateStats = [...new Set((state.choices || []).map(choice => typeof choice === 'string' ? choice : choice.stat))];
   if (!candidateStats.length) return null;
-  if (!state.notes.length) {
-    const odds = statOdds(), rareOdds = lowestFrequencyStats(activeOptions);
-    const rareCandidates = candidateStats.filter(stat => rareOdds.has(stat));
-    if (rareCandidates.length) {
-      return rareCandidates.reduce((best, stat, index) => {
-        const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: stat }, target, `first-select-rare-${index}-${stat}`);
-        const candidate = { ...outcome, stat, lowFrequencyStat: true, statChance: odds.get(stat) };
-        return !best || costPerSuccess(candidate) < costPerSuccess(best) ? candidate : best;
-      }, null);
-    }
+  if (!state.notes.length || !candidateStats.includes(state.notes.at(-1))) {
+    const odds = statOdds();
     const bestOdds = Math.max(...candidateStats.map(stat => odds.get(stat) || 0));
     const commonCandidates = candidateStats.filter(stat => Math.abs((odds.get(stat) || 0) - bestOdds) <= bestOdds * 0.0001);
     const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: commonCandidates[0] }, target, 'first-select-equal-frequency');
     return { ...outcome, stat: null, equalFirstStats: commonCandidates, statChance: bestOdds };
   }
-  return candidateStats.reduce((best, stat, index) => {
+  const matchingStat = state.notes.at(-1);
+  const candidates = candidateStats.includes(matchingStat) ? [matchingStat] : candidateStats;
+  return candidates.reduce((best, stat, index) => {
     const outcome = estimatedOutcome({ ...state, choices: null, preselectedStat: stat }, target, `select-card-${index}-${stat}`);
     const candidate = { ...outcome, stat };
     if (!best) return candidate;
@@ -399,13 +394,13 @@ function recommendedChoice(stat) {
   const gradeCounts = new Map();
   for (const note of group) gradeCounts.set(note.grade, (gradeCounts.get(note.grade) || 0) + 1);
   const gradeRank = new Map(GRADE_OPTIONS.map((grade, index) => [grade.name, index]));
-  const bonusKind = /피해|증폭|감소|저항|관통/.test(stat) ? 'rate' : 'main';
+  const bonusKind = candidates[0].label.endsWith('%') ? 'rate' : 'main';
   return candidates.sort((a, b) => {
     const countA = gradeCounts.get(a.grade) || 0;
     const countB = gradeCounts.get(b.grade) || 0;
     const bonusA = gradeBonusIncrease(a.grade, countA, bonusKind);
     const bonusB = gradeBonusIncrease(b.grade, countB, bonusKind);
-    return bonusB - bonusA || countB - countA || gradeRank.get(b.grade) - gradeRank.get(a.grade);
+    return bonusB - bonusA || gradeRank.get(b.grade) - gradeRank.get(a.grade);
   })[0];
 }
 
@@ -415,6 +410,7 @@ function formatChance(chance) {
 
 function renderAiMessage(beforeAction, action, afterAction) {
   aiMessage.replaceChildren(document.createTextNode(beforeAction));
+  if (!action) return;
   const strong = document.createElement('strong');
   strong.textContent = action;
   aiMessage.append(strong, document.createTextNode(afterAction));
@@ -425,198 +421,67 @@ const freshOutcomeCache = new Map();
 function renderAi() {
   const target = Number(aiTarget.value);
   const stats = notes.map(note => note.stat);
-  const chain = maximumRun(stats);
+  const run = trailingRun(stats), bestRun = maximumRun(stats);
   const remaining = MAX_PERFORMANCES - performances;
   aiState.textContent = manualSession
     ? `수동 예시 · ${manualSession.step}번째 현 진행 전 · ${manualSession.chain}현 연속 · 남은 연주 ${remaining}회`
-    : `현재 악장 · ${notes.length}/12현 · 최고 ${chain}연속 · 남은 연주 ${remaining}회`;
+    : `현재 악장 · ${notes.length}/12현 · 최고 ${bestRun}연속 · 남은 연주 ${remaining}회`;
   choicesBox.classList.toggle('epic-ai-mode-off', !aiMode.checked);
-  if (!aiMode.checked) {
-    aiRecommendedAction.textContent = '-';
-    aiCurrentChance.textContent = '-';
-    aiCostPerSuccess.textContent = '-';
-    aiMessage.textContent = 'AI 모드를 껐어요. 연주판은 그대로 직접 진행할 수 있어요.';
+  delete aiMessage.dataset.scenario;
+  if (!aiMode.checked || !activeOptions.length) {
+    aiRecommendedAction.textContent = aiCurrentChance.textContent = aiCostPerSuccess.textContent = '-';
+    aiMessage.textContent = !aiMode.checked ? 'AI 모드를 껐어요. 연주판은 그대로 직접 진행할 수 있어요.' : '공식 옵션 확률을 불러오지 못해 추천을 잠시 멈췄어요.';
     return null;
   }
-  if (!activeOptions.length) {
-    aiRecommendedAction.textContent = '-';
-    aiCurrentChance.textContent = '-';
-    aiCostPerSuccess.textContent = '-';
-    aiMessage.textContent = '공식 옵션 확률을 불러오지 못해 추천을 잠시 멈췄어요.';
-    return null;
-  }
-
-  const targetMet = chain >= target;
-  const currentState = { notes: stats, performances, rerollsUsed, choices: choices?.map(choice => choice.stat) ?? null };
-  const selectionEstimate = choices ? estimateSelectionOutcome(currentState, target) : null;
-  const currentOutcome = choices
-    ? selectionEstimate ?? { chance: 0, expectedPerformances: 0 }
-    : estimatedOutcome(currentState, target, 'continue');
+  const state = { notes: stats, performances, rerollsUsed, choices: choices?.map(choice => choice.stat) ?? null };
+  const matching = choices?.filter(choice => choice.stat === stats.at(-1)) ?? [];
   const freshKey = `${songSelect.value}|${target}`;
-  if (!freshOutcomeCache.has(freshKey)) {
-    freshOutcomeCache.set(freshKey, estimatedOutcome({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh'));
-  }
-  const freshOutcome = freshOutcomeCache.get(freshKey);
-  aiCurrentChance.textContent = formatChance(currentOutcome.chance);
-  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(freshOutcome));
-
-  if (targetMet) {
-    const matching = choices?.find(choice => choice.stat === notes.at(-1)?.stat);
-    aiRecommendedAction.textContent = matching ? '카드 선택' : '목표 달성';
-    aiCurrentChance.textContent = '100%';
-    const exactChoice = matching ? recommendedChoice(matching.stat) : null;
-    renderAiMessage(
-      matching ? `목표 ${target}연속을 달성했어요. 더 이어가려면 직전 현과 연결되는 ` : `목표 ${target}연속을 달성했어요. 더 연주하려면 `,
-      matching ? `${exactChoice.grade} ${matching.stat} 선택` : '원하는 스탯 선택',
-      '하세요.'
-    );
-    return matching ? { action: 'select', stat: matching.stat, grade: exactChoice.grade } : null;
-  }
-
-  const currentUnselected = choices ? 1 : 0;
-  const futureStrings = MAX_STRINGS - notes.length - currentUnselected;
-  const completableStrings = currentUnselected + Math.min(futureStrings, MAX_PERFORMANCES - performances);
-  const maxReachableRun = Math.max(longestRun(stats), trailingRun(stats) + completableStrings);
-  if (notes.length && maxReachableRun < target) {
-    aiRecommendedAction.textContent = '초기화';
-    aiCurrentChance.textContent = formatChance(freshOutcome.chance);
-    renderAiMessage(
-      `현재 상태에서 남은 현을 모두 이어도 최대 ${maxReachableRun}연속이라 목표 ${target}연속은 수학적으로 불가능해요. `,
-      '악장 초기화',
-      '를 추천해요.'
-    );
-    return { action: 'reset', chance: freshOutcome.chance, expectedPerformances: freshOutcome.expectedPerformances, resetFee: resetCost() };
-  }
-
+  if (!freshOutcomeCache.has(freshKey)) freshOutcomeCache.set(freshKey,
+    estimatedOutcome({ notes: [], performances: 0, rerollsUsed: 0, choices: null }, target, 'fresh'));
+  const fresh = freshOutcomeCache.get(freshKey);
+  aiCostPerSuccess.textContent = formatExpectedCost(costPerSuccess(fresh));
+  const unselected = choices ? 1 : 0;
+  const future = unselected + Math.min(MAX_STRINGS - notes.length - unselected, remaining);
+  const maxReachable = Math.max(bestRun, choices && !matching.length && availableRerolls() === 0 ? future : run + future);
   const actions = [];
   if (choices) {
-    const matching = notes.length ? choices.find(choice => choice.stat === notes.at(-1).stat) : null;
-    const selectedStat = selectionEstimate?.stat ?? matching?.stat;
-    const exactChoice = selectedStat ? recommendedChoice(selectedStat) : null;
-    actions.push({ ...currentOutcome, ...selectionEstimate, action: 'select', stat: selectedStat, grade: exactChoice?.grade });
-    if (availableRerolls() > 0) actions.push({ action: 'reroll', ...estimatedOutcome({ ...currentState, rerollFirst: true }, target, 'reroll') });
-  } else if (notes.length < MAX_STRINGS && MAX_PERFORMANCES - performances >= MAX_STRINGS - notes.length) {
-    actions.push({ action: 'play', ...currentOutcome });
+    const estimate = estimateSelectionOutcome(state, target);
+    const exact = estimate?.stat ? recommendedChoice(estimate.stat) : null;
+    actions.push({ ...estimate, action: 'select', grade: exact?.grade });
+    if (availableRerolls() > 0) actions.push({ action: 'reroll', ...estimatedOutcome({ ...state, rerollFirst: true }, target, 'reroll') });
+  } else if (notes.length < MAX_STRINGS && remaining >= MAX_STRINGS - notes.length) {
+    actions.push({ action: 'play', ...estimatedOutcome(state, target, 'continue') });
   }
-  if (notes.length) actions.push({ action: 'reset', ...freshOutcome, resetFee: resetCost() });
-
-  const labels = { play: '연주', select: recommendationLabelForSelect(choices ? selectionEstimate : null), reroll: '다시 연주', reset: '초기화' };
-  const recommendation = actions.sort((a, b) => {
-    const scoreA = costPerSuccess(a, a.resetFee || 0);
-    const scoreB = costPerSuccess(b, b.resetFee || 0);
-    return scoreA - scoreB || b.chance - a.chance;
-  })[0];
-  if (!recommendation) {
-    aiRecommendedAction.textContent = '판단 보류';
-    aiMessage.textContent = '이 악장에서는 더 진행할 수 없어요. 악장을 초기화하거나 새 악장을 시작하세요.';
-    return null;
-  }
-  aiCurrentChance.textContent = formatChance(recommendation.chance);
-  const context = `${notes.length}/12현 · 최근 ${trailingRun(stats)}연속 · 남은 연주 ${remaining}회`;
-  if (actions.every(action => action.chance === 0)) {
-    aiRecommendedAction.textContent = '판단 보류';
-    aiMessage.textContent = `${context} 상태예요. 시뮬레이션에서 목표 달성 경로가 관측되지 않아 추천을 보류해요.`;
-    return null;
-  }
-  const actionText = recommendation.action === 'select'
-    ? (recommendation.stat ? `${recommendation.grade} ${recommendation.stat} 선택` : '원하는 스탯 선택')
-    : labels[recommendation.action];
-  aiRecommendedAction.textContent = labels[recommendation.action].replace(/ · .*/, '');
-  const alternative = actions.filter(action => action !== recommendation)
-    .sort((a, b) => costPerSuccess(a, a.resetFee || 0) - costPerSuccess(b, b.resetFee || 0) || b.chance - a.chance)[0];
-  const comparison = alternative
-    ? `${actionRouteName(recommendation.action)} 경로의 목표 달성 예상은 ${formatChance(recommendation.chance)}, ${actionRouteName(alternative.action)} 경로는 ${formatChance(alternative.chance)}예요. ${compareActionCosts(recommendation, alternative)} `
-    : `현재 비교할 수 있는 다른 행동이 없어요. 목표 달성 예상은 ${formatChance(recommendation.chance)}예요. `;
-  const reason = explainRecommendedAction(recommendation, target, remaining);
-  renderAiMessage(comparison + reason + ' ', actionText, recommendation.action === 'select' ? '을 추천해요.' : '를 추천해요.');
-  return recommendation;
-}
-
-function recommendationLabelForSelect(estimate) {
-  if (estimate?.stat) {
-    const choice = recommendedChoice(estimate.stat);
-    return choice ? `${choice.grade} ${choice.stat} 선택` : `${estimate.stat} 선택`;
-  }
-  return '원하는 스탯 선택';
+  if (notes.length) actions.push({ action: 'reset', ...fresh, resetFee: resetCost() });
+  for (const action of actions) action.expectedCost = expectedDiamondCost(action, action.resetFee || 0);
+  actions.sort((a, b) => costPerSuccess(a, a.resetFee || 0) - costPerSuccess(b, b.resetFee || 0) || b.chance - a.chance);
+  // A visible matching choice preserves progress without spending a performance.
+  let selected = matching.length ? actions.find(action => action.action === 'select') : actions[0];
+  if (maxReachable < target) selected = actions.find(action => action.action === 'reset');
+  if (bestRun >= target) selected = null;
+  const alternative = actions.find(action => action !== selected);
+  const rare = lowestFrequencyStats(activeOptions);
+  const matchingBonuses = matching.map(choice => {
+    const count = notes.slice(-run).filter(note => note.grade === choice.grade).length;
+    return gradeBonusIncrease(choice.grade, count, choice.label.endsWith('%') ? 'rate' : 'main');
+  });
+  const advice = explainEpicSituation({
+    target, run, bestRun, maxReachable, filled: notes.length, stringsLeft: MAX_STRINGS - notes.length,
+    rerolls: availableRerolls(), matchingCount: matching.length, selected, alternative,
+    hasChoices: Boolean(choices), resetFee: resetCost(), lastStat: stats.at(-1), manual: Boolean(manualSession),
+    rareStats: [...new Set((choices || []).filter(choice => rare.has(choice.stat)).map(choice => choice.stat))],
+    equivalentCards: matching.length > 1 && matching.every(choice => choice.grade === matching[0].grade),
+    gradeAdvantage: matchingBonuses.length > 1 && Math.max(...matchingBonuses) > Math.min(...matchingBonuses),
+  });
+  aiMessage.dataset.scenario = String(advice.scenario);
+  renderAiMessage(advice.before, advice.action, advice.after);
+  aiRecommendedAction.textContent = advice.scenario === 1 ? '목표 달성' : advice.scenario === 18 ? '판단 보류' : advice.action;
+  aiCurrentChance.textContent = advice.scenario === 1 ? '100%' : selected?.chance > 0 ? formatChance(selected.chance) : '달성 표본 없음';
+  return advice.scenario === 18 ? null : selected;
 }
 
 function formatExpectedCost(cost) {
   return Number.isFinite(cost) ? `${cost.toFixed(1)} 다이아` : '달성 표본 없음';
-}
-
-function actionRouteName(action) {
-  return ({ play: '현재 악장 계속', select: '현재 카드 선택', reroll: '다시 연주', reset: '악장 초기화' })[action] || action;
-}
-
-function explainRecommendedAction(action, target, remaining) {
-  const lastStat = notes.at(-1)?.stat;
-  const run = trailingRun(notes.map(note => note.stat));
-  const runNeeded = Math.max(0, target - Math.max(1, run));
-  const stringsLeft = MAX_STRINGS - notes.length;
-  const rerollsLeft = availableRerolls();
-
-  if (action.action === 'select') {
-    if (action.equalFirstStats) return `첫 현은 연결할 능력치가 아직 없고, 지금 손패에는 공식 확률이 같은 일반 능력치만 있어요. 막기를 포함한 선택지의 기본 출현 확률이 같으므로 막기 하나를 더 유리하다고 추천할 근거는 없어요. 원하는 스탯을 선택하세요.`;
-    if (!notes.length && action.lowFrequencyStat) return `첫 현이라 연결 확률의 이점은 아직 없어요. ${action.stat}은 공식 확률표에서 전체 출현 확률이 ${(action.statChance * 100).toFixed(2)}%로 가장 낮은 희귀 능력치예요. 이 능력치의 효과를 노릴 수 있지만, 다시 나와 연속으로 완성될 가능성도 일반 능력치보다 낮아져요. 낮은 완성 확률을 감수하고 희귀 효과를 노리는 선택이에요.`;
-    if (!notes.length && action.statChance) return `첫 현은 앞서 연결할 능력치가 없어요. ${action.stat}의 출현 확률은 ${(action.statChance * 100).toFixed(2)}%로 현재 선택지 중 가장 높아, 목표 연속을 완성하는 확률을 우선할 때 유리해요.`;
-    if (lastStat && action.stat === lastStat) {
-      const group = [];
-      for (let index = notes.length - 1; index >= 0 && notes[index].stat === lastStat; index -= 1) group.push(notes[index]);
-      const sameGradeCount = group.filter(note => note.grade === action.grade).length;
-      const bonusKind = /피해|증폭|감소|저항|관통/.test(lastStat) ? 'rate' : 'main';
-      const bonus = gradeBonusIncrease(action.grade, sameGradeCount, bonusKind);
-      const bonusText = bonus > 0
-        ? `동일 등급 보너스도 ${bonusKind === 'rate' ? `+${bonus}%` : `+${bonus}`} 늘어요.`
-        : '이 등급을 더 연결하면 등급별 누적 보너스도 계산에 반영돼요.';
-      return `직전 현과 같은 ${lastStat}를 이으면 현재 ${run}연속이 유지돼요. 손패 중 ${action.grade} ${lastStat}를 선택하면 연결 그룹의 ${action.grade} 등급이 ${sameGradeCount}개에서 ${sameGradeCount + 1}개가 되고, ${bonusText} 다음 현에서 연결이 끊기면 목표 연속도 끊기므로 이 연결 카드를 고르세요.`;
-    }
-    return `현재 세 카드 중 ${action.stat}을 고르는 경로가 남은 현에서 목표 연속을 만들 가능성이 가장 높아요. 지금 선택지로 한 현을 확정해 연주 기회를 목표 달성에 쓸 수 있어요.`;
-  }
-
-  if (action.action === 'reroll') {
-    if (lastStat && !choices?.some(choice => choice.stat === lastStat)) {
-      return `지금 세 카드에는 직전 ${lastStat}가 없어 하나를 확정하면 ${run}연속이 끊겨요. 다시 연주하면 카드 세 장을 새로 뽑아 연결을 다시 노릴 수 있고, 남은 다시 연주 ${rerollsLeft}회 중 한 번을 쓰게 돼요.`;
-    }
-    return `현재 카드 중 연결되는 카드가 있지만, 그 카드를 확정하는 것보다 다시 연주해 다음 현에서 목표로 이어질 선택지를 다시 얻는 편이 성공당 예상 비용을 낮춰요. 다시 연주 기회를 써 더 나은 연결을 노리는 판단이에요.`;
-  }
-
-  if (action.action === 'play') {
-    if (!notes.length) return `아직 확정한 현이 없고 남은 연주 ${remaining}회로 12현을 시작할 수 있어요. 지금 악장을 유지하면 새 카드 세 장에서 첫 능력치를 고르고 목표 연속을 쌓아갈 기회가 생겨요.`;
-    const recovery = remaining <= stringsLeft
-      ? `남은 연주가 채워야 할 현 수와 같아 다시 연주할 여유가 없어요. 지금 카드에서 연결을 만드는 게 중요해요.`
-      : `남은 ${stringsLeft}현을 채울 연주 여유가 있고, 다음 세 카드에서 직전 능력치를 찾으면 현재 연속을 이어갈 수 있어요.`;
-    return `현재 ${notes.length}/12현, 최근 ${run}연속에서 목표까지 ${runNeeded}번 더 이어야 해요. ${recovery}`;
-  }
-
-  if (action.action === 'reset') {
-    const tightRun = runNeeded >= Math.max(1, stringsLeft - 1);
-    const scarceRerolls = rerollsLeft <= 2 || remaining <= stringsLeft;
-    const pressure = tightRun
-      ? `목표까지 ${runNeeded}번 더 이어야 하는데 남은 현은 ${stringsLeft}개뿐이라, 다음 선택을 거의 연달아 맞혀야 해요.`
-      : `현재 ${notes.length}/12현, 최근 ${run}연속이라 남은 현에서 목표까지 가는 경로가 좁아졌어요.`;
-    const retries = scarceRerolls
-      ? `남은 연주 ${remaining}회와 다시 연주 ${rerollsLeft}회로는 빗나간 카드를 만회하기 어려워, 낮은 성공 가능성에 추가 비용을 쓰기보다 악장을 초기화하는 편이 나아요.`
-      : `다시 연주해도 이미 확정한 현과 끊긴 연속은 되돌아오지 않아요. 남은 다시 연주를 현재 악장에 더 써도 회복 폭이 제한적이라 악장을 초기화하고 새로 시작하는 편이 유리해요.`;
-    return `${pressure} ${retries}`;
-  }
-
-  return '';
-}
-
-function compareActionCosts(recommendation, alternative) {
-  const cost = action => costPerSuccess(action, action.action === 'reset' ? action.resetFee || 0 : 0);
-  const recommendedCost = cost(recommendation);
-  const alternativeCost = cost(alternative);
-  if (!Number.isFinite(recommendedCost)) return '';
-  if (!Number.isFinite(alternativeCost)) return `이번 시뮬레이션에서는 ${actionRouteName(alternative.action)} 경로로 목표를 달성한 표본이 없어요.`;
-  if (Math.abs(recommendedCost - alternativeCost) < 0.05) {
-    return `성공당 예상 비용은 두 경로가 비슷해 ${actionRouteName(recommendation.action)} 쪽의 확률과 현재 연결 상태를 우선했어요.`;
-  }
-  const relativeDifference = (1 - recommendedCost / alternativeCost) * 100;
-  if (relativeDifference < 1) {
-    return `성공당 예상 비용은 ${formatExpectedCost(recommendedCost)}와 ${formatExpectedCost(alternativeCost)}로 사실상 비슷해요. 비용 우위가 뚜렷하지 않으니 성공률과 현재 연결을 보고 추천했어요.`;
-  }
-  return `목표 한 번 달성당 예상 비용은 ${formatExpectedCost(recommendedCost)}로, ${actionRouteName(alternative.action)} 경로의 ${formatExpectedCost(alternativeCost)}보다 약 ${relativeDifference.toFixed(1)}% 낮아요.`;
 }
 
 function render() {
