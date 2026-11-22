@@ -113,6 +113,7 @@ export function weeklyOverview(data,start,through=koreaDay()){
     const absentThreeWeeks=goalAttendanceWeeks.every(held=>held.length>0&&held.every(event=>status(row[event.index])==='no'));
     if(absentThreeWeeks)return [];
     const name=row[nameIndex],series=growthSeries(data,row,until),baseline=series.filter(entry=>entry.date<=base).at(-1),current=series.at(-1);
+    if(baseline&&current&&crossesRejoin(data,name,baseline.date,current.date))return [];
     const levelAt=entry=>entry?data.levels?.[entry.date]?.[name]:null;
     const meets=entry=>{
       if(!entry)return null;

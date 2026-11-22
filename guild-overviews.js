@@ -1,4 +1,4 @@
-import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261122-rejoin';
+import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent,crossesRejoin} from './guild-overview-model.js?v=20261122-rejoin-v2';
 import {weeklyGrowthGoal,rulesWithWeeklyGoal} from './weekly-growth-goals.js?v=20261122-week-target';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261122-seven-days';
@@ -97,7 +97,7 @@ function renderProfile(){
     if(weighted.needsReview)note(participationScore,'같은 주에 여러 날짜의 콘텐츠가 있어 주간 25% 배분 기준 확인이 필요합니다.');
   }else note(participationScore,'참여 기록이 없습니다.');
   const trend=section(panels,'성장 추이');trend.classList.add('profile-trend');
-  if(latest&&previous)note(trend,'직전 기록 대비 '+signed(latest.value-previous.value)+' · '+short(previous.date)+' → '+short(latest.date));
+  if(latest&&previous&&!crossesRejoin(source,name,previous.date,latest.date))note(trend,'직전 기록 대비 '+signed(latest.value-previous.value)+' · '+short(previous.date)+' → '+short(latest.date));
   if(history.length){
     guildSeries=guildGrowthSeries(source,today).filter(point=>point.date>=history[0].date&&point.date<=latest.date);
     const position=report.rankings.growth.findIndex(record=>record.name===name);

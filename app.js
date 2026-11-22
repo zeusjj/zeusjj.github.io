@@ -809,7 +809,7 @@ function renderMembers(data, query='') {
   const hiddenDormantMembers=new Set(data.dormantMembers??[]);
   const hiddenMembers=new Set([...hiddenTemporaryMembers,...hiddenDormantMembers]);
   const source={...data,members:data.members.filter(row=>!hiddenMembers.has(row[data.headers.indexOf('닉네임')]))};
-  const archivedRows=query.trim()?window.GuildMemberArchive.rows(source):[];
+  const archivedRows=query.trim()?window.GuildMemberArchive.rows(data):[];
   const displayedMembers=[...source.members,...archivedRows];
   const order=[0,data.headers.indexOf('클래스'),1,...data.headers.map((_,index)=>index).filter(index=>index>2)];
   data={...data,headers:order.map(index=>data.headers[index]),dates:order.map(index=>data.dates?.[index]),members:displayedMembers.map(row=>order.map(index=>row[index]))};
