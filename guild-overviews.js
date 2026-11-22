@@ -151,7 +151,8 @@ function renderWeeklyStats(){
   const summary=weeklyOverview(source,week.value||weekStart(today),today),growth=summary.growth;
   const latestRows=summary.last?source.members.filter(row=>Number.isFinite(row[summary.last.index])):[],mean=latestRows.length?latestRows.reduce((sum,row)=>sum+row[summary.last.index],0)/latestRows.length:null;
   const average=growth.length?growth.reduce((sum,row)=>sum+row.value,0)/growth.length:null;
-  document.getElementById('weekly-caption').textContent=short(summary.start)+' ~ '+short(summary.end)+' · '+short(summary.until)+' 기준 · 현재 길드원 '+source.members.length+'명';
+  const temporary=new Set(source.temporaryMembers??[]),memberCount=source.members.filter(row=>!temporary.has(row[report.nameIndex])).length;
+  document.getElementById('weekly-caption').textContent=short(summary.start)+' ~ '+short(summary.end)+' · '+short(summary.until)+' 기준 · 현재 길드원 '+memberCount+'명';
   metrics(weekly,[['평균 성장도',format(mean),summary.last?short(summary.last.date)+' · '+latestRows.length+'명':'기록 없음'],['이번 주 평균 성장량',signed(average),growth.length?(summary.previous?short(summary.previous.date):'주 첫 기록')+' → '+short(summary.last?.date)+' · 비교 가능 '+growth.length+'명':'비교 기록 없음'],['콘텐츠 참여율',summary.eligible?decimal.format(summary.attended/summary.eligible*100)+'%':'—',summary.eligible?summary.attended+' / '+summary.eligible+'건':'집계된 콘텐츠 없음'],['현재 목표 달성',summary.goalRows?summary.achieved+' / '+summary.goalRows+'명':'—','Lv.'+(summary.goal.level||'—')+' · 성장도 '+format(summary.goal.growth)+(summary.goal.deadline?' · ~'+summary.goal.deadline:'')]]);
   note(weekly,'현재 길드원 기준 · 참여율은 O/X가 기록된 대상만 집계하며, 미기록(-)은 제외');
   const activities=section(weekly,'콘텐츠별 참여');
