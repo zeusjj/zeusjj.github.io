@@ -723,7 +723,7 @@ function centerMemberToday(){
   const rect=target.getBoundingClientRect();scroll.scrollLeft+=rect.left+rect.width/2-(box.left+fixed+(scroll.clientWidth-fixed)/2);memberCentered=true;
 }
 function isContributionColumn(data,index){
-  return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율','입찰주화'].includes(data.headers[index]) && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
+  return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율'].includes(data.headers[index]) && (data.headers[index]==='입찰주화' || /공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
 }
 function hiddenMemberColumn(data,index){
   const view=document.getElementById('members').dataset.view;

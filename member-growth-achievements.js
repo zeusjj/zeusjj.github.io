@@ -48,6 +48,7 @@ if(typeof document!=='undefined'){
    const ranked=kind==='increase'||kind==='rate';
    const article=document.createElement('section'),heading=document.createElement('h3'),symbol=document.createElement('i'),caption=document.createElement('span'),list=document.createElement('ol');article.className='member-achievement'+(ranked?' member-achievement-ranked':'');symbol.dataset.lucide=icon;caption.textContent=title;heading.append(symbol,caption);article.append(heading,list);
    if(period){const caption=document.createElement('span');caption.className='member-achievement-period';caption.textContent=period;heading.append(caption);}
+   if(records.length>7){list.tabIndex=0;list.setAttribute('aria-label',title+' 목록');}
    for(const [index,record] of records.entries()){
     const item=document.createElement('li'),name=document.createElement('span'),value=document.createElement('span');name.className='member-achievement-name';name.textContent=record.name;value.className='member-achievement-value';
     const amount=record.increase??record.value;
