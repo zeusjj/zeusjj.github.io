@@ -176,5 +176,6 @@ tbody tr:hover td{background:var(--hover)}
   .workspace .workspace-bar .workspace-crumb>span:not(.visually-hidden),.workspace .workspace-bar .workspace-crumb>svg{display:none}
   .workspace .workspace-bar #current-view{min-width:0;font-size:12px;overflow-wrap:anywhere}
   .workspace .workspace-bar #header-nickname.member-session-controls{justify-content:flex-end}
-  .workspace .workspace-bar .member-session-identity{max-width:96px}
+  .workspace .workspace-bar .member-session-identity{flex:0 1 90px;width:90px;min-width:52px;max-width:96px;margin-right:0}
+  .workspace .workspace-bar .member-session-identity small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
