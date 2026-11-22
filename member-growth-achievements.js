@@ -1,10 +1,10 @@
 import {growthHistory,levelHistory} from './member-growth-history.js?v=20261105-single-init';
-import {ranked,weekStart,koreaDay} from './guild-overview-model.js?v=20261115-siege';
+import {ranked,weekStart,koreaDay,crossesRejoin} from './guild-overview-model.js?v=20261122-rejoin';
 
 export function growthAchievementSummary(data,today=koreaDay()){
  const start=weekStart(today),nameIndex=data.headers.indexOf('닉네임');
  const weeklyRows=data.members.flatMap(row=>{
-  const history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),weekHistory=history.filter(point=>point.date>=start),current=weekHistory.at(-1),previous=history.findLast(point=>point.date<start)??weekHistory[0];
+  const name=row[nameIndex],history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),weekHistory=history.filter(point=>point.date>=start),current=weekHistory.at(-1),prior=history.findLast(point=>point.date<start)??weekHistory[0],previous=prior&&current&&crossesRejoin(data,name,prior.date,current.date)?weekHistory.find(point=>!crossesRejoin(data,name,point.date,current.date)):prior;
   return current&&previous&&current.date!==previous.date?[{name:row[nameIndex],value:current.value-previous.value,previous:previous.value,from:previous.date,to:current.date}]:[];
  });
  const rankedGrowth=ranked(weeklyRows);
@@ -12,7 +12,7 @@ export function growthAchievementSummary(data,today=koreaDay()){
  const weeklyDates=rankedGrowth.map(row=>row.to).sort();
  const levelUps=data.members.flatMap(row=>{
   const history=levelHistory({...data,members:[row]}).filter(point=>point.date<=today),current=history.findLast(point=>point.date===today),previous=history.findLast(point=>point.date<today);
-  return current&&previous&&current.value>previous.value?[{name:row[nameIndex],date:today,previousDate:previous.date,previousLevel:previous.value,level:current.value}]:[];
+  return current&&previous&&!crossesRejoin(data,row[nameIndex],previous.date,current.date)&&current.value>previous.value?[{name:row[nameIndex],date:today,previousDate:previous.date,previousLevel:previous.value,level:current.value}]:[];
  }).sort((a,b)=>(b.level-b.previousLevel)-(a.level-a.previousLevel)||b.level-a.level||a.name.localeCompare(b.name,'ko'));
  return {weeklyGrowth:rankedGrowth.filter(row=>row.rank<=7),weeklyRates:weeklyRates.filter(row=>row.rank<=7),levelUps,today,from:rankedGrowth.map(row=>row.from).sort()[0]??null,to:weeklyDates.at(-1)??null};
 }
@@ -20,12 +20,13 @@ export function growthAchievementSummary(data,today=koreaDay()){
 export function recentGrowthAchievements(data,today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())){
  const cutoff=new Date(Date.parse(today+'T00:00:00Z')-86400000).toISOString().slice(0,10),milestoneCutoff=new Date(Date.parse(today+'T00:00:00Z')-6*86400000).toISOString().slice(0,10),rankings=[],milestones=new Map(),nameIndex=data.headers.indexOf('닉네임');
  for(const row of data.members){
-  const name=row[nameIndex],history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),increments=history.flatMap((point,index)=>index&&point.date>=cutoff?[{date:point.date,previousDate:history[index-1].date,value:point.value-history[index-1].value}]:[]);
+  const name=row[nameIndex],history=growthHistory({...data,members:[row]}).filter(point=>point.date<=today),increments=history.flatMap((point,index)=>index&&point.date>=cutoff&&!crossesRejoin(data,name,history[index-1].date,point.date)?[{date:point.date,previousDate:history[index-1].date,value:point.value-history[index-1].value}]:[]);
   const increase=increments.reduce((sum,point)=>sum+point.value,0);if(increase>=1000)rankings.push({name,increase,from:increments[0].date,to:increments.at(-1).date});
-  let highest=null;
+  let highest=null,previousDate=null;
   for(const point of history){
+   if(previousDate&&crossesRejoin(data,name,previousDate,point.date))highest=null;
    if(highest!==null&&point.date>=milestoneCutoff){for(let threshold=Math.max(40000,(Math.floor(highest/10000)+1)*10000);threshold<=point.value;threshold+=10000){if(!milestones.has(threshold))milestones.set(threshold,[]);milestones.get(threshold).push({name,date:point.date,value:point.value});}}
-   highest=Math.max(highest??point.value,point.value);
+   highest=Math.max(highest??point.value,point.value);previousDate=point.date;
   }
  }
  rankings.sort((a,b)=>b.increase-a.increase||a.name.localeCompare(b.name,'ko'));

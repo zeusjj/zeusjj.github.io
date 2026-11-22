@@ -22,6 +22,9 @@ export function events(data,through=koreaDay()){
     return eligible.length?[{header,index,date,eligible,attended:eligible.filter(row=>row.status==='yes').length}]:[];
   }).sort((a,b)=>b.date.localeCompare(a.date)||b.index-a.index);
 }
+export function crossesRejoin(data,name,from,to){
+  return (data.memberRejoins?.[name]??[]).some(day=>from<day&&day<=to);
+}
 export function growthSeries(data,row,through=koreaDay()){
   return columns(data,h=>h==='성장도 기록',through).filter(c=>numeric(row[c.index])).map(c=>({date:c.date,value:row[c.index]}));
 }
@@ -76,7 +79,7 @@ export function overview(data,through=koreaDay()){
   const festivalColumns=festival?contributions.filter(column=>season(column)===season(festival)):[];
   const festivalRanks=ranked(data.members.flatMap(row=>{const values=festivalColumns.map(column=>row[column.index]).filter(numeric);return values.length?[{name:row[nameIndex],value:values.reduce((sum,value)=>sum+value,0)}]:[];}));
   const metric=column=>column?ranked(data.members.flatMap(row=>{const value=column.header==='성장도 기록'?growthSeries(data,row,through).at(-1)?.value:row[column.index];return numeric(value)?[{name:row[nameIndex],value}]:[];})):[];
-  const matched=latest&&baseline?data.members.filter(row=>numeric(row[latest.index])&&numeric(row[baseline.index])&&row[baseline.index]>0):[];
+  const matched=latest&&baseline?data.members.filter(row=>numeric(row[latest.index])&&numeric(row[baseline.index])&&row[baseline.index]>0&&!crossesRejoin(data,row[nameIndex],baseline.date,latest.date)):[];
   const changes=matched.map(row=>({name:row[nameIndex],value:row[latest.index]-row[baseline.index],previous:row[baseline.index],current:row[latest.index]}));
   const activities=events(data,through);
   const weighted=weightedParticipation(data,through);
@@ -90,7 +93,7 @@ export function weeklyOverview(data,start,through=koreaDay()){
   const previous=columns(data,h=>h==='성장도 기록',base).at(-1);
   const growth=last&&last.date>=start?ranked(data.members.flatMap(row=>{
     const series=growthSeries(data,row,until),current=series.at(-1);
-    const previous=series.filter(entry=>entry.date<start).at(-1)||series.find(entry=>entry.date>=start);
+    const prior=series.filter(entry=>entry.date<start).at(-1)||series.find(entry=>entry.date>=start),previous=prior&&current&&crossesRejoin(data,row[nameIndex],prior.date,current.date)?series.find(entry=>entry.date>=start&&!crossesRejoin(data,row[nameIndex],entry.date,current.date)):prior;
     return current&&previous&&current.date!==previous.date?[{name:row[nameIndex],value:current.value-previous.value,previous:previous.value}]:[];
   })):[];
   const growthRates=ranked(growth.filter(row=>row.previous>0).map(row=>({name:row.name,value:row.value/row.previous*100})));
