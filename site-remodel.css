@@ -15,7 +15,7 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
 #main-content .site-announcement{display:block;position:static;width:100%;max-width:none;margin:0 0 24px;padding:14px 18px;border:1px solid var(--gold-line);border-left:3px solid #9b772a;border-radius:3px;background:#fcfaf3;box-sizing:border-box}
 #main-content .site-announcement[hidden]{display:none}
 #main-content .site-announcement-viewport{width:auto;overflow:visible;min-height:0;height:auto}
-#main-content #site-announcement-message{display:grid;gap:6px;position:static;width:auto;max-width:100%;min-width:0;white-space:normal;transform:none;animation:none!important;color:#5b4b2c;font-size:14px;line-height:1.65}
+#main-content #site-announcement-message{display:grid;gap:6px;position:static;width:auto;max-width:100%;min-width:0;white-space:normal;transform:none;animation:none!important;color:#5b4b2c;font-size:14px;line-height:1.65;font-weight:500;text-shadow:none}
 #main-content #site-announcement-message>span{overflow-wrap:anywhere}
 #site-announcement-pause{display:none}
 .home-section{padding:24px 0;border-bottom:1px solid var(--line);min-width:0}

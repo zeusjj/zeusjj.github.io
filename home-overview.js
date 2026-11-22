@@ -22,7 +22,8 @@ export function homeSchedule(data,start,today){
     const time=block.match(/\b(\d{1,2}:\d{2})\b/)?.[1]??null;
     for(const title of ['침공','성물 방어전','항아리 모임'])if(block.includes(title)&&!events.some(event=>event.date===date&&event.header.includes(title)))events.push({date,header:title,time,status:date>=today?'예정':'기록 없음',recorded:false});
   }
-  return events.sort((a,b)=>a.date.localeCompare(b.date)||Number(a.header==='성물 방어전')-Number(b.header==='성물 방어전'));
+  const order=header=>['침공','점령전','레이드','제전','성물 방어전','항아리 모임','주간공헌도'].findIndex(keyword=>header.includes(keyword));
+  return events.sort((a,b)=>a.date.localeCompare(b.date)||order(a.header)-order(b.header));
 }
 export function renderHome(host,{source,report,start,today}){
   const schedule=node('section',undefined,'home-section home-schedule');schedule.append(node('h2','이번 주 일정'));

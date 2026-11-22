@@ -2,7 +2,7 @@ import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowt
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261122-remodel';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
-import {renderHome} from './home-overview.js?v=20261122-remodel';
+import {renderHome} from './home-overview.js?v=20261122-remodel2';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
