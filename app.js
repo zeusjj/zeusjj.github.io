@@ -817,7 +817,7 @@ function renderMembers(data, query='') {
   data.headers.splice(initialNameIndex+1,0,'직책');data.dates.splice(initialNameIndex+1,0,null);
   data.members.forEach(row=>row.splice(initialNameIndex+1,0,source.guildRoles?.[row[initialNameIndex]]??'길드원'));
   const participationIndex=data.headers.indexOf('단톡')+1;
-  const participationRecords=calculateParticipation?.(fullSource)?.rows??[];
+  const participationRecords=calculateParticipation?.(source)?.rows??[];
   const scores=new Map(participationRecords.map(record=>[record.name,record.score]));
   data.headers.splice(participationIndex,0,'참여율');data.dates.splice(participationIndex,0,null);
   data.members.forEach(row=>row.splice(participationIndex,0,scores.get(row[data.headers.indexOf('닉네임')])??null));
@@ -891,7 +891,7 @@ function renderMembers(data, query='') {
   refreshMenuNew();
   document.getElementById('empty-search').hidden=rows.length>0;
   for(const status of body.querySelectorAll('.status.yes,.status.no')){const yes=status.classList.contains('yes');status.textContent=yes?'O':'X';status.setAttribute('aria-label',yes?'참여':'미참여');}
-  window.dispatchEvent(new CustomEvent('guild-members-data',{detail:fullSource}));
+  window.dispatchEvent(new CustomEvent('guild-members-data',{detail:source}));
   refreshIcons();
   requestAnimationFrame(centerMemberToday);
   requestAnimationFrame(syncMemberSeasonBand);
