@@ -59,7 +59,7 @@
 .epic-choice.is-recommended{border:2px solid #e7be67;padding:17px 19px;outline:0}
 .epic-choice.is-recommended:after{content:"추천";position:absolute;right:15px;top:21px;color:#f1cc79;font-size:11px;font-weight:700}
 .epic-choice-placeholder{display:flex;align-items:center;justify-content:center;background:#22232a;border:1px dashed #4b4d58;color:#848793;font-size:12px;text-align:center}
-.epic-ai-panel{display:grid;grid-template-columns:106px minmax(0,1fr) 240px;align-items:center;gap:22px;min-width:0;margin-top:22px;padding:20px;background:#24242c;border:1px solid #4a4353;border-left:3px solid #d6b165;border-radius:4px;overflow:hidden;color:#e4e2eb}
+.epic-ai-panel{display:grid;grid-template-columns:160px minmax(0,1fr);align-items:center;gap:26px;min-width:0;margin-top:18px;padding:20px;background:#24242c;border:1px solid #4a4353;border-left:3px solid #d6b165;border-radius:4px;overflow:hidden;color:#e4e2eb}
 .epic-ai-copy{display:grid;grid-template-rows:76px 32px 88px;min-width:0}
 .epic-ai-recommendation{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:5px;min-width:0;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
 .epic-ai-recommendation>span{font-size:11px;color:#d9b972;font-weight:600}
@@ -69,8 +69,12 @@
 .epic-ai-dialogue{min-width:0;height:88px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#666070 transparent;padding:8px 8px 0 0;border:0;background:transparent;color:#c9c7d2}
 .epic-ai-dialogue p{margin:0;font-size:13px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere}
 .epic-ai-dialogue strong{color:#f0e6c8;font-weight:700}
-.epic-action-area{align-self:center;min-width:0;padding-left:20px;border-left:1px solid #49434f}
-.epic-controls{display:grid;grid-template-rows:46px 36px;gap:8px}
+.epic-action-area{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:0 24px;min-width:0;margin-top:14px;padding:12px 18px;background:#24252c;border:1px solid #45454f;border-radius:4px}
+.epic-controls{grid-column:1;grid-row:1/3;display:grid;grid-template-columns:180px minmax(180px,280px);grid-template-rows:46px;justify-content:center;align-items:center;gap:12px}
+.epic-main-action{grid-column:2;grid-row:1}
+#epic-panel .epic-controls .epic-reset-button{grid-column:1;grid-row:1;height:46px}
+.epic-action-area>.epic-manual-button{grid-column:2;grid-row:1}
+.epic-action-area>.epic-return-slot{grid-column:2;grid-row:2}
 .epic-main-action{min-width:0;height:46px}
 #epic-panel .epic-controls button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:36px;min-width:0;padding:0 10px;border:1px solid #666370;border-radius:4px;background:#2b2b35;color:#eae8f1;font:inherit;font-size:12px;line-height:1.3;white-space:normal;cursor:pointer}
 #epic-panel .epic-main-action button{height:46px;background:#8d713c;border-color:#c09b57;color:#fff1cb;font-size:13px;font-weight:700}
@@ -112,7 +116,7 @@
 .epic-header-stats>.epic-stats-caption{font-weight:600}
 .epic-header-stats>.epic-header-stat{display:flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid #d4d1db;border-radius:3px;background:#faf9fc}
 .epic-header-stats strong{color:#52415e;font-size:13px;font-variant-numeric:tabular-nums}
-.epic-cat-portrait{position:relative;width:106px;height:124px;margin:0;align-self:center}
+.epic-cat-portrait{position:relative;width:160px;height:187px;margin:0;align-self:center}
 .epic-cat-portrait img{display:block;width:100%;height:100%;object-fit:contain;transform-origin:50% 82%}
 .epic-cat-eye{position:absolute;z-index:1;display:block;width:13%;height:7.2%;border-radius:50%;background:radial-gradient(ellipse at 50% 20%,#353038 0 44%,#211f25 74%);transform:scaleY(0);transform-origin:center}
 .epic-cat-eye-left{left:29%;top:34.3%}.epic-cat-eye-right{left:53%;top:36.5%}
@@ -129,9 +133,11 @@
 @container(max-width:900px){
   #epic-panel .epic-practice{padding:22px}
   .epic-settings{gap:12px;padding:14px}
-  .epic-ai-panel{grid-template-columns:84px minmax(0,1fr) 205px;gap:16px;padding:16px}
-  .epic-cat-portrait{width:84px;height:98px}
-  .epic-action-area{padding-left:14px}
+  .epic-ai-panel{grid-template-columns:160px minmax(0,1fr);gap:20px;padding:18px}
+  .epic-action-area{grid-template-columns:minmax(0,1fr);gap:4px;padding:12px 16px}
+  .epic-controls{grid-row:1;grid-column:1}
+  .epic-action-area>.epic-manual-button{grid-column:1;grid-row:2}
+  .epic-action-area>.epic-return-slot{grid-column:1;grid-row:3}
   .epic-ai-copy{grid-template-rows:72px 38px 100px}
   .epic-ai-dialogue{height:100px}
   .epic-ai-recommendation strong{font-size:18px}
@@ -168,15 +174,15 @@
   .epic-choice-probability{font-size:10px}
   .epic-choice-probability:before{content:""}
   .epic-choice.is-recommended:after{right:6px;top:auto;bottom:13px;font-size:9px}
-  .epic-ai-panel{grid-template-columns:70px minmax(0,1fr);gap:14px 12px;margin-top:18px;padding:14px}
-  .epic-cat-portrait{width:70px;height:82px;align-self:start;margin-top:20px}
+  .epic-ai-panel{grid-template-columns:112px minmax(0,1fr);gap:14px 12px;margin-top:18px;padding:14px}
+  .epic-cat-portrait{width:112px;height:131px;align-self:center;margin:0}
   .epic-ai-copy{grid-template-rows:68px 44px 112px}
   .epic-ai-recommendation strong{font-size:17px}
   .epic-ai-goal-chance>div{height:44px;align-items:flex-start;flex-direction:column;justify-content:center;gap:2px}
   .epic-ai-chances dt{font-size:10px}
   .epic-ai-dialogue{height:112px;padding-top:6px}
   .epic-ai-dialogue p{font-size:12px;line-height:1.75}
-  .epic-action-area{grid-column:1/-1;width:100%;padding:14px 0 0;border:0;border-top:1px solid #49434f}
+  .epic-action-area{width:100%;padding:12px}
   .epic-controls{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-rows:46px;gap:10px}
   .epic-main-action{grid-column:2;grid-row:1}
   #epic-panel .epic-controls .epic-reset-button{grid-column:1;grid-row:1;height:46px;padding:0 7px;font-size:10px}
@@ -190,8 +196,8 @@
 }
 @container(max-width:340px){
   #epic-panel .epic-practice{padding:14px}
-  .epic-ai-panel{grid-template-columns:52px minmax(0,1fr);padding:12px;gap:12px 8px}
-  .epic-cat-portrait{width:52px;height:61px}
+  .epic-ai-panel{grid-template-columns:84px minmax(0,1fr);padding:12px;gap:12px 8px}
+  .epic-cat-portrait{width:84px;height:98px}
   .epic-choice,.epic-choice-placeholder{padding:10px 5px}
   .epic-choice.is-recommended{padding:9px 4px}
   .epic-choice strong{font-size:13px}
@@ -205,19 +211,7 @@
   .epic-header-stats>.epic-header-stat{flex:1;justify-content:space-between}
 }
 .epic-cat-portrait img{animation:none;rotate:0deg}
-.epic-cat-portrait.cat-tilt-left img{animation:epic-cat-tilt-left .9s ease-in-out both}
-.epic-cat-portrait.cat-tilt-right img{animation:epic-cat-tilt-right .9s ease-in-out both}
-.epic-cat-portrait.cat-nod img{animation:epic-cat-nod .82s ease-in-out both}
-.epic-cat-portrait.cat-peek-left img{animation:epic-cat-peek-left .95s ease-in-out both}
-.epic-cat-portrait.cat-peek-right img{animation:epic-cat-peek-right .95s ease-in-out both}
-.epic-cat-portrait.cat-bob img{animation:epic-cat-bob .78s ease-in-out both}
 .epic-cat-portrait.is-blinking .epic-cat-eye{animation:epic-cat-blink-once .19s ease-in-out 1 both}
 .epic-cat-portrait.is-blinking .epic-cat-eye-right{animation-delay:.035s}
-@keyframes epic-cat-tilt-left{0%,100%{transform:rotate(0)}38%{transform:rotate(-5deg) translateY(-2px)}72%{transform:rotate(-2deg)}}
-@keyframes epic-cat-tilt-right{0%,100%{transform:rotate(0)}38%{transform:rotate(5deg) translateY(-2px)}72%{transform:rotate(2deg)}}
-@keyframes epic-cat-nod{0%,100%{transform:rotate(0) translateY(0)}35%{transform:rotateX(5deg) translateY(3px)}68%{transform:rotateX(-2deg) translateY(-1px)}}
-@keyframes epic-cat-peek-left{0%,100%{transform:translateX(0) rotate(0)}42%{transform:translateX(-3px) rotate(-2deg)}76%{transform:translateX(-1px) rotate(-1deg)}}
-@keyframes epic-cat-peek-right{0%,100%{transform:translateX(0) rotate(0)}42%{transform:translateX(3px) rotate(2deg)}76%{transform:translateX(1px) rotate(1deg)}}
-@keyframes epic-cat-bob{0%,100%{transform:translateY(0) scale(1)}38%{transform:translateY(-4px) scale(1.015)}74%{transform:translateY(1px) scale(.998)}}
 @keyframes epic-cat-blink-once{0%,100%{transform:scaleY(0)}45%,72%{transform:scaleY(1)}}
 @media(prefers-reduced-motion:reduce){.epic-cat-portrait img,.epic-cat-portrait.is-blinking .epic-cat-eye{animation:none!important}.epic-cat-portrait.is-blinking .epic-cat-eye{display:none}}

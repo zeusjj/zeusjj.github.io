@@ -42,7 +42,7 @@ const manualChain = document.getElementById('epic-manual-chain');
 const manualRemaining = document.getElementById('epic-manual-remaining');
 const statsEndpoint = 'https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/epic-practice/stats';
 const catPortrait = document.querySelector('.epic-cat-portrait');
-const catMotionClasses = ['cat-tilt-left', 'cat-tilt-right', 'cat-nod', 'cat-peek-left', 'cat-peek-right', 'cat-bob'];
+let catBlinkTimer;
 
 let notes = [];
 let choices = null;
@@ -139,18 +139,11 @@ document.addEventListener('visibilitychange', () => {
 });
 
 function scheduleCatMotion() {
+  window.clearTimeout(catBlinkTimer);
   if (!catPortrait || document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  window.setTimeout(() => {
-    const blink = Math.random() < 0.28;
-    if (blink) {
-      catPortrait.classList.add('is-blinking');
-      window.setTimeout(() => catPortrait.classList.remove('is-blinking'), 260);
-    } else {
-      const motion = catMotionClasses[Math.floor(Math.random() * catMotionClasses.length)];
-      catPortrait.classList.remove(...catMotionClasses);
-      catPortrait.classList.add(motion);
-      window.setTimeout(() => catPortrait.classList.remove(motion), 1050);
-    }
+  catBlinkTimer = window.setTimeout(() => {
+    catPortrait.classList.add('is-blinking');
+    window.setTimeout(() => catPortrait.classList.remove('is-blinking'), 260);
     scheduleCatMotion();
   }, 3000 + Math.random() * 3000);
 }
