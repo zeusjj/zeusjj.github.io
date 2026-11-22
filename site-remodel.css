@@ -83,7 +83,11 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
 .member-options .member-visibility-controls{position:absolute;right:0;top:48px;z-index:30;min-width:200px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:4px;box-shadow:0 8px 20px #0001}
 .member-options:not([open]) .member-visibility-controls{display:none}
 #members .member-group-bar{background:var(--surface-subtle);font-size:13px}
-#members #member-table th,#members #member-table .member-sort{height:76px}
+#members #member-table th,#members #member-table .member-sort{height:120px}
+#members #member-table th .member-sort:has(.content-date){display:grid;grid-template-rows:42px 34px 20px;row-gap:4px;align-content:start;justify-items:center;padding:10px 4px 6px;box-sizing:border-box}
+#members #member-table .member-sort>.column-title{align-self:center;max-width:100%}
+#members #member-table .member-sort>.content-date{grid-row:2;align-self:center;margin:0}
+#members #member-table .member-sort>.member-date-badge{grid-row:3;position:static;transform:none;align-self:center;justify-self:center;box-sizing:border-box;height:20px;min-width:35px}
 #members #member-table th{background:#f0f3f4}
 #members #member-table .column-title{font-size:13px;line-height:1.5}
 #members #member-table .content-date{font-size:12px;line-height:1.4}
