@@ -83,7 +83,7 @@ if(initialTab)selectCalculator(initialTab);
 window.addEventListener('hashchange',()=>{const linked=linkedCalculator();if(linked)selectCalculator(linked);});
 shareButton.addEventListener('click',async()=>{
   const selected=toolTabs.find(tab=>tab.getAttribute('aria-selected')==='true');
-  const url=selected.dataset.calculator==='probabilities'?new URL('https://zeusjj.github.io/share/probabilities/'):new URL('/share/tools/'+selected.dataset.calculator,noticesApi);url.searchParams.set('v','1');
+  const url=selected.dataset.calculator==='midas'?new URL('https://zeusjj.github.io/#tools/midas'):selected.dataset.calculator==='probabilities'?new URL('https://zeusjj.github.io/share/probabilities/'):new URL('/share/tools/'+selected.dataset.calculator,noticesApi);url.searchParams.set('v','1');
   if(selected.dataset.calculator==='probabilities'&&location.hash.split('/')[2])url.searchParams.set('table',location.hash.split('/')[2]);
   try{
     try{await navigator.clipboard.writeText(url.href);}catch{

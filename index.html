@@ -32,7 +32,9 @@
   <script src="member-mobile.js?v=20261018-170" defer></script>
   <script src="admin-statistics.js?v=20261021-201" defer></script>
   <script type="module" src="collection-calculator.js?v=20261019-174"></script>
-  <script type="module" src="skill-calculator.js?v=20261020-187"></script>
+  <script type="module" src="skill-calculator.js?v=20261123-midas"></script>
+  <link rel="stylesheet" href="enhancement-profit.css?v=20261123-midas">
+  <script type="module" src="enhancement-profit.js?v=20261123-midas"></script>
   <link rel="stylesheet" href="fate-prices.css?v=20261017-124">
   <script type="module" src="fate-prices.js?v=20261102-data"></script>
   <link rel="stylesheet" href="fate-enhancement.css?v=20261102-tooltip">
@@ -211,6 +213,7 @@
         <div class="page-heading tools-page-heading"><h1>편의 기능</h1><button id="suggest-tool" class="secondary-button" type="button" title="편의 기능 건의하기" aria-label="편의 기능 건의하기"><i data-lucide="message-square-plus"></i><span>건의하기</span></button></div>
         <div class="calculator-switcher"><div class="calculator-tabs" role="tablist" aria-label="편의 기능">
           <button id="epic-heading" type="button" role="tab" data-calculator="epic" aria-selected="false" aria-controls="epic-panel" tabindex="-1"><i data-lucide="music-2"></i><span>서사시 연습</span><small id="epic-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-11-19T00:00:00+09:00" data-new-until="2026-11-26T00:00:00+09:00" hidden>New</small></button>
+          <button id="midas-heading" type="button" role="tab" data-calculator="midas" aria-selected="false" aria-controls="enhancement-profit-panel" tabindex="-1"><i data-lucide="coins"></i><span>미다스 계산기</span><small id="midas-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-11-23T00:00:00+09:00" data-new-until="2026-11-30T00:00:00+09:00" hidden>New</small></button>
           <button id="collection-heading" class="active" type="button" role="tab" data-calculator="collection" aria-selected="true" aria-controls="collection-panel"><i data-lucide="layers"></i><span>컬렉션 기대값 계산기</span></button>
           <button id="skill-heading" type="button" role="tab" data-calculator="skill" aria-selected="false" aria-controls="skill-panel" tabindex="-1"><i data-lucide="swords"></i><span>스킬 강화 기대값 계산기</span></button>
           <button id="fate-heading" type="button" role="tab" data-calculator="fate" aria-selected="false" aria-controls="fate-panel" tabindex="-1"><i data-lucide="table-2"></i><span>운명의 흐름 가격표</span><small id="fate-menu-new" class="menu-new" data-new-group="tools" data-new-start="2026-11-02T00:00:00+09:00" data-new-until="2026-11-09T00:00:00+09:00" hidden>New</small></button>
@@ -226,6 +229,7 @@
             <div class="probability-view"><h2 id="probability-title"></h2><p id="probability-status" role="status">확률표 목록을 불러오는 중입니다.</p><iframe id="probability-frame" title="제우스 공식 확률표" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe></div>
           </div>
         </div>
+        <div id="enhancement-profit-panel" class="calculator-panel" role="tabpanel" aria-labelledby="midas-heading" hidden></div>
         <div id="collection-panel" class="calculator-panel" role="tabpanel" aria-labelledby="collection-heading">
           <form id="collection-settings" class="collection-settings" novalidate>
             <div class="collection-filters">
