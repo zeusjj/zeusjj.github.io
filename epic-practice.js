@@ -491,6 +491,7 @@ function render() {
   for (let index = 0; index < MAX_STRINGS; index += 1) {
     const item = document.createElement('li');
     item.className = 'epic-string';
+    item.dataset.position = String(index + 1);
     if (notes[index]) {
       item.classList.add('is-filled');
       if ((index > 0 && notes[index].stat === notes[index - 1].stat)
@@ -507,6 +508,7 @@ function render() {
   }
 
   document.getElementById('epic-attempts').textContent = String(performances);
+  document.getElementById('epic-remaining-performances').textContent = String(MAX_PERFORMANCES - performances);
   document.getElementById('epic-masthead-progress').textContent = `${notes.length} / ${MAX_STRINGS}`;
   document.getElementById('epic-longest').textContent = String(longestRun());
   const done = notes.length === MAX_STRINGS;
@@ -537,8 +539,8 @@ function render() {
       button.dataset.stat = choice.stat;
       button.dataset.grade = choice.grade;
       const labelLength = choice.label.length;
-      button.style.setProperty('--choice-font-desktop', `${labelLength > 10 ? 12 : labelLength > 7 ? 14 : 16}px`);
-      button.style.setProperty('--choice-font-mobile', `${labelLength > 10 ? 9 : labelLength > 7 ? 11 : 13}px`);
+      button.style.setProperty('--choice-font-desktop', `${labelLength > 10 ? 18 : 22}px`);
+      button.style.setProperty('--choice-font-mobile', `${labelLength > 10 ? 13 : 15}px`);
       if (notes.length && choice.stat === notes.at(-1).stat) button.classList.add('is-linked');
       if (!manualSession && aiMode.checked && recommendation?.action === 'select' && recommendation.stat === choice.stat && recommendation.grade === choice.grade) button.classList.add('is-recommended');
       button.innerHTML = `<span class="epic-choice-grade">${choice.grade}</span><strong>${choice.label}</strong><span class="epic-choice-probability" title="공식 등급별 옵션 노출 확률 · 선택 시 등급 상승 전">${choice.probability}</span>`;
@@ -546,11 +548,11 @@ function render() {
       button.addEventListener('click', () => applyChoice(choice));
       choicesBox.append(button);
     });
-  } else if (!done) {
+  } else {
     for (let index = 0; index < 3; index += 1) {
       const placeholder = document.createElement('div');
       placeholder.className = 'epic-choice-placeholder';
-      placeholder.textContent = '연주 준비';
+      placeholder.textContent = done ? '악장 완성' : '연주 준비';
       placeholder.setAttribute('aria-hidden', 'true');
       choicesBox.append(placeholder);
     }

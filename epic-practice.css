@@ -1,90 +1,209 @@
-.epic-practice{--epic-ink:#f1e7c1;--epic-muted:#b4c2c7;--epic-gold:#c9a65a;--epic-teal:#65b6a7;max-width:1050px;padding:24px;background:#142834;color:#eef1e9;border:1px solid #29434b}
-.epic-practice-header{display:flex;align-items:center;justify-content:space-between;gap:16px}.epic-practice-header h2{margin:0;color:var(--epic-ink);font-size:22px}.epic-practice-header p{margin:4px 0 0;color:var(--epic-muted);font-size:13px}.epic-practice-header .secondary-button{flex:0 0 auto}
-.epic-model-note{margin:20px 0 14px;color:#cfba83;font-size:11px}
-.epic-statusline{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding:11px 0;border-top:1px solid #38515a;border-bottom:1px solid #38515a;color:var(--epic-muted);font-size:12px}.epic-statusline>span{display:inline-flex;gap:5px}.epic-statusline>span:first-child{margin-right:auto;color:var(--epic-ink)}.epic-statusline b{color:#fff;font-variant-numeric:tabular-nums}
-.epic-board-wrap{position:relative;padding:18px 0 14px;overflow:hidden}.epic-lyre{position:absolute;inset:0 0 auto;width:100%;height:100%;fill:none;stroke:#806d46;stroke-width:1.5;opacity:.65}.epic-strings{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;margin:0;padding:0;list-style:none}.epic-string{display:grid;place-items:center;aspect-ratio:1/1.25;min-width:0;padding:3px;border:1px solid #46565a;background:#1c303b;color:#98a8aa;text-align:center;font-size:clamp(9px,1vw,12px);line-height:1.25;overflow-wrap:anywhere}.epic-string.is-current{border-color:var(--epic-gold);box-shadow:inset 0 0 0 1px #c9a65a55;color:var(--epic-ink)}.epic-string.is-filled{border-color:#57675f;background:#24383d;color:#e8e4d5}.epic-string.is-linked{border-color:var(--epic-teal);background:#24423f;color:#e4fff4}
-.epic-play-area{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px 18px;align-items:start;padding:18px 0 4px;border-top:1px solid #38515a}.epic-current{display:flex;flex-direction:column;gap:5px;color:var(--epic-muted);font-size:11px}.epic-current strong{color:var(--epic-ink);font-size:18px}.epic-choices{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap;gap:12px;min-height:212px;padding:8px}.epic-choice{display:flex;flex:0 1 170px;min-height:196px;flex-direction:column;align-items:center;justify-content:center;gap:13px;padding:15px 12px;border:1px solid #637178;background:linear-gradient(155deg,#333532,#1c2022 72%);color:#ddd8ca;cursor:pointer;transition:transform .16s ease,border-color .16s ease,filter .16s ease}.epic-choice:hover{transform:translateY(-4px);filter:brightness(1.15)}.epic-choice-grade{min-width:48px;padding:3px 9px;border:1px solid currentColor;background:#101519;font-size:12px;font-weight:700}.epic-choice-icon{position:relative;display:grid;place-items:center;width:54px;height:54px;border:2px solid currentColor;border-radius:50%;background:radial-gradient(circle at 50% 42%,#fff4 0 2px,transparent 3px),linear-gradient(145deg,#ffffff20,#0005);box-shadow:0 0 18px color-mix(in srgb,currentColor 45%,transparent),inset 0 0 12px #ffffff28}.epic-choice-icon:before{content:"";width:20px;height:20px;border:2px solid currentColor;transform:rotate(45deg);box-shadow:inset 0 0 5px currentColor}.epic-choice strong{font-size:14px}.epic-choice.grade-normal{color:#d4d6d8;border-color:#797f83}.epic-choice.grade-rare{color:#51a8ff;border-color:#397bbb;background:linear-gradient(155deg,#203c56,#17242e 72%)}.epic-choice.grade-hero{color:#c58aff;border-color:#8f5fbd;background:linear-gradient(155deg,#40294f,#211d2b 72%)}.epic-choice.grade-legend{color:#efad35;border-color:#bd7c20;background:linear-gradient(155deg,#574224,#282017 72%);box-shadow:inset 0 0 18px #edb3471a,0 0 12px #d5963025}.epic-choice.grade-legend .epic-choice-icon{box-shadow:0 0 24px #e8a83188,inset 0 0 15px #fff5}.epic-string.grade-normal{color:#d4d6d8}.epic-string.grade-rare{color:#51a8ff}.epic-string.grade-hero{color:#c58aff}.epic-string.grade-legend{color:#efad35}.epic-controls{grid-column:2;display:flex;flex-wrap:wrap;gap:8px}.epic-controls .primary-button{background:#9b7c3e;color:#fff;border-color:#b29354}.epic-controls .primary-button:hover{background:#ad8a47}.epic-advice{grid-column:2;margin:0;color:var(--epic-muted);font-size:12px;line-height:1.6}.epic-rules{margin-top:18px;padding-top:12px;border-top:1px solid #38515a;color:var(--epic-muted);font-size:12px}.epic-rules summary{width:max-content;cursor:pointer;color:#d7c48d}.epic-rules p{max-width:780px;margin:10px 0 0;line-height:1.7}
-.epic-practice button:focus-visible{outline-color:#f1d98e}
-@media(max-width:760px){.epic-practice{padding:16px}.epic-practice-header h2{font-size:19px}.epic-strings{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}.epic-string{aspect-ratio:1.55/1;font-size:11px}.epic-lyre{display:none}.epic-play-area{grid-template-columns:1fr;gap:10px}.epic-current,.epic-controls,.epic-advice{grid-column:1}.epic-current{flex-direction:row;align-items:baseline;gap:9px}.epic-current strong{font-size:16px}.epic-choices{min-height:0;gap:7px;padding:4px 0}.epic-choice{flex:1 1 28%;min-width:0;min-height:160px;padding:10px 5px;font-size:12px}.epic-choice-icon{width:42px;height:42px}.epic-choice-icon:before{width:16px;height:16px}.epic-controls>*{flex:1 1 auto}.epic-statusline{gap:8px 14px}.epic-statusline>span:first-child{flex-basis:100%}}
-@media(max-width:420px){.epic-practice-header{align-items:flex-start}.epic-practice-header .secondary-button{padding:8px;font-size:11px}.epic-practice-header .secondary-button i{width:15px;height:15px}.epic-model-note{font-size:10px}.epic-statusline{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.epic-practice *{scroll-behavior:auto}}
-
-/* The practice room uses a distinct forged-metal header over a quieter slate field. */
-.epic-practice{--epic-ink:#f2ead6;--epic-muted:#aebbc0;--epic-gold:#d5ad69;--epic-teal:#77b4ab;max-width:1050px;padding:0 26px 22px;background:#19272d;color:#e9e7df;border:1px solid #34464b;box-shadow:0 12px 32px #0711161c}
-.epic-masthead{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 -26px 0;padding:22px 26px;background:#2c3738;border-bottom:1px solid #576059;box-shadow:inset 0 3px #b08c54}
-.epic-masthead-title>span{color:#d2af70;font-size:12px;font-weight:700}.epic-masthead-title h2{margin:7px 0 4px;color:#f2ead6;font-size:23px;line-height:1.25}.epic-masthead-title p{margin:0;color:#c0c6c1;font-size:13px;line-height:1.5}
-.epic-masthead-tools{display:flex;align-items:center;gap:10px}.epic-masthead-stat{display:flex;min-width:82px;flex-direction:column;gap:5px;padding:9px 12px;border-left:1px solid #56615d;color:#bdc4bf}.epic-masthead-stat span{font-size:11px}.epic-masthead-stat strong{color:#f1e9d5;font-size:14px;font-variant-numeric:tabular-nums}.epic-masthead-stat strong b{font:inherit}
-.epic-reset-button{display:inline-flex;min-height:40px;align-items:center;justify-content:center;gap:8px;padding:0 12px;border:1px solid #8e754c;background:#3b3a31;color:#f3e8cd;font:inherit;font-size:12px;cursor:pointer}.epic-reset-button:hover{background:#514735;border-color:#d5ad69}.epic-reset-button:disabled{opacity:.45;cursor:not-allowed}
-.epic-model-note{margin:0;padding:13px 0 14px;border-bottom:1px solid #34464b;color:#c4a86f;font-size:11px;line-height:1.5}
-.epic-statusline{gap:12px 24px;padding:12px 0;border:0;border-bottom:1px solid #34464b;color:#aebbc0}.epic-statusline>span:first-child{color:#e9e1d1}.epic-statusline b{color:#f3ead8}
-.epic-board-wrap{padding:20px 0 18px}.epic-strings{gap:6px}.epic-string{aspect-ratio:1.2/1;border-color:#526168;background:#24343b;color:#a8b8bc;font-size:12px}.epic-string.is-current{border-color:#d1a45b;background:#34413f;color:#ffe1a2;box-shadow:inset 0 0 0 1px #d1a45b66}.epic-string.is-filled{border-color:#63716a;background:#2d3937;color:#f1ead8}.epic-string.is-linked{border-color:#79b5aa;background:#294846;color:#ddf7ea}.epic-string.grade-normal{color:#d4d6d8}.epic-string.grade-rare{color:#75baff}.epic-string.grade-hero{color:#d1a0ff}.epic-string.grade-legend{color:#ffca70}
-.epic-play-area{grid-template-columns:110px minmax(0,1fr);gap:14px 20px;padding:19px 0 5px;border-top-color:#45565a}.epic-current{padding-top:8px;color:#adbbb9}.epic-current strong{color:#f2e8ce;font-size:19px}.epic-choices{grid-template-columns:repeat(3,minmax(0,178px));min-height:218px;gap:14px;padding:4px 6px 12px}.epic-choice{width:100%;min-width:0;min-height:204px;aspect-ratio:0.82/1;padding:16px 10px;border-radius:3px;background:#30383a;box-shadow:0 5px 12px #08121755,inset 0 0 0 1px #ffffff0b;color:#dadbd5}.epic-choice:hover{transform:translateY(-3px);filter:brightness(1.12)}.epic-choice:focus-visible{outline:2px solid #f1d48e;outline-offset:3px}.epic-choice-grade{min-width:54px;padding:4px 10px;background:#1b2427;font-size:12px}.epic-choice-icon{width:60px;height:60px;border-radius:2px;transform:rotate(45deg);background:#10171955;box-shadow:0 0 16px color-mix(in srgb,currentColor 30%,transparent),inset 0 0 12px #ffffff19}.epic-choice-icon:before{width:23px;height:23px;transform:rotate(0);box-shadow:inset 0 0 5px currentColor}.epic-choice strong{font-size:15px}.epic-choice.grade-normal{color:#d9dce0;border-color:#8c969b;background:#343a3d}.epic-choice.grade-rare{color:#73baff;border-color:#4c91c5;background:#263d4b}.epic-choice.grade-hero{color:#d1a0ff;border-color:#9267b7;background:#3b2d48}.epic-choice.grade-legend{color:#ffca70;border-color:#bc8b44;background:#4b3a27;box-shadow:inset 0 0 22px #edb34718,0 5px 14px #08121766}.epic-choice.grade-legend .epic-choice-icon{box-shadow:0 0 22px #e8a83170,inset 0 0 12px #fff4}
-.epic-controls{grid-column:2;align-items:center;gap:9px}.epic-controls .primary-button{min-height:40px;background:#9b7440;border-color:#c29c60;color:#fff5df}.epic-controls .primary-button:hover{background:#ad8650}.epic-controls .secondary-button{min-height:40px;border-color:#58696e;background:#283a40;color:#dce6e5}.epic-advice{padding:2px 0 0;color:#c4cbca}.epic-rules{border-top-color:#45565a;color:#abb9bb}.epic-rules summary{color:#dec486}
+/* One reading path: settings, current performance, choices, recommendation and actions. */
+.epic-experience-grid{max-width:1320px;container-type:inline-size}
+#epic-panel .epic-practice{--epic-ink:#f0f0f2;--epic-muted:#a2a4af;--epic-gold:#efc66d;--epic-teal:#7bd6bf;width:100%;max-width:none;min-width:0;margin:0;padding:26px 28px 18px;background:#1b1c21;color:var(--epic-ink);border:1px solid #393a43;border-radius:4px;box-shadow:none;font-size:14px;letter-spacing:0}
+.epic-practice *{box-sizing:border-box;letter-spacing:0}
+#epic-panel .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%);white-space:nowrap!important;border:0!important}
+.epic-masthead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 22px;padding:0;background:transparent;border:0;box-shadow:none}
+.epic-masthead-title h2{margin:0;color:#f7f6fa;font-size:26px;line-height:1.3}
+.epic-masthead-title p{margin:5px 0 0;color:var(--epic-muted);font-size:12px}
+.epic-ai-toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:#c7c7d0;white-space:nowrap;cursor:pointer}
+.epic-ai-toggle input{width:17px;height:17px;margin:0;accent-color:#dfba65}
+.epic-settings{display:grid;grid-template-columns:minmax(130px,.9fr) minmax(100px,.7fr) minmax(165px,1.2fr) minmax(175px,1fr);align-items:center;gap:20px;padding:18px 20px;background:#25262d;border:1px solid #3d3e48;border-radius:4px}
+.epic-setting{display:grid;gap:8px;min-width:0}
+.epic-setting>label{font-size:12px;color:#b6b6c1}
+#epic-panel .epic-setting select{width:100%;min-width:0;height:40px;margin:0;padding:0 30px 0 10px;border:1px solid #555661;border-radius:4px;background:#202127;color:#f3f2f6;font:inherit;font-size:13px}
+#epic-panel .epic-setting select:disabled{color:#92939d;opacity:1}
+.epic-ai-chances{margin:0;min-width:0}
+.epic-ai-chances>div{display:flex;align-items:center;gap:12px;min-width:0}
+.epic-ai-chances dt{color:#aeb0bd;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.epic-ai-chances dd{margin:0;color:#f0d286;font-size:18px;font-weight:700;line-height:1.3;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.epic-ai-baseline-cost{padding-left:20px;border-left:1px solid #45464f}
+.epic-ai-baseline-cost>div{display:grid;grid-template-rows:20px 40px;gap:8px}
+.epic-ai-baseline-cost dd{display:flex;align-items:center;font-size:17px}
+.epic-statusline{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0 14px;border:0;color:#b4b5bf}
+.epic-status-title,.epic-status-numbers{display:flex;align-items:center;gap:16px;min-width:0}
+.epic-status-title>strong{color:#f0eff5;font-size:17px}
+.epic-status-title>span{font-size:12px;color:#a3a5b0}
+.epic-statusline b{font-weight:600}
+.epic-status-numbers>strong{font-size:14px;color:#e4e4ec;font-variant-numeric:tabular-nums}
+.epic-status-numbers>span{padding-left:16px;border-left:1px solid #45464f;font-size:12px;white-space:nowrap}
+.epic-board-wrap{padding:0 0 24px;overflow:visible}
+.epic-strings{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;list-style:none;margin:0;padding:0}
+.epic-string{position:relative;display:grid;place-items:center;min-width:0;height:76px;aspect-ratio:auto;padding:7px 4px;border:1px solid #464751;border-radius:3px;background:#25262d;color:#7f828f;text-align:center;font-size:11px;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+.epic-string:before{content:attr(data-position);position:absolute;top:4px;left:6px;color:#858893;font-size:9px}
+.epic-string:not(.is-filled):before{content:none}
+.epic-string.is-filled{padding-top:16px;background:#292b32;color:#e5e5ec}
+.epic-string.is-linked{border-color:#4c8c7e;border-bottom:3px solid #7bd6bf;background:#243b37;box-shadow:none;outline:0}
+.epic-string.is-current{border-color:#7bd6bf;background:#202d2c;color:#9be9d4;box-shadow:inset 0 0 0 1px #7bd6bf22}
+.epic-string.grade-normal{color:#e1e1e8}.epic-string.grade-advanced{color:#9edbae}.epic-string.grade-rare{color:#91c8ff}.epic-string.grade-hero{color:#d7adff}.epic-string.grade-legend{color:#f4ce7e}.epic-string.grade-manual{color:#cbddd6}
+.epic-play-area{display:block;padding:0;border:0}
+.epic-current{display:flex;align-items:baseline;gap:10px;height:32px;margin-bottom:12px;color:#a5a7b3;font-size:12px}
+.epic-current strong{font-size:17px;color:#efedf5}
+.epic-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0;padding:0;min-height:0}
+.epic-choice,.epic-choice-placeholder{position:relative;display:grid;grid-template-rows:26px minmax(0,1fr) 22px;align-items:center;justify-items:start;gap:8px;width:100%;min-width:0;height:172px;min-height:172px;padding:18px 20px;border:1px solid #666875;border-radius:4px;background:#2b2d35;color:#e2e2e9;text-align:left;font:inherit;box-shadow:none}
+.epic-choice{cursor:pointer;transition:background-color .15s,border-color .15s}
+.epic-choice-grade{display:inline-flex;align-items:center;height:25px;padding:0 9px;border:1px solid currentColor;border-radius:3px;font-size:11px;font-weight:700;background:#0002}
+.epic-choice strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;max-width:100%;overflow:hidden;color:inherit;font-size:var(--choice-font-desktop,22px);line-height:1.4;font-weight:700;word-break:keep-all;overflow-wrap:anywhere}
+.epic-choice-probability{font-size:11px;line-height:1.5;color:#b4b6c2;font-variant-numeric:tabular-nums}
+.epic-choice-probability:before{content:"노출 확률 ";color:#9093a0}
+.epic-choice.grade-advanced{background:#25362d;border-color:#55765e;color:#a6dfb2}
+.epic-choice.grade-rare{background:#263240;border-color:#507698;color:#94caff}
+.epic-choice.grade-hero{background:#362b43;border-color:#8c66aa;color:#dab4ff}
+.epic-choice.grade-legend{background:#403527;border-color:#a48956;color:#f7ce7a}
+#epic-panel .epic-choice:hover{transform:none;filter:none;background:#373944;border-color:#b7b7c6}
+#epic-panel .epic-choice.grade-hero:hover{background:#493957;border-color:#d0a4fa}
+#epic-panel .epic-choice.grade-rare:hover{background:#314458;border-color:#94caff}
+#epic-panel .epic-choice.grade-advanced:hover{background:#30483a;border-color:#a6dfb2}
+#epic-panel .epic-choice.grade-legend:hover{background:#55462e;border-color:#f7ce7a}
+.epic-choice.is-linked{box-shadow:inset 0 -3px #7bd6bf;outline:0}
+.epic-choice.is-recommended{border:2px solid #e7be67;padding:17px 19px;outline:0}
+.epic-choice.is-recommended:after{content:"추천";position:absolute;right:15px;top:21px;color:#f1cc79;font-size:11px;font-weight:700}
+.epic-choice-placeholder{display:flex;align-items:center;justify-content:center;background:#22232a;border:1px dashed #4b4d58;color:#848793;font-size:12px;text-align:center}
+.epic-ai-panel{display:grid;grid-template-columns:106px minmax(0,1fr) 240px;align-items:center;gap:22px;min-width:0;margin-top:22px;padding:20px;background:#24242c;border:1px solid #4a4353;border-left:3px solid #d6b165;border-radius:4px;overflow:hidden;color:#e4e2eb}
+.epic-ai-copy{display:grid;grid-template-rows:76px 32px 88px;min-width:0}
+.epic-ai-recommendation{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:5px;min-width:0;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
+.epic-ai-recommendation>span{font-size:11px;color:#d9b972;font-weight:600}
+.epic-ai-recommendation strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:19px;line-height:1.25;font-weight:750;color:#f2cd78;text-shadow:none;word-break:keep-all;overflow-wrap:anywhere}
+.epic-ai-goal-chance>div{height:32px;justify-content:space-between;gap:8px}
+.epic-ai-goal-chance dd{font-size:17px;white-space:nowrap}
+.epic-ai-dialogue{min-width:0;height:88px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#666070 transparent;padding:8px 8px 0 0;border:0;background:transparent;color:#c9c7d2}
+.epic-ai-dialogue p{margin:0;font-size:13px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere}
+.epic-ai-dialogue strong{color:#f0e6c8;font-weight:700}
+.epic-action-area{align-self:center;min-width:0;padding-left:20px;border-left:1px solid #49434f}
+.epic-controls{display:grid;grid-template-rows:46px 36px;gap:8px}
+.epic-main-action{min-width:0;height:46px}
+#epic-panel .epic-controls button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:36px;min-width:0;padding:0 10px;border:1px solid #666370;border-radius:4px;background:#2b2b35;color:#eae8f1;font:inherit;font-size:12px;line-height:1.3;white-space:normal;cursor:pointer}
+#epic-panel .epic-main-action button{height:46px;background:#8d713c;border-color:#c09b57;color:#fff1cb;font-size:13px;font-weight:700}
+#epic-panel .epic-main-action #epic-reroll{background:#37323f;border-color:#85738f;color:#ede3f5}
+#epic-panel .epic-controls button:hover{background:#45414f;border-color:#b4a3c1;color:#fff}
+#epic-panel .epic-main-action button:hover{background:#a18248;border-color:#edce92}
+#epic-panel .epic-main-action #epic-reroll:hover{background:#4b4058;border-color:#bca0cf;color:#fff}
+#epic-panel .epic-controls button:disabled{opacity:.45;cursor:not-allowed}
+#epic-panel .epic-controls button:disabled:hover{background:#2b2b35;border-color:#666370;color:#eae8f1}
+#epic-panel .epic-controls .is-recommended{outline:2px solid #e3bf73;outline-offset:2px}
+.epic-controls svg{width:16px;height:16px;flex-shrink:0}
+#epic-panel .epic-manual-button,#epic-panel .epic-manual-return{display:block;width:100%;height:32px;margin:6px 0 0;padding:0 5px;border:0;border-radius:3px;background:transparent;color:#b4adbf;font:inherit;font-size:11px;cursor:pointer;line-height:1.4}
+#epic-panel .epic-manual-button:hover,#epic-panel .epic-manual-return:hover{background:#34313d;color:#ede4f6}
+.epic-return-slot{height:30px}
+#epic-panel .epic-manual-return{margin:0;height:28px;color:#e1c286}
+#epic-panel [hidden]{display:none!important}
+.epic-feedback{height:24px;margin:6px 0 0;overflow:auto;color:#b8b3c3;font-size:11px;line-height:1.6}
+.epic-feedback.is-upgraded{color:#f0cf81}
+.epic-ai-note{margin:0 0 16px;color:#7f818d;font-size:10px;line-height:1.5}
+.epic-practice:has(#epic-ai-mode:not(:checked)) .epic-ai-recommendation{visibility:hidden}
+.epic-reference{border-top:1px solid #3c3d46}
+.epic-rules,.epic-math,.epic-probability-details{margin:0;padding:0;border:0;color:#a7a8b5;font-size:12px}
+.epic-rules{border-bottom:1px solid #383942}
+.epic-reference summary{width:100%;padding:13px 0;color:#9799a5;font-size:12px;line-height:1.5;cursor:pointer}
+.epic-reference summary:hover{color:#dedce6}
+.epic-reference p{max-width:960px;margin:0 0 12px;color:#aba9b9;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.epic-reference b{color:#d0ccdb}
+.epic-math>.epic-probability-details{margin-top:12px;border-top:1px solid #383942}
+.epic-reference h3{margin:15px 0 10px;color:#b9b4c8;font-size:12px}
+#epic-panel .epic-stat-summary,#epic-panel .epic-probability-table{width:100%;table-layout:fixed;border-collapse:collapse;color:#c7c3d1;font-size:11px;line-height:1.7}
+#epic-panel .epic-stat-summary th,#epic-panel .epic-stat-summary td,#epic-panel .epic-probability-table th,#epic-panel .epic-probability-table td{position:static;padding:9px 8px;border-bottom:1px solid #3b3b45;background:transparent;color:#c3c0cf;text-align:left;white-space:normal;overflow-wrap:anywhere}
+#epic-panel .epic-stat-summary thead th,#epic-panel .epic-probability-table thead th{background:#292832;color:#bcb7c9;font-weight:600}
+#epic-panel .epic-stat-summary td{color:#e0c587;font-variant-numeric:tabular-nums}
+#epic-panel .epic-probability-table th:first-child{width:88px}
+#epic-panel .epic-stat-summary tr:hover>*,#epic-panel .epic-probability-table tr:hover>*{background:#2b2934}
+.epic-probability-table .grade-normal{color:#d9dce0}.epic-probability-table .grade-advanced{color:#a6dfb2}.epic-probability-table .grade-rare{color:#94caff}.epic-probability-table .grade-hero{color:#dab4ff}.epic-probability-table .grade-legend{color:#f7ce7a}
+.epic-reference a{color:#bcb5cf}
+.epic-header-stats{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 12px;margin-left:auto;color:#6c6a77;font-size:10px}
+.epic-header-stats>.epic-stats-caption{font-weight:600}
+.epic-header-stats>.epic-header-stat{display:flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid #d4d1db;border-radius:3px;background:#faf9fc}
+.epic-header-stats strong{color:#52415e;font-size:13px;font-variant-numeric:tabular-nums}
+.epic-cat-portrait{position:relative;width:106px;height:124px;margin:0;align-self:center}
+.epic-cat-portrait img{display:block;width:100%;height:100%;object-fit:contain;transform-origin:50% 82%}
+.epic-cat-eye{position:absolute;z-index:1;display:block;width:13%;height:7.2%;border-radius:50%;background:radial-gradient(ellipse at 50% 20%,#353038 0 44%,#211f25 74%);transform:scaleY(0);transform-origin:center}
+.epic-cat-eye-left{left:29%;top:34.3%}.epic-cat-eye-right{left:53%;top:36.5%}
+.epic-practice :is(button,select,input,.epic-ai-dialogue,summary):focus-visible{outline:2px solid #eed18a;outline-offset:3px}
 .epic-reset-dialog{width:min(440px,calc(100vw - 32px));padding:26px;border:1px solid #8a744f;background:#202c30;color:#eee9dc;box-shadow:0 24px 70px #0009}.epic-reset-dialog::backdrop{background:#071116bb;backdrop-filter:blur(3px)}.epic-dialog-mark{display:grid;width:42px;height:42px;place-items:center;margin-bottom:14px;border:1px solid #957b50;background:#3a352b;color:#e7c783}.epic-reset-dialog h2{margin:0;color:#f2e8d2;font-size:19px}.epic-reset-dialog>p{margin:9px 0 18px;color:#b8c2c1;font-size:13px;line-height:1.6}.epic-reset-cost{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid #435257;border-bottom:1px solid #435257;color:#adb9b8;font-size:12px}.epic-reset-cost strong{color:#efca7c;font-size:14px}.epic-reset-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.epic-reset-actions button{min-height:40px;padding:0 14px}.epic-reset-actions .primary-button{border:1px solid #bc8b44;background:#8c6738;color:#fff3d8}
-@media(max-width:760px){.epic-practice{padding:0 16px 18px}.epic-masthead{align-items:flex-start;flex-direction:column;gap:15px;margin:0 -16px;padding:18px 16px}.epic-masthead-tools{width:100%;flex-wrap:wrap}.epic-masthead-stat{flex:1 1 75px;padding:7px 9px}.epic-reset-button{margin-left:auto}.epic-practice-header h2{font-size:19px}.epic-strings{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}.epic-string{aspect-ratio:1.55/1;font-size:11px}.epic-lyre{display:none}.epic-play-area{grid-template-columns:1fr;gap:10px}.epic-current,.epic-controls,.epic-advice{grid-column:1}.epic-current{flex-direction:row;align-items:baseline;gap:9px}.epic-current strong{font-size:16px}.epic-choices{grid-template-columns:repeat(3,minmax(0,1fr));min-height:0;gap:7px;padding:4px 0 9px}.epic-choice{flex:initial;min-width:0;min-height:160px;aspect-ratio:.72/1;padding:10px 5px;font-size:12px}.epic-choice-grade{min-width:0;padding:3px 7px;font-size:11px}.epic-choice-icon{width:40px;height:40px}.epic-choice-icon:before{width:15px;height:15px}.epic-choice strong{font-size:12px}.epic-controls>*{flex:0 1 auto}.epic-statusline{gap:8px 14px}.epic-statusline>span:first-child{flex-basis:100%}}
-@media(max-width:420px){.epic-masthead-title h2{font-size:20px}.epic-model-note{font-size:10px}.epic-statusline{font-size:11px}.epic-masthead-tools{gap:5px}.epic-masthead-stat{min-width:62px}.epic-reset-button{font-size:11px;padding:0 9px}.epic-choice{min-height:145px}}
-.epic-choices{display:grid}.epic-string.grade-advanced{color:#81d697}.epic-choice.grade-advanced{color:#81d697;border-color:#5a9b6a;background:#2d4937}.epic-feedback{grid-column:2;margin:0;color:#c3ceca;font-size:12px;line-height:1.5}.epic-feedback.is-upgraded{color:#f0ca78;font-weight:700}
-@media(max-width:760px){.epic-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-inline:0}.epic-choice{min-height:126px;aspect-ratio:.68/1;padding:7px 2px}.epic-choice-icon{width:30px;height:30px}.epic-choice-icon:before{width:11px;height:11px}.epic-choice strong{font-size:10px}.epic-feedback{grid-column:1}}
-@media(max-width:420px){.epic-choice{min-height:116px}.epic-choice-grade{font-size:9px}.epic-choice-icon{width:26px;height:26px}.epic-choice-icon:before{width:9px;height:9px}}
-.epic-choices{min-height:0;align-items:stretch}
-#epic-panel>.epic-probability-section{max-width:1050px;margin:10px 0 0;padding:18px 26px;background:#19272d;border:1px solid #34464b;color:#e9e7df}
-@media(max-width:760px){#epic-panel>.epic-probability-section{padding:16px}}
-.epic-probability-section{margin-top:24px;border-top:1px solid #45565a;padding-top:16px}.epic-probability-section h3{font-size:16px;color:#e0e7e3;margin:0 0 12px}.epic-probability-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;line-height:1.8;color:#d6dcd9}.epic-probability-table th,.epic-probability-table td{text-align:left;padding:10px 8px;vertical-align:top;border-bottom:1px solid #45565a;overflow-wrap:anywhere}.epic-probability-table th:first-child{width:85px;font-variant-numeric:tabular-nums}.epic-probability-table thead{color:#b4c5bf;background:#263a3d}.epic-probability-table .grade-normal{color:#d9dce0}.epic-probability-table .grade-advanced{color:#81d697}.epic-probability-table .grade-rare{color:#73baff}.epic-probability-table .grade-hero{color:#d1a0ff}.epic-probability-table .grade-legend{color:#ffca70}#epic-song{max-width:100%;min-width:0;background:#263a3d;color:#d6dcd9;border:1px solid #637178;padding:6px;font-size:12px}
-.epic-controls .epic-reset-button{margin-left:0}
-.epic-probability-table th,.epic-probability-table td{white-space:normal;min-width:0;position:static;background:transparent}
-#epic-panel .epic-probability-table tbody th{color:#e0e7e3}#epic-panel .epic-probability-table tbody tr:hover>*{background:#263a3d}#epic-panel .epic-probability-table thead th{color:#b4c5bf}
-.epic-spending{display:flex;align-items:center;gap:24px;margin:0 -22px;padding:12px 22px;background:#e1e8e5;color:#273e3b;border-bottom:1px solid #849994}
-.epic-spending>div{display:flex;align-items:center;gap:10px;min-width:0}.epic-spending span{font-size:12px}.epic-spending strong{font-size:18px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.epic-spending button{display:grid;place-items:center;flex-shrink:0;width:36px;height:36px;margin-left:auto;border:1px solid #93a8a1;border-radius:3px;background:#f5f8f6;color:#273e3b;cursor:pointer}.epic-spending button:hover{background:#c8d8d1}.epic-spending button svg{width:18px;height:18px}
-@media(max-width:760px){.epic-spending{margin:0 -16px;padding:10px 16px;gap:12px}.epic-spending>div{flex:1;flex-direction:column;align-items:flex-start;gap:4px}.epic-spending span{font-size:11px}}
-@media(max-width:760px){.epic-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:stretch}.epic-controls .epic-reset-button{min-width:0;padding:6px;gap:4px}.epic-controls .epic-reset-button span{white-space:normal}.epic-controls .epic-reset-button svg{flex-shrink:0}}
-.epic-header-stats{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 16px;margin-left:auto;padding:0 8px;color:#65757c;font-size:11px;white-space:nowrap}.epic-header-stats span{display:flex;align-items:baseline;gap:6px}.epic-header-stats .epic-stats-caption{color:#405d59;font-weight:700}.epic-header-stats strong{color:#285e58;font-size:14px;font-variant-numeric:tabular-nums}.epic-header-stats[hidden]{display:none}
-@media(max-width:700px){.epic-header-stats{justify-content:flex-start;gap:6px 10px;padding:0 2px;font-size:10px}.epic-header-stats span{gap:4px}.epic-header-stats strong{font-size:12px}#tools>.page-heading:has(#epic-header-stats:not([hidden])){flex-wrap:wrap;gap:8px}#tools>.page-heading:has(#epic-header-stats:not([hidden])) .epic-header-stats{order:3;flex:1 0 100%;margin-left:0}}
-.epic-choice{min-height:0;aspect-ratio:auto;justify-content:center;gap:8px;padding:16px 12px}
-.epic-choice strong{font-size:20px;line-height:1.35;letter-spacing:0;word-break:keep-all;overflow-wrap:anywhere}
-.epic-choice-probability{color:#d6dcd9;font-size:12px;line-height:1.5;letter-spacing:0}
-@media(max-width:760px){.epic-choice{min-height:0;aspect-ratio:auto;padding:12px 5px;gap:6px}.epic-choice strong{font-size:16px}.epic-choice-grade{font-size:10px}.epic-choice-probability{font-size:11px}}
-.epic-controls{display:flex;justify-content:center;gap:10px}.epic-controls .epic-reset-button{flex:0 0 145px;min-height:36px;padding:6px 9px;font-size:11px}.epic-controls #epic-play{flex:0 1 235px;min-height:44px}.epic-string.grade-manual{border-color:#96b8aa;background:#344741;color:#e2f2e9}.epic-manual-button,.epic-manual-return{width:100%;min-height:40px;margin:8px 0 10px;border:1px solid #8da79a;border-radius:3px;background:#f5f8f6;color:#345448;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.epic-manual-button:hover,.epic-manual-return:hover{background:#d8e6de}.epic-manual-dialog{width:min(420px,calc(100vw - 32px));padding:22px;border:1px solid #8da79a;background:#e5ece7;color:#263b37;box-shadow:0 24px 70px #0008}.epic-manual-dialog::backdrop{background:#071116bb;backdrop-filter:blur(3px)}.epic-manual-dialog h2{margin:0 0 18px;color:#304d43;font-size:18px}.epic-manual-dialog label{display:block;margin:14px 0 6px;color:#52685e;font-size:12px}.epic-manual-dialog select{width:100%;min-height:38px;padding:6px 9px;border:1px solid #a8b8af;border-radius:3px;background:#f8faf8;color:#29423b;font:inherit}.epic-manual-dialog p{margin:12px 0 0;color:#6a7e75;font-size:11px;line-height:1.5}.epic-manual-dialog .epic-reset-actions button{min-width:92px}.epic-manual-dialog .primary-button{border:1px solid #799d87;background:#557d62;color:#fff}.epic-ai-dialogue strong{font-weight:800;color:#253e34}
-@media(max-width:760px){.epic-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:8px}.epic-controls .epic-reset-button{width:100%;min-width:0;flex:initial;padding:6px 5px}.epic-controls #epic-play,.epic-controls #epic-reroll{width:100%;min-width:0;flex:initial}}
-.epic-choice.is-linked{outline:1px solid #7ed5bc;outline-offset:1px;box-shadow:0 0 12px #70d6b777,inset 0 0 12px #a8f5d522}
-.epic-controls .epic-reset-button{flex-basis:170px}.epic-controls .epic-reset-button span{white-space:nowrap}.epic-controls .epic-reset-button,#epic-reroll{min-height:44px}.epic-controls #epic-play,.epic-controls #epic-reroll{flex:0 1 235px;width:235px;min-height:44px}.epic-ai-recommendation{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:12px;padding:9px 10px;border:1px solid #c2d2c9;background:#dce7e0;color:#52685e;font-size:11px}.epic-ai-recommendation strong{color:#315d4b;font-size:14px;font-weight:800}.epic-ai-panel:has(#epic-ai-mode:not(:checked)) .epic-ai-recommendation{display:none}
-@media(max-width:760px){.epic-controls .epic-reset-button span{white-space:normal}.epic-controls #epic-play,.epic-controls #epic-reroll{width:100%;flex:initial}}
-.epic-choice,.epic-choice-placeholder{height:204px;min-height:204px}
-@media(max-width:760px){.epic-choice,.epic-choice-placeholder{height:160px;min-height:160px}}
-@media(max-width:420px){.epic-choice,.epic-choice-placeholder{height:145px;min-height:145px}}
-.epic-choice strong{font-size:var(--choice-font-desktop,16px)}
-@media(max-width:760px){.epic-choice strong{font-size:var(--choice-font-mobile,13px)}}
-.epic-controls #epic-play,.epic-controls #epic-reroll{height:44px;min-height:44px;white-space:normal;line-height:1.2}
-
-.epic-experience-grid{display:grid;grid-template-columns:minmax(0,1fr) 248px;gap:16px;align-items:start;max-width:1320px}.epic-experience-grid>.epic-practice{width:100%;max-width:none;margin:0;min-width:0}
-.epic-ai-panel{position:relative;display:flex;min-width:0;min-height:390px;flex-direction:column;overflow:hidden;padding:16px 16px 0;border:1px solid #a7bbb1;border-top:3px solid #779c83;background:#e5ece7;color:#263b37}.epic-ai-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.epic-ai-heading h3{margin:0;color:#304d43;font-size:17px}.epic-ai-heading p{margin:3px 0 0;color:#6a7e75;font-size:11px}.epic-ai-toggle{display:flex;align-items:center;gap:6px;color:#52685e;font-size:11px;white-space:nowrap}.epic-ai-toggle input{width:16px;height:16px;accent-color:#557d62}.epic-ai-target-label{margin-top:16px;color:#586b62;font-size:11px}.epic-ai-target{width:100%;min-height:36px;margin-top:5px;padding:6px 8px;border:1px solid #a8b8af;border-radius:3px;background:#f8faf8;color:#29423b;font:inherit;font-size:12px}.epic-ai-state{margin:12px 0 0;color:#66786f;font-size:11px;font-variant-numeric:tabular-nums}.epic-ai-dialogue{position:relative;z-index:1;margin-top:8px;padding:12px;border:1px solid #c5d4cd;border-radius:3px;background:#f8faf8;color:#344d44}.epic-ai-dialogue:after{position:absolute;bottom:-6px;left:20px;width:10px;height:10px;content:"";transform:rotate(45deg);border-right:1px solid #c5d4cd;border-bottom:1px solid #c5d4cd;background:#f8faf8}.epic-ai-dialogue p{margin:0;font-size:12px;line-height:1.6;overflow-wrap:anywhere}.epic-ai-chances{position:relative;z-index:1;margin:12px 0 0}.epic-ai-chances>div{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid #cbd7d1}.epic-ai-chances dt{color:#718078;font-size:11px}.epic-ai-chances dd{margin:0;color:#315d4b;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}.epic-ai-note{position:relative;z-index:1;margin:8px 0 0;color:#74837c;font-size:10px;line-height:1.45}.epic-cat-portrait{position:relative;width:144px;height:168px;align-self:center;margin:auto 0 0;flex:0 0 auto}.epic-cat-portrait img{display:block;width:100%;height:100%;object-fit:contain;transform-origin:50% 82%;animation:epic-cat-tilt 12s ease-in-out infinite}.epic-cat-eye{position:absolute;z-index:1;display:block;width:13%;height:7.2%;border-radius:50%;background:radial-gradient(ellipse at 50% 20%,#353038 0 44%,#211f25 74%);transform:scaleY(0);transform-origin:center;animation:epic-cat-blink 8.7s ease-in-out infinite}.epic-cat-eye-left{left:29%;top:34.3%;animation-delay:0s}.epic-cat-eye-right{left:53%;top:36.5%;animation-delay:0s}.epic-cat-eye-right{animation-name:epic-cat-blink-right}@keyframes epic-cat-blink{0%,97%,100%{transform:scaleY(0)}98%,99%{transform:scaleY(1)}}@keyframes epic-cat-blink-right{0%,97%,100%{transform:scaleY(0)}97.5%,98.5%{transform:scaleY(1)}}@keyframes epic-cat-tilt{0%,82%,88%,100%{rotate:0deg}84%,86%{rotate:-1.2deg}}
-.epic-choices:has(.epic-choice-placeholder){min-height:0;align-items:stretch}.epic-choice-placeholder{display:grid;min-width:0;min-height:94px;place-items:center;border:1px solid #526168;background:#303d42;color:#849296;font-size:12px}.epic-choice.is-recommended,.epic-controls .is-recommended{outline:2px solid #c6a35c;outline-offset:2px}.epic-ai-mode-off{opacity:.65}.epic-ai-panel:has(#epic-ai-mode:not(:checked)) .epic-ai-target-label,.epic-ai-panel:has(#epic-ai-mode:not(:checked)) .epic-ai-target,.epic-ai-panel:has(#epic-ai-mode:not(:checked)) .epic-ai-chances,.epic-ai-panel:has(#epic-ai-mode:not(:checked)) .epic-ai-note{display:none}.epic-ai-panel:has(#epic-ai-mode:not(:checked)) .epic-ai-dialogue{margin-top:16px}
-@media(max-width:900px){.epic-experience-grid{grid-template-columns:minmax(0,1fr) 220px;gap:12px}.epic-ai-panel{padding-inline:12px}.epic-cat-portrait{width:128px;height:148px}}
-@media(max-width:760px){.epic-experience-grid{grid-template-columns:minmax(0,1fr);gap:12px}.epic-ai-panel{min-height:0;padding:14px 14px 0}.epic-ai-target-label{margin-top:12px}.epic-cat-portrait{width:112px;height:130px;margin-top:8px}.epic-choice-placeholder{min-height:76px;font-size:10px}}
-.epic-ai-dialogue strong{font-weight:800;color:#253e34}
-.epic-math{margin-top:8px;padding:10px 0 0;border-top:1px solid #38515a;color:var(--epic-muted);font-size:11px}.epic-math summary{width:max-content;cursor:pointer;color:#d7c48d}.epic-math p{max-width:900px;margin:9px 0 0;line-height:1.7}.epic-math b{color:#e6d5a4}
-.epic-probability-details>summary{cursor:pointer;color:#e0e7e3;font-size:16px;font-weight:700}.epic-probability-details h3{margin:16px 0 8px;color:#b4c5bf;font-size:12px}.epic-stat-summary{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;line-height:1.5;color:#d6dcd9}.epic-stat-summary th,.epic-stat-summary td{padding:8px 7px;text-align:left;border-bottom:1px solid #45565a;overflow-wrap:anywhere}.epic-stat-summary th{width:14%;color:#e0e7e3;font-weight:600}.epic-stat-summary td{width:19%;color:#e6d5a4;font-variant-numeric:tabular-nums}
-#epic-panel .epic-stat-summary tbody th{background:#263a3d;color:#e0e7e3}
-#epic-panel .epic-stat-summary thead th{background:#263a3d;color:#b4c5bf}
-.epic-controls #epic-reroll:disabled:hover{background:#283a40;border-color:#58696e;color:#dce6e5}
-.epic-practice .secondary-button:hover,.epic-practice .icon-button:hover,.epic-reset-actions .secondary-button:hover{background:#35494d;border-color:#74878a;color:#f0eee7}
-.epic-practice .epic-controls .primary-button:hover,.epic-reset-actions .primary-button:hover{background:#ad8650;border-color:#d5ad69;color:#fff5df}
-#epic-panel .epic-controls #epic-play:hover,#epic-panel .epic-controls #epic-new-act:hover{background:#ad8650;border-color:#d5ad69;color:#fff5df}
-.epic-practice .epic-reset-button:hover{background:#514735;border-color:#d5ad69;color:#f3e8cd}
-.epic-practice .epic-manual-button:hover,.epic-practice .epic-manual-return:hover{background:#d8e6de;border-color:#799d87;color:#29483c}
-.epic-practice .epic-choice:hover{filter:brightness(1.12)}
-.epic-ai-recommendation{position:relative;gap:10px;margin:12px 0 9px;padding:11px 13px;border:1px solid #c49349;border-left:4px solid #efad35;background:#352b3c;color:#e7d4a8;box-shadow:inset 0 0 0 1px #8b61a055,0 0 12px #9d6bc333}
-.epic-ai-recommendation>span{font-size:12px;font-weight:700;color:#dbc48e}
-.epic-ai-recommendation strong{font-size:16px;color:#ffd36e;text-shadow:0 0 10px #d6a34855}
-.epic-header-stats>.epic-stats-caption{display:block;color:#405d59;font-weight:700;line-height:1.35}
-.epic-header-stats>.epic-header-stat{display:grid;grid-template-columns:auto auto auto;align-items:center;gap:5px;min-height:34px;padding:4px 8px;border:1px solid #cdd8d2;border-radius:3px;background:#f8faf8;color:#52685e}
-.epic-header-stats .epic-header-stat-label,.epic-header-stats .epic-header-stat-unit{display:block;line-height:1.3}
-.epic-header-stats .epic-header-stat strong{font-size:14px;color:#285e58}
-.epic-math>.epic-probability-details{max-width:none;margin:14px 0 0;padding:12px 0 0;border-top:1px solid #45565a;background:transparent}
-.epic-math>.epic-probability-details>summary{font-size:13px;color:#d7c48d}
-@media(max-width:700px){.epic-header-stats>.epic-stats-caption{flex:1 0 100%}.epic-header-stats>.epic-header-stat{flex:1 1 calc(50% - 5px);min-width:0;justify-content:space-between;padding:5px 7px}}
-@media(max-width:760px){.epic-stat-summary{font-size:10px}.epic-stat-summary th,.epic-stat-summary td{padding:7px 4px}.epic-stat-summary th{width:15%}.epic-stat-summary td{width:18%}.epic-probability-details{padding:14px 10px}}
-@media(prefers-reduced-motion:reduce){.epic-cat-portrait img,.epic-cat-eye{animation:none}.epic-cat-eye{display:none}}
-.epic-string.is-linked{position:relative;z-index:1;outline:1px solid #7ed5bc;outline-offset:1px;box-shadow:0 0 11px #70d6b777,inset 0 0 10px #a8f5d522}
+.epic-manual-dialog{width:min(420px,calc(100vw - 32px));padding:24px;border:1px solid #81748d;border-radius:5px;background:#25242e;color:#e4e0ec;box-shadow:0 24px 70px #0008}
+.epic-manual-dialog::backdrop{background:#15121bbd}
+.epic-manual-dialog h2{margin:0 0 18px;color:#f1e9f7;font-size:18px}
+.epic-manual-dialog label{display:block;margin:16px 0 7px;color:#c1b7cb;font-size:12px}
+.epic-manual-dialog select{width:100%;height:40px;padding:0 10px;border:1px solid #6a6176;border-radius:3px;background:#32303d;color:#eee8f5;font:inherit}
+.epic-manual-dialog p{margin:14px 0 0;color:#a29aac;font-size:11px;line-height:1.7}
+.epic-manual-dialog .secondary-button{background:#38333f;color:#ded6e7;border:1px solid #766981}
+.epic-manual-dialog .primary-button{background:#8b7042;color:#fff2d4;border:1px solid #bb9b63}
+@container(max-width:900px){
+  #epic-panel .epic-practice{padding:22px}
+  .epic-settings{gap:12px;padding:14px}
+  .epic-ai-panel{grid-template-columns:84px minmax(0,1fr) 205px;gap:16px;padding:16px}
+  .epic-cat-portrait{width:84px;height:98px}
+  .epic-action-area{padding-left:14px}
+  .epic-ai-copy{grid-template-rows:72px 38px 100px}
+  .epic-ai-dialogue{height:100px}
+  .epic-ai-recommendation strong{font-size:18px}
+  .epic-choice,.epic-choice-placeholder{padding:16px;height:164px;min-height:164px}
+  .epic-choice.is-recommended{padding:15px}
+  .epic-string{font-size:10px;height:72px}
+}
+@container(max-width:700px){
+  #epic-panel .epic-practice{padding:18px}
+  .epic-masthead{margin-bottom:18px}
+  .epic-masthead-title h2{font-size:23px}
+  .epic-settings{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+  .epic-setting:has(#epic-song){grid-column:1/-1}
+  #epic-panel .epic-setting select{font-size:12px;padding:0 22px 0 8px}
+  .epic-ai-baseline-cost{grid-column:1/-1}
+  .epic-ai-baseline-cost{padding-left:0;border:0}
+  .epic-ai-baseline-cost>div{display:flex;justify-content:space-between;gap:12px;height:44px}
+  .epic-ai-baseline-cost dt{max-width:50%}
+  .epic-ai-baseline-cost dd{font-size:15px}
+  .epic-statusline{padding-top:20px;align-items:flex-start}
+  .epic-status-title{gap:5px;align-items:flex-start;flex-direction:column}
+  .epic-status-title>strong{font-size:15px}
+  .epic-status-title>span{font-size:10px}
+  .epic-status-numbers{align-items:flex-end;flex-direction:column;gap:5px}
+  .epic-status-numbers>span{padding:0;border:0;font-size:11px}
+  .epic-strings{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+  .epic-string{height:58px;font-size:10px}
+  .epic-board-wrap{padding-bottom:20px}
+  .epic-choices{gap:8px}
+  .epic-choice,.epic-choice-placeholder{height:154px;min-height:154px;padding:12px 9px;grid-template-rows:24px minmax(0,1fr) 20px;gap:7px}
+  .epic-choice.is-recommended{padding:11px 8px}
+  .epic-choice strong{font-size:var(--choice-font-mobile,15px)}
+  .epic-choice-grade{padding:0 6px;font-size:10px;height:22px}
+  .epic-choice-probability{font-size:10px}
+  .epic-choice-probability:before{content:""}
+  .epic-choice.is-recommended:after{right:6px;top:auto;bottom:13px;font-size:9px}
+  .epic-ai-panel{grid-template-columns:70px minmax(0,1fr);gap:14px 12px;margin-top:18px;padding:14px}
+  .epic-cat-portrait{width:70px;height:82px;align-self:start;margin-top:20px}
+  .epic-ai-copy{grid-template-rows:68px 44px 112px}
+  .epic-ai-recommendation strong{font-size:17px}
+  .epic-ai-goal-chance>div{height:44px;align-items:flex-start;flex-direction:column;justify-content:center;gap:2px}
+  .epic-ai-chances dt{font-size:10px}
+  .epic-ai-dialogue{height:112px;padding-top:6px}
+  .epic-ai-dialogue p{font-size:12px;line-height:1.75}
+  .epic-action-area{grid-column:1/-1;width:100%;padding:14px 0 0;border:0;border-top:1px solid #49434f}
+  .epic-controls{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-rows:46px;gap:10px}
+  .epic-main-action{grid-column:2;grid-row:1}
+  #epic-panel .epic-controls .epic-reset-button{grid-column:1;grid-row:1;height:46px;padding:0 7px;font-size:10px}
+  .epic-controls svg{width:14px;height:14px}
+  #epic-panel .epic-main-action button{font-size:12px}
+  .epic-return-slot{height:28px}
+  .epic-feedback{height:38px}
+  .epic-reference summary{font-size:11px}
+  #epic-panel .epic-stat-summary{font-size:10px}
+  #epic-panel .epic-stat-summary :is(th,td){padding:7px 3px}
+}
+@container(max-width:340px){
+  #epic-panel .epic-practice{padding:14px}
+  .epic-ai-panel{grid-template-columns:52px minmax(0,1fr);padding:12px;gap:12px 8px}
+  .epic-cat-portrait{width:52px;height:61px}
+  .epic-choice,.epic-choice-placeholder{padding:10px 5px}
+  .epic-choice.is-recommended{padding:9px 4px}
+  .epic-choice strong{font-size:13px}
+  .epic-choice.is-recommended:after{content:"";width:5px;height:5px;border-radius:50%;background:#edc66d;bottom:auto;top:8px;right:6px}
+}
+@media(max-width:700px){
+  .epic-header-stats{justify-content:flex-start;gap:6px}
+  #tools>.page-heading:has(#epic-header-stats:not([hidden])){flex-wrap:wrap;gap:8px}
+  #tools>.page-heading .epic-header-stats{flex-basis:100%;margin-left:0}
+  .epic-header-stats>.epic-stats-caption{flex-basis:100%}
+  .epic-header-stats>.epic-header-stat{flex:1;justify-content:space-between}
+}
 .epic-cat-portrait img{animation:none;rotate:0deg}
 .epic-cat-portrait.cat-tilt-left img{animation:epic-cat-tilt-left .9s ease-in-out both}
 .epic-cat-portrait.cat-tilt-right img{animation:epic-cat-tilt-right .9s ease-in-out both}
