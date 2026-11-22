@@ -3,7 +3,7 @@ import {weeklyGrowthGoal,rulesWithWeeklyGoal} from './weekly-growth-goals.js?v=2
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountWeeklyNews} from './weekly-news.js?v=20261122-seven-days';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
-import {renderHome} from './home-overview.js?v=20261122-approved';
+import {renderHome} from './home-overview.js?v=20261122-frequent-tools';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';

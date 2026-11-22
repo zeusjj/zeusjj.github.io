@@ -1,5 +1,8 @@
 import {shiftDay,isGuildActivity} from './guild-overview-model.js?v=20261115-siege';
 import {mountRecentNews} from './weekly-news.js?v=20261122-seven-days';
+import {frequentTools,startToolUsageTracking} from './tool-usage.js?v=20261122-defaults';
+
+startToolUsageTracking();
 
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 const link=(text,href,className)=>{const el=node('a',text,className);el.href=href;return el;};
@@ -56,6 +59,6 @@ export function renderHome(host,{source,report,start,today}){
   dashboard.append(personal,news);
   const tools=node('section',undefined,'home-section home-tools');tools.append(node('h2','자주 사용하는 도구'));
   const toolsList=node('div',undefined,'home-tool-list');
-  for(const [label,route,icon]of [['서사시 연습','epic','music-2'],['점성술 계산기','astrology','star'],['스킬 강화 기대값','skill','swords'],['확률표','probabilities','chart-no-axes-column']]){const item=link(label,'#tools/'+route),mark=node('i'),chevron=node('i',undefined,'home-tool-chevron');mark.dataset.lucide=icon;chevron.dataset.lucide='chevron-right';item.prepend(mark);item.append(chevron);toolsList.append(item);}
+  for(const {label,route,icon} of frequentTools()){const item=link(label,'#tools/'+route),mark=node('i'),chevron=node('i',undefined,'home-tool-chevron');mark.dataset.lucide=icon;chevron.dataset.lucide='chevron-right';item.prepend(mark);item.append(chevron);toolsList.append(item);}
   tools.append(toolsList);dashboard.append(tools);
 }
