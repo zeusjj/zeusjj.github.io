@@ -66,7 +66,7 @@ function updateChapterNavigation(){
 window.addEventListener('scroll',updateChapterNavigation,{passive:true});
 function switchTab(route) {
   let tab=route.split('/')[0];
-  if (!tabs.includes(tab) || tab === 'alarms') tab = 'rules';
+  if (!tabs.includes(tab) || tab === 'alarms') tab = 'weekly';
   const memberReturn=location.hash.match(/^#login\/(distribution|siege-distribution(?:\/(?:second|third))?)$/)?.[1];
   if(memberReturn&&distributionSignedIn()){route=memberReturn;tab=route.split('/')[0];history.replaceState(null,'','#'+route);}
   if(tab==='history'&&!distributionSignedIn()){
@@ -725,6 +725,11 @@ function isContributionColumn(data,index){
   return index>data.headers.indexOf('단톡') && !['성장도 기록','참여율','입찰주화'].includes(data.headers[index]) && (/공헌|기여/.test(data.headers[index]) || data.members.some(row=>typeof row[index]==='number'));
 }
 function hiddenMemberColumn(data,index){
+  const view=document.getElementById('members').dataset.view;
+  if(view&&index>data.headers.indexOf('단톡')&&data.headers[index]!=='참여율'){
+    const growth=data.headers[index]==='성장도 기록',contribution=isContributionColumn(data,index);
+    if(view==='growth'?!growth:view==='contribution'?!contribution:growth||contribution||data.headers[index]==='입찰주화')return true;
+  }
   const season=document.getElementById('member-season-filter')?.value??'all';
   if(season!=='all' && index>data.headers.indexOf('단톡') && data.headers[index]!=='참여율' && String(GuildArcadiaSeasons.columnSeason(data,index)?.number??0)!==season)return true;
   return (!document.getElementById('member-growth-toggle').checked && data.headers[index]==='성장도 기록') || (!document.getElementById('member-contribution-toggle').checked && isContributionColumn(data,index)) || (!document.getElementById('member-extra-toggle').checked && ['직책','단톡','참여율'].includes(data.headers[index]));
@@ -786,6 +791,7 @@ function renderSeasonBand(table,data,identityCount,isHidden){
   table.before(band);
 }
 function renderMembers(data, query='') {
+  const fullSource=data;
   syncMemberFilters(data);
   const hiddenTemporaryMembers=new Set(data.temporaryMembers??[]);
   const hiddenDormantMembers=new Set(data.dormantMembers??[]);
@@ -799,7 +805,7 @@ function renderMembers(data, query='') {
   data.headers.splice(initialNameIndex+1,0,'직책');data.dates.splice(initialNameIndex+1,0,null);
   data.members.forEach(row=>row.splice(initialNameIndex+1,0,source.guildRoles?.[row[initialNameIndex]]??'길드원'));
   const participationIndex=data.headers.indexOf('단톡')+1;
-  const participationRecords=calculateParticipation?.(source)?.rows??[];
+  const participationRecords=calculateParticipation?.(fullSource)?.rows??[];
   const scores=new Map(participationRecords.map(record=>[record.name,record.score]));
   data.headers.splice(participationIndex,0,'참여율');data.dates.splice(participationIndex,0,null);
   data.members.forEach(row=>row.splice(participationIndex,0,scores.get(row[data.headers.indexOf('닉네임')])??null));
@@ -833,6 +839,7 @@ function renderMembers(data, query='') {
   const identityClass=index=>index===0?'member-number':index===nameIndex?'member-name':index===classIndex?'member-class':index===roleIndex?'member-role':index===chatIndex?'member-chat':index===participationIndex?'member-participation':undefined;
   const columns=element('colgroup');data.headers.forEach((_,index)=>{const col=element('col',undefined,index===0?'number-column':index===nameIndex?'name-column':index===classIndex?'class-column':index===roleIndex?'role-column':index===chatIndex?'chat-column':index===participationIndex?'participation-column':'content-column');col.hidden=hiddenColumn(index);columns.append(col);});table.append(columns);
   table.style.setProperty('--content-count',data.headers.filter((_,index)=>index>=identityCount && !hiddenColumn(index)).length);
+  const emptyRecords=document.getElementById('member-empty-records');if(emptyRecords){emptyRecords.hidden=data.headers.some((_,index)=>index>=identityCount&&!hiddenColumn(index));emptyRecords.textContent='선택한 시즌에 해당 기록이 없습니다.';}
   const head=element('thead'),titles=element('tr');
   const koreaDate=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   clearTimeout(memberDateTimer);
@@ -860,15 +867,18 @@ function renderMembers(data, query='') {
   for(const [line,row] of rows.entries()) {const tr=element('tr');row.forEach((value,index)=>{const td=element('td',undefined,index===nameIndex?'name member-name':identityClass(index));if(index===0)td.textContent=line+1;else if(index===classIndex)td.append(classIcon(value));else if(index===chatIndex || index>=identityCount){const level=data.headers[index]==='성장도 기록'?data.levels?.[data.dates?.[index]?.start]?.[row[nameIndex]]:null;const text=typeof value==='number'?value.toLocaleString('ko-KR')+(Number.isInteger(level)?` (${level})`:''):value??'-';const status=element('span',text,'status '+(value==='O'||value==='ㅇ'?'yes':value==='X'||value==='x'?'no':value==='-'||value===null?'pending':''));td.append(status);}else if(index===nameIndex){const name=String(value??''),characters=Array.from(name);td.append(element('span',name,'member-name-label'));td.dataset.shortName=characters.slice(0,3).join('')+(characters.length>3?'…':'');td.title=name;td.setAttribute('aria-label',name);}else td.textContent=value;tr.append(td);});body.append(tr);}
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach((cell,index)=>{cell.hidden=hiddenColumn(index);const total=memberFestivalTotal(data,rows[row.sectionRowIndex],index);if(total){cell.querySelector('.status').append(total);cell.title='2차 제전 기여도 (1·2차 누적)';}if(index===participationIndex){cell.title='최근 4주 길드컨텐츠참여율';cell.textContent=typeof rows[row.sectionRowIndex][index]==='number'?new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2}).format(rows[row.sectionRowIndex][index]):'—';}}));
   body.querySelectorAll('tr').forEach(row=>[...row.children].forEach(markWeek));
-  table.append(body);document.getElementById('member-count').textContent=`${source.members.length} / 60 명`;
+  table.append(body);document.getElementById('member-count').textContent=`${fullSource.members.length} / 60 명`;document.getElementById('member-count').title=`현재 표에 표시되는 길드원 ${source.members.length}명`;
   [...body.rows].forEach((tr,index)=>{
     const name=rows[index][nameIndex],record=participationRecords.find(record=>record.name===name);tr.dataset.memberName=name;tr.classList.toggle('member-is-me',name===window.GuildNickname?.get());
     if(window.GuildMemberArchive.has(source,name)){tr.dataset.departed='true';const cell=tr.querySelector('.member-name');cell.title=name+' · 탈퇴';cell.append(element('small','탈퇴','member-departed-label'));}
     tr.querySelector('.member-participation').dataset.state=record?.score===null||record?.incomplete?'incomplete':record?.score>=75-1e-9?'qualified':'below';
+    const label=tr.querySelector('.member-name-label');label.tabIndex=0;label.setAttribute('role','button');label.setAttribute('aria-label',name+' 상세 보기');
+    const detail=()=>window.dispatchEvent(new CustomEvent('guild-member-detail',{detail:{name,score:record?.score??null}}));label.addEventListener('click',detail);label.addEventListener('keydown',event=>{if(['Enter',' '].includes(event.key)){event.preventDefault();detail();}});
   });
   refreshMenuNew();
   document.getElementById('empty-search').hidden=rows.length>0;
-  window.dispatchEvent(new CustomEvent('guild-members-data',{detail:source}));
+  for(const status of body.querySelectorAll('.status.yes,.status.no')){const yes=status.classList.contains('yes');status.textContent=yes?'✓':'×';status.setAttribute('aria-label',yes?'참여':'미참여');}
+  window.dispatchEvent(new CustomEvent('guild-members-data',{detail:fullSource}));
   refreshIcons();
   requestAnimationFrame(centerMemberToday);
 }
@@ -908,6 +918,7 @@ window.addEventListener('guild-roster-updated',event=>acceptGuildSource(event.de
 document.getElementById('search').addEventListener('input',()=>renderFeature('Member search',()=>renderMembers(currentMemberSource(),document.getElementById('search').value)));
 for(const id of ['member-growth-toggle','member-contribution-toggle','member-extra-toggle'])document.getElementById(id).addEventListener('change',()=>renderFeature('Member table',()=>{if(memberSort&&hiddenMemberColumn(memberData,memberSort.index))memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);}));
 for(const id of ['member-season-filter','member-class-filter'])document.getElementById(id).addEventListener('change',()=>renderFeature('Member filters',()=>{memberSort=null;memberCentered=false;renderMembers(currentMemberSource(),document.getElementById('search').value);}));
+window.addEventListener('guild-member-view-change',()=>{memberSort=null;memberCentered=false;if(publicMemberSource)renderMembers(currentMemberSource(),document.getElementById('search').value);});
 window.GuildData.load().then(data=>{acceptGuildSource(data);renderFeature('Member administration',syncMemberAdministrator);document.getElementById('loading').hidden=true;switchTab(location.hash.slice(1));}).catch(error=>{console.error('Guild data unavailable:',error);document.getElementById('loading').textContent='길드원 정보를 불러오지 못했습니다. 다른 메뉴는 계속 이용할 수 있습니다.';document.getElementById('loading').hidden=false;switchTab(location.hash.slice(1));});
 loadNotices();
 try{const cache=JSON.parse(localStorage.getItem('guild-tips-cache-v1'));if(cache && Date.now()-cache.savedAt<86400000 && validTips(cache.tips)){renderTips(cache.tips.filter(tip=>!tip.members_only));tipsLoaded=true;}}catch{}

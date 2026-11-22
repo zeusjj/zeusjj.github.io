@@ -1,7 +1,8 @@
 import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent} from './guild-overview-model.js?v=20261115-siege';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
-import {mountWeeklyNews} from './weekly-news.js?v=20261021-196';
+import {mountWeeklyNews} from './weekly-news.js?v=20261122-remodel';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
+import {renderHome} from './home-overview.js?v=20261122-remodel';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -142,13 +143,13 @@ function topList(host,title,records,formatter){
   if(records.length>5){const details=el('details',undefined,'overview-absences');details.append(el('summary','전체 순위 보기 · '+records.length+'명'));table(details,['순위','닉네임','기록'],records.map(record=>[(record.joint?'공동 ':'')+record.rank+'위',record.name,formatter(record.value)]));area.append(details);}
   return area;
 }
-function renderWeekly(){
+function renderWeeklyStats(){
   if(!source)return;weekly.replaceChildren();
   const summary=weeklyOverview(source,week.value||weekStart(today),today),growth=summary.growth;
   const latestRows=summary.last?source.members.filter(row=>Number.isFinite(row[summary.last.index])):[],mean=latestRows.length?latestRows.reduce((sum,row)=>sum+row[summary.last.index],0)/latestRows.length:null;
   const average=growth.length?growth.reduce((sum,row)=>sum+row.value,0)/growth.length:null;
   document.getElementById('weekly-caption').textContent=short(summary.start)+' ~ '+short(summary.end)+' · '+short(summary.until)+' 기준 · 현재 길드원 '+source.members.length+'명';
-  metrics(weekly,[['평균 성장도',format(mean),summary.last?short(summary.last.date)+' · '+latestRows.length+'명':'기록 없음'],['이번 주 평균 성장량',signed(average),growth.length?short(summary.previous.date)+' → '+short(summary.last.date)+' · 비교 가능 '+growth.length+'명':'비교 기록 없음'],['콘텐츠 참여율',summary.eligible?decimal.format(summary.attended/summary.eligible*100)+'%':'—',summary.eligible?summary.attended+' / '+summary.eligible+'건':'집계된 콘텐츠 없음'],['현재 목표 달성',summary.goalRows?summary.achieved+' / '+summary.goalRows+'명':'—','Lv.'+(summary.goal.level||'—')+' · 성장도 '+format(summary.goal.growth)+(summary.goal.deadline?' · ~'+summary.goal.deadline:'')]]);
+  metrics(weekly,[['평균 성장도',format(mean),summary.last?short(summary.last.date)+' · '+latestRows.length+'명':'기록 없음'],['이번 주 평균 성장량',signed(average),growth.length?(summary.previous?short(summary.previous.date):'주 첫 기록')+' → '+short(summary.last?.date)+' · 비교 가능 '+growth.length+'명':'비교 기록 없음'],['콘텐츠 참여율',summary.eligible?decimal.format(summary.attended/summary.eligible*100)+'%':'—',summary.eligible?summary.attended+' / '+summary.eligible+'건':'집계된 콘텐츠 없음'],['현재 목표 달성',summary.goalRows?summary.achieved+' / '+summary.goalRows+'명':'—','Lv.'+(summary.goal.level||'—')+' · 성장도 '+format(summary.goal.growth)+(summary.goal.deadline?' · ~'+summary.goal.deadline:'')]]);
   note(weekly,'현재 길드원 기준 · 참여율은 O/X가 기록된 대상만 집계하며, 미기록(-)은 제외');
   const activities=section(weekly,'콘텐츠별 참여');
   const activityRows=el('div',undefined,'weekly-activity-list');activities.append(activityRows);
@@ -180,6 +181,16 @@ function renderWeekly(){
   if(!summary.upcoming.length&&!summary.distributions.length)note(scheduled,'등록된 일정·분배가 없습니다.');scheduled.append(link('분배 기록','#distribution'));
   mountWeeklyNews(section(weekly,'이번 주 올라온 글 (디시, 공홈, 팁게)'),{start:summary.start,end:summary.end});
 }
+function renderWeekly(){
+  if(!source)return;
+  const statisticsOpen=weekly.querySelector('.home-statistics')?.open??false;
+  renderWeeklyStats();
+  const statistics=[...weekly.childNodes],start=week.value||weekStart(today);
+  weekly.replaceChildren();renderHome(weekly,{source,report,start,today});
+  const details=el('details',undefined,'home-statistics'),summary=el('summary','주간 통계·전체 소식');details.open=statisticsOpen;details.append(summary,...statistics);weekly.append(details);
+  const updates=document.getElementById('home-updates');if(updates)document.getElementById('weekly').append(updates);
+  icons();
+}
 function accept(data){
   if(source===data)return;source=data;report=overview(source,today);
   viewerPicker.refresh();
@@ -192,10 +203,18 @@ for(const [id,offset]of [['overview-week-previous',1],['overview-week-next',-1]]
 week.addEventListener('change',()=>{renderWeekly();syncWeekButtons();icons();});
 window.addEventListener('guild-members-data',event=>accept(event.detail));
 window.addEventListener('guild-auth-change',()=>{viewingName='';viewerPicker.sync();renderProfile();if(location.hash==='#weekly')renderWeekly();icons();});
+window.addEventListener('guild-profile-view',event=>{if(!window.GuildAuth?.user)return;viewingName=event.detail.name;viewerPicker.sync();renderProfile();location.hash='profile';});
+window.addEventListener('guild-section-content-change',()=>{if(source)renderWeekly();});
 window.addEventListener('hashchange',()=>{viewerPicker.hide();if(location.hash==='#weekly')renderWeekly();if(location.hash==='#profile')requestAnimationFrame(drawChart);});
 window.addEventListener('guild-theme-change',()=>requestAnimationFrame(drawChart));
 new ResizeObserver(()=>requestAnimationFrame(drawChart)).observe(profile);
-document.addEventListener('visibilitychange',()=>{const day=koreaDay();if(!document.hidden&&day!==today){today=day;if(source){const data=source;source=null;accept(data);}}});
+let dayTimer;
+function syncCalendarDay(){
+  clearTimeout(dayTimer);const day=koreaDay(),wasCurrent=week.value===weekStart(today);
+  if(day!==today){today=day;if(source){const data=source;source=null;accept(data);if(wasCurrent){week.value=weekStart(today);renderWeekly();syncWeekButtons();}}}
+  dayTimer=setTimeout(syncCalendarDay,Math.max(1000,Date.parse(today+'T00:00:00+09:00')+86400000-Date.now()+100));
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncCalendarDay();});syncCalendarDay();
 document.addEventListener('click',event=>document.querySelectorAll('.overview-information[open]').forEach(details=>{if(!details.contains(event.target))details.open=false;}));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.overview-information[open]').forEach(details=>{details.open=false;details.querySelector('summary').focus();});});
 if(typeof memberData!=='undefined'&&memberData)accept(memberData);

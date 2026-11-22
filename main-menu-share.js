@@ -1,13 +1,13 @@
 (() => {
-  const titles={rules:'운영 방식',notices:'공지사항',members:'길드원 참여 현황',distribution:'분배 기록',tips:'팁 공유',tools:'편의 기능',probabilities:'확률표',history:'Guild History',profile:'내 정보',weekly:'한 주 요약',community:'디시글 모아보기',login:'로그인',admin:'관리자','november-plan':'11월 길드레이드 아이템 분배 룰 제안'};
+  const titles={rules:'운영 방식',notices:'공지사항',members:'길드원 참여 현황',distribution:'분배 기록',tips:'팁 공유',tools:'편의 기능',probabilities:'확률표',history:'길드 연혁',profile:'내 정보',weekly:'한 주 요약',community:'디시글 모아보기',login:'로그인',admin:'관리자','november-plan':'11월 길드레이드 아이템 분배 룰 제안'};
   const previews=new Set(['rules','notices','members','distribution','tips','tools','probabilities','history','profile','weekly','community','login','november-plan']);
   const button=document.getElementById('main-menu-share'),status=document.getElementById('main-menu-share-status');
   let timer;
   function selected(){
-    const hash=location.hash.slice(1),root=hash.split('/')[0]||'rules',section=document.getElementById(root);
+    const hash=location.hash.slice(1),root=hash.split('/')[0]||'weekly',section=document.getElementById(root);
     const id=section?.parentElement?.id==='main-content'?root:'rules';
     const menu=[...document.querySelectorAll('[data-tab]')].find(node=>node.dataset.tab===id);
-    return {id,route:id===root?(hash||'rules'):id,title:titles[id]||menu?.querySelector('span')?.textContent.trim()||document.getElementById('current-view').textContent.trim()||'절대중립'};
+    return {id,route:id===root?(hash||'weekly'):id,title:id==='weekly'?'이번 주':titles[id]||menu?.querySelector('span')?.textContent.trim()||document.getElementById('current-view').textContent.trim()||'절대중립'};
   }
   function update(){
     clearTimeout(timer);status.textContent='';
