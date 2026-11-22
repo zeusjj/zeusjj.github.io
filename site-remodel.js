@@ -13,7 +13,7 @@
     nav.querySelectorAll('a').forEach(a=>{a.setAttribute('aria-current',a.dataset.route===route?'page':'false');});
   };
   window.addEventListener('hashchange',updateLocation);
-  const updates=document.getElementById('site-updates');document.querySelector('#weekly>.page-heading').after(updates);
+  const updates=document.getElementById('site-updates');document.querySelector('#weekly>.page-heading').before(updates);
   const members=document.getElementById('members'),toolbar=members.querySelector('.member-toolbar'),modes=make('div',undefined,'member-view-tabs');modes.setAttribute('role','tablist');modes.setAttribute('aria-label','참여 기록 보기');
   const controls=members.querySelector('.member-visibility-controls'),options=make('details',undefined,'member-options'),summary=make('summary'),icon=make('i');icon.dataset.lucide='list-filter';summary.append(icon);summary.title='표 설정';summary.setAttribute('aria-label','표 설정');options.append(summary,controls);toolbar.append(options);
   for(const id of ['member-growth-toggle','member-contribution-toggle'])document.getElementById(id).closest('label').hidden=true;

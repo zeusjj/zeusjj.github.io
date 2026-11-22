@@ -1,5 +1,5 @@
 import {shiftDay,isGuildActivity} from './guild-overview-model.js?v=20261115-siege';
-import {mountRecentNews} from './weekly-news.js?v=20261122-remodel';
+import {mountRecentNews} from './weekly-news.js?v=20261122-home-news';
 
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 const link=(text,href,className)=>{const el=node('a',text,className);el.href=href;return el;};

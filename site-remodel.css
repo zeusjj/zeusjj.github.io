@@ -1,4 +1,5 @@
 /* Shared reading and interaction rules; the Epic game surface keeps its own palette. */
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
 main{max-width:1680px;margin:0 auto;padding:30px 36px 48px}
 main>section>.page-heading{margin-bottom:24px}
 main>section>.page-heading h1{font-size:28px;line-height:1.35;letter-spacing:0}
@@ -15,6 +16,9 @@ main :is(button,a,input,select,textarea,summary):focus-visible,.member-name-labe
 .workspace-bar .site-announcement{box-sizing:border-box}
 #site-announcement-message{text-shadow:none}
 #weekly>.site-updates{margin:0 0 24px}
+#weekly .weekly-growth-goal{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin-top:12px;font-size:14px;line-height:1.6;color:var(--ink)}
+.weekly-growth-goal strong{color:var(--accent);font-weight:700}
+.weekly-growth-goal span{font-variant-numeric:tabular-nums}
 .member-record-dialog{width:min(1050px,calc(100vw - 32px));max-width:1050px;max-height:calc(100dvh - 32px);box-sizing:border-box;border:1px solid var(--line);border-radius:6px;padding:24px;background:var(--surface);color:var(--ink);overflow:auto}
 .member-record-dialog::backdrop{background:#111a22a6}
 .member-record-dialog>header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
