@@ -1,0 +1,25 @@
+name: Guild notification delivery
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: guild-push-delivery
+  cancel-in-progress: false
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Deliver queued notifications
+        env:
+          PUSH_DISPATCH_KEY: ${{ secrets.GUILD_PUSH_DISPATCH_KEY }}
+        run: |
+          test -n "$PUSH_DISPATCH_KEY"
+          curl --fail --silent --show-error --retry 2 --max-time 45 \
+            -X POST \
+            -H 'Origin: https://zeusjj.github.io' \
+            -H "Authorization: Bearer $PUSH_DISPATCH_KEY" \
+            'https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgpt.site/api/push/dispatch'
