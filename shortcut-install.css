@@ -1,0 +1,22 @@
+.sidebar .sidebar-foot .sidebar-quick-links{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.sidebar .sidebar-foot .sidebar-quick-links>button{min-width:0;box-sizing:border-box;height:44px;min-height:44px}
+.sidebar #shortcut-install{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:4px 5px;border:1px solid #465159;border-radius:4px;background:#293237;color:#d9e7e1;font-size:12px;line-height:1.3;cursor:pointer}
+.sidebar #shortcut-install svg{width:16px;height:16px;flex-shrink:0}
+.sidebar #shortcut-install span{text-align:left;white-space:nowrap}
+.sidebar #shortcut-install:hover{background:#334844;border-color:#6d9d8e;color:#f1fbf7}
+.sidebar #shortcut-install:focus-visible{outline:2px solid #a6d4c6;outline-offset:3px}
+.sidebar #shortcut-install:disabled{cursor:wait}
+@media(min-width:701px) and (max-width:950px){
+ .sidebar #guestbook-open .attendance-visitors{flex-direction:column;gap:2px;width:100%}
+ .sidebar #guestbook-open .visitor-today-mark{height:18px;padding:2px 4px}
+ .sidebar #guestbook-open #visitor-count{font-size:12px;line-height:12px}
+}
+.shortcut-dialog{width:min(420px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-sizing:border-box;overflow:auto;border:1px solid #d5ded9;border-radius:6px;background:#fff;color:#24332f;padding:24px}
+.shortcut-dialog::backdrop{background:#111a2299}
+.shortcut-dialog header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px}
+.shortcut-dialog h2{font-size:20px;margin:0;line-height:1.4}
+.shortcut-dialog p,.shortcut-dialog li{font-size:15px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere}
+.shortcut-dialog ol{padding-left:22px;margin:0}
+.shortcut-dialog li+li{margin-top:8px}
+.shortcut-dialog header button{width:44px;height:44px;flex-shrink:0}
+.shortcut-dialog button:focus-visible{outline:2px solid #28645e;outline-offset:3px}

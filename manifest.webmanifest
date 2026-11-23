@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "절대중립 길드",
+  "short_name": "절대중립",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#20282c",
+  "icons": [
+    {"src": "assets/guild-app-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "assets/guild-app-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  ]
+}
