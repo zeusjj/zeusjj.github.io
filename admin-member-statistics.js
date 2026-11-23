@@ -9,6 +9,14 @@
   const integer=new Intl.NumberFormat('ko-KR'),date=value=>value?new Date(value).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',hour12:false}):'—';
   const active=()=>!document.getElementById('admin').hidden;
   let data=null,generation=0,controller,lastToken='',sortDirection='descending',memberMetadata=new Map();
+  function currentMemberStatistics(result,members){
+    const names=new Set(members.map(member=>member.nickname));
+    const accounts=result.accounts.filter(account=>names.has(account.nickname));
+    const accountNames=new Set(accounts.map(account=>account.nickname));
+    const totals={accounts:accounts.length,visited:0,visits:0,loggedIn:0,passwordChanged:0,logins:0};
+    for(const account of accounts){totals.visited+=Number(account.visit_count>0);totals.visits+=Number(account.visit_count||0);totals.loggedIn+=Number(!!account.has_logged_in);totals.passwordChanged+=Number(!!account.password_changed);totals.logins+=Number(account.login_count||0);}
+    return {...result,accounts,totals,activity:result.activity.filter(record=>accountNames.has(record.nickname))};
+  }
   const sortSelect=find('admin-member-sort'),sortHeaders=[];
   sortSelect.add(new Option('최근 방문순','last_visit_at'));
   for(const [index,key,label]of [[7,'last_login_at','최근 로그인'],[8,'last_visit_at','최근 방문']]){
@@ -63,7 +71,7 @@
       if(id!==generation||token!==noticeToken||!noticeAdmin())return;
       if(response.status===401){noticeToken='';noticeExpiry=0;renderNotices(noticeRecords);return;}
       const result=await response.json();if(id!==generation||token!==noticeToken||!noticeAdmin())return;if(!response.ok)throw new Error(result.error||'계정 통계를 불러오지 못했습니다.');if(!Array.isArray(result.accounts)||!Array.isArray(result.activity)||!result.totals)throw new Error('통계 응답을 확인해주세요.');
-      const metadata=await metadataResponse.json();if(!metadataResponse.ok||!Array.isArray(metadata.members))throw new Error(metadata.error||'회원 구분 정보를 불러오지 못했습니다.');memberMetadata=new Map(metadata.members.map(member=>[member.nickname,{role:member.role,memberType:member.memberType,chatStatus:member.chatStatus}]));data=result;render();status.textContent='';
+      const metadata=await metadataResponse.json();if(!metadataResponse.ok||!Array.isArray(metadata.members))throw new Error(metadata.error||'회원 구분 정보를 불러오지 못했습니다.');memberMetadata=new Map(metadata.members.map(member=>[member.nickname,{role:member.role,memberType:member.memberType,chatStatus:member.chatStatus}]));data=currentMemberStatistics(result,metadata.members);render();status.textContent='';
     }catch(error){if(id===generation&&error.name!=='AbortError')status.textContent='통계를 불러오지 못했습니다. 새로고침해주세요.';}
   }
   for(const id of ['admin-member-search','admin-member-login-filter','admin-member-password-filter'])find(id).addEventListener(id.endsWith('search')?'input':'change',renderRows);
