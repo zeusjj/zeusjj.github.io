@@ -28,6 +28,12 @@ const headerStats = document.getElementById('epic-header-stats');
 const aiMode = document.getElementById('epic-ai-mode');
 const aiTarget = document.getElementById('epic-ai-target');
 const melodyCostSelect = document.getElementById('epic-melody-cost');
+const melodyDialog = document.getElementById('epic-melody-dialog');
+const melodyForm = document.getElementById('epic-melody-form');
+const melodyInput = document.getElementById('epic-melody-input');
+const melodyError = document.getElementById('epic-melody-error');
+const customMelodyOption = document.createElement('option');
+let selectedMelodyOption = melodyCostSelect.selectedOptions[0];
 const aiMessage = document.getElementById('epic-ai-message');
 const aiReason = document.getElementById('epic-ai-reason');
 const aiCurrentChance = document.getElementById('epic-ai-current-chance');
@@ -649,7 +655,44 @@ playButton.addEventListener('click', () => startPerformance());
 rerollButton.addEventListener('click', () => startPerformance(true));
 aiMode.addEventListener('change', render);
 aiTarget.addEventListener('change', render);
-melodyCostSelect.addEventListener('change', render);
+melodyCostSelect.addEventListener('change', () => {
+  if (melodyCostSelect.value !== 'custom') {
+    selectedMelodyOption = melodyCostSelect.selectedOptions[0];
+    render();
+    return;
+  }
+  // Keep a numeric selection while the dialog is open, including on cancel/Escape.
+  selectedMelodyOption.selected = true;
+  melodyInput.value = selectedMelodyOption.value;
+  melodyInput.removeAttribute('aria-invalid');
+  melodyError.hidden = true;
+  melodyDialog.showModal();
+  melodyInput.select();
+});
+melodyForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const cost = melodyInput.valueAsNumber;
+  if (!melodyInput.validity.valid || !Number.isFinite(cost)) {
+    melodyError.textContent = '0~1,000,000 다이아를 소수점 둘째 자리까지 입력해 주세요.';
+    melodyError.hidden = false;
+    melodyInput.setAttribute('aria-invalid', 'true');
+    melodyInput.focus();
+    return;
+  }
+  customMelodyOption.value = String(cost);
+  customMelodyOption.textContent = `직접 입력 · ${cost.toLocaleString('ko-KR', {maximumFractionDigits: 2})} 다이아`;
+  melodyCostSelect.querySelector('[value="custom"]').before(customMelodyOption);
+  customMelodyOption.selected = true;
+  selectedMelodyOption = customMelodyOption;
+  melodyDialog.close();
+  render();
+});
+melodyInput.addEventListener('input', () => {
+  melodyInput.removeAttribute('aria-invalid');
+  melodyError.hidden = true;
+});
+document.getElementById('epic-melody-cancel').addEventListener('click', () => melodyDialog.close());
+melodyDialog.addEventListener('close', () => melodyCostSelect.focus({preventScroll: true}));
 
 resetButton.addEventListener('click', () => {
   const cost = resetCost();

@@ -136,6 +136,8 @@
 .epic-manual-dialog p{margin:14px 0 0;color:#a29aac;font-size:11px;line-height:1.7}
 .epic-manual-dialog .secondary-button{background:#38333f;color:#ded6e7;border:1px solid #766981}
 .epic-manual-dialog .primary-button{background:#8b7042;color:#fff2d4;border:1px solid #bb9b63}
+.epic-melody-dialog{box-sizing:border-box;max-height:calc(100dvh - 32px);overflow:auto}
+.epic-melody-input-row{display:flex;align-items:center;gap:10px;min-width:0}.epic-melody-input-row input{box-sizing:border-box;width:100%;min-width:0;min-height:44px;border:1px solid #6a6176;background:#32303d;color:#eee8f5;font:inherit;font-size:18px}.epic-melody-input-row>span{flex:none;font-size:14px}.epic-melody-dialog .epic-melody-error{color:#ffbfad;font-size:13px}.epic-melody-dialog [aria-invalid=true]{border-color:#ffbfad}.epic-melody-dialog :is(input,button):focus-visible{outline:2px solid #eed18a;outline-offset:3px}.epic-melody-dialog button{min-height:44px}
 @container(max-width:900px){
   #epic-panel .epic-practice{padding:22px}
   .epic-settings{gap:12px;padding:14px}
