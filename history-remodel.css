@@ -22,11 +22,18 @@ main:has(>#history:not([hidden])){max-width:1280px;padding:38px 44px 64px}
 #history .guild-history-list{list-style:none;padding:0;margin:0;min-width:0}
 #history .guild-history-line{display:grid;grid-template-columns:64px minmax(0,1fr) 40px;gap:18px;position:relative;padding:13px 0 17px;align-items:start;min-width:0}
 #history .guild-history-line+.guild-history-line{border-top:1px solid #edf0ef}
-#history .guild-history-line>time{display:grid;grid-template-rows:1fr 21px;align-items:stretch;gap:0;box-sizing:border-box;width:64px;height:54px;padding:0;overflow:hidden;border:1px solid #c9dcd2;border-top:2px solid #628f7c;border-radius:4px;background:#edf5f0;font-variant-numeric:tabular-nums;white-space:nowrap}
+#history .guild-history-line>time{--history-date-bg:#edf5f0;--history-date-band:#dfede4;--history-date-border:#c9dcd2;--history-date-accent:#628f7c;--history-date-ink:#365846;display:grid;grid-template-rows:1fr 21px;align-items:stretch;gap:0;box-sizing:border-box;width:64px;height:54px;padding:0;overflow:hidden;border:1px solid var(--history-date-border);border-top:2px solid var(--history-date-accent);border-radius:4px;background:var(--history-date-bg);font-variant-numeric:tabular-nums;white-space:nowrap}
+#history .guild-history-line>time[data-weekday="일"]{--history-date-bg:#fff1f2;--history-date-band:#ffe4e6;--history-date-border:#f5cbd1;--history-date-accent:#cc7d8b;--history-date-ink:#75404d}
+#history .guild-history-line>time[data-weekday="월"]{--history-date-bg:#fff3e8;--history-date-band:#ffe5ce;--history-date-border:#edcfb3;--history-date-accent:#be8b5b;--history-date-ink:#6f4b2b}
+#history .guild-history-line>time[data-weekday="화"]{--history-date-bg:#fffbe4;--history-date-band:#fff1b8;--history-date-border:#e4d694;--history-date-accent:#b39a3f;--history-date-ink:#645523}
+#history .guild-history-line>time[data-weekday="수"]{--history-date-bg:#edf8ee;--history-date-band:#d9eedc;--history-date-border:#bfdcc5;--history-date-accent:#75a680;--history-date-ink:#365e42}
+#history .guild-history-line>time[data-weekday="목"]{--history-date-bg:#eaf8f8;--history-date-band:#d5eeee;--history-date-border:#b9dada;--history-date-accent:#6a9fa2;--history-date-ink:#335c61}
+#history .guild-history-line>time[data-weekday="금"]{--history-date-bg:#eef3ff;--history-date-band:#dfe8ff;--history-date-border:#c4d1ef;--history-date-accent:#7f97c7;--history-date-ink:#3c5279}
+#history .guild-history-line>time[data-weekday="토"]{--history-date-bg:#f5efff;--history-date-band:#e9ddfa;--history-date-border:#d9c8ed;--history-date-accent:#a087bf;--history-date-ink:#5d467c}
 #history .history-date-number{display:flex;align-items:baseline;justify-content:center;align-self:center;gap:2px;line-height:1.4;min-height:20px;padding-top:0}
-#history .history-date-month{font-size:14px;font-weight:550;color:#365846}
-#history .history-date-number strong{font-size:14px;font-weight:550;color:#365846;line-height:1.4}
-#history .guild-history-line>time small{display:block;box-sizing:border-box;width:100%;font-size:11px;line-height:21px;text-align:center;color:#466353;background:#dfede4;border-top:1px solid #d2e2d8}
+#history .history-date-month{font-size:14px;font-weight:550;color:var(--history-date-ink)}
+#history .history-date-number strong{font-size:14px;font-weight:550;color:var(--history-date-ink);line-height:1.4}
+#history .guild-history-line>time small{display:block;box-sizing:border-box;width:100%;font-size:11px;line-height:21px;text-align:center;color:var(--history-date-ink);background:var(--history-date-band);border-top:1px solid var(--history-date-border)}
 #history .guild-history-body{border-left:0;padding:2px 0 0;min-width:0}
 #history .guild-history-content{font-size:17px;line-height:1.75;margin:0;max-width:76ch;word-break:keep-all;overflow-wrap:anywhere;white-space:pre-wrap}
 #history .guild-history-body strong{font-weight:650}

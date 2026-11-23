@@ -29,6 +29,7 @@
         const li=node('li',undefined,'guild-history-entry'),line=node('div',undefined,'guild-history-line'),date=node('time'),body=node('div',undefined,'guild-history-body'),text=node('span',undefined,'guild-history-content');
         li.dataset.entryId=item.id;date.dateTime=item.event_date;
         const [y,m,d]=item.event_date.split('-').map(Number),weekday=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',weekday:'long'}).format(new Date(item.event_date+'T00:00:00+09:00'));
+        date.dataset.weekday=weekday.slice(0,1);
         const number=node('span',undefined,'history-date-number');number.append(node('span',m+'.','history-date-month'),node('strong',String(d).padStart(2,'0')));date.append(number,node('small',weekday));date.setAttribute('aria-label',`${y}년 ${m}월 ${d}일 ${weekday}`);
         text.innerHTML=formattedHtml(item.content);text.tabIndex=0;
         const latest=item.history?.[0];text.title=`작성자: ${item.created_nickname||'기록'} · ${new Date(item.created_at).toLocaleString('ko-KR')}\n최근 수정자: ${latest&&latest.version>1?latest.editor_nickname+' · '+new Date(latest.changed_at).toLocaleString('ko-KR'):'수정 없음'}`;

@@ -1,7 +1,6 @@
 import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowthSeries,koreaDay,growthTopPercent,crossesRejoin} from './guild-overview-model.js?v=20261122-rejoin-v2';
 import {weeklyGrowthGoal,rulesWithWeeklyGoal} from './weekly-growth-goals.js?v=20261122-week-target';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
-import {mountWeeklyNews} from './weekly-news.js?v=20261122-seven-days';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
 import {renderHome} from './home-overview.js?v=20261122-frequent-tools';
 
@@ -191,15 +190,13 @@ function renderWeeklyStats(){
   for(const event of summary.upcoming){const item=el('p',undefined,'overview-schedule');item.append(badge(short(event.date),'date'),el('strong',event.header));scheduled.append(item);}
   for(const group of summary.distributions){const item=el('p',undefined,'overview-schedule');item.append(el('strong',group.title),el('span',group.records.length?group.records.length+'건 기록':group.schedule||'분배 예정'));scheduled.append(item);}
   if(!summary.upcoming.length&&!summary.distributions.length)note(scheduled,'등록된 일정·분배가 없습니다.');scheduled.append(link('분배 기록','#distribution'));
-  mountWeeklyNews(section(weekly,'이번 주 올라온 글 (디시, 공홈, 팁게)'),{start:summary.start,end:summary.end});
 }
 function renderWeekly(){
   if(!source)return;
-  const statisticsOpen=weekly.querySelector('.home-statistics')?.open??false;
   renderWeeklyStats();
   const statistics=[...weekly.childNodes],start=week.value||weekStart(today);
   weekly.replaceChildren();renderHome(weekly,{source,report,start,today});
-  const details=el('details',undefined,'home-statistics'),summary=el('summary','주간 통계·전체 소식');details.open=statisticsOpen;details.append(summary,...statistics);weekly.append(details);
+  weekly.append(...statistics);
   const updates=document.getElementById('home-updates');if(updates)document.getElementById('weekly').append(updates);
   icons();
 }

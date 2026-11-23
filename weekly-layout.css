@@ -114,6 +114,7 @@ main:has(>#weekly:not([hidden])){max-width:1360px;padding:28px 36px 48px}
 #weekly .home-news-list a>span:nth-child(2){font-weight:500}
 #weekly .home-section>h2{margin-bottom:16px}
 #weekly .home-statistics{margin-top:24px;border-top:1px solid var(--line)}
+#weekly .weekly-dashboard+.overview-metrics{margin-top:32px}
 #weekly .site-updates-scroll{background:transparent;border-left:0}
 #weekly .site-updates li{padding-left:0}
 #weekly>.site-updates{padding-top:0;margin-bottom:24px}
