@@ -113,6 +113,7 @@ async function refreshGlobalStats() {
 }
 
 async function recordGlobalAction(action, amount = 0) {
+  if (manualSession) return;
   try {
     const response = await fetch(statsEndpoint, {
       method: 'POST',
@@ -429,7 +430,7 @@ function renderAi() {
   const run = trailingRun(stats), bestRun = maximumRun(stats);
   const remaining = MAX_PERFORMANCES - performances;
   aiState.textContent = manualSession
-    ? `수동 예시 · ${manualSession.step}번째 현 진행 전 · ${manualSession.chain}현 연속 · 남은 연주 ${remaining}회`
+    ? `수동 예시 · ${Math.min(notes.length + 1, MAX_STRINGS)}번째 현 · ${run}현 연속 · 남은 연주 ${remaining}회`
     : `현재 악장 · ${notes.length}/12현 · 최고 ${bestRun}연속 · 남은 연주 ${remaining}회`;
   choicesBox.classList.toggle('epic-ai-mode-off', !aiMode.checked);
   delete aiMessage.dataset.scenario;
@@ -524,14 +525,14 @@ function render() {
   document.getElementById('epic-progress-label').textContent = done ? '악장 완성' : `${notes.length} / ${MAX_STRINGS}현 완성`;
   document.getElementById('epic-current-label').textContent = done ? '완성된 악장' : hasChoices ? '현재 연주 중' : '다음 현';
   document.getElementById('epic-current-value').textContent = done ? `${longestRun()}현 연속` : `${next}번 현`;
-  playButton.hidden = hasChoices || done || Boolean(manualSession);
-  playButton.disabled = Boolean(manualSession) || !activeOptions.length || performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
+  playButton.hidden = hasChoices || done;
+  playButton.disabled = !activeOptions.length || performances >= MAX_PERFORMANCES || MAX_PERFORMANCES - performances < MAX_STRINGS - notes.length;
   songSelect.disabled = !activeOptions.length || notes.length > 0 || hasChoices;
-  rerollButton.hidden = !hasChoices || done || Boolean(manualSession);
-  rerollButton.disabled = Boolean(manualSession) || availableRerolls() <= 0;
+  rerollButton.hidden = !hasChoices || done;
+  rerollButton.disabled = availableRerolls() <= 0;
   rerollButton.querySelector('span').textContent = `다시 연주 (${availableRerolls()}회 남음)`;
-  newActButton.hidden = !done || Boolean(manualSession);
-  resetButton.hidden = Boolean(manualSession);
+  newActButton.hidden = !done;
+  resetButton.hidden = false;
   playButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'play');
   rerollButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'reroll');
   resetButton.classList.toggle('is-recommended', !manualSession && aiMode.checked && recommendation?.action === 'reset');
@@ -570,17 +571,19 @@ function render() {
       choicesBox.append(placeholder);
     }
   }
-  resetButton.disabled = Boolean(manualSession) || (!notes.length && !hasChoices);
+  resetButton.disabled = !notes.length && !hasChoices;
   resetButton.querySelector('span').textContent = resetCost() ? `악장 초기화 · ${RESET_COST} 다이아` : '악장 초기화 · 무료';
   manualOpen.textContent = manualSession ? '수동 세팅 수정' : '수동 세팅해서 질문하기';
   manualReturn.hidden = !manualSession;
 }
 
 manualOpen.addEventListener('click', () => {
-  const step = manualSession?.step ?? Math.min(notes.length + 1, MAX_STRINGS);
+  const step = Math.min(notes.length + 1, MAX_STRINGS);
   manualStep.value = String(step);
   refreshManualChainOptions();
-  manualChain.value = String(manualSession?.chain ?? Math.min(trailingRun(notes.map(note => note.stat)), step - 1));
+  manualChain.value = String(Math.min(trailingRun(notes.map(note => note.stat)), step - 1));
+  const currentRemaining = String(MAX_PERFORMANCES - performances);
+  if ([...manualRemaining.options].some(option => option.value === currentRemaining)) manualRemaining.value = currentRemaining;
   manualDialog.showModal();
 });
 
