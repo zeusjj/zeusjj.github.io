@@ -1,5 +1,5 @@
 import {shiftDay,isGuildActivity} from './guild-overview-model.js?v=20261115-siege';
-import {mountRecentNews} from './weekly-news.js?v=20261122-seven-days';
+import {mountRecentNews} from './weekly-news.js?v=20261125-live-categories';
 import {frequentTools,startToolUsageTracking} from './tool-usage.js?v=20261122-defaults';
 
 startToolUsageTracking();

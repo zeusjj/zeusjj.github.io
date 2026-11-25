@@ -108,7 +108,7 @@
 .epic-reference summary:hover{color:#dedce6}
 .epic-reference p{max-width:960px;margin:0 0 12px;color:#aba9b9;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
 .epic-reference b{color:#d0ccdb}
-.epic-math>.epic-probability-details{margin-top:12px;border-top:1px solid #383942}
+.epic-reference>.epic-probability-details{border-top:1px solid #383942}
 .epic-reference h3{margin:15px 0 10px;color:#b9b4c8;font-size:12px}
 #epic-panel .epic-stat-summary,#epic-panel .epic-probability-table{width:100%;table-layout:fixed;border-collapse:collapse;color:#c7c3d1;font-size:11px;line-height:1.7}
 #epic-panel .epic-stat-summary th,#epic-panel .epic-stat-summary td,#epic-panel .epic-probability-table th,#epic-panel .epic-probability-table td{position:static;padding:9px 8px;border-bottom:1px solid #3b3b45;background:transparent;color:#c3c0cf;text-align:left;white-space:normal;overflow-wrap:anywhere}

@@ -3,6 +3,7 @@ const api='https://zeusjj-guild-tips.e049eed7-30f4-430d-991a-7eef07fecebb.chatgp
 const gallery='https://gall.dcinside.com/mgallery/board/lists/?id=zeusthegodofpride&exception_mode=recommend';
 const sources=[['notices','길드 공지',api+'notices'],['tips','팁 공유',api+'tips'],['official','공식 소식','official-news.json'],['community','개념글','community-news.json']];
 const feedCache=new Map();
+const recentViews=new Set();
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 export function newsItems(kind,data){
   const items=kind==='notices'?data.notices:kind==='tips'?data.tips:data.items;
@@ -25,7 +26,8 @@ export function newsItems(kind,data){
 }
 export function mountRecentNews(host){
   const list=node('ul',undefined,'home-news-list'),status=node('p','소식을 불러오는 중입니다.','overview-note');status.role='status';host.append(status,list);
-  load().then(feeds=>{
+  let signature='';
+  function render(feeds){
     if(!host.isConnected)return;
     const homeFeeds=feeds.filter(feed=>feed.kind!=='community');
     const firstDay=new Date(Date.now()+9*3600000-6*86400000).toISOString().slice(0,10);
@@ -33,8 +35,26 @@ export function mountRecentNews(host){
     list.tabIndex=0;list.setAttribute('aria-label','최근 7일 소식');
     status.textContent=records.length?'':homeFeeds.every(feed=>feed.error)?'소식을 불러오지 못했습니다.':'등록된 소식이 없습니다.';
     status.hidden=!!records.length;
-    for(const record of records){const item=node('li'),anchor=node('a'),tag=node('span',sources.find(([kind])=>kind===record.kind)?.[1]??'소식','home-news-tag'),title=node('span',record.title),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));tag.dataset.kind=record.kind;anchor.href=record.href;if(!record.href.startsWith('#')){anchor.target='_blank';anchor.rel='noopener noreferrer';}time.dateTime=record.date;anchor.append(tag,title,time);item.append(anchor);list.append(item);}
-  }).catch(()=>{status.textContent='소식을 불러오지 못했습니다.';});
+    const nextSignature=JSON.stringify(records.map(({id,title,time,href,post})=>[id,title,time,href,post.tag]));
+    if(nextSignature===signature)return;signature=nextSignature;
+    const focused=list.contains(document.activeElement)?document.activeElement.getAttribute('href'):null,scrollTop=list.scrollTop;
+    list.replaceChildren();
+    for(const record of records){const item=node('li'),anchor=node('a'),category=record.kind==='official'&&['업데이트','개발자 노트'].includes(record.post.tag)?record.post.tag:sources.find(([kind])=>kind===record.kind)?.[1]??'소식',tag=node('span',category,'home-news-tag'),title=node('span',record.title),time=node('time',Number(record.date.slice(5,7))+'/'+Number(record.date.slice(8,10)));tag.dataset.kind=record.kind;anchor.href=record.href;if(!record.href.startsWith('#')){anchor.target='_blank';anchor.rel='noopener noreferrer';}time.dateTime=record.date;anchor.append(tag,title,time);item.append(anchor);list.append(item);}
+    if(focused)[...list.querySelectorAll('a')].find(anchor=>anchor.getAttribute('href')===focused)?.focus({preventScroll:true});
+    list.scrollTop=scrollTop;
+  }
+  for(const view of recentViews)if(!view.host.isConnected)recentViews.delete(view);
+  recentViews.add({host,render});
+  load().then(render).catch(()=>{status.textContent='소식을 불러오지 못했습니다.';});
+}
+function refreshRecentNews(){
+  for(const view of recentViews)if(!view.host.isConnected)recentViews.delete(view);
+  if(document.hidden||!recentViews.size)return;
+  load(false,true).then(feeds=>{for(const view of recentViews)view.render(feeds);}).catch(()=>{});
+}
+if(typeof document!=='undefined'){
+  setInterval(refreshRecentNews,300000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshRecentNews();});
 }
 async function load(communityOnly=false,force=false){
   const key=communityOnly?'all':'weekly',state=feedCache.get(key)||{};
