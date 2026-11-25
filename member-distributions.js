@@ -37,19 +37,32 @@ function draw(){
   angle+=arc;
  }
 }
+function renderBarDistribution(container,items,{maximum,rows,label,prefix}){
+ container.classList.add('member-bar-distribution');
+ container.style.setProperty('--distribution-rows',rows);
+ const axis=node('div',undefined,'member-growth-axis');
+ for(let count=0;count<=maximum;count+=5)axis.append(node('span',count+'명'));
+ container.append(axis);
+ for(const item of [...items].reverse()){
+  const row=node('div',undefined,'member-growth-bin');
+  const text=label(item),track=node('div',undefined,'member-growth-track'),bar=node('span');
+  bar.style.width=item.count/maximum*100+'%';track.append(bar);track.setAttribute('aria-hidden','true');
+  row.append(node('span',text,'member-growth-label'),track,node('strong',item.count+'명'));
+  bindTooltip(row,item,prefix+' '+text);container.append(row);
+ }
+ if(!items.length)container.append(node('p',prefix+' 기록이 없습니다.','member-chart-empty'));
+}
 function render(data){
  hideTooltip();summary=memberDistribution(data);legend.replaceChildren();growth.replaceChildren();levels.replaceChildren();
  document.getElementById('member-level-total').textContent=summary.levelRecorded+'명 · 미기록 '+(summary.total-summary.levelRecorded)+'명';
- const levelMax=Math.max(5,Math.ceil(Math.max(...summary.levelBins.map(item=>item.count))/5)*5),levelAxis=node('div',undefined,'member-growth-axis');
- for(let count=0;count<=levelMax;count+=5)levelAxis.append(node('span',count+'명'));levels.append(levelAxis);
- for(const item of [...summary.levelBins].reverse()){const row=node('div',undefined,'member-growth-bin');row.append(node('span',item.label,'member-growth-label'));const track=node('div',undefined,'member-growth-track'),bar=node('span');bar.style.width=item.count/levelMax*100+'%';track.append(bar);track.setAttribute('aria-hidden','true');row.append(track,node('strong',item.count+'명'));bindTooltip(row,item,'레벨 '+item.label);levels.append(row);}
+ const bins=[...summary.bins,...summary.levelBins];
+ const maximum=Math.max(5,Math.ceil(Math.max(0,...bins.map(item=>item.count))/5)*5);
+ const chart={maximum,rows:Math.max(summary.bins.length,summary.levelBins.length)};
+ renderBarDistribution(levels,summary.levelBins,{...chart,label:item=>item.label,prefix:'레벨'});
+ renderBarDistribution(growth,summary.bins,{...chart,label:item=>number.format(item.start)+'~'+number.format(item.end),prefix:'성장도'});
  document.getElementById('member-class-total').textContent=summary.total+'명';document.getElementById('member-growth-total').textContent=summary.recorded+'명 · 미기록 '+summary.missing+'명';
  for(const item of summary.classes){const row=node('li');const swatch=node('span',undefined,'member-class-swatch');swatch.style.backgroundColor=palette[item.name];const label=node('span',item.name),count=node('strong',item.count+'명'),percent=node('small',summary.total?(item.count/summary.total*100).toFixed(1)+'%':'0.0%');row.append(swatch,label,count,percent);legend.append(row);}
  canvas.setAttribute('aria-label','직업 분포: '+summary.classes.map(item=>item.name+' '+item.count+'명').join(', '));
- if(!summary.recorded){growth.append(node('p','성장도 기록이 없습니다.','member-chart-empty'));draw();return;}
- const maximum=Math.max(5,Math.ceil(Math.max(...summary.bins.map(item=>item.count))/5)*5);
- const axis=node('div',undefined,'member-growth-axis');for(let count=0;count<=maximum;count+=5)axis.append(node('span',count+'명'));growth.append(axis);
- for(const item of [...summary.bins].reverse()){const row=node('div',undefined,'member-growth-bin');const label=number.format(item.start)+'~'+number.format(item.end);row.append(node('span',label,'member-growth-label'));const track=node('div',undefined,'member-growth-track'),bar=node('span');bar.style.width=item.count/maximum*100+'%';track.append(bar);track.setAttribute('aria-hidden','true');row.append(track,node('strong',item.count+'명'));bindTooltip(row,item,'성장도 '+label);growth.append(row);}
  draw();
 }
 canvas.addEventListener('pointermove',event=>{if(!summary?.total)return;const rect=canvas.getBoundingClientRect(),x=event.clientX-rect.left-rect.width/2,y=event.clientY-rect.top-rect.height/2;if(Math.hypot(x,y)>rect.width/2-5){canvas.removeAttribute('title');return;}let angle=(Math.atan2(y,x)+Math.PI/2+Math.PI*2)%(Math.PI*2),end=0;for(const item of summary.classes){end+=item.count/summary.total*Math.PI*2;if(angle<end){canvas.title=`${item.name}: ${item.count}명 (${(item.count/summary.total*100).toFixed(1)}%)`;break;}}});
