@@ -2,7 +2,7 @@ import {overview,weeklyOverview,weeks,weekStart,shiftDay,growthSeries,guildGrowt
 import {weeklyGrowthGoal,rulesWithWeeklyGoal} from './weekly-growth-goals.js?v=20261122-week-target';
 import {nicknamePicker} from './nickname-picker.js?v=20261020-195';
 import {mountMyTips} from './my-tips.js?v=20261103-ownership';
-import {renderHome} from './home-overview.js?v=20261125-live-news';
+import {renderHome} from './home-overview.js?v=20261128-upcoming-seven-days';
 
 const number=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}),decimal=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:2});
 const format=value=>Number.isFinite(value)?number.format(value):'—';
@@ -194,8 +194,8 @@ function renderWeeklyStats(){
 function renderWeekly(){
   if(!source)return;
   renderWeeklyStats();
-  const statistics=[...weekly.childNodes],start=week.value||weekStart(today);
-  weekly.replaceChildren();renderHome(weekly,{source,report,start,today});
+  const statistics=[...weekly.childNodes];
+  weekly.replaceChildren();renderHome(weekly,{source,report,today});
   weekly.append(...statistics);
   const updates=document.getElementById('home-updates');if(updates)document.getElementById('weekly').append(updates);
   icons();

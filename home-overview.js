@@ -7,8 +7,8 @@ startToolUsageTracking();
 const node=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 const link=(text,href,className)=>{const el=node('a',text,className);el.href=href;return el;};
 const short=day=>day.slice(5).split('-').map(Number).join('/');
-export function homeSchedule(data,start,today){
-  const end=shiftDay(start,6),rules=window.GuildSectionEditor?.rules(data.rules)??data.rules;
+export function homeSchedule(data,today){
+  const start=today,end=shiftDay(today,6),rules=window.GuildSectionEditor?.rules(data.rules)??data.rules;
   const timing=rules.match(/\[시간\]([\s\S]*?)(?=\n\[|$)/)?.[1]??'';
   const sundayTime=timing.match(/일요일\s*(\d{1,2}:\d{2})/)?.[1]??null;
   const events=data.headers.flatMap((header,index)=>{
@@ -19,8 +19,11 @@ export function homeSchedule(data,start,today){
     return [{date,end:/성물 방어전/.test(header)&&date>=today?null:period.end,header,time:new Date(date+'T00:00:00Z').getUTCDay()===0?sundayTime:null,status:recorded?(date>today?'중간 기록':'기록 반영'):date>=today?'예정':'미기록',recorded}];
   });
   // Recurring events come from the saved weekday notice, never from a sample mockup.
-  for(const [weekday,label]of [[1,'월요일'],[4,'목요일']]){
-    const date=shiftDay(start,weekday),block=timing.match(new RegExp(label+'\\s*\\n([\\s\\S]*?)(?=\\n[월화수목금토일]요일|$)'))?.[1];
+  for(let offset=0;offset<7;offset++){
+    const date=shiftDay(today,offset),weekday=new Date(date+'T00:00:00Z').getUTCDay();
+    const label=weekday===1?'월요일':weekday===4?'목요일':null;
+    if(!label)continue;
+    const block=timing.match(new RegExp(label+'\\s*\\n([\\s\\S]*?)(?=\\n[월화수목금토일]요일|$)'))?.[1];
     if(!block)continue;
     const time=block.match(/\b(\d{1,2}:\d{2})\b/)?.[1]??null;
     for(const title of ['침공','성물 방어전','항아리 모임'])if(block.includes(title)&&!events.some(event=>event.date===date&&event.header.includes(title)))events.push({date,header:title,time:title==='침공'?'21:00':time,status:date>=today?'예정':'기록 없음',recorded:false});
@@ -28,11 +31,11 @@ export function homeSchedule(data,start,today){
   const order=header=>['침공','점령전','레이드','제전','성물 방어전','항아리 모임','주간공헌도'].findIndex(keyword=>header.includes(keyword));
   return events.sort((a,b)=>a.date.localeCompare(b.date)||order(a.header)-order(b.header));
 }
-export function renderHome(host,{source,report,start,today}){
-  const schedule=node('section',undefined,'home-section home-schedule');schedule.append(node('h2','이번 주 일정'));
+export function renderHome(host,{source,report,today}){
+  const schedule=node('section',undefined,'home-section home-schedule');schedule.append(node('h2','7일 이내 일정'));
   const list=node('div',undefined,'home-event-list');schedule.append(list);
   const events=[];
-  for(const item of homeSchedule(source,start,today)){
+  for(const item of homeSchedule(source,today)){
     const previous=events.at(-1);
     if(previous?.date===item.date){previous.header+=' → '+item.header;if(previous.status!==item.status)previous.status='일부 기록';previous.recorded=previous.recorded&&item.recorded;previous.time??=item.time;}
     else events.push({...item});
