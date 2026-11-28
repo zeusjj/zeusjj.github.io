@@ -1,9 +1,6 @@
 (() => {
   const make=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
-  const main=document.getElementById('main-content'),menu=document.querySelector('#site-navigation nav');
-  const home=document.querySelector('[data-tab="weekly"]');home.querySelector('span').textContent='이번 주';menu.prepend(home);
-  const history=document.querySelector('[data-tab="history"]');history.querySelector('span').textContent='Guild History';menu.append(history);
-  menu.append(document.querySelector('[data-tab="rules"]'),document.querySelector('[data-tab="tips"]'),document.querySelector('[data-tab="tools"]'));
+  const main=document.getElementById('main-content');
   document.querySelector('.guild-brand').href='#weekly';document.getElementById('weekly-heading').textContent='이번 주';
   const nav=make('nav',undefined,'mobile-navigation');nav.setAttribute('aria-label','주요 메뉴');
   for(const [route,label,icon]of [['weekly','이번 주','calendar-days'],['members','참여 현황','users-round'],['tools','편의 기능','sliders-horizontal'],['profile','내 정보','user-round']]){const a=make('a');a.href='#'+route;a.dataset.route=route;const mark=make('i');mark.dataset.lucide=icon;a.append(mark,make('span',label));nav.append(a);}
